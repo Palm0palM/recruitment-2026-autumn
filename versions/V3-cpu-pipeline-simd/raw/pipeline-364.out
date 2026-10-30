@@ -1,0 +1,296 @@
+job=364 node=hepnode3 mode=final
+Cpus_allowed_list:	0-15
+Architecture:                            x86_64
+CPU op-mode(s):                          32-bit, 64-bit
+Address sizes:                           46 bits physical, 57 bits virtual
+Byte Order:                              Little Endian
+CPU(s):                                  64
+On-line CPU(s) list:                     0-63
+Vendor ID:                               GenuineIntel
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+CPU family:                              6
+Model:                                   106
+Thread(s) per core:                      1
+Core(s) per socket:                      32
+Socket(s):                               2
+Stepping:                                6
+CPU(s) scaling MHz:                      32%
+CPU max MHz:                             3200.0000
+CPU min MHz:                             800.0000
+BogoMIPS:                                4000.00
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb intel_pt avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local split_lock_detect wbnoinvd dtherm ida arat pln pts vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq la57 rdpid fsrm md_clear pconfig flush_l1d arch_capabilities
+Virtualization:                          VT-x
+L1d cache:                               3 MiB (64 instances)
+L1i cache:                               2 MiB (64 instances)
+L2 cache:                                80 MiB (64 instances)
+L3 cache:                                96 MiB (2 instances)
+NUMA node(s):                            4
+NUMA node0 CPU(s):                       0-15
+NUMA node1 CPU(s):                       16-31
+NUMA node2 CPU(s):                       32-47
+NUMA node3 CPU(s):                       48-63
+Vulnerability Gather data sampling:      Vulnerable
+Vulnerability Ghostwrite:                Not affected
+Vulnerability Indirect target selection: Mitigation; Aligned branch/return thunks
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Mitigation; Clear CPU buffers; SMT disabled
+Vulnerability Old microcode:             Not affected
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Not affected
+Vulnerability Spec rstack overflow:      Not affected
+Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
+Vulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI SW loop, KVM SW loop
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Not affected
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+595289c17c0ab385a191707e4722d52dc79f7d9840fe9951e384efa502d34700  src/melspec.cpp
+ee18296021d6efe3644950e47c7922dce072846e7fe44d47b6d3645e950ac7ce  validate.py
+95aa8e56fb5ca91d89de153bc699a2a2361bb48b174b5076478d258dcf282f3f  tmp/control/melspec.cpp
+always [madvise] never
+always defer defer+madvise [madvise] never
+37c0424be3ed45753cb08750002ea04e22cd400b9bc5a1c98c9f3e694288d0ca  tmp/bin/reuse-b16
+{"case": 0, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 32, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 1, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 2, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 34, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 3, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 35, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 4, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 5, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 37, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 6, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 38, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 7, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 8, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 40, "pattern": "random", "exact": true, "max_abs": 2.980232238769531e-07, "status": "PASS"}
+{"case": 9, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 41, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 10, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 11, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 43, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 12, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 44, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 13, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 45, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 14, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 46, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 15, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 47, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 16, "params": {"sr": 48000, "n_fft": 1, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 17, "params": {"sr": 48000, "n_fft": 2, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 18, "params": {"sr": 48000, "n_fft": 4, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 2.9103830456733704e-11, "status": "PASS"}
+{"case": 19, "params": {"sr": 48000, "n_fft": 8, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.1641532182693481e-10, "status": "PASS"}
+{"case": 20, "params": {"sr": 48000, "n_fft": 32, "hop_length": 2, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.862645149230957e-09, "status": "PASS"}
+{"case": 21, "params": {"sr": 48000, "n_fft": 128, "hop_length": 11, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 4.470348358154297e-08, "status": "PASS"}
+{"case": 22, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 93, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.430511474609375e-06, "status": "PASS"}
+{"case": 23, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 372, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 24, "params": {"sr": 48000, "n_fft": 8192, "hop_length": 744, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 25, "params": {"sr": 48000, "n_fft": 16384, "hop_length": 1489, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 26, "params": {"sr": 16000, "n_fft": 1024, "hop_length": 63, "n_mels": 53, "f_min": 4126.514116156395, "f_max": 7169.201476938688}, "frames": 20, "pattern": "random", "exact": true, "max_abs": 2.86102294921875e-06, "status": "PASS"}
+{"case": 27, "params": {"sr": 16000, "n_fft": 4096, "hop_length": 63, "n_mels": 98, "f_min": 2213.4792219253245, "f_max": 7272.5884360673535}, "frames": 68, "pattern": "random", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 28, "params": {"sr": 22050, "n_fft": 32, "hop_length": 63, "n_mels": 28, "f_min": 1614.36904477932, "f_max": 2762.572616201831}, "frames": 35, "pattern": "random", "exact": true, "max_abs": 5.960464477539063e-08, "status": "PASS"}
+{"case": 29, "params": {"sr": 32000, "n_fft": 4096, "hop_length": 1, "n_mels": 3, "f_min": 1460.9059014936959, "f_max": 12607.56348198878}, "frames": 27, "pattern": "random", "exact": true, "max_abs": 7.62939453125e-06, "status": "PASS"}
+{"case": 30, "params": {"sr": 22050, "n_fft": 256, "hop_length": 128, "n_mels": 54, "f_min": 4427.166869427109, "f_max": 9510.052536142139}, "frames": 30, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 31, "params": {"sr": 32000, "n_fft": 512, "hop_length": 256, "n_mels": 64, "f_min": 3909.0041042675675, "f_max": 9043.697887199742}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 32, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 4096, "n_mels": 38, "f_min": 9437.689356574121, "f_max": 13282.236824481011}, "frames": 56, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 33, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 3, "n_mels": 59, "f_min": 13113.249022192895, "f_max": 19377.583482439906}, "frames": 81, "pattern": "random", "exact": true, "max_abs": 1.9073486328125e-06, "status": "PASS"}
+{"case": 34, "params": {"sr": 22050, "n_fft": 16, "hop_length": 23, "n_mels": 8, "f_min": 5998.973436402179, "f_max": 8142.1361611996945}, "frames": 72, "pattern": "random", "exact": true, "max_abs": 1.862645149230957e-09, "status": "PASS"}
+{"case": 35, "params": {"sr": 22050, "n_fft": 128, "hop_length": 1, "n_mels": 19, "f_min": 2393.8564884232715, "f_max": 3083.0930309841647}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 36, "params": {"sr": 32000, "n_fft": 1024, "hop_length": 3, "n_mels": 25, "f_min": 10556.93939221244, "f_max": 10905.375274827546}, "frames": 45, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-06, "status": "PASS"}
+{"case": 37, "params": {"sr": 48000, "n_fft": 256, "hop_length": 17, "n_mels": 49, "f_min": 1379.7027460165748, "f_max": 20518.154486700834}, "frames": 17, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 38, "params": {"sr": 16000, "n_fft": 16, "hop_length": 16, "n_mels": 16, "f_min": 593.1529569920327, "f_max": 4326.203970230686}, "frames": 66, "pattern": "random", "exact": true, "max_abs": 3.725290298461914e-09, "status": "PASS"}
+{"case": 39, "params": {"sr": 48000, "n_fft": 16, "hop_length": 17, "n_mels": 94, "f_min": 6965.733790987455, "f_max": 12534.890642020737}, "frames": 65, "pattern": "random", "exact": true, "max_abs": 1.4901161193847656e-08, "status": "PASS"}
+{"case": 40, "params": {"sr": 16000, "n_fft": 2048, "hop_length": 1, "n_mels": 61, "f_min": 2649.9197337162827, "f_max": 4832.569052954124}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 41, "params": {"sr": 22050, "n_fft": 16, "hop_length": 17, "n_mels": 69, "f_min": 3874.437358460031, "f_max": 6907.504509624455}, "frames": 84, "pattern": "random", "exact": true, "max_abs": 2.2351741790771484e-08, "status": "PASS"}
+{"case": 42, "params": {"sr": 22050, "n_fft": 4096, "hop_length": 4103, "n_mels": 66, "f_min": 2639.20036322145, "f_max": 7490.456572161991}, "frames": 55, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 43, "params": {"sr": 48000, "n_fft": 256, "hop_length": 3, "n_mels": 63, "f_min": 10522.934561261069, "f_max": 21592.403947859828}, "frames": 40, "pattern": "random", "exact": true, "max_abs": 2.980232238769531e-07, "status": "PASS"}
+{"case": 44, "params": {"sr": 32000, "n_fft": 16, "hop_length": 63, "n_mels": 1, "f_min": 7656.643536669292, "f_max": 8819.993938980246}, "frames": 57, "pattern": "random", "exact": true, "max_abs": 9.313225746154785e-10, "status": "PASS"}
+{"case": 45, "params": {"sr": 32000, "n_fft": 256, "hop_length": 263, "n_mels": 73, "f_min": 3678.243839715076, "f_max": 4928.519805376212}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 46, "params": {"sr": 22050, "n_fft": 256, "hop_length": 1, "n_mels": 20, "f_min": 2082.721789675146, "f_max": 2120.009389733122}, "frames": 70, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 47, "params": {"sr": 32000, "n_fft": 512, "hop_length": 519, "n_mels": 2, "f_min": 7278.0702170730965, "f_max": 10796.184122257038}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 48, "params": {"sr": 22050, "n_fft": 2048, "hop_length": 1, "n_mels": 39, "f_min": 262.90770934686515, "f_max": 6934.209045676231}, "frames": 64, "pattern": "random", "exact": true, "max_abs": 7.62939453125e-06, "status": "PASS"}
+{"case": 49, "params": {"sr": 22050, "n_fft": 1024, "hop_length": 1031, "n_mels": 17, "f_min": 729.155894671932, "f_max": 2596.379755162121}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 1.9073486328125e-06, "status": "PASS"}
+{"case": 50, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 1, "n_mels": 45, "f_min": 12953.22307881253, "f_max": 15140.712772748602}, "frames": 83, "pattern": "random", "exact": true, "max_abs": 2.288818359375e-05, "status": "PASS"}
+{"case": 51, "params": {"sr": 48000, "n_fft": 512, "hop_length": 63, "n_mels": 24, "f_min": 6182.31057078804, "f_max": 8609.158348485598}, "frames": 53, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 52, "params": {"sr": 48000, "n_fft": 256, "hop_length": 128, "n_mels": 77, "f_min": 13148.546058576998, "f_max": 14706.73693796187}, "frames": 21, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 53, "params": {"sr": 48000, "n_fft": 16, "hop_length": 17, "n_mels": 20, "f_min": 5649.685572604561, "f_max": 10638.081163844792}, "frames": 61, "pattern": "random", "exact": true, "max_abs": 3.725290298461914e-09, "status": "PASS"}
+{"case": 54, "params": {"sr": 48000, "n_fft": 32, "hop_length": 1, "n_mels": 64, "f_min": 6267.829512587163, "f_max": 7806.2500943095}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 55, "params": {"sr": 16000, "n_fft": 128, "hop_length": 17, "n_mels": 82, "f_min": 4607.668596146821, "f_max": 7090.671959072437}, "frames": 27, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 56, "params": {"sr": 16000, "n_fft": 1024, "hop_length": 17, "n_mels": 36, "f_min": 4085.363397985271, "f_max": 6415.57826248639}, "frames": 74, "pattern": "random", "exact": true, "max_abs": 3.814697265625e-06, "status": "PASS"}
+{"case": 57, "params": {"sr": 22050, "n_fft": 4096, "hop_length": 4103, "n_mels": 73, "f_min": 2205.8060408025804, "f_max": 7933.355389473766}, "frames": 62, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 58, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "zero", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 59, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "impulse", "exact": true, "max_abs": 1.1175870895385742e-08, "status": "PASS"}
+{"case": 60, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "dc", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 61, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "alternating", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 62, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "sine", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 63, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "step", "exact": true, "max_abs": 0.00048828125, "status": "PASS"}
+{"case": 64, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "low", "exact": true, "max_abs": 7.105427357601002e-15, "status": "PASS"}
+{"case": 65, "params": {"sr": 22050, "n_fft": 256, "hop_length": 11, "n_mels": 27, "f_min": 110.0, "f_max": 9876.0}, "frames": 4127, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 66, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 5, "n_mels": 7, "f_min": 233.0, "f_max": 7777.0}, "frames": 4175, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 67, "params": {"sr": 44100, "n_fft": 512, "hop_length": 13, "n_mels": 129, "f_min": 317.0, "f_max": 17003.0}, "frames": 17001, "pattern": "random", "exact": true, "max_abs": 5.7220458984375e-06, "status": "PASS"}
+PASS 68 independent synthetic cases
+PASS 24 reused-vector / arbitrary-double interface cases
+default/frozen: min=0.830247s median=0.831485s PASS=True
+  runs: 0.832361 0.830247 0.837010 0.830609 0.838621 0.830284 0.832631 0.830393
+default/reuse: min=0.786537s median=0.794127s PASS=True
+  runs: 0.786793 0.799853 0.798971 0.797817 0.803992 0.790438 0.786537 0.787526
+small_mels/frozen: min=0.481864s median=0.486027s PASS=True
+  runs: 0.487628 0.487272 0.492434 0.486140 0.485914 0.483348 0.481864 0.485566
+small_mels/reuse: min=0.444946s median=0.448877s PASS=True
+  runs: 0.444946 0.450544 0.446227 0.448449 0.448120 0.452355 0.449306 0.455504
+large_fft/frozen: min=1.027491s median=1.032195s PASS=True
+  runs: 1.031852 1.038486 1.027963 1.027491 1.035166 1.032537 1.030190 1.033238
+large_fft/reuse: min=0.963480s median=0.970053s PASS=True
+  runs: 0.970337 0.974568 0.972370 0.965738 0.965095 0.963480 0.969770 0.970485
+narrow_band/frozen: min=0.990866s median=0.999969s PASS=True
+  runs: 0.999331 0.990866 0.994724 1.015866 1.000405 0.999533 1.007791 1.005233
+narrow_band/reuse: min=0.927265s median=0.934851s PASS=True
+  runs: 0.936475 0.938416 0.934063 0.927265 0.929040 0.935640 0.927990 0.937630
+6d577092e3d4e5ed99540732b4f532415917f980b5d00b21cdf84494742a4d2e  tmp/bin/hugepage-b16
+{"case": 0, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 32, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 1, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 2, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 34, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 3, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 35, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 4, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 5, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 37, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 6, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 38, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 7, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 8, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 40, "pattern": "random", "exact": true, "max_abs": 2.980232238769531e-07, "status": "PASS"}
+{"case": 9, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 41, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 10, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 11, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 43, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 12, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 44, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 13, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 45, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 14, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 46, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 15, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 47, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 16, "params": {"sr": 48000, "n_fft": 1, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 17, "params": {"sr": 48000, "n_fft": 2, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 18, "params": {"sr": 48000, "n_fft": 4, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 2.9103830456733704e-11, "status": "PASS"}
+{"case": 19, "params": {"sr": 48000, "n_fft": 8, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.1641532182693481e-10, "status": "PASS"}
+{"case": 20, "params": {"sr": 48000, "n_fft": 32, "hop_length": 2, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.862645149230957e-09, "status": "PASS"}
+{"case": 21, "params": {"sr": 48000, "n_fft": 128, "hop_length": 11, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 4.470348358154297e-08, "status": "PASS"}
+{"case": 22, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 93, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.430511474609375e-06, "status": "PASS"}
+{"case": 23, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 372, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 24, "params": {"sr": 48000, "n_fft": 8192, "hop_length": 744, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 25, "params": {"sr": 48000, "n_fft": 16384, "hop_length": 1489, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 26, "params": {"sr": 16000, "n_fft": 1024, "hop_length": 63, "n_mels": 53, "f_min": 4126.514116156395, "f_max": 7169.201476938688}, "frames": 20, "pattern": "random", "exact": true, "max_abs": 2.86102294921875e-06, "status": "PASS"}
+{"case": 27, "params": {"sr": 16000, "n_fft": 4096, "hop_length": 63, "n_mels": 98, "f_min": 2213.4792219253245, "f_max": 7272.5884360673535}, "frames": 68, "pattern": "random", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 28, "params": {"sr": 22050, "n_fft": 32, "hop_length": 63, "n_mels": 28, "f_min": 1614.36904477932, "f_max": 2762.572616201831}, "frames": 35, "pattern": "random", "exact": true, "max_abs": 5.960464477539063e-08, "status": "PASS"}
+{"case": 29, "params": {"sr": 32000, "n_fft": 4096, "hop_length": 1, "n_mels": 3, "f_min": 1460.9059014936959, "f_max": 12607.56348198878}, "frames": 27, "pattern": "random", "exact": true, "max_abs": 7.62939453125e-06, "status": "PASS"}
+{"case": 30, "params": {"sr": 22050, "n_fft": 256, "hop_length": 128, "n_mels": 54, "f_min": 4427.166869427109, "f_max": 9510.052536142139}, "frames": 30, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 31, "params": {"sr": 32000, "n_fft": 512, "hop_length": 256, "n_mels": 64, "f_min": 3909.0041042675675, "f_max": 9043.697887199742}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 32, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 4096, "n_mels": 38, "f_min": 9437.689356574121, "f_max": 13282.236824481011}, "frames": 56, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 33, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 3, "n_mels": 59, "f_min": 13113.249022192895, "f_max": 19377.583482439906}, "frames": 81, "pattern": "random", "exact": true, "max_abs": 1.9073486328125e-06, "status": "PASS"}
+{"case": 34, "params": {"sr": 22050, "n_fft": 16, "hop_length": 23, "n_mels": 8, "f_min": 5998.973436402179, "f_max": 8142.1361611996945}, "frames": 72, "pattern": "random", "exact": true, "max_abs": 1.862645149230957e-09, "status": "PASS"}
+{"case": 35, "params": {"sr": 22050, "n_fft": 128, "hop_length": 1, "n_mels": 19, "f_min": 2393.8564884232715, "f_max": 3083.0930309841647}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 36, "params": {"sr": 32000, "n_fft": 1024, "hop_length": 3, "n_mels": 25, "f_min": 10556.93939221244, "f_max": 10905.375274827546}, "frames": 45, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-06, "status": "PASS"}
+{"case": 37, "params": {"sr": 48000, "n_fft": 256, "hop_length": 17, "n_mels": 49, "f_min": 1379.7027460165748, "f_max": 20518.154486700834}, "frames": 17, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 38, "params": {"sr": 16000, "n_fft": 16, "hop_length": 16, "n_mels": 16, "f_min": 593.1529569920327, "f_max": 4326.203970230686}, "frames": 66, "pattern": "random", "exact": true, "max_abs": 3.725290298461914e-09, "status": "PASS"}
+{"case": 39, "params": {"sr": 48000, "n_fft": 16, "hop_length": 17, "n_mels": 94, "f_min": 6965.733790987455, "f_max": 12534.890642020737}, "frames": 65, "pattern": "random", "exact": true, "max_abs": 1.4901161193847656e-08, "status": "PASS"}
+{"case": 40, "params": {"sr": 16000, "n_fft": 2048, "hop_length": 1, "n_mels": 61, "f_min": 2649.9197337162827, "f_max": 4832.569052954124}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 41, "params": {"sr": 22050, "n_fft": 16, "hop_length": 17, "n_mels": 69, "f_min": 3874.437358460031, "f_max": 6907.504509624455}, "frames": 84, "pattern": "random", "exact": true, "max_abs": 2.2351741790771484e-08, "status": "PASS"}
+{"case": 42, "params": {"sr": 22050, "n_fft": 4096, "hop_length": 4103, "n_mels": 66, "f_min": 2639.20036322145, "f_max": 7490.456572161991}, "frames": 55, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 43, "params": {"sr": 48000, "n_fft": 256, "hop_length": 3, "n_mels": 63, "f_min": 10522.934561261069, "f_max": 21592.403947859828}, "frames": 40, "pattern": "random", "exact": true, "max_abs": 2.980232238769531e-07, "status": "PASS"}
+{"case": 44, "params": {"sr": 32000, "n_fft": 16, "hop_length": 63, "n_mels": 1, "f_min": 7656.643536669292, "f_max": 8819.993938980246}, "frames": 57, "pattern": "random", "exact": true, "max_abs": 9.313225746154785e-10, "status": "PASS"}
+{"case": 45, "params": {"sr": 32000, "n_fft": 256, "hop_length": 263, "n_mels": 73, "f_min": 3678.243839715076, "f_max": 4928.519805376212}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 46, "params": {"sr": 22050, "n_fft": 256, "hop_length": 1, "n_mels": 20, "f_min": 2082.721789675146, "f_max": 2120.009389733122}, "frames": 70, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 47, "params": {"sr": 32000, "n_fft": 512, "hop_length": 519, "n_mels": 2, "f_min": 7278.0702170730965, "f_max": 10796.184122257038}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 48, "params": {"sr": 22050, "n_fft": 2048, "hop_length": 1, "n_mels": 39, "f_min": 262.90770934686515, "f_max": 6934.209045676231}, "frames": 64, "pattern": "random", "exact": true, "max_abs": 7.62939453125e-06, "status": "PASS"}
+{"case": 49, "params": {"sr": 22050, "n_fft": 1024, "hop_length": 1031, "n_mels": 17, "f_min": 729.155894671932, "f_max": 2596.379755162121}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 1.9073486328125e-06, "status": "PASS"}
+{"case": 50, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 1, "n_mels": 45, "f_min": 12953.22307881253, "f_max": 15140.712772748602}, "frames": 83, "pattern": "random", "exact": true, "max_abs": 2.288818359375e-05, "status": "PASS"}
+{"case": 51, "params": {"sr": 48000, "n_fft": 512, "hop_length": 63, "n_mels": 24, "f_min": 6182.31057078804, "f_max": 8609.158348485598}, "frames": 53, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 52, "params": {"sr": 48000, "n_fft": 256, "hop_length": 128, "n_mels": 77, "f_min": 13148.546058576998, "f_max": 14706.73693796187}, "frames": 21, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 53, "params": {"sr": 48000, "n_fft": 16, "hop_length": 17, "n_mels": 20, "f_min": 5649.685572604561, "f_max": 10638.081163844792}, "frames": 61, "pattern": "random", "exact": true, "max_abs": 3.725290298461914e-09, "status": "PASS"}
+{"case": 54, "params": {"sr": 48000, "n_fft": 32, "hop_length": 1, "n_mels": 64, "f_min": 6267.829512587163, "f_max": 7806.2500943095}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 55, "params": {"sr": 16000, "n_fft": 128, "hop_length": 17, "n_mels": 82, "f_min": 4607.668596146821, "f_max": 7090.671959072437}, "frames": 27, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 56, "params": {"sr": 16000, "n_fft": 1024, "hop_length": 17, "n_mels": 36, "f_min": 4085.363397985271, "f_max": 6415.57826248639}, "frames": 74, "pattern": "random", "exact": true, "max_abs": 3.814697265625e-06, "status": "PASS"}
+{"case": 57, "params": {"sr": 22050, "n_fft": 4096, "hop_length": 4103, "n_mels": 73, "f_min": 2205.8060408025804, "f_max": 7933.355389473766}, "frames": 62, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 58, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "zero", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 59, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "impulse", "exact": true, "max_abs": 1.1175870895385742e-08, "status": "PASS"}
+{"case": 60, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "dc", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 61, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "alternating", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 62, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "sine", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 63, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "step", "exact": true, "max_abs": 0.00048828125, "status": "PASS"}
+{"case": 64, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "low", "exact": true, "max_abs": 7.105427357601002e-15, "status": "PASS"}
+{"case": 65, "params": {"sr": 22050, "n_fft": 256, "hop_length": 11, "n_mels": 27, "f_min": 110.0, "f_max": 9876.0}, "frames": 4127, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 66, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 5, "n_mels": 7, "f_min": 233.0, "f_max": 7777.0}, "frames": 4175, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 67, "params": {"sr": 44100, "n_fft": 512, "hop_length": 13, "n_mels": 129, "f_min": 317.0, "f_max": 17003.0}, "frames": 17001, "pattern": "random", "exact": true, "max_abs": 5.7220458984375e-06, "status": "PASS"}
+PASS 68 independent synthetic cases
+PASS 24 reused-vector / arbitrary-double interface cases
+default/frozen: min=0.825833s median=0.834132s PASS=True
+  runs: 0.831190 0.833666 0.828163 0.835267 0.825833 0.834598 0.841169 0.835459
+default/hugepage: min=0.697070s median=0.703017s PASS=True
+  runs: 0.697070 0.705154 0.707410 0.702359 0.697592 0.707306 0.697081 0.703676
+small_mels/frozen: min=0.483841s median=0.489386s PASS=True
+  runs: 0.483841 0.489935 0.494670 0.485020 0.484775 0.488837 0.496057 0.491569
+small_mels/hugepage: min=0.451224s median=0.456434s PASS=True
+  runs: 0.455419 0.457450 0.457468 0.454807 0.451224 0.464368 0.454528 0.459466
+large_fft/frozen: min=1.034389s median=1.038967s PASS=True
+  runs: 1.034938 1.034389 1.039754 1.056234 1.038181 1.045697 1.047941 1.036809
+large_fft/hugepage: min=0.901141s median=0.904919s PASS=True
+  runs: 0.901141 0.902346 0.902824 0.967925 0.916253 0.918846 0.906835 0.903002
+narrow_band/frozen: min=0.995472s median=1.005077s PASS=True
+  runs: 1.008362 1.005917 0.995472 1.001862 1.007560 1.008591 1.003552 1.004237
+narrow_band/hugepage: min=0.865984s median=0.873079s PASS=True
+  runs: 0.867606 0.866334 0.865984 0.877020 0.884626 0.876042 0.881945 0.870117
+51db61cb844c3a4860c20f7e39130670e49ef332974932f092c3f0993f4645d0  tmp/bin/combined-b16
+{"case": 0, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 32, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 1, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 2, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 34, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 3, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 35, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 4, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 5, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 37, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 6, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 38, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 7, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 8, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 40, "pattern": "random", "exact": true, "max_abs": 2.980232238769531e-07, "status": "PASS"}
+{"case": 9, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 41, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 10, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 11, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 43, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 12, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 44, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 13, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 45, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 14, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 46, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 15, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 47, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 16, "params": {"sr": 48000, "n_fft": 1, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 17, "params": {"sr": 48000, "n_fft": 2, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 18, "params": {"sr": 48000, "n_fft": 4, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 2.9103830456733704e-11, "status": "PASS"}
+{"case": 19, "params": {"sr": 48000, "n_fft": 8, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.1641532182693481e-10, "status": "PASS"}
+{"case": 20, "params": {"sr": 48000, "n_fft": 32, "hop_length": 2, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.862645149230957e-09, "status": "PASS"}
+{"case": 21, "params": {"sr": 48000, "n_fft": 128, "hop_length": 11, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 4.470348358154297e-08, "status": "PASS"}
+{"case": 22, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 93, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.430511474609375e-06, "status": "PASS"}
+{"case": 23, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 372, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 24, "params": {"sr": 48000, "n_fft": 8192, "hop_length": 744, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 25, "params": {"sr": 48000, "n_fft": 16384, "hop_length": 1489, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 26, "params": {"sr": 16000, "n_fft": 1024, "hop_length": 63, "n_mels": 53, "f_min": 4126.514116156395, "f_max": 7169.201476938688}, "frames": 20, "pattern": "random", "exact": true, "max_abs": 2.86102294921875e-06, "status": "PASS"}
+{"case": 27, "params": {"sr": 16000, "n_fft": 4096, "hop_length": 63, "n_mels": 98, "f_min": 2213.4792219253245, "f_max": 7272.5884360673535}, "frames": 68, "pattern": "random", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 28, "params": {"sr": 22050, "n_fft": 32, "hop_length": 63, "n_mels": 28, "f_min": 1614.36904477932, "f_max": 2762.572616201831}, "frames": 35, "pattern": "random", "exact": true, "max_abs": 5.960464477539063e-08, "status": "PASS"}
+{"case": 29, "params": {"sr": 32000, "n_fft": 4096, "hop_length": 1, "n_mels": 3, "f_min": 1460.9059014936959, "f_max": 12607.56348198878}, "frames": 27, "pattern": "random", "exact": true, "max_abs": 7.62939453125e-06, "status": "PASS"}
+{"case": 30, "params": {"sr": 22050, "n_fft": 256, "hop_length": 128, "n_mels": 54, "f_min": 4427.166869427109, "f_max": 9510.052536142139}, "frames": 30, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 31, "params": {"sr": 32000, "n_fft": 512, "hop_length": 256, "n_mels": 64, "f_min": 3909.0041042675675, "f_max": 9043.697887199742}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 32, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 4096, "n_mels": 38, "f_min": 9437.689356574121, "f_max": 13282.236824481011}, "frames": 56, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 33, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 3, "n_mels": 59, "f_min": 13113.249022192895, "f_max": 19377.583482439906}, "frames": 81, "pattern": "random", "exact": true, "max_abs": 1.9073486328125e-06, "status": "PASS"}
+{"case": 34, "params": {"sr": 22050, "n_fft": 16, "hop_length": 23, "n_mels": 8, "f_min": 5998.973436402179, "f_max": 8142.1361611996945}, "frames": 72, "pattern": "random", "exact": true, "max_abs": 1.862645149230957e-09, "status": "PASS"}
+{"case": 35, "params": {"sr": 22050, "n_fft": 128, "hop_length": 1, "n_mels": 19, "f_min": 2393.8564884232715, "f_max": 3083.0930309841647}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 36, "params": {"sr": 32000, "n_fft": 1024, "hop_length": 3, "n_mels": 25, "f_min": 10556.93939221244, "f_max": 10905.375274827546}, "frames": 45, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-06, "status": "PASS"}
+{"case": 37, "params": {"sr": 48000, "n_fft": 256, "hop_length": 17, "n_mels": 49, "f_min": 1379.7027460165748, "f_max": 20518.154486700834}, "frames": 17, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 38, "params": {"sr": 16000, "n_fft": 16, "hop_length": 16, "n_mels": 16, "f_min": 593.1529569920327, "f_max": 4326.203970230686}, "frames": 66, "pattern": "random", "exact": true, "max_abs": 3.725290298461914e-09, "status": "PASS"}
+{"case": 39, "params": {"sr": 48000, "n_fft": 16, "hop_length": 17, "n_mels": 94, "f_min": 6965.733790987455, "f_max": 12534.890642020737}, "frames": 65, "pattern": "random", "exact": true, "max_abs": 1.4901161193847656e-08, "status": "PASS"}
+{"case": 40, "params": {"sr": 16000, "n_fft": 2048, "hop_length": 1, "n_mels": 61, "f_min": 2649.9197337162827, "f_max": 4832.569052954124}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 41, "params": {"sr": 22050, "n_fft": 16, "hop_length": 17, "n_mels": 69, "f_min": 3874.437358460031, "f_max": 6907.504509624455}, "frames": 84, "pattern": "random", "exact": true, "max_abs": 2.2351741790771484e-08, "status": "PASS"}
+{"case": 42, "params": {"sr": 22050, "n_fft": 4096, "hop_length": 4103, "n_mels": 66, "f_min": 2639.20036322145, "f_max": 7490.456572161991}, "frames": 55, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 43, "params": {"sr": 48000, "n_fft": 256, "hop_length": 3, "n_mels": 63, "f_min": 10522.934561261069, "f_max": 21592.403947859828}, "frames": 40, "pattern": "random", "exact": true, "max_abs": 2.980232238769531e-07, "status": "PASS"}
+{"case": 44, "params": {"sr": 32000, "n_fft": 16, "hop_length": 63, "n_mels": 1, "f_min": 7656.643536669292, "f_max": 8819.993938980246}, "frames": 57, "pattern": "random", "exact": true, "max_abs": 9.313225746154785e-10, "status": "PASS"}
+{"case": 45, "params": {"sr": 32000, "n_fft": 256, "hop_length": 263, "n_mels": 73, "f_min": 3678.243839715076, "f_max": 4928.519805376212}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 46, "params": {"sr": 22050, "n_fft": 256, "hop_length": 1, "n_mels": 20, "f_min": 2082.721789675146, "f_max": 2120.009389733122}, "frames": 70, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 47, "params": {"sr": 32000, "n_fft": 512, "hop_length": 519, "n_mels": 2, "f_min": 7278.0702170730965, "f_max": 10796.184122257038}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 48, "params": {"sr": 22050, "n_fft": 2048, "hop_length": 1, "n_mels": 39, "f_min": 262.90770934686515, "f_max": 6934.209045676231}, "frames": 64, "pattern": "random", "exact": true, "max_abs": 7.62939453125e-06, "status": "PASS"}
+{"case": 49, "params": {"sr": 22050, "n_fft": 1024, "hop_length": 1031, "n_mels": 17, "f_min": 729.155894671932, "f_max": 2596.379755162121}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 1.9073486328125e-06, "status": "PASS"}
+{"case": 50, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 1, "n_mels": 45, "f_min": 12953.22307881253, "f_max": 15140.712772748602}, "frames": 83, "pattern": "random", "exact": true, "max_abs": 2.288818359375e-05, "status": "PASS"}
+{"case": 51, "params": {"sr": 48000, "n_fft": 512, "hop_length": 63, "n_mels": 24, "f_min": 6182.31057078804, "f_max": 8609.158348485598}, "frames": 53, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 52, "params": {"sr": 48000, "n_fft": 256, "hop_length": 128, "n_mels": 77, "f_min": 13148.546058576998, "f_max": 14706.73693796187}, "frames": 21, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 53, "params": {"sr": 48000, "n_fft": 16, "hop_length": 17, "n_mels": 20, "f_min": 5649.685572604561, "f_max": 10638.081163844792}, "frames": 61, "pattern": "random", "exact": true, "max_abs": 3.725290298461914e-09, "status": "PASS"}
+{"case": 54, "params": {"sr": 48000, "n_fft": 32, "hop_length": 1, "n_mels": 64, "f_min": 6267.829512587163, "f_max": 7806.2500943095}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 55, "params": {"sr": 16000, "n_fft": 128, "hop_length": 17, "n_mels": 82, "f_min": 4607.668596146821, "f_max": 7090.671959072437}, "frames": 27, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 56, "params": {"sr": 16000, "n_fft": 1024, "hop_length": 17, "n_mels": 36, "f_min": 4085.363397985271, "f_max": 6415.57826248639}, "frames": 74, "pattern": "random", "exact": true, "max_abs": 3.814697265625e-06, "status": "PASS"}
+{"case": 57, "params": {"sr": 22050, "n_fft": 4096, "hop_length": 4103, "n_mels": 73, "f_min": 2205.8060408025804, "f_max": 7933.355389473766}, "frames": 62, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 58, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "zero", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 59, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "impulse", "exact": true, "max_abs": 1.1175870895385742e-08, "status": "PASS"}

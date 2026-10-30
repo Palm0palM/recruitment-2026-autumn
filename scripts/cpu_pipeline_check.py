@@ -28,6 +28,7 @@ def main():
     ap.add_argument("reference")
     ap.add_argument("candidate")
     ap.add_argument("--exact", action="store_true", help="also require bit-identical frozen outputs")
+    ap.add_argument("--case-index", type=int, help="reproduce one synthetic case")
     args = ap.parse_args()
     rng = np.random.default_rng(3102026)
     specs = []
@@ -52,9 +53,13 @@ def main():
     # Multi-MiB output to exercise actual huge-page-backed ranges, independent
     # of official parameters. Also crosses many slab boundaries.
     specs.append((512, 13, 17001, 44100, 129, 317.0, 17003.0, "random"))
+    checked = 0
     with tempfile.TemporaryDirectory(dir=os.environ.get("TMPDIR", ROOT / "tmp")) as td:
         td = Path(td)
         for index, (nfft, hop, frames, sr, mels, lo, hi, pattern) in enumerate(specs):
+            if args.case_index is not None and index != args.case_index:
+                continue
+            checked += 1
             n = nfft + hop * (frames - 1)
             pcm = rng.integers(-32768, 32768, n, dtype=np.int16)
             if pattern == "zero":
@@ -81,7 +86,17 @@ def main():
             assert got.shape == ref.shape and np.isfinite(got).all(), index
             np.testing.assert_allclose(got, ref, rtol=1e-3, atol=1e-4, err_msg=str(index))
             if args.exact:
-                assert np.array_equal(got.view("u4"), ref.view("u4")), ("not bit exact", index)
+                different = np.flatnonzero(got.view("u4") != ref.view("u4"))
+                if different.size:
+                    print(json.dumps(dict(case=index, params=params, pattern=pattern,
+                        bit_differences=int(different.size), tail_begin=frames // 16 * 16,
+                        mismatch_frames=np.unique(different % frames).tolist(),
+                        max_abs_vs_frozen=float(np.max(np.abs(got - ref))),
+                        examples=[dict(mel=int(k // frames), frame=int(k % frames),
+                                       got=float(got[k]), ref=float(ref[k]),
+                                       got_bits=int(got.view("u4")[k]), ref_bits=int(ref.view("u4")[k]))
+                                  for k in different[:8]])), flush=True)
+                    raise AssertionError(("not bit exact", index))
             expected = librosa.feature.melspectrogram(
                 y=pcm.astype(np.float64) / 32768, sr=sr, n_fft=nfft, hop_length=hop,
                 n_mels=mels, fmin=lo, fmax=hi, htk=True, center=False).astype("<f4").ravel()
@@ -93,7 +108,7 @@ def main():
             print(json.dumps(dict(case=index, params=params, frames=frames, pattern=pattern,
                                   exact=bool(np.array_equal(got.view("u4"), ref.view("u4"))),
                                   max_abs=float(np.max(np.abs(got - expected))), status="PASS")), flush=True)
-    print(f"PASS {len(specs)} independent synthetic cases", flush=True)
+    print(f"PASS {checked} independent synthetic cases", flush=True)
 
 
 if __name__ == "__main__":

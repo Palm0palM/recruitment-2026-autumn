@@ -1,0 +1,2 @@
+595289c17c0ab385a191707e4722d52dc79f7d9840fe9951e384efa502d34700  src/melspec.cpp
+8a16f4aa7566b104f3f8d962e81da69b499777136d1cb77e2015ec8ec8bf7187  versions/V3-cpu-pipeline-simd/patches/cpu-pipeline-simd.patch
