@@ -34,6 +34,10 @@ static_assert(MELSPEC_MAX_THREADS > 0, "thread count must be positive");
 #define MELSPEC_OUTPUT_OVERLAP 0
 #endif
 
+#ifndef MELSPEC_FUSE_POWER_MEL
+#define MELSPEC_FUSE_POWER_MEL 0
+#endif
+
 // ─────────────────────────────────────────────────────────────────────────────
 // HTK mel scale
 // ─────────────────────────────────────────────────────────────────────────────
@@ -366,11 +370,13 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                     FFTW_START(fft_start);
                     plan.apply(input.get(), fft_out.get());
                     FFTW_ADD(counters, 1, fft_start);
+#if !MELSPEC_FUSE_POWER_MEL
                     FFTW_START(power_start);
                     for (int k = 0; k < n_bins; ++k)
                         power_b[k] = fft_out[k][0] * fft_out[k][0] +
                                      fft_out[k][1] * fft_out[k][1];
                     FFTW_ADD(counters, 2, power_start);
+#endif
 #else
                     // Pack even/odd real samples into a half-length complex
                     // FFT.
@@ -448,9 +454,24 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                     const double* power_b =
                         power.data() + static_cast<size_t>(b) * n_bins;
                     double acc = 0.0;
+#if MELSPEC_FUSE_POWER_MEL && MELSPEC_FFTW_R2C
+                    if (n_fft == 1) {
+                        for (int k = mel_fb[m].first; k < mel_fb[m].last; ++k)
+                            acc += mel_fb[m].weights[k - mel_fb[m].first] *
+                                   power_b[k];
+                    } else {
+                        for (int k = mel_fb[m].first; k < mel_fb[m].last; ++k) {
+                            const double re = fft_out[k][0];
+                            const double im = fft_out[k][1];
+                            acc += mel_fb[m].weights[k - mel_fb[m].first] *
+                                   (re * re + im * im);
+                        }
+                    }
+#else
                     for (int k = mel_fb[m].first; k < mel_fb[m].last; ++k)
                         acc +=
                             mel_fb[m].weights[k - mel_fb[m].first] * power_b[k];
+#endif
                     output[static_cast<size_t>(m) * n_frames + block_begin +
                            b] = acc;
                 }

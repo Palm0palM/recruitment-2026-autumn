@@ -18,3 +18,27 @@
 本地五次 median（stable → overlap，秒）：default 0.799→0.795、small_mels 0.532→0.532、
 large_fft 1.746→1.769、narrow_band 1.666→1.617。结果不一致，本地不作采用决定，转同节点 A/B。
 原始结果：`raw/output-overlap-*`。集群结果待补。
+
+### D1 集群结果：不采用
+
+作业 212（hepnode2）交错对照 median：default stable 0.988 vs overlap 0.994 s；
+small_mels 0.660 vs 0.751 s；large_fft 1.360 vs 1.359 s；narrow_band 1.305 vs 1.314 s。
+default/narrow 回退，large_fft 基本持平，small_mels 明显回退。初始化与 FFT 的内存竞争、
+短期额外线程和同步成本抵消了理论重叠收益，因此保留 `OUTPUT_OVERLAP=0`，不再扩展该方向。
+
+首次官方补跑因包装脚本将候选别名 `overlap` 误当成二进制文件名而失败；
+实际文件名是 `output-overlap`。这不是算法 FAIL，原始错误保留，另用 `bench.slurm` 的 VARIANT 补跑完整验证。
+第二次补跑又因通用 bench.slurm 未传 `FFTW_PREFIX`，在集群无 pkg-config/FFTW 时编译失败；
+需在后续调用显式提供本实验静态库前缀。这些均属于验证流程问题，不算算法结果。
+
+## D2：功率谱与 Mel 融合
+
+**假设**：稀疏 Mel 的总 taps 不大于 n_bins。直接在每个支撑 bin 上由 FFT 复数输出计算模平方并累加，
+可以删除完整 power 写入/读取，同时不增加每个 Mel 行内的 k 求和顺序变化。n_fft=1 保留原 power 特例。
+`FUSE_POWER_MEL=1` 仅作用于 R2C hot path，C2C 和公开辅助函数不变。
+
+本地 smoke 8/8、39 组对照均与稳定版逐元素相同，短输入拒绝。编译器诊断显示融合循环已使用
+32-byte AVX2 vectors 和 unroll factor 4；因此没有额外手写 SIMD/FMA 的必要。
+本地五次 median（stable → fusion，秒）：default 1.070→1.126、small_mels 0.791→0.822、
+large_fft 1.739→1.686、narrow_band 1.761→1.673。大 FFT/窄带有趋势，default/小帧组回退，待集群判定。
+原始结果：`raw/fusion-*`。

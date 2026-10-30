@@ -1,0 +1,89 @@
+job=212 node=hepnode2 mode=output
+69c88f9e507f6fbe0b21b3fd1875a3d4dfd9beaa
+Cpus_allowed_list:	0-15
+CPU(s):                                  64
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+CPU(s) scaling MHz:                      29%
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+ae64b75affb99495e194d000c81df1beba72ba45b8f9f4e9eb5d3f87855ab2e5  /home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/lib/libfftw3.a
+c82bf45065551f8659748f9c77d8c9dee6783ea524d579e951757ac78a926d05  /home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include/fftw3.h
+#define HAVE_AVX 1
+#define HAVE_AVX2 1
+#define HAVE_AVX512 1
+#define PACKAGE_VERSION "3.3.11"
+g++ -I./include -DMELSPEC_FRAME_BLOCK=1 -DMELSPEC_MAX_THREADS=16 -DMELSPEC_OUTPUT_OVERLAP=0 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b1-sparse-t16-ow0/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FRAME_BLOCK=1 -DMELSPEC_MAX_THREADS=16 -DMELSPEC_OUTPUT_OVERLAP=0 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b1-sparse-t16-ow0/main.o -c src/main.cpp
+g++  -o tmp/bin/stable tmp/build/r2c-estimate-b1-sparse-t16-ow0/main.o tmp/build/r2c-estimate-b1-sparse-t16-ow0/melspec.o -pthread /home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+g++ -I./include -DMELSPEC_FRAME_BLOCK=1 -DMELSPEC_MAX_THREADS=16 -DMELSPEC_OUTPUT_OVERLAP=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b1-sparse-t16-ow1/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FRAME_BLOCK=1 -DMELSPEC_MAX_THREADS=16 -DMELSPEC_OUTPUT_OVERLAP=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b1-sparse-t16-ow1/main.o -c src/main.cpp
+g++  -o tmp/bin/output-overlap tmp/build/r2c-estimate-b1-sparse-t16-ow1/main.o tmp/build/r2c-estimate-b1-sparse-t16-ow1/melspec.o -pthread /home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+2dc018f97ab48579ace10d542ae446f7c3742ca33a6a3b4af22ab88ed21b386c  src/melspec.cpp
+3bcb8265fb0157fcb8166415c5fe3e6bcf165463e8df976aeb58c861cfe228a1  include/fftw_support.h
+5b7761bc881123a0b435cdb4230fe01be63f7d990ad930ccc846f1063532dc98  Makefile
+b43d32ec26380a411a995ada96ca65fedfee0e920ee0a0d2ccc79aab4ded53b5  tmp/build/a2.cpp
+5c3f586c2e8cd2ca22824d4aaa0fa6267148dce05d8ad44d7cca19635058c8d9  tmp/bin/a2-base
+518d97704ea18152ecc5b49d66717db8bec356099948d973c0168cd3a68544ec  tmp/bin/b1
+4b47d0ea82a9eff9168d5c6a423a0e483218b28f49aa7a7670840120c8adb8f1  tmp/bin/b16
+a963759c5a1978dc170b178d5d9701c1331e6166b6610768e1421c550794986e  tmp/bin/b2
+40bf4aa11b58a46716695da034c51fef66d6fd9aafc1483bb3460545964f328e  tmp/bin/b4
+6095f3fc6d76b44cb90bd8fb07825a8137e3dc863ef81f41b5a192f43dafbff7  tmp/bin/b8
+62ef217c1ee23e144cd6cc40976eced88ed3b4d0ff83aff03215462832b366c8  tmp/bin/output-overlap
+518d97704ea18152ecc5b49d66717db8bec356099948d973c0168cd3a68544ec  tmp/bin/stable
+31ffb641af312f21c0c3e47dd5a5f51aee364a949013a926ae3856194fe62d1a  tmp/bin/t12
+518d97704ea18152ecc5b49d66717db8bec356099948d973c0168cd3a68544ec  tmp/bin/t16
+109f5cac6bc3b230b1b219c6e4830b36272b766c8daa6a794e7dfcbfc5f83976  tmp/bin/t8
+default a2-base round=0 elapsed=0.998999 max_abs_err=0.03125 PASS
+default stable round=0 elapsed=0.986984 max_abs_err=0.03125 PASS
+default overlap round=0 elapsed=0.993584 max_abs_err=0.03125 PASS
+default stable round=1 elapsed=0.992512 max_abs_err=0.03125 PASS
+default overlap round=1 elapsed=0.991659 max_abs_err=0.03125 PASS
+default a2-base round=1 elapsed=1.011966 max_abs_err=0.03125 PASS
+default overlap round=2 elapsed=1.073652 max_abs_err=0.03125 PASS
+default a2-base round=2 elapsed=1.002474 max_abs_err=0.03125 PASS
+default stable round=2 elapsed=0.988423 max_abs_err=0.03125 PASS
+small_mels a2-base round=0 elapsed=0.663162 max_abs_err=0.01171875 PASS
+small_mels stable round=0 elapsed=0.656940 max_abs_err=0.01171875 PASS
+small_mels overlap round=0 elapsed=0.662027 max_abs_err=0.01171875 PASS
+small_mels stable round=1 elapsed=0.662302 max_abs_err=0.01171875 PASS
+small_mels overlap round=1 elapsed=0.768577 max_abs_err=0.01171875 PASS
+small_mels a2-base round=1 elapsed=0.672080 max_abs_err=0.01171875 PASS
+small_mels overlap round=2 elapsed=0.750516 max_abs_err=0.01171875 PASS
+small_mels a2-base round=2 elapsed=0.670188 max_abs_err=0.01171875 PASS
+small_mels stable round=2 elapsed=0.660420 max_abs_err=0.01171875 PASS
+large_fft a2-base round=0 elapsed=1.370785 max_abs_err=0.125 PASS
+large_fft stable round=0 elapsed=1.368044 max_abs_err=0.125 PASS
+large_fft overlap round=0 elapsed=1.369347 max_abs_err=0.125 PASS
+large_fft stable round=1 elapsed=1.358648 max_abs_err=0.125 PASS
+large_fft overlap round=1 elapsed=1.356928 max_abs_err=0.125 PASS
+large_fft a2-base round=1 elapsed=1.370813 max_abs_err=0.125 PASS
+large_fft overlap round=2 elapsed=1.359247 max_abs_err=0.125 PASS
+large_fft a2-base round=2 elapsed=1.374361 max_abs_err=0.125 PASS
+large_fft stable round=2 elapsed=1.359807 max_abs_err=0.125 PASS
+narrow_band a2-base round=0 elapsed=1.306281 max_abs_err=0.0625 PASS
+narrow_band stable round=0 elapsed=1.310904 max_abs_err=0.0625 PASS
+narrow_band overlap round=0 elapsed=1.314806 max_abs_err=0.0625 PASS
+narrow_band stable round=1 elapsed=1.305192 max_abs_err=0.0625 PASS
+narrow_band overlap round=1 elapsed=1.308082 max_abs_err=0.0625 PASS
+narrow_band a2-base round=1 elapsed=1.329185 max_abs_err=0.0625 PASS
+narrow_band overlap round=2 elapsed=1.314105 max_abs_err=0.0625 PASS
+narrow_band a2-base round=2 elapsed=1.329783 max_abs_err=0.0625 PASS
+narrow_band stable round=2 elapsed=1.299921 max_abs_err=0.0625 PASS
+case | program | min_s | median_s | vs_v1
+default | a2-base | 0.998999 | 1.002474 | None
+default | stable | 0.986984 | 0.988423 | None
+default | overlap | 0.991659 | 0.993584 | None
+small_mels | a2-base | 0.663162 | 0.670188 | None
+small_mels | stable | 0.656940 | 0.660420 | None
+small_mels | overlap | 0.662027 | 0.750516 | None
+large_fft | a2-base | 1.370785 | 1.370813 | None
+large_fft | stable | 1.358648 | 1.359807 | None
+large_fft | overlap | 1.356928 | 1.359247 | None
+narrow_band | a2-base | 1.306281 | 1.329185 | None
+narrow_band | stable | 1.299921 | 1.305192 | None
+narrow_band | overlap | 1.308082 | 1.314105 | None
+== complete official validate.py, overlap, 3 runs ==
+Running test case: default...

@@ -1,0 +1,49 @@
+default stable round=0 elapsed=0.945000 max_abs_err=0.03125 PASS
+default fusion round=0 elapsed=0.922425 max_abs_err=0.03125 PASS
+default fusion round=1 elapsed=0.876029 max_abs_err=0.03125 PASS
+default stable round=1 elapsed=0.837900 max_abs_err=0.03125 PASS
+default stable round=2 elapsed=1.189681 max_abs_err=0.03125 PASS
+default fusion round=2 elapsed=1.136377 max_abs_err=0.03125 PASS
+default fusion round=3 elapsed=1.178049 max_abs_err=0.03125 PASS
+default stable round=3 elapsed=1.069724 max_abs_err=0.03125 PASS
+default stable round=4 elapsed=1.178882 max_abs_err=0.03125 PASS
+default fusion round=4 elapsed=1.125583 max_abs_err=0.03125 PASS
+small_mels stable round=0 elapsed=0.753226 max_abs_err=0.01171875 PASS
+small_mels fusion round=0 elapsed=0.887217 max_abs_err=0.01171875 PASS
+small_mels fusion round=1 elapsed=0.782872 max_abs_err=0.01171875 PASS
+small_mels stable round=1 elapsed=0.756944 max_abs_err=0.01171875 PASS
+small_mels stable round=2 elapsed=0.791156 max_abs_err=0.01171875 PASS
+small_mels fusion round=2 elapsed=0.821942 max_abs_err=0.01171875 PASS
+small_mels fusion round=3 elapsed=1.001631 max_abs_err=0.01171875 PASS
+small_mels stable round=3 elapsed=1.130388 max_abs_err=0.01171875 PASS
+small_mels stable round=4 elapsed=0.808076 max_abs_err=0.01171875 PASS
+small_mels fusion round=4 elapsed=0.731631 max_abs_err=0.01171875 PASS
+large_fft stable round=0 elapsed=1.792115 max_abs_err=0.125 PASS
+large_fft fusion round=0 elapsed=1.676262 max_abs_err=0.125 PASS
+large_fft fusion round=1 elapsed=1.686020 max_abs_err=0.125 PASS
+large_fft stable round=1 elapsed=1.738861 max_abs_err=0.125 PASS
+large_fft stable round=2 elapsed=1.754845 max_abs_err=0.125 PASS
+large_fft fusion round=2 elapsed=1.823648 max_abs_err=0.125 PASS
+large_fft fusion round=3 elapsed=1.788246 max_abs_err=0.125 PASS
+large_fft stable round=3 elapsed=1.704582 max_abs_err=0.125 PASS
+large_fft stable round=4 elapsed=1.591174 max_abs_err=0.125 PASS
+large_fft fusion round=4 elapsed=1.633016 max_abs_err=0.125 PASS
+narrow_band stable round=0 elapsed=1.616258 max_abs_err=0.0625 PASS
+narrow_band fusion round=0 elapsed=1.596812 max_abs_err=0.0625 PASS
+narrow_band fusion round=1 elapsed=1.663591 max_abs_err=0.0625 PASS
+narrow_band stable round=1 elapsed=1.809185 max_abs_err=0.0625 PASS
+narrow_band stable round=2 elapsed=1.761248 max_abs_err=0.0625 PASS
+narrow_band fusion round=2 elapsed=1.710211 max_abs_err=0.0625 PASS
+narrow_band fusion round=3 elapsed=1.672975 max_abs_err=0.0625 PASS
+narrow_band stable round=3 elapsed=1.755592 max_abs_err=0.0625 PASS
+narrow_band stable round=4 elapsed=3.072897 max_abs_err=0.0625 PASS
+narrow_band fusion round=4 elapsed=1.762418 max_abs_err=0.0625 PASS
+case | program | min_s | median_s | vs_v1
+default | stable | 0.837900 | 1.069724 | None
+default | fusion | 0.876029 | 1.125583 | None
+small_mels | stable | 0.753226 | 0.791156 | None
+small_mels | fusion | 0.731631 | 0.821942 | None
+large_fft | stable | 1.591174 | 1.738861 | None
+large_fft | fusion | 1.633016 | 1.686020 | None
+narrow_band | stable | 1.616258 | 1.761248 | None
+narrow_band | fusion | 1.596812 | 1.672975 | None

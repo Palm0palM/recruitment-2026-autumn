@@ -1,0 +1,16 @@
+make: pkg-config: No such file or directory
+make: pkg-config: No such file or directory
+In file included from src/melspec.cpp:2:
+./include/fftw_support.h:3:10: fatal error: fftw3.h: No such file or directory
+    3 | #include <fftw3.h>
+      |          ^~~~~~~~~
+compilation terminated.
+make: *** [Makefile:55: tmp/build/r2c-estimate-b1-sparse-t16-ow0/melspec.o] Error 1
+make: *** Waiting for unfinished jobs....
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~

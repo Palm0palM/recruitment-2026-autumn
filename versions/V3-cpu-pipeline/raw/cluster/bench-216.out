@@ -1,0 +1,12 @@
+python: /home/zsx/venv/bin/python   CPU: nproc=16   cpuset: Cpus_allowed_list:	0-15
+== job 216 on hepnode2 ==
+节点: hepnode2
+CPU: 16  被测程序: tmp/bin/output-overlap
+CPU(s):                                  64
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+CPU(s) scaling MHz:                      33%
+               total        used        free      shared  buff/cache   available
+Mem:             503          13         264           3         231         489
+== 编译（计算节点原生指令集） ==
+g++ -I./include -DMELSPEC_FRAME_BLOCK=1 -DMELSPEC_MAX_THREADS=16 -DMELSPEC_OUTPUT_OVERLAP=0 -DMELSPEC_FFTW_R2C=1  -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b1-sparse-t16-ow0/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FRAME_BLOCK=1 -DMELSPEC_MAX_THREADS=16 -DMELSPEC_OUTPUT_OVERLAP=0 -DMELSPEC_FFTW_R2C=1  -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b1-sparse-t16-ow0/melspec.o -c src/melspec.cpp
