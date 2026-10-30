@@ -1,0 +1,525 @@
+job=342 node=hepnode3 mode=reuse
+Cpus_allowed_list:	0-15
+Architecture:                            x86_64
+CPU op-mode(s):                          32-bit, 64-bit
+Address sizes:                           46 bits physical, 57 bits virtual
+Byte Order:                              Little Endian
+CPU(s):                                  64
+On-line CPU(s) list:                     0-63
+Vendor ID:                               GenuineIntel
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+CPU family:                              6
+Model:                                   106
+Thread(s) per core:                      1
+Core(s) per socket:                      32
+Socket(s):                               2
+Stepping:                                6
+CPU(s) scaling MHz:                      30%
+CPU max MHz:                             3200.0000
+CPU min MHz:                             800.0000
+BogoMIPS:                                4000.00
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb intel_pt avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local split_lock_detect wbnoinvd dtherm ida arat pln pts vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq la57 rdpid fsrm md_clear pconfig flush_l1d arch_capabilities
+Virtualization:                          VT-x
+L1d cache:                               3 MiB (64 instances)
+L1i cache:                               2 MiB (64 instances)
+L2 cache:                                80 MiB (64 instances)
+L3 cache:                                96 MiB (2 instances)
+NUMA node(s):                            4
+NUMA node0 CPU(s):                       0-15
+NUMA node1 CPU(s):                       16-31
+NUMA node2 CPU(s):                       32-47
+NUMA node3 CPU(s):                       48-63
+Vulnerability Gather data sampling:      Vulnerable
+Vulnerability Ghostwrite:                Not affected
+Vulnerability Indirect target selection: Mitigation; Aligned branch/return thunks
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Mitigation; Clear CPU buffers; SMT disabled
+Vulnerability Old microcode:             Not affected
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Not affected
+Vulnerability Spec rstack overflow:      Not affected
+Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
+Vulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI SW loop, KVM SW loop
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Not affected
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+21f6e0c4178dfaf5a0286ba66fa7844726de8ff7a14afeb6cd2b99694b505857  src/melspec.cpp
+ee18296021d6efe3644950e47c7922dce072846e7fe44d47b6d3645e950ac7ce  validate.py
+95aa8e56fb5ca91d89de153bc699a2a2361bb48b174b5076478d258dcf282f3f  tmp/control/melspec.cpp
+5514ccb5def7329a5356f2ae85c773c4d06bd6a722945f984b20049581525182  tmp/bin/frozen-b16
+59901581ff95a404b6177a1d41e752dcffa5c89d9902e3949ff16e6fc7596e2d  tmp/bin/reuse-b16
+{"case": 0, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 32, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 1, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 2, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 34, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 3, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 35, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 4, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 5, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 37, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 6, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 38, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 7, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 8, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 40, "pattern": "random", "exact": true, "max_abs": 2.980232238769531e-07, "status": "PASS"}
+{"case": 9, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 41, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 10, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 11, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 43, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 12, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 44, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 13, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 45, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 14, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 46, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 15, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 47, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 16, "params": {"sr": 48000, "n_fft": 1, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 17, "params": {"sr": 48000, "n_fft": 2, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 18, "params": {"sr": 48000, "n_fft": 4, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 2.9103830456733704e-11, "status": "PASS"}
+{"case": 19, "params": {"sr": 48000, "n_fft": 8, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.1641532182693481e-10, "status": "PASS"}
+{"case": 20, "params": {"sr": 48000, "n_fft": 32, "hop_length": 2, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.862645149230957e-09, "status": "PASS"}
+{"case": 21, "params": {"sr": 48000, "n_fft": 128, "hop_length": 11, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 4.470348358154297e-08, "status": "PASS"}
+{"case": 22, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 93, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.430511474609375e-06, "status": "PASS"}
+{"case": 23, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 372, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 24, "params": {"sr": 48000, "n_fft": 8192, "hop_length": 744, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 25, "params": {"sr": 48000, "n_fft": 16384, "hop_length": 1489, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 26, "params": {"sr": 16000, "n_fft": 1024, "hop_length": 63, "n_mels": 53, "f_min": 4126.514116156395, "f_max": 7169.201476938688}, "frames": 20, "pattern": "random", "exact": true, "max_abs": 2.86102294921875e-06, "status": "PASS"}
+{"case": 27, "params": {"sr": 16000, "n_fft": 4096, "hop_length": 63, "n_mels": 98, "f_min": 2213.4792219253245, "f_max": 7272.5884360673535}, "frames": 68, "pattern": "random", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 28, "params": {"sr": 22050, "n_fft": 32, "hop_length": 63, "n_mels": 28, "f_min": 1614.36904477932, "f_max": 2762.572616201831}, "frames": 35, "pattern": "random", "exact": true, "max_abs": 5.960464477539063e-08, "status": "PASS"}
+{"case": 29, "params": {"sr": 32000, "n_fft": 4096, "hop_length": 1, "n_mels": 3, "f_min": 1460.9059014936959, "f_max": 12607.56348198878}, "frames": 27, "pattern": "random", "exact": true, "max_abs": 7.62939453125e-06, "status": "PASS"}
+{"case": 30, "params": {"sr": 22050, "n_fft": 256, "hop_length": 128, "n_mels": 54, "f_min": 4427.166869427109, "f_max": 9510.052536142139}, "frames": 30, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 31, "params": {"sr": 32000, "n_fft": 512, "hop_length": 256, "n_mels": 64, "f_min": 3909.0041042675675, "f_max": 9043.697887199742}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 32, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 4096, "n_mels": 38, "f_min": 9437.689356574121, "f_max": 13282.236824481011}, "frames": 56, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 33, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 3, "n_mels": 59, "f_min": 13113.249022192895, "f_max": 19377.583482439906}, "frames": 81, "pattern": "random", "exact": true, "max_abs": 1.9073486328125e-06, "status": "PASS"}
+{"case": 34, "params": {"sr": 22050, "n_fft": 16, "hop_length": 23, "n_mels": 8, "f_min": 5998.973436402179, "f_max": 8142.1361611996945}, "frames": 72, "pattern": "random", "exact": true, "max_abs": 1.862645149230957e-09, "status": "PASS"}
+{"case": 35, "params": {"sr": 22050, "n_fft": 128, "hop_length": 1, "n_mels": 19, "f_min": 2393.8564884232715, "f_max": 3083.0930309841647}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 36, "params": {"sr": 32000, "n_fft": 1024, "hop_length": 3, "n_mels": 25, "f_min": 10556.93939221244, "f_max": 10905.375274827546}, "frames": 45, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-06, "status": "PASS"}
+{"case": 37, "params": {"sr": 48000, "n_fft": 256, "hop_length": 17, "n_mels": 49, "f_min": 1379.7027460165748, "f_max": 20518.154486700834}, "frames": 17, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 38, "params": {"sr": 16000, "n_fft": 16, "hop_length": 16, "n_mels": 16, "f_min": 593.1529569920327, "f_max": 4326.203970230686}, "frames": 66, "pattern": "random", "exact": true, "max_abs": 3.725290298461914e-09, "status": "PASS"}
+{"case": 39, "params": {"sr": 48000, "n_fft": 16, "hop_length": 17, "n_mels": 94, "f_min": 6965.733790987455, "f_max": 12534.890642020737}, "frames": 65, "pattern": "random", "exact": true, "max_abs": 1.4901161193847656e-08, "status": "PASS"}
+{"case": 40, "params": {"sr": 16000, "n_fft": 2048, "hop_length": 1, "n_mels": 61, "f_min": 2649.9197337162827, "f_max": 4832.569052954124}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 41, "params": {"sr": 22050, "n_fft": 16, "hop_length": 17, "n_mels": 69, "f_min": 3874.437358460031, "f_max": 6907.504509624455}, "frames": 84, "pattern": "random", "exact": true, "max_abs": 2.2351741790771484e-08, "status": "PASS"}
+{"case": 42, "params": {"sr": 22050, "n_fft": 4096, "hop_length": 4103, "n_mels": 66, "f_min": 2639.20036322145, "f_max": 7490.456572161991}, "frames": 55, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 43, "params": {"sr": 48000, "n_fft": 256, "hop_length": 3, "n_mels": 63, "f_min": 10522.934561261069, "f_max": 21592.403947859828}, "frames": 40, "pattern": "random", "exact": true, "max_abs": 2.980232238769531e-07, "status": "PASS"}
+{"case": 44, "params": {"sr": 32000, "n_fft": 16, "hop_length": 63, "n_mels": 1, "f_min": 7656.643536669292, "f_max": 8819.993938980246}, "frames": 57, "pattern": "random", "exact": true, "max_abs": 9.313225746154785e-10, "status": "PASS"}
+{"case": 45, "params": {"sr": 32000, "n_fft": 256, "hop_length": 263, "n_mels": 73, "f_min": 3678.243839715076, "f_max": 4928.519805376212}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 46, "params": {"sr": 22050, "n_fft": 256, "hop_length": 1, "n_mels": 20, "f_min": 2082.721789675146, "f_max": 2120.009389733122}, "frames": 70, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 47, "params": {"sr": 32000, "n_fft": 512, "hop_length": 519, "n_mels": 2, "f_min": 7278.0702170730965, "f_max": 10796.184122257038}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 48, "params": {"sr": 22050, "n_fft": 2048, "hop_length": 1, "n_mels": 39, "f_min": 262.90770934686515, "f_max": 6934.209045676231}, "frames": 64, "pattern": "random", "exact": true, "max_abs": 7.62939453125e-06, "status": "PASS"}
+{"case": 49, "params": {"sr": 22050, "n_fft": 1024, "hop_length": 1031, "n_mels": 17, "f_min": 729.155894671932, "f_max": 2596.379755162121}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 1.9073486328125e-06, "status": "PASS"}
+{"case": 50, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 1, "n_mels": 45, "f_min": 12953.22307881253, "f_max": 15140.712772748602}, "frames": 83, "pattern": "random", "exact": true, "max_abs": 2.288818359375e-05, "status": "PASS"}
+{"case": 51, "params": {"sr": 48000, "n_fft": 512, "hop_length": 63, "n_mels": 24, "f_min": 6182.31057078804, "f_max": 8609.158348485598}, "frames": 53, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 52, "params": {"sr": 48000, "n_fft": 256, "hop_length": 128, "n_mels": 77, "f_min": 13148.546058576998, "f_max": 14706.73693796187}, "frames": 21, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 53, "params": {"sr": 48000, "n_fft": 16, "hop_length": 17, "n_mels": 20, "f_min": 5649.685572604561, "f_max": 10638.081163844792}, "frames": 61, "pattern": "random", "exact": true, "max_abs": 3.725290298461914e-09, "status": "PASS"}
+{"case": 54, "params": {"sr": 48000, "n_fft": 32, "hop_length": 1, "n_mels": 64, "f_min": 6267.829512587163, "f_max": 7806.2500943095}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 55, "params": {"sr": 16000, "n_fft": 128, "hop_length": 17, "n_mels": 82, "f_min": 4607.668596146821, "f_max": 7090.671959072437}, "frames": 27, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 56, "params": {"sr": 16000, "n_fft": 1024, "hop_length": 17, "n_mels": 36, "f_min": 4085.363397985271, "f_max": 6415.57826248639}, "frames": 74, "pattern": "random", "exact": true, "max_abs": 3.814697265625e-06, "status": "PASS"}
+{"case": 57, "params": {"sr": 22050, "n_fft": 4096, "hop_length": 4103, "n_mels": 73, "f_min": 2205.8060408025804, "f_max": 7933.355389473766}, "frames": 62, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 58, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "zero", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 59, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "impulse", "exact": true, "max_abs": 1.1175870895385742e-08, "status": "PASS"}
+{"case": 60, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "dc", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 61, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "alternating", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 62, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "sine", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 63, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "step", "exact": true, "max_abs": 0.00048828125, "status": "PASS"}
+{"case": 64, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "low", "exact": true, "max_abs": 7.105427357601002e-15, "status": "PASS"}
+{"case": 65, "params": {"sr": 22050, "n_fft": 256, "hop_length": 11, "n_mels": 27, "f_min": 110.0, "f_max": 9876.0}, "frames": 4127, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 66, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 5, "n_mels": 7, "f_min": 233.0, "f_max": 7777.0}, "frames": 4175, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+PASS 67 independent synthetic cases
+default: PASS shape=(256, 1437) max_abs_err=0.00018310547
+small_mels: PASS shape=(64, 1437) max_abs_err=9.1552734e-05
+large_fft: PASS shape=(256, 1373) max_abs_err=0.00048828125
+narrow_band: PASS shape=(256, 1373) max_abs_err=0.00073242188
+cli_defaults: PASS shape=(128, 372) max_abs_err=2.2888184e-05
+fft_1: PASS shape=(4, 1500) max_abs_err=0
+fft_2: PASS shape=(4, 1500) max_abs_err=3.2311743e-27
+fft_8: PASS shape=(4, 1500) max_abs_err=8.7311491e-11
+tail_2: PASS shape=(16, 958) max_abs_err=0.00011444092
+tail_3: PASS shape=(16, 719) max_abs_err=9.9182129e-05
+default/frozen: min=0.828035s median=0.833143s PASS=True
+  runs: 0.839881 0.830955 0.831813 0.828035 0.840999 0.835901 0.832315 0.833970
+default/reuse: min=0.789322s median=0.791509s PASS=True
+  runs: 0.789322 0.800189 0.789752 0.789758 0.791888 0.794971 0.791131 0.794927
+small_mels/frozen: min=0.482860s median=0.485784s PASS=True
+  runs: 0.488239 0.506582 0.485518 0.484835 0.482860 0.486467 0.483328 0.486051
+small_mels/reuse: min=0.444742s median=0.448749s PASS=True
+  runs: 0.456801 0.444742 0.453033 0.445295 0.445810 0.451158 0.448948 0.448549
+large_fft/frozen: min=1.033066s median=1.037727s PASS=True
+  runs: 1.035835 1.037307 1.041805 1.037390 1.040801 1.041995 1.038065 1.033066
+large_fft/reuse: min=0.962969s median=0.969286s PASS=True
+  runs: 0.968121 0.962969 0.966550 0.970450 0.978521 0.972263 0.970559 0.967005
+narrow_band/frozen: min=0.984899s median=1.000196s PASS=True
+  runs: 1.001342 0.995661 1.011941 1.004439 0.996784 0.999049 1.005765 0.984899
+narrow_band/reuse: min=0.922570s median=0.935934s PASS=True
+  runs: 0.926846 1.060340 0.927867 0.937287 0.934580 0.922570 0.951330 0.941801
++ g++ -std=c++17 -O3 -march=native -pthread -I/home/zsx/melspec-cpu-pipeline-simd/include -DMELSPEC_FP32_BATCH=16 -DMELSPEC_PACK_REUSE=1 -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -c /home/zsx/melspec-cpu-pipeline-simd/src/main.cpp -o /home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/reuse/main.o
++ g++ -std=c++17 -O3 -march=native -pthread -I/home/zsx/melspec-cpu-pipeline-simd/include -DMELSPEC_FP32_BATCH=16 -DMELSPEC_PACK_REUSE=1 /home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/reuse/main.o /home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/reuse/melspec.cpp /home/zsx/melspec-cpu-pipeline-simd/scripts/cpu_pipeline_io_hooks.cpp -o /home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/reuse/profile
+== default run=0 diagnostic_wall_s=0.779965431 ==
+io read_s=0.174708150
+setup before_resize_s=0.006470858 output_init_s=0.200268949
+worker id=0 pack_s=0.040532627 fft_s=0.065065883 recover_s=0.016435926 mel_s=0.011971125 wall_s=0.134120711
+worker id=6 pack_s=0.041441046 fft_s=0.064437761 recover_s=0.016770073 mel_s=0.012129551 wall_s=0.134895305
+worker id=13 pack_s=0.041484742 fft_s=0.063929281 recover_s=0.016769854 mel_s=0.012444611 wall_s=0.134743894
+worker id=10 pack_s=0.041712647 fft_s=0.064255426 recover_s=0.016876585 mel_s=0.012179836 wall_s=0.135140998
+worker id=9 pack_s=0.041480399 fft_s=0.065077940 recover_s=0.016825770 mel_s=0.012240571 wall_s=0.135741084
+worker id=15 pack_s=0.040642212 fft_s=0.066410827 recover_s=0.016483047 mel_s=0.011993990 wall_s=0.135644169
+worker id=14 pack_s=0.041579819 fft_s=0.065006869 recover_s=0.016841566 mel_s=0.012145303 wall_s=0.135689541
+worker id=12 pack_s=0.041736756 fft_s=0.064931261 recover_s=0.016863897 mel_s=0.012150040 wall_s=0.135798133
+worker id=8 pack_s=0.041594581 fft_s=0.065570459 recover_s=0.016771237 mel_s=0.012218141 wall_s=0.136272129
+worker id=5 pack_s=0.041842826 fft_s=0.065757007 recover_s=0.016870428 mel_s=0.012174131 wall_s=0.136760997
+worker id=11 pack_s=0.042040764 fft_s=0.065326979 recover_s=0.016960349 mel_s=0.012290532 wall_s=0.136736460
+worker id=1 pack_s=0.041063681 fft_s=0.067031859 recover_s=0.016732058 mel_s=0.012112291 wall_s=0.137055604
+worker id=2 pack_s=0.042148345 fft_s=0.066228572 recover_s=0.016983217 mel_s=0.012353944 wall_s=0.137831373
+worker id=7 pack_s=0.041881847 fft_s=0.066490809 recover_s=0.017066335 mel_s=0.012256475 wall_s=0.137813627
+worker id=3 pack_s=0.042082846 fft_s=0.066426147 recover_s=0.017082787 mel_s=0.012306086 wall_s=0.138014924
+worker id=4 pack_s=0.042254742 fft_s=0.067232125 recover_s=0.017058780 mel_s=0.012314308 wall_s=0.138977522
+pipeline setup_s=0.215012442 workers_s=0.139301844 tail_s=0.001450737 total_s=0.355765056
+io write_s=0.215522045
+	Command being timed: "/home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/reuse/profile /home/zsx/melspec-cpu-pipeline-simd/tmp/data/audio.pcm /tmp/cpu-simd-342-8bzFcU/tmprjxx57oz/out.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels 256 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 2.32
+	System time (seconds): 0.47
+	Percent of CPU this job got: 361%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.77
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 780960
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 211300
+	Voluntary context switches: 341
+	Involuntary context switches: 1028
+	Swaps: 0
+	File system inputs: 96430
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== default run=1 diagnostic_wall_s=0.796717914 ==
+io read_s=0.179182434
+setup before_resize_s=0.007112336 output_init_s=0.198920450
+worker id=0 pack_s=0.040429457 fft_s=0.063310809 recover_s=0.016420367 mel_s=0.011912731 wall_s=0.132187884
+worker id=1 pack_s=0.041105235 fft_s=0.065130125 recover_s=0.016733557 mel_s=0.012090680 wall_s=0.135185866
+worker id=2 pack_s=0.041542221 fft_s=0.064655832 recover_s=0.016811827 mel_s=0.012069372 wall_s=0.135196289
+worker id=5 pack_s=0.041547103 fft_s=0.064575568 recover_s=0.016817146 mel_s=0.012117825 wall_s=0.135179945
+worker id=9 pack_s=0.041393080 fft_s=0.064678865 recover_s=0.016805863 mel_s=0.012219685 wall_s=0.135216838
+worker id=14 pack_s=0.041668600 fft_s=0.064347851 recover_s=0.016870749 mel_s=0.012195470 wall_s=0.135200570
+worker id=10 pack_s=0.041788915 fft_s=0.064392918 recover_s=0.016887166 mel_s=0.012175336 wall_s=0.135361316
+worker id=6 pack_s=0.041849079 fft_s=0.064674938 recover_s=0.016939183 mel_s=0.012261036 wall_s=0.135846349
+worker id=11 pack_s=0.041717365 fft_s=0.065156663 recover_s=0.016809719 mel_s=0.012210598 wall_s=0.136011077
+worker id=12 pack_s=0.041980239 fft_s=0.064878651 recover_s=0.016884110 mel_s=0.012217062 wall_s=0.136077651
+worker id=8 pack_s=0.041577807 fft_s=0.065579031 recover_s=0.016877427 mel_s=0.012248200 wall_s=0.136403317
+worker id=7 pack_s=0.041530634 fft_s=0.065667932 recover_s=0.016921404 mel_s=0.012245996 wall_s=0.136487524
+worker id=4 pack_s=0.041963520 fft_s=0.065441340 recover_s=0.016951944 mel_s=0.012206800 wall_s=0.136687300
+worker id=13 pack_s=0.041990266 fft_s=0.065080719 recover_s=0.017028461 mel_s=0.012283132 wall_s=0.136500343
+worker id=3 pack_s=0.042125311 fft_s=0.065831613 recover_s=0.016972440 mel_s=0.012209340 wall_s=0.137258022
+worker id=15 pack_s=0.041520229 fft_s=0.066171905 recover_s=0.016963384 mel_s=0.012184706 wall_s=0.136958303
+pipeline setup_s=0.214349628 workers_s=0.137622625 tail_s=0.002056544 total_s=0.354028796
+io write_s=0.231278115
+	Command being timed: "/home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/reuse/profile /home/zsx/melspec-cpu-pipeline-simd/tmp/data/audio.pcm /tmp/cpu-simd-342-8bzFcU/tmprjxx57oz/out.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels 256 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 2.32
+	System time (seconds): 0.48
+	Percent of CPU this job got: 354%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.79
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 781840
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 211299
+	Voluntary context switches: 352
+	Involuntary context switches: 1030
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== small_mels run=0 diagnostic_wall_s=0.459409930 ==
+io read_s=0.174174641
+setup before_resize_s=0.001858328 output_init_s=0.049400629
+worker id=3 pack_s=0.040280450 fft_s=0.062076902 recover_s=0.016477802 mel_s=0.010109434 wall_s=0.129057747
+worker id=0 pack_s=0.040431699 fft_s=0.063084397 recover_s=0.016445647 mel_s=0.010069422 wall_s=0.130164515
+worker id=1 pack_s=0.040563701 fft_s=0.063210269 recover_s=0.016551547 mel_s=0.010147820 wall_s=0.130587275
+worker id=15 pack_s=0.040831773 fft_s=0.064368719 recover_s=0.016725320 mel_s=0.010274872 wall_s=0.132315551
+worker id=14 pack_s=0.040903144 fft_s=0.064896159 recover_s=0.016790008 mel_s=0.010227634 wall_s=0.132931780
+worker id=7 pack_s=0.041300430 fft_s=0.064738238 recover_s=0.016866566 mel_s=0.010427634 wall_s=0.133450221
+worker id=12 pack_s=0.041435662 fft_s=0.064653652 recover_s=0.016853351 mel_s=0.010293000 wall_s=0.133351389
+worker id=2 pack_s=0.041512539 fft_s=0.064825751 recover_s=0.016925361 mel_s=0.010355040 wall_s=0.133735288
+worker id=6 pack_s=0.041628866 fft_s=0.064899895 recover_s=0.016959036 mel_s=0.010371311 wall_s=0.133976867
+worker id=4 pack_s=0.041778044 fft_s=0.064836345 recover_s=0.016994674 mel_s=0.010394573 wall_s=0.134120704
+worker id=8 pack_s=0.041882574 fft_s=0.064333915 recover_s=0.017257409 mel_s=0.010456439 wall_s=0.134049769
+worker id=5 pack_s=0.041639005 fft_s=0.065276739 recover_s=0.017043903 mel_s=0.010434106 wall_s=0.134511046
+worker id=10 pack_s=0.041738938 fft_s=0.065573030 recover_s=0.016939525 mel_s=0.010412363 wall_s=0.134780293
+worker id=9 pack_s=0.041986085 fft_s=0.065596031 recover_s=0.016968364 mel_s=0.010463551 wall_s=0.135130949
+worker id=11 pack_s=0.042061369 fft_s=0.065766780 recover_s=0.017036859 mel_s=0.010427459 wall_s=0.135410091
+worker id=13 pack_s=0.041838153 fft_s=0.066315280 recover_s=0.017014688 mel_s=0.010464830 wall_s=0.135750005
+pipeline setup_s=0.059562259 workers_s=0.136250313 tail_s=0.002047522 total_s=0.197860043
+io write_s=0.068015448
+	Command being timed: "/home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/reuse/profile /home/zsx/melspec-cpu-pipeline-simd/tmp/data/audio.pcm /tmp/cpu-simd-342-8bzFcU/tmprjxx57oz/out.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels 64 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 2.21
+	System time (seconds): 0.23
+	Percent of CPU this job got: 535%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.45
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 342508
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 101535
+	Voluntary context switches: 271
+	Involuntary context switches: 880
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== small_mels run=1 diagnostic_wall_s=0.454115214 ==
+io read_s=0.176295554
+setup before_resize_s=0.001887857 output_init_s=0.049556652
+worker id=0 pack_s=0.040301262 fft_s=0.062439443 recover_s=0.016451453 mel_s=0.010044610 wall_s=0.129349680
+worker id=7 pack_s=0.040286162 fft_s=0.062667367 recover_s=0.016526762 mel_s=0.010127293 wall_s=0.129721046
+worker id=1 pack_s=0.040709500 fft_s=0.063059938 recover_s=0.016524267 mel_s=0.010130970 wall_s=0.130538197
+worker id=6 pack_s=0.041100601 fft_s=0.063517860 recover_s=0.016805336 mel_s=0.010249634 wall_s=0.131785781
+worker id=2 pack_s=0.041240879 fft_s=0.063677491 recover_s=0.016768908 mel_s=0.010283240 wall_s=0.132086824
+worker id=5 pack_s=0.040361606 fft_s=0.064938108 recover_s=0.016858507 mel_s=0.010298077 wall_s=0.132569245
+worker id=14 pack_s=0.040672676 fft_s=0.064776904 recover_s=0.016646744 mel_s=0.010232172 wall_s=0.132443594
+worker id=15 pack_s=0.040968475 fft_s=0.064817481 recover_s=0.016705577 mel_s=0.010270641 wall_s=0.132877435
+worker id=4 pack_s=0.041528571 fft_s=0.064234591 recover_s=0.016899277 mel_s=0.010424346 wall_s=0.133202649
+worker id=12 pack_s=0.041382128 fft_s=0.064539499 recover_s=0.016786406 mel_s=0.010243012 wall_s=0.133066738
+worker id=11 pack_s=0.041482613 fft_s=0.064727928 recover_s=0.016854879 mel_s=0.010221599 wall_s=0.133410310
+worker id=10 pack_s=0.041221946 fft_s=0.065180291 recover_s=0.016783753 mel_s=0.010279361 wall_s=0.133580706
+worker id=3 pack_s=0.041838272 fft_s=0.064383136 recover_s=0.016953917 mel_s=0.010421578 wall_s=0.133713779
+worker id=13 pack_s=0.041432951 fft_s=0.065164654 recover_s=0.016873245 mel_s=0.010279285 wall_s=0.133865823
+worker id=9 pack_s=0.042205078 fft_s=0.065322270 recover_s=0.017125869 mel_s=0.010537603 wall_s=0.135306511
+worker id=8 pack_s=0.042542296 fft_s=0.065130624 recover_s=0.017405894 mel_s=0.010568270 wall_s=0.135764392
+pipeline setup_s=0.059765411 workers_s=0.136193123 tail_s=0.002049487 total_s=0.198008013
+io write_s=0.058550370
+	Command being timed: "/home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/reuse/profile /home/zsx/melspec-cpu-pipeline-simd/tmp/data/audio.pcm /tmp/cpu-simd-342-8bzFcU/tmprjxx57oz/out.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels 64 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 2.19
+	System time (seconds): 0.22
+	Percent of CPU this job got: 536%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.45
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 342436
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 101540
+	Voluntary context switches: 387
+	Involuntary context switches: 890
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== large_fft run=0 diagnostic_wall_s=0.966685171 ==
+io read_s=0.177530297
+setup before_resize_s=0.013522692 output_init_s=0.201165837
+worker id=1 pack_s=0.093620651 fft_s=0.145423290 recover_s=0.033153910 mel_s=0.022548091 wall_s=0.294883509
+worker id=14 pack_s=0.092963792 fft_s=0.147018448 recover_s=0.033095701 mel_s=0.022475500 wall_s=0.295710914
+worker id=0 pack_s=0.093844153 fft_s=0.146042918 recover_s=0.033088204 mel_s=0.022662488 wall_s=0.295789211
+worker id=4 pack_s=0.093777037 fft_s=0.145330226 recover_s=0.034692244 mel_s=0.022781763 wall_s=0.296736051
+worker id=13 pack_s=0.093109602 fft_s=0.147994249 recover_s=0.033221772 mel_s=0.022631964 wall_s=0.297116189
+worker id=15 pack_s=0.093978878 fft_s=0.146933288 recover_s=0.033275788 mel_s=0.022778953 wall_s=0.297122079
+worker id=7 pack_s=0.094131861 fft_s=0.146911451 recover_s=0.034413130 mel_s=0.022694592 wall_s=0.298310033
+worker id=10 pack_s=0.093578070 fft_s=0.148540585 recover_s=0.033505018 mel_s=0.022728090 wall_s=0.298502086
+worker id=11 pack_s=0.093391705 fft_s=0.148960590 recover_s=0.033302401 mel_s=0.022723577 wall_s=0.298521349
+worker id=12 pack_s=0.093717301 fft_s=0.149692748 recover_s=0.033283819 mel_s=0.022756176 wall_s=0.299594898
+worker id=9 pack_s=0.094044964 fft_s=0.149465650 recover_s=0.033411211 mel_s=0.022703097 wall_s=0.299777785
+worker id=2 pack_s=0.095696126 fft_s=0.147929270 recover_s=0.033449073 mel_s=0.022994798 wall_s=0.300220770
+worker id=5 pack_s=0.095216933 fft_s=0.148746217 recover_s=0.033422152 mel_s=0.022681877 wall_s=0.300219198
+worker id=3 pack_s=0.095107793 fft_s=0.148884070 recover_s=0.033499488 mel_s=0.022728759 wall_s=0.300368380
+worker id=8 pack_s=0.094427264 fft_s=0.148463482 recover_s=0.034469565 mel_s=0.022770221 wall_s=0.300273337
+worker id=6 pack_s=0.094367782 fft_s=0.149667517 recover_s=0.033487920 mel_s=0.023830802 wall_s=0.301501988
+pipeline setup_s=0.230279053 workers_s=0.301926241 tail_s=0.003493706 total_s=0.535699014
+io write_s=0.222950505
+	Command being timed: "/home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/reuse/profile /home/zsx/melspec-cpu-pipeline-simd/tmp/data/audio.pcm /tmp/cpu-simd-342-8bzFcU/tmprjxx57oz/out.bin --sr 96000 --n_fft 16384 --hop_length 128 --n_mels 256 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 4.93
+	System time (seconds): 0.46
+	Percent of CPU this job got: 561%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.96
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 789916
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 217336
+	Voluntary context switches: 365
+	Involuntary context switches: 1985
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== large_fft run=1 diagnostic_wall_s=0.986147209 ==
+io read_s=0.181375596
+setup before_resize_s=0.013094074 output_init_s=0.204206945
+worker id=13 pack_s=0.092175181 fft_s=0.146748389 recover_s=0.032962674 mel_s=0.022576868 wall_s=0.294611003
+worker id=12 pack_s=0.092400581 fft_s=0.147731860 recover_s=0.033096496 mel_s=0.022466046 wall_s=0.295843324
+worker id=0 pack_s=0.095117547 fft_s=0.145079711 recover_s=0.033143950 mel_s=0.022762892 wall_s=0.296244376
+worker id=10 pack_s=0.094389112 fft_s=0.146668237 recover_s=0.033331959 mel_s=0.022782675 wall_s=0.297322680
+worker id=11 pack_s=0.093518595 fft_s=0.147655781 recover_s=0.033311788 mel_s=0.022707170 wall_s=0.297332804
+worker id=15 pack_s=0.094321021 fft_s=0.146849017 recover_s=0.033339797 mel_s=0.022694217 wall_s=0.297339801
+worker id=8 pack_s=0.094453883 fft_s=0.147425506 recover_s=0.033531147 mel_s=0.022713703 wall_s=0.298256830
+worker id=4 pack_s=0.095166155 fft_s=0.146703809 recover_s=0.033470333 mel_s=0.022912680 wall_s=0.298406369
+worker id=2 pack_s=0.094167648 fft_s=0.145811359 recover_s=0.036077994 mel_s=0.022821845 wall_s=0.299023147
+worker id=1 pack_s=0.094460955 fft_s=0.146508140 recover_s=0.034908805 mel_s=0.023029910 wall_s=0.299059789
+worker id=14 pack_s=0.095274049 fft_s=0.147307823 recover_s=0.033328717 mel_s=0.022726602 wall_s=0.298781921
+worker id=3 pack_s=0.093333386 fft_s=0.146716993 recover_s=0.036116179 mel_s=0.022792490 wall_s=0.299098467
+worker id=7 pack_s=0.096871484 fft_s=0.146778095 recover_s=0.033289081 mel_s=0.022581920 wall_s=0.299661581
+worker id=9 pack_s=0.093270716 fft_s=0.150040336 recover_s=0.033736619 mel_s=0.022702710 wall_s=0.299897978
+worker id=5 pack_s=0.094913528 fft_s=0.148669136 recover_s=0.033595647 mel_s=0.022841562 wall_s=0.300173473
+worker id=6 pack_s=0.094662886 fft_s=0.149638110 recover_s=0.033379507 mel_s=0.022604929 wall_s=0.300425552
+pipeline setup_s=0.233015861 workers_s=0.300754691 tail_s=0.001967597 total_s=0.535738130
+io write_s=0.236836375
+	Command being timed: "/home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/reuse/profile /home/zsx/melspec-cpu-pipeline-simd/tmp/data/audio.pcm /tmp/cpu-simd-342-8bzFcU/tmprjxx57oz/out.bin --sr 96000 --n_fft 16384 --hop_length 128 --n_mels 256 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 4.91
+	System time (seconds): 0.49
+	Percent of CPU this job got: 551%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.98
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 789948
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 217335
+	Voluntary context switches: 366
+	Involuntary context switches: 1983
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== narrow_band run=0 diagnostic_wall_s=0.939761165 ==
+io read_s=0.179802170
+setup before_resize_s=0.013055564 output_init_s=0.201384815
+worker id=4 pack_s=0.092211336 fft_s=0.145618334 recover_s=0.011670192 mel_s=0.009814000 wall_s=0.259447734
+worker id=0 pack_s=0.091352299 fft_s=0.146673924 recover_s=0.011581856 mel_s=0.009798908 wall_s=0.259538795
+worker id=15 pack_s=0.092946792 fft_s=0.145540195 recover_s=0.011644740 mel_s=0.009925134 wall_s=0.260202518
+worker id=13 pack_s=0.091203875 fft_s=0.147672572 recover_s=0.011612640 mel_s=0.009760619 wall_s=0.260388541
+worker id=12 pack_s=0.090503767 fft_s=0.148734635 recover_s=0.011565367 mel_s=0.009629213 wall_s=0.260564068
+worker id=7 pack_s=0.091622639 fft_s=0.147879431 recover_s=0.011689490 mel_s=0.009691599 wall_s=0.261019180
+worker id=5 pack_s=0.091864704 fft_s=0.147832002 recover_s=0.011612600 mel_s=0.009724169 wall_s=0.261165741
+worker id=11 pack_s=0.091319149 fft_s=0.148099593 recover_s=0.011690766 mel_s=0.009721182 wall_s=0.260970103
+worker id=1 pack_s=0.092484085 fft_s=0.147319119 recover_s=0.011731845 mel_s=0.009747713 wall_s=0.261421352
+worker id=10 pack_s=0.092019257 fft_s=0.148046082 recover_s=0.011741237 mel_s=0.009806750 wall_s=0.261754326
+worker id=14 pack_s=0.092015910 fft_s=0.148136333 recover_s=0.011640029 mel_s=0.009748156 wall_s=0.261685693
+worker id=3 pack_s=0.092232006 fft_s=0.148092134 recover_s=0.011753698 mel_s=0.009837821 wall_s=0.262062864
+worker id=9 pack_s=0.092287510 fft_s=0.148172680 recover_s=0.011708452 mel_s=0.009773964 wall_s=0.262084811
+worker id=2 pack_s=0.092963636 fft_s=0.148562420 recover_s=0.011724924 mel_s=0.009753354 wall_s=0.263141377
+worker id=6 pack_s=0.091946775 fft_s=0.149834853 recover_s=0.011708160 mel_s=0.009765834 wall_s=0.263387547
+worker id=8 pack_s=0.092043590 fft_s=0.149643251 recover_s=0.011724274 mel_s=0.009822059 wall_s=0.263378543
+pipeline setup_s=0.230116829 workers_s=0.263780315 tail_s=0.002729746 total_s=0.496626831
+io write_s=0.233207385
+	Command being timed: "/home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/reuse/profile /home/zsx/melspec-cpu-pipeline-simd/tmp/data/audio.pcm /tmp/cpu-simd-342-8bzFcU/tmprjxx57oz/out.bin --sr 96000 --n_fft 16384 --hop_length 128 --n_mels 256 --f_min 300.0 --f_max 8000.0"
+	User time (seconds): 4.33
+	System time (seconds): 0.49
+	Percent of CPU this job got: 515%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.93
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 790340
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 217334
+	Voluntary context switches: 383
+	Involuntary context switches: 1769
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== narrow_band run=1 diagnostic_wall_s=0.934640352 ==
+io read_s=0.173738004
+setup before_resize_s=0.013068650 output_init_s=0.200188495
+worker id=0 pack_s=0.090358213 fft_s=0.145833203 recover_s=0.011518344 mel_s=0.009593356 wall_s=0.257431532
+worker id=8 pack_s=0.090366079 fft_s=0.145780129 recover_s=0.011532821 mel_s=0.009778897 wall_s=0.257592972
+worker id=5 pack_s=0.090969413 fft_s=0.147883965 recover_s=0.011721789 mel_s=0.009753557 wall_s=0.260460202
+worker id=1 pack_s=0.091626013 fft_s=0.147455715 recover_s=0.011700551 mel_s=0.009681695 wall_s=0.260597131
+worker id=4 pack_s=0.092004126 fft_s=0.147409584 recover_s=0.011722074 mel_s=0.009768546 wall_s=0.261037841
+worker id=2 pack_s=0.093659207 fft_s=0.146044646 recover_s=0.011667245 mel_s=0.009726560 wall_s=0.261227802
+worker id=13 pack_s=0.091541612 fft_s=0.147798676 recover_s=0.011647297 mel_s=0.009819709 wall_s=0.260938750
+worker id=3 pack_s=0.091776689 fft_s=0.148092737 recover_s=0.011723885 mel_s=0.009736233 wall_s=0.261466563
+worker id=11 pack_s=0.093272203 fft_s=0.146438907 recover_s=0.011647739 mel_s=0.009779561 wall_s=0.261283814
+worker id=15 pack_s=0.092663007 fft_s=0.146885670 recover_s=0.011803106 mel_s=0.009720635 wall_s=0.261207587
+worker id=14 pack_s=0.092233895 fft_s=0.147504993 recover_s=0.011715675 mel_s=0.009800670 wall_s=0.261386547
+worker id=7 pack_s=0.093226426 fft_s=0.146989850 recover_s=0.011631895 mel_s=0.009732461 wall_s=0.261713496
+worker id=10 pack_s=0.091719562 fft_s=0.148720236 recover_s=0.011670671 mel_s=0.009768873 wall_s=0.262013459
+worker id=12 pack_s=0.092470789 fft_s=0.148100260 recover_s=0.011663415 mel_s=0.009719667 wall_s=0.262086496
+worker id=6 pack_s=0.091716992 fft_s=0.149188521 recover_s=0.011709941 mel_s=0.009805724 wall_s=0.262556958
+worker id=9 pack_s=0.094557859 fft_s=0.146897882 recover_s=0.011625799 mel_s=0.009924579 wall_s=0.263149941
+pipeline setup_s=0.228750695 workers_s=0.263546846 tail_s=0.002403689 total_s=0.494701248
+io write_s=0.231207064
+	Command being timed: "/home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/reuse/profile /home/zsx/melspec-cpu-pipeline-simd/tmp/data/audio.pcm /tmp/cpu-simd-342-8bzFcU/tmprjxx57oz/out.bin --sr 96000 --n_fft 16384 --hop_length 128 --n_mels 256 --f_min 300.0 --f_max 8000.0"
+	User time (seconds): 4.32
+	System time (seconds): 0.49
+	Percent of CPU this job got: 517%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.93
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 789696
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 217336
+	Voluntary context switches: 348
+	Involuntary context switches: 1766
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS

@@ -37,6 +37,19 @@ elif [ "$MODE" = reuse ]; then
     "$PY" -u scripts/cpu_pipeline_profile.py --source src/melspec.cpp --tag reuse --runs 2 \
         --cppflag=-DMELSPEC_PACK_REUSE=1
     cp tmp/pipeline-profile/reuse/results.json "tmp/logs/reuse-profile-$SLURM_JOB_ID.json"
+elif [ "$MODE" = reuse-confirm ]; then
+    g++ "${flags[@]}" src/main.cpp tmp/control/melspec.cpp -o tmp/bin/frozen-b16
+    g++ "${flags[@]}" -DMELSPEC_PACK_REUSE=1 src/main.cpp src/melspec.cpp -o tmp/bin/reuse-b16
+    g++ "${flags[@]}" -DMELSPEC_PACK_REUSE=1 scripts/cpu_pipeline_interface_check.cpp src/melspec.cpp -o tmp/bin/interface-reuse
+    tmp/bin/interface-reuse
+    g++ -std=c++17 -O1 -g -march=native -pthread -Iinclude -DMELSPEC_FP32_BATCH=16 \
+        -DMELSPEC_PACK_REUSE=1 -fsanitize=address,undefined -fno-omit-frame-pointer \
+        scripts/cpu_pipeline_interface_check.cpp src/melspec.cpp -o tmp/bin/sanitize-reuse
+    ASAN_OPTIONS=detect_leaks=1 tmp/bin/sanitize-reuse
+    "$PY" -u scripts/multi_bench.py frozen=tmp/bin/frozen-b16 reuse=tmp/bin/reuse-b16 --runs 8 \
+        --out "tmp/logs/reuse-confirm-$SLURM_JOB_ID.json"
+    "$PY" -u validate.py tmp/bin/reuse-b16 --runs 3 | tee "tmp/logs/official-reuse-$SLURM_JOB_ID.txt"
+    grep -q 'Result: 4/4 PASSED' "tmp/logs/official-reuse-$SLURM_JOB_ID.txt"
 else
     echo 'Set MODE=profile until a separately reviewed experiment is available.' >&2
     exit 2
