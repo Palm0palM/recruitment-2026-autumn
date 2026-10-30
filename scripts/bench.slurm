@@ -2,7 +2,9 @@
 #SBATCH -J melspec-bench
 #SBATCH -w hepnode[1-3]
 #SBATCH -N 1
-#SBATCH -n 16
+#SBATCH -n 1
+#SBATCH --cpus-per-task=16
+#SBATCH --hint=nomultithread
 #SBATCH --output=logs/bench-%j.out
 #SBATCH --error=logs/bench-%j.err
 #
@@ -24,7 +26,7 @@ echo "CPU: $(nproc)  被测程序: ${VARIANT}"
 lscpu | grep -E "Model name|^CPU\(s\)" || true
 free -g | head -2 || true
 
-export OMP_NUM_THREADS="${OMP_NUM_THREADS:-${SLURM_NTASKS:-16}}"
+export OMP_NUM_THREADS="${OMP_NUM_THREADS:-${SLURM_CPUS_PER_TASK:-16}}"
 export OMP_PROC_BIND=close
 export OMP_PLACES=cores
 

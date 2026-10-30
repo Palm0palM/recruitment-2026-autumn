@@ -3,6 +3,7 @@
 #SBATCH -w hepnode[1-3]
 #SBATCH -N 1
 #SBATCH -n 1
+#SBATCH --hint=nomultithread
 #SBATCH --output=logs/perf-%j.out
 #SBATCH --error=logs/perf-%j.err
 #
