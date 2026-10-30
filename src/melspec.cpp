@@ -12,6 +12,17 @@
 
 #if defined(__AVX2__) && defined(__FMA__)
 #include <immintrin.h>
+
+static inline void transpose4(__m256d& a, __m256d& b, __m256d& c, __m256d& d) {
+    auto ab_lo = _mm256_unpacklo_pd(a, b);
+    auto ab_hi = _mm256_unpackhi_pd(a, b);
+    auto cd_lo = _mm256_unpacklo_pd(c, d);
+    auto cd_hi = _mm256_unpackhi_pd(c, d);
+    a = _mm256_permute2f128_pd(ab_lo, cd_lo, 0x20);
+    b = _mm256_permute2f128_pd(ab_hi, cd_hi, 0x20);
+    c = _mm256_permute2f128_pd(ab_lo, cd_lo, 0x31);
+    d = _mm256_permute2f128_pd(ab_hi, cd_hi, 0x31);
+}
 #endif
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -99,6 +110,49 @@ struct FFTPlan {
         for (const auto& stage : stages) {
             const int len = stage.len;
             const int quarter = len / 4;
+#if defined(__AVX2__) && defined(__FMA__)
+            if (quarter == 1 && n >= 16) {
+                for (int i = 0; i < n; i += 16) {
+                    auto ar = _mm256_loadu_pd(re + i);
+                    auto br = _mm256_loadu_pd(re + i + 4);
+                    auto cr = _mm256_loadu_pd(re + i + 8);
+                    auto dr = _mm256_loadu_pd(re + i + 12);
+                    auto ai = _mm256_loadu_pd(im + i);
+                    auto bi = _mm256_loadu_pd(im + i + 4);
+                    auto ci = _mm256_loadu_pd(im + i + 8);
+                    auto di = _mm256_loadu_pd(im + i + 12);
+                    transpose4(ar, br, cr, dr);
+                    transpose4(ai, bi, ci, di);
+                    auto sum01r = _mm256_add_pd(ar, br);
+                    auto sum01i = _mm256_add_pd(ai, bi);
+                    auto dif01r = _mm256_sub_pd(ar, br);
+                    auto dif01i = _mm256_sub_pd(ai, bi);
+                    auto sum23r = _mm256_add_pd(cr, dr);
+                    auto sum23i = _mm256_add_pd(ci, di);
+                    auto dif23r = _mm256_sub_pd(cr, dr);
+                    auto dif23i = _mm256_sub_pd(ci, di);
+                    ar = _mm256_add_pd(sum01r, sum23r);
+                    ai = _mm256_add_pd(sum01i, sum23i);
+                    br = _mm256_add_pd(dif01r, dif23i);
+                    bi = _mm256_sub_pd(dif01i, dif23r);
+                    cr = _mm256_sub_pd(sum01r, sum23r);
+                    ci = _mm256_sub_pd(sum01i, sum23i);
+                    dr = _mm256_sub_pd(dif01r, dif23i);
+                    di = _mm256_add_pd(dif01i, dif23r);
+                    transpose4(ar, br, cr, dr);
+                    transpose4(ai, bi, ci, di);
+                    _mm256_storeu_pd(re + i, ar);
+                    _mm256_storeu_pd(re + i + 4, br);
+                    _mm256_storeu_pd(re + i + 8, cr);
+                    _mm256_storeu_pd(re + i + 12, dr);
+                    _mm256_storeu_pd(im + i, ai);
+                    _mm256_storeu_pd(im + i + 4, bi);
+                    _mm256_storeu_pd(im + i + 8, ci);
+                    _mm256_storeu_pd(im + i + 12, di);
+                }
+                continue;
+            }
+#endif
             for (int i = 0; i < n; i += len) {
                 int j = 0;
 #if defined(__AVX2__) && defined(__FMA__)
