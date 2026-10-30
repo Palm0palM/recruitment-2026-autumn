@@ -64,7 +64,9 @@ compute_melspectrogram(y, sr, n_fft, hop, n_mels, f_min, f_max, out)
 
 ## 4. 边界与错误语义
 
-- **强制 CPU**：不探测、不初始化 CUDA。CPU-only 二进制不链接 CUDA Runtime / cuFFT。
+- **强制 CPU**：不探测、不初始化 CUDA 设备。CPU-only 二进制完全不链接 CUDA
+  Runtime / cuFFT；统一二进制因链接关系仍会在启动时加载 CUDA DSO，
+  但不会打开 `/dev/nvidia*`，也不建立上下文。
 - **强制 CUDA**：设备不可用、或二进制未编译 CUDA 时抛 `std::runtime_error`，
   由 `main` 打印 `Error: ...` 并以非零码退出。
 - **auto**：只有“设备不可用”这一环境事实允许回退 CPU；CUDA 运行期真实错误

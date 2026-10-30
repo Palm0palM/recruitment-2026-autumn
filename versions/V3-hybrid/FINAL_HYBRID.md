@@ -30,7 +30,7 @@
 | CUDA 后端（冻结 async 流水线） | `src/melspec_cuda.cu` |
 | 私有后端接口 | `include/melspec_backend.h`、`include/melspec_cuda.h` |
 | 架构与错误语义 | `versions/V3-hybrid/ARCHITECTURE.md` |
-| 全部测量与原始数据 | `versions/V3-hybrid/BENCHMARK.md`、`raw/h0|h1|h2/` |
+| 全部测量与原始数据 | `versions/V3-hybrid/BENCHMARK.md`、`raw/h0/`、`raw/h1/`、`raw/h2/` |
 | 成本模型与交叉点 | `versions/V3-hybrid/DISPATCH_MODEL.md` |
 | 测量/拟合/汇总脚本 | `scripts/hybrid_bench.py`、`fit_hybrid_model.py`、`summarize_hybrid.py` |
 
@@ -60,7 +60,7 @@ MELSPEC_BACKEND=cuda        → 先检查设备可用性，不可用则报错；
 | 38 点矩阵逐点校验（auto 也校验） | 38/38 PASS（`raw/h2/hybrid-h2-397.json`） |
 | 无可见 GPU 时 auto 回退 CPU | 4/4 PASS（`raw/h2/h2-official-nogpu-397.txt`） |
 | 无可见 GPU 时强制 CUDA | 非零退出 + 明确报错（`raw/h2/h2-forced-nogpu-397.txt`） |
-| auto 在 CPU 决策下不触碰 CUDA | `strace` 无 `libcuda` / `/dev/nvidia` 访问（`raw/h2/h2-no-cuda-init-397.txt`） |
+| auto 在 CPU 决策下不初始化设备 | `strace`：`/dev/nvidia*` 打开 0 次（强制 CUDA 为 46 次）；`libcuda.so` 的 dlopen 来自链接的 `libcudart`（`raw/h2/h2-no-cuda-init-397.txt`） |
 | auto 在 CUDA 真实错误时 | 直接报错退出，不回退（本地证据 `raw/h2/local-auto-error-and-cpu-path.txt`） |
 
 ## 5. 性能结果
