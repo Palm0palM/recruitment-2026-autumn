@@ -1,0 +1,32 @@
+git_head=780d8aff99d2e1074dff909cfae192528bd44902
+ M Makefile
+ M src/melspec.cpp
+?? include/melspec_backend.h
+?? include/melspec_cuda.h
+?? src/melspec_cpu.cpp
+?? src/melspec_cuda.cu
+?? versions/V4-hybrid/
+
+source hashes
+f49e47c25bec6d342fa3bbe97b4b4c4c405d3d0e37799d936dbae573d28d0103  src/melspec.cpp
+8ae8c3692aa78057bc28337766146c60877f57b525c92df37a17f79bb0d5d27e  src/melspec_cpu.cpp
+66bf1b66a249869476a35c89a4404864a1f404ee36f6a7668f0e47271bfc83e2  src/melspec_cuda.cu
+dd886cff171e7bf66b0e892c63d2a850a47719076b66ad18c9b4a9d139b0b313  include/melspec_backend.h
+6eb64b3912ed90cbb348a7b65ef4ea9f75b57df4a14fd90c2e57adad26df7c22  include/melspec_cuda.h
+ae96df25e59816e6162e2cee7101c380d0058c820d1771cea302d0e91de2ea9d  include/melspec.h
+360795c3947256b72e11af7db60664e1243009db6e7d6eae1de3dddc674b1f26  Makefile
+
+CPU-only linkage
+no CUDA/cuFFT DSO
+
+CPU+CUDA linkage
+	libcufft.so.12 => /opt/cuda/lib64/libcufft.so.12 (0x00007b35f9000000)
+	libcudart.so.13 => /opt/cuda/lib64/libcudart.so.13 (0x00007b35f8c00000)
+
+public/backend symbols
+0000000000006cc0 T compute_melspectrogram(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)
+0000000000007290 T hz_to_mel(double)
+00000000000072c0 T mel_to_hz(double)
+0000000000009c30 T build_mel_filterbank(int, int, int, double, double)
+000000000000a410 T compute_melspectrogram_cpu(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)
+0000000000010f70 T compute_melspectrogram_cuda(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)

@@ -1,0 +1,66 @@
+git_head=780d8aff99d2e1074dff909cfae192528bd44902
+ M Makefile
+ M src/melspec.cpp
+?? include/melspec_backend.h
+?? include/melspec_cuda.h
+?? src/melspec_cpu.cpp
+?? src/melspec_cuda.cu
+?? versions/V4-hybrid/
+
+CPU frozen lineage diff (only include + rename expected):
+--- tmp/cpu-frozen.cpp	2026-10-31 02:24:51.559299928 +0800
++++ src/melspec_cpu.cpp	2026-10-31 02:23:04.399293386 +0800
+@@ -1,4 +1,5 @@
+ #include "melspec.h"
++#include "melspec_backend.h"
+
+ #include <algorithm>
+ #include <array>
+@@ -1016,9 +1017,9 @@
+ // Mel spectrogram computation
+ // ─────────────────────────────────────────────────────────────────────────────
+
+-void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
+-                            int hop_length, int n_mels, double f_min,
+-                            double f_max, std::vector<double>& output) {
++void compute_melspectrogram_cpu(const std::vector<double>& y, int sr, int n_fft,
++                                int hop_length, int n_mels, double f_min,
++                                double f_max, std::vector<double>& output) {
+     const int n_samples = static_cast<int>(y.size());
+     const int n_frames = 1 + (n_samples - n_fft) / hop_length;
+     const int n_bins = n_fft / 2 + 1;
+
+CUDA frozen lineage diff (include + availability probe):
+--- tmp/cuda-frozen.cu	2026-10-31 02:24:51.563299928 +0800
++++ src/melspec_cuda.cu	2026-10-31 02:23:19.063294451 +0800
+@@ -1,5 +1,6 @@
+ #include "melspec_cuda.h"
+ #include "melspec.h"
++#include "melspec_backend.h"
+
+ #include <cuda_runtime.h>
+ #include <cufft.h>
+@@ -544,3 +545,13 @@
+                   mel_ms, pipeline_sync_ms, staging_alloc_ms, d2h_ms, host_convert_ms,
+                   async_output_total_ms, profile_elapsed(total_start));
+ }
++
++bool cuda_backend_available() {
++    int count = 0;
++    const cudaError_t status = cudaGetDeviceCount(&count);
++    if (status == cudaSuccess) return count > 0;
++    if (status == cudaErrorNoDevice || status == cudaErrorInsufficientDriver)
++        return false;
++    throw std::runtime_error(std::string("cudaGetDeviceCount: ") +
++                             cudaGetErrorString(status));
++}
+
+hashes:
+f49e47c25bec6d342fa3bbe97b4b4c4c405d3d0e37799d936dbae573d28d0103  src/melspec.cpp
+8ae8c3692aa78057bc28337766146c60877f57b525c92df37a17f79bb0d5d27e  src/melspec_cpu.cpp
+66bf1b66a249869476a35c89a4404864a1f404ee36f6a7668f0e47271bfc83e2  src/melspec_cuda.cu
+dd886cff171e7bf66b0e892c63d2a850a47719076b66ad18c9b4a9d139b0b313  include/melspec_backend.h
+6eb64b3912ed90cbb348a7b65ef4ea9f75b57df4a14fd90c2e57adad26df7c22  include/melspec_cuda.h
+360795c3947256b72e11af7db60664e1243009db6e7d6eae1de3dddc674b1f26  Makefile
+56f074b83c1a22241beb5ba9e5f2e66a8ecf98662ca666b3e740d19e81007269  tmp/bin/hybrid-cpu-only
+59cf80346599b236644b47f092783d2fea695e57ee93c1901c18e4bd51ea0ad8  tmp/bin/hybrid-cuda-sm89

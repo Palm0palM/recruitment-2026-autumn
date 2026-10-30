@@ -3,10 +3,7 @@ CPPFLAGS = -I./include
 CXXFLAGS = -std=c++17 -Wall -Wextra -O3 -march=native -pthread
 LDLIBS = -pthread
 
-# Select the fastest available CPU backend at build time. Explicit overrides:
-#   make MELSPEC_FP32_BATCH=16   # AVX-512F FP32 Batch16
-#   make MELSPEC_FP32_BATCH=8    # AVX2+FMA FP32 Batch8
-#   make MELSPEC_FP32_BATCH=0    # strict FP64
+# CPU backend selection follows the frozen SIMD rules.
 TARGET_MACROS = $(shell $(CXX) $(CXXFLAGS) -dM -E -x c++ /dev/null 2>/dev/null)
 MELSPEC_FP32_BATCH ?= $(if $(findstring __AVX512F__,$(TARGET_MACROS)),16,$(if $(and $(findstring __AVX2__,$(TARGET_MACROS)),$(findstring __FMA__,$(TARGET_MACROS))),8,0))
 ifneq ($(filter 0 8 16,$(MELSPEC_FP32_BATCH)),$(MELSPEC_FP32_BATCH))
@@ -14,27 +11,102 @@ $(error MELSPEC_FP32_BATCH must be 0, 8, or 16)
 endif
 CPPFLAGS += -DMELSPEC_FP32_BATCH=$(MELSPEC_FP32_BATCH)
 
+# CUDA backend uses the frozen V3 default configuration.
+CUDA ?= 1
+CUDA_HOME ?= /opt/cuda
+NVCC ?= $(CUDA_HOME)/bin/nvcc
+CUDA_ARCH ?= 89
+CUDA_PRECISION ?= 32
+CUDA_BATCH ?= 512
+CUDA_FUSED ?= 1
+CUDA_PROFILE ?= 0
+CUDA_PINNED ?= 0
+CUDA_OVERLAP_INIT ?= 1
+CUDA_DEFER_RESIZE ?= 0
+CUDA_ASYNC_OUTPUT ?= 1
+CUDA_RESIZE_THREAD ?= 1
+CUDA_STAGING_ROWS ?= 16
+
 SRCS = $(wildcard src/*.cpp)
 INCS = $(wildcard include/*.h)
-BUILD = tmp/build/fp$(MELSPEC_FP32_BATCH)
+BUILD = tmp/build/hybrid-cpu/fp$(MELSPEC_FP32_BATCH)
 OBJS = $(patsubst src/%.cpp,$(BUILD)/%.o,$(SRCS))
 EXEC = melspec
 
-.PHONY: all clean test format
+ifeq ($(CUDA),1)
+BUILD = tmp/build/hybrid-cuda-fp$(MELSPEC_FP32_BATCH)-arch$(CUDA_ARCH)-p$(CUDA_PRECISION)-b$(CUDA_BATCH)-f$(CUDA_FUSED)-pr$(CUDA_PROFILE)-pin$(CUDA_PINNED)-o$(CUDA_OVERLAP_INIT)-d$(CUDA_DEFER_RESIZE)-a$(CUDA_ASYNC_OUTPUT)-t$(CUDA_RESIZE_THREAD)-r$(CUDA_STAGING_ROWS)
+OBJS = $(patsubst src/%.cpp,$(BUILD)/%.o,$(SRCS))
+CPPFLAGS += -DMELSPEC_WITH_CUDA=1 -DMELSPEC_CUDA_PRECISION=$(CUDA_PRECISION)
+CPPFLAGS += -DMELSPEC_CUDA_BATCH=$(CUDA_BATCH) -DMELSPEC_CUDA_FUSED=$(CUDA_FUSED)
+CPPFLAGS += -DMELSPEC_CUDA_PINNED=$(CUDA_PINNED) -DMELSPEC_CUDA_OVERLAP_INIT=$(CUDA_OVERLAP_INIT)
+CPPFLAGS += -DMELSPEC_CUDA_DEFER_RESIZE=$(CUDA_DEFER_RESIZE)
+CPPFLAGS += -DMELSPEC_CUDA_ASYNC_OUTPUT=$(CUDA_ASYNC_OUTPUT)
+CPPFLAGS += -DMELSPEC_CUDA_RESIZE_THREAD=$(CUDA_RESIZE_THREAD)
+CPPFLAGS += -DMELSPEC_CUDA_STAGING_ROWS=$(CUDA_STAGING_ROWS)
+ifeq ($(CUDA_PROFILE),1)
+CPPFLAGS += -DMELSPEC_CUDA_PROFILE=1
+else ifneq ($(CUDA_PROFILE),0)
+$(error CUDA_PROFILE must be 0 or 1)
+endif
+CPPFLAGS += -I$(CUDA_HOME)/targets/x86_64-linux/include
+NVCCFLAGS = -std=c++17 -O3 -arch=sm_$(CUDA_ARCH) -Xcompiler -O3,-march=native,-pthread
+LDLIBS += -L$(CUDA_HOME)/lib64 -Wl,-rpath,$(CUDA_HOME)/lib64 -lcufft -lcudart
+OBJS += $(BUILD)/melspec_cuda.o
+else ifneq ($(CUDA),0)
+$(error CUDA must be 0 or 1)
+endif
+
+ifneq ($(filter 0 1,$(CUDA_PINNED)),)
+else
+$(error CUDA_PINNED must be 0 or 1)
+endif
+ifneq ($(filter 0 1,$(CUDA_OVERLAP_INIT)),)
+else
+$(error CUDA_OVERLAP_INIT must be 0 or 1)
+endif
+ifneq ($(filter 0 1,$(CUDA_DEFER_RESIZE)),)
+else
+$(error CUDA_DEFER_RESIZE must be 0 or 1)
+endif
+ifneq ($(filter 0 1,$(CUDA_ASYNC_OUTPUT)),)
+else
+$(error CUDA_ASYNC_OUTPUT must be 0 or 1)
+endif
+ifneq ($(filter 0 1,$(CUDA_RESIZE_THREAD)),)
+else
+$(error CUDA_RESIZE_THREAD must be 0 or 1)
+endif
+ifeq ($(shell test "$(CUDA_STAGING_ROWS)" -gt 0 && echo yes),yes)
+else
+$(error CUDA_STAGING_ROWS must be positive)
+endif
+ifneq ($(filter 32 64,$(CUDA_PRECISION)),)
+else
+$(error CUDA_PRECISION must be 32 or 64)
+endif
+
+.PHONY: all clean test format FORCE
 
 all: $(EXEC)
 
-$(EXEC): $(OBJS)
+$(EXEC): $(OBJS) | FORCE
+	@mkdir -p $(dir $@)
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
 $(BUILD)/%.o: src/%.cpp $(INCS) Makefile
 	@mkdir -p $(BUILD)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -MMD -MP -o $@ -c $<
 
+$(BUILD)/melspec_cuda.o: src/melspec_cuda.cu $(INCS) Makefile
+	@mkdir -p $(BUILD)
+	$(NVCC) $(CPPFLAGS) $(NVCCFLAGS) -MMD -MP -o $@ -c $<
+
 -include $(OBJS:.o=.d)
 
+FORCE:
+
 clean:
-	rm -f $(OBJS) $(OBJS:.o=.d) $(EXEC)
+	rm -rf tmp/build $(EXEC)
 
 test: $(EXEC)
 	python3 ./validate.py ./$(EXEC)
