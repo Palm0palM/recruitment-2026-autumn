@@ -1,5 +1,9 @@
 #include "melspec.h"
 
+#ifdef MELSPEC_CUDA
+#include "melspec_cuda.h"
+#endif
+
 #include <algorithm>
 #include <cassert>
 #include <cmath>
@@ -129,6 +133,11 @@ std::vector<std::vector<double>> build_mel_filterbank(int sr, int n_fft,
 void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                             int hop_length, int n_mels, double f_min,
                             double f_max, std::vector<double>& output) {
+#ifdef MELSPEC_CUDA
+    compute_melspectrogram_cuda(y, sr, n_fft, hop_length, n_mels, f_min, f_max,
+                                output);
+    return;
+#endif
     const int n_samples = static_cast<int>(y.size());
     const int n_frames = 1 + (n_samples - n_fft) / hop_length;
     const int n_bins = n_fft / 2 + 1;

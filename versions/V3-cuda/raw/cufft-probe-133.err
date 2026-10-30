@@ -1,0 +1,5 @@
+cufft_layout_probe.cu(56): warning #177-D: function "<unnamed>::CufftPlan::operator=(<unnamed>::CufftPlan &&) noexcept" was declared but never referenced
+      CufftPlan& operator=(CufftPlan&& other) noexcept {
+                 ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"

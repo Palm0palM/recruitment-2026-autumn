@@ -1,0 +1,26 @@
+baseline commit=b4552f3962751b5a02d2aa56798907c5a1c29afc node=hepnode3
+Cpus_allowed_list:	0-3,16-19,32-35,48-51
+0, NVIDIA L40, 595.91.07
+1, NVIDIA L40, 595.91.07
+g++ -I./include -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cuda-agent/baseline-a2/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cuda-agent/baseline-a2/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate/main.o -c src/main.cpp
+g++  -o tmp/bin/a2-estimate tmp/build/r2c-estimate/main.o tmp/build/r2c-estimate/melspec.o -pthread /home/zsx/melspec-v3-cuda-agent/baseline-a2/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+b43d32ec26380a411a995ada96ca65fedfee0e920ee0a0d2ccc79aab4ded53b5  src/melspec.cpp
+3bcb8265fb0157fcb8166415c5fe3e6bcf165463e8df976aeb58c861cfe228a1  include/fftw_support.h
+9436ff16d35056e92e580041e08883e75b0f2130a9a0aa8bcf3ca3bcbf83728d  Makefile
+30f036119461611e8ea7af7d8629a004b7b4a075e1301ffda3e065f9d9b9fdc9  /home/zsx/melspec-v3-cuda-agent/baseline-a2/tmp/opt/fftw-3.3.11/lib/libfftw3.a
+e2c8f188b2b715847d69c32e7b654ff00d19c5fd0dd7ad65f2fffd24066ec5a3  tmp/bin/a2-estimate
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    1.004 | 13.396x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    0.944 | 14.030x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.759 | 14.444x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    1.753 | 14.505x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
