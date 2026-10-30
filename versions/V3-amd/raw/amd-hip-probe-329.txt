@@ -1,0 +1,4 @@
+hip_devices=1 runtime=70152801 driver=70152801
+name=AMD Radeon AI PRO R9700 arch=gfx1201 mem=34208743424 CUs=32 wavefront=32 runtime_driver=70152801
+HIP vector-add: PASS
+hipFFT R2C: PASS

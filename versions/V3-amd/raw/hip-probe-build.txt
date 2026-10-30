@@ -1,0 +1,5 @@
+/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/bin/hipcc -std=c++17 -O3 --offload-arch=gfx1201 \
+  --rocm-path=/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr --rocm-device-lib-path=/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/lib/llvm-21/lib/clang/21/amdgcn/bitcode \
+  -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include/hipfft \
+  scripts/hip_probe.cpp -o tmp/bin/hip_probe \
+  -L/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/lib/x86_64-linux-gnu -Wl,-rpath,/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/lib/x86_64-linux-gnu -lamdhip64 -lhipfft

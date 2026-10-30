@@ -1,0 +1,116 @@
+Note: Google Test filter = rocrtst.Test_Example:rocrtstFunc.MemoryAllocateAndFreeTest:rocrtstFunc.MemoryAccessTests
+[==========] Running 3 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 1 test from rocrtst
+[ RUN      ] rocrtst.Test_Example
+###############################################################################
+
+	#### TEST NAME ####
+Test Case Example
+
+	#### TEST DESCRIPTION ####
+Put a description of the test case here. Line breaks will be taken care of
+on output, not here.
+
+	#### TEST SETUP ####
+The gpu device name is gfx1201
+Target HW Profile is HSA_PROFILE_BASE
+Test can run on any profile. OK.
+
+	#### TEST EXECUTION ####
+
+	#### TEST RESULTS ####
+The average time was: 32.0342 uS
+
+	#### TEST CLEAN UP ####
+[       OK ] rocrtst.Test_Example (1075 ms)
+[----------] 1 test from rocrtst (1075 ms total)
+
+[----------] 2 tests from rocrtstFunc
+[ RUN      ] rocrtstFunc.MemoryAccessTests
+###############################################################################
+
+	#### TEST NAME ####
+RocR Memory Access Tests
+
+	#### TEST DESCRIPTION ####
+This series of tests check memory allocationon GPU and CPU, i.e. GPU access
+to system memory and CPU access to GPU memory.
+
+	#### TEST SETUP ####
+The gpu device name is gfx1201
+Target HW Profile is HSA_PROFILE_BASE
+Test can run on any profile. OK.
+
+	#### TEST EXECUTION ####
+  *** Memory Subtest: CPUAccessToGPUMemoryTest in Memory Pools ***
+Verify CPU can read & write to GPU memory
+CPU have read & write to GPU memory successfully
+subtest Passed
+  **************************
+  *** Memory Subtest: GPUAccessToCPUMemoryTest in Memory Pools ***
+check gpu has read the system memory
+gpu has read the system memory successfully
+check gpu has written to system memory
+gpu has written to system memory successfully
+subtest Passed
+  **************************
+
+	#### TEST CLEAN UP ####
+[       OK ] rocrtstFunc.MemoryAccessTests (2567 ms)
+[ RUN      ] rocrtstFunc.MemoryAllocateAndFreeTest
+###############################################################################
+
+	#### TEST NAME ####
+RocR Memory Test  For BasicAllocateFree
+
+	#### TEST DESCRIPTION ####
+ This test Allocate And free Memory on all the availble pool  on which
+allocation is allowed on RocR Agents.
+
+	#### TEST SETUP ####
+The gpu device name is gfx1201
+Target HW Profile is HSA_PROFILE_BASE
+Test can run on any profile. OK.
+
+	#### TEST EXECUTION ####
+  *** Memory Allocation  Test: MemoryBasicAllocationAndFree ***
+  Pool 0:
+  Agent: Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz (CPU)
+  GLOBAL SEGMENT
+  Pool 1:
+  Agent: Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz (CPU)
+  GLOBAL SEGMENT
+  Pool 2:
+  Agent: Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz (CPU)
+  GLOBAL SEGMENT
+  Pool 3:
+  Agent: Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz (CPU)
+  GLOBAL SEGMENT
+  Pool 4:
+  Agent: Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz (CPU)
+  GLOBAL SEGMENT
+  Pool 5:
+  Agent: Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz (CPU)
+  GLOBAL SEGMENT
+  Pool 6:
+  Agent: Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz (CPU)
+  GLOBAL SEGMENT
+  Pool 7:
+  Agent: Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz (CPU)
+  GLOBAL SEGMENT
+  Pool 8:
+  Agent: gfx1201 (GPU)
+  GLOBAL SEGMENT
+  Pool 9:
+  Agent: gfx1201 (GPU)
+subtest Passed
+  **************************
+
+	#### TEST CLEAN UP ####
+[       OK ] rocrtstFunc.MemoryAllocateAndFreeTest (543 ms)
+[----------] 2 tests from rocrtstFunc (3110 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 2 test suites ran. (4185 ms total)
+[  PASSED  ] 3 tests.

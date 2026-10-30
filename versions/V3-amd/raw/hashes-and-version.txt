@@ -1,0 +1,8 @@
+2ee3e94e43110103ecdd153f1c97db5a49c92d6a57ed640f3aed27520b122842  tmp/bin/melspec-hip
+91c160a230cef2aa32c35322270dff5986349f8d9962effca3f2fa537b8c1e0e  tmp/bin/melspec-cpu
+b60536e6d663e9c78df8aef94cd88f7e10b384afbe8937bfef3100fc7864925c  tmp/bin/hip_probe
+162M	tmp/amd-gpu/root
+HIP version: 7.1.52801-9999
+Ubuntu clang version 21.1.8 (6ubuntu1)
+Target: x86_64-pc-linux-gnu
+Thread model: posix

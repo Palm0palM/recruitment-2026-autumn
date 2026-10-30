@@ -1,0 +1,11 @@
+g++ -I./include -DMELSPEC_HIP=1 -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include/hipfft -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/hip-gfx1201/main.o -c src/main.cpp
+/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/bin/hipcc -I./include -DMELSPEC_HIP=1 -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include/hipfft -std=c++17 -O3 --offload-arch=gfx1201 --rocm-path=/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr --rocm-device-lib-path=/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/lib/llvm-21/lib/clang/21/amdgcn/bitcode -march=native -pthread -MMD -MP -o tmp/build/hip-gfx1201/melspec_hip.o -c src/melspec_hip.cu
+g++ -I./include -DMELSPEC_HIP=1 -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include/hipfft -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/hip-gfx1201/melspec.o -c src/melspec.cpp
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+g++  -o tmp/bin/melspec-hip tmp/build/hip-gfx1201/main.o tmp/build/hip-gfx1201/melspec.o tmp/build/hip-gfx1201/melspec_hip.o -pthread -L/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/lib/x86_64-linux-gnu -Wl,-rpath,/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/lib/x86_64-linux-gnu -lamdhip64 -lhipfft -lrocfft

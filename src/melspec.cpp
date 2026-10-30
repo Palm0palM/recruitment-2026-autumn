@@ -3,6 +3,9 @@
 #ifdef MELSPEC_CUDA
 #include "melspec_cuda.h"
 #endif
+#ifdef MELSPEC_HIP
+#include "melspec_hip.h"
+#endif
 
 #include <algorithm>
 #include <cassert>
@@ -133,6 +136,11 @@ std::vector<std::vector<double>> build_mel_filterbank(int sr, int n_fft,
 void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                             int hop_length, int n_mels, double f_min,
                             double f_max, std::vector<double>& output) {
+#ifdef MELSPEC_HIP
+    compute_melspectrogram_hip(y, sr, n_fft, hop_length, n_mels, f_min, f_max,
+                               output);
+    return;
+#endif
 #ifdef MELSPEC_CUDA
     compute_melspectrogram_cuda(y, sr, n_fft, hop_length, n_mels, f_min, f_max,
                                 output);

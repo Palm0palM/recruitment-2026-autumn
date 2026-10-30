@@ -1,0 +1,24 @@
+WARNING: AMD GPU device(s) is/are in a low-power state. Check power control/runtime_status
+
+
+
+============================ ROCm System Management Interface ============================
+======================================= Unique ID ========================================
+GPU[0]		: Unique ID: 0x4bfd310ca7674cb5
+==========================================================================================
+================================== Memory Usage (Bytes) ==================================
+GPU[0]		: VRAM Total Memory (B): 34208743424
+GPU[0]		: VRAM Total Used Memory (B): 59912192
+==========================================================================================
+====================================== Product Info ======================================
+GPU[0]		: Card Series: 		AMD Radeon AI PRO R9700
+GPU[0]		: Card Model: 		0x7551
+GPU[0]		: Card Vendor: 		Advanced Micro Devices, Inc. [AMD/ATI]
+GPU[0]		: Card SKU: 		48WD6SHD1
+GPU[0]		: Subsystem ID: 	-0x67ff
+GPU[0]		: Device Rev: 		0xc0
+GPU[0]		: Node ID: 		2
+GPU[0]		: GUID: 		61601
+GPU[0]		: GFX Version: 		gfx1201
+==========================================================================================
+================================== End of ROCm SMI Log ===================================

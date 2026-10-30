@@ -1,0 +1,7 @@
+== userns ==
+unshare: write failed /proc/self/uid_map: Operation not permitted
+rc=1
+== runtime ==
+docker=podman=apptainer=singularity=bwrap=newuidmap=== sysctl ==
+1
+1

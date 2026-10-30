@@ -1,0 +1,28 @@
+WARNING: AMD GPU device(s) is/are in a low-power state. Check power control/runtime_status
+
+
+
+======================================= ROCm System Management Interface =======================================
+============================================ Concise Hardware Info =============================================
+GPU  NODE  DID     GUID   GFX VER  GFX RAS   SDMA RAS  UMC RAS  VBIOS              BUS           PARTITION ID
+0    2     0x7551  61601  gfx1201  DISABLED  DISABLED  ENABLED  113-48WD6SHD1-P02  0000:B3:00.0  0
+================================================================================================================
+============================================= End of ROCm SMI Log ==============================================
+======================================= Unique ID ========================================
+GPU[0]		: Unique ID: 0x4bfd310ca7674cb5
+==========================================================================================
+================================== Memory Usage (Bytes) ==================================
+GPU[0]		: VRAM Total Memory (B): 34208743424
+GPU[0]		: VRAM Total Used Memory (B): 59912192
+==========================================================================================
+====================================== Product Info ======================================
+GPU[0]		: Card Series: 		AMD Radeon AI PRO R9700
+GPU[0]		: Card Model: 		0x7551
+GPU[0]		: Card Vendor: 		Advanced Micro Devices, Inc. [AMD/ATI]
+GPU[0]		: Card SKU: 		48WD6SHD1
+GPU[0]		: Subsystem ID: 	-0x67ff
+GPU[0]		: Device Rev: 		0xc0
+GPU[0]		: Node ID: 		2
+GPU[0]		: GUID: 		61601
+GPU[0]		: GFX Version: 		gfx1201
+==========================================================================================

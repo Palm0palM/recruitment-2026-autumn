@@ -85,6 +85,23 @@ $PY scripts/perf_local.py --cases default large_fft --out tmp/perf-v1-new
 - 图中横轴不是时间线；全图合并了各线程，点击可放大，Search 可查 `FFTPlan::apply`。
 - 当前 V1 的本地报告与展示用 SVG 见 `versions/V1-legacy-port/local-perf/`。
 
+## AMD R9700 / ROCm（hepnode0）
+
+私有 ROCm 7.1.1 用户态安装在 `tmp/amd-gpu/root`，不修改系统或共享环境：
+
+```bash
+bash scripts/setup_amd_rocm.sh
+source tmp/amd-gpu/env.sh
+make HIP=1 -j4 EXEC=tmp/bin/melspec-hip   # HIP 构建入口；当前内核为 scaffold
+make HIP=0 CUDA=0 -j4 EXEC=tmp/bin/melspec-cpu  # V1 CPU 对照
+make -B hip-probe && sbatch -w hepnode0 scripts/amd-gpu-smoke.slurm
+```
+
+hepnode0 **没有 Slurm GPU GRES**，不能写 `--gres=gpu`；普通作业独占节点后即可使用 R9700。
+所有 GPU 运行必须通过 `sbatch/srun`，不写 `--mem`，并与其它 Agent 串行协调。
+`scripts/amd-gpu-smoke.slurm` 在作业内编译/运行 HIP 向量加法和 hipFFT R2C。
+完整细节和当前限制见 `versions/V3-amd/ENVIRONMENT.md`。
+
 ## 环境信息
 
 集群完整复核见 `versions/_cluster/recheck-2026-10-30.md`。

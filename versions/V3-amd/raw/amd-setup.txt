@@ -1,0 +1,5 @@
+Reuse extracted ROCm user space: /home/zsx/melspec-v3-amd/tmp/amd-gpu/root
+ROCm prefix: /home/zsx/melspec-v3-amd/tmp/amd-gpu/root
+Environment: source /home/zsx/melspec-v3-amd/tmp/amd-gpu/env.sh
+HIPCC=/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/bin/hipcc
+HIP_ARCH=gfx1201

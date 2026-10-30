@@ -3,7 +3,8 @@ CPPFLAGS = -I./include
 CXXFLAGS = -std=c++17 -Wall -Wextra -O3 -march=native -pthread
 LDLIBS = -pthread
 
-CUDA ?= 1
+CUDA ?= 0
+HIP ?= 0
 CUDA_HOME ?= /opt/cuda
 NVCC ?= $(CUDA_HOME)/bin/nvcc
 CUDA_ARCH ?= 89
@@ -18,11 +19,22 @@ CUDA_ASYNC_OUTPUT ?= 1
 CUDA_RESIZE_THREAD ?= 1
 CUDA_STAGING_ROWS ?= 16
 
+HIP_ARCH ?= gfx1201
+HIP_PREFIX ?= $(if $(ROCM_PREFIX),$(ROCM_PREFIX)/usr,$(CURDIR)/tmp/amd-gpu/root/usr)
+HIPCC ?= $(HIP_PREFIX)/bin/hipcc
+HIP_DEVICE_LIB_PATH ?= $(HIP_PREFIX)/lib/llvm-21/lib/clang/21/amdgcn/bitcode
+HIP_LIBDIR = $(HIP_PREFIX)/lib/x86_64-linux-gnu
+HIP_BUILD = tmp/build/hip-$(HIP_ARCH)
+
 SRCS = $(wildcard src/*.cpp)
 INCS = $(wildcard include/*.h)
 BUILD = tmp/build/cpu
 OBJS = $(patsubst src/%.cpp,$(BUILD)/%.o,$(SRCS))
 EXEC = melspec
+
+ifeq ($(CUDA)$(HIP),11)
+$(error CUDA=1 and HIP=1 are mutually exclusive)
+endif
 
 ifeq ($(CUDA),1)
 BUILD = tmp/build/cuda-$(CUDA_ARCH)-fp$(CUDA_PRECISION)-b$(CUDA_BATCH)-f$(CUDA_FUSED)-p$(CUDA_PROFILE)-h$(CUDA_PINNED)-o$(CUDA_OVERLAP_INIT)-d$(CUDA_DEFER_RESIZE)-a$(CUDA_ASYNC_OUTPUT)-t$(CUDA_RESIZE_THREAD)-r$(CUDA_STAGING_ROWS)
@@ -45,6 +57,19 @@ LDLIBS += -L$(CUDA_HOME)/lib64 -Wl,-rpath,$(CUDA_HOME)/lib64 -lcufft -lcudart
 else ifneq ($(CUDA),0)
 $(error CUDA must be 0 or 1)
 endif
+
+ifeq ($(HIP),1)
+BUILD = $(HIP_BUILD)
+CPPFLAGS += -DMELSPEC_HIP=1 -I$(HIP_PREFIX)/include -I$(HIP_PREFIX)/include/hipfft
+OBJS += $(BUILD)/melspec_hip.o
+HIPFLAGS = -std=c++17 -O3 --offload-arch=$(HIP_ARCH) \
+  --rocm-path=$(HIP_PREFIX) --rocm-device-lib-path=$(HIP_DEVICE_LIB_PATH) \
+  -march=native -pthread
+LDLIBS += -L$(HIP_LIBDIR) -Wl,-rpath,$(HIP_LIBDIR) -lamdhip64 -lhipfft -lrocfft
+else ifneq ($(HIP),0)
+$(error HIP must be 0 or 1)
+endif
+
 ifneq ($(filter 0 1,$(CUDA_PINNED)),)
 else
 $(error CUDA_PINNED must be 0 or 1)
@@ -74,7 +99,7 @@ else
 $(error CUDA_PRECISION must be 32 or 64)
 endif
 
-.PHONY: all clean test format FORCE
+.PHONY: all clean test format hip-probe FORCE
 
 all: $(EXEC)
 
@@ -89,6 +114,18 @@ $(BUILD)/%.o: src/%.cpp $(INCS) Makefile
 $(BUILD)/melspec_cuda.o: src/melspec_cuda.cu $(INCS) Makefile
 	@mkdir -p $(BUILD)
 	$(NVCC) $(CPPFLAGS) $(NVCCFLAGS) -MMD -MP -o $@ -c $<
+
+$(BUILD)/melspec_hip.o: src/melspec_hip.cu $(INCS) Makefile
+	@mkdir -p $(BUILD)
+	$(HIPCC) $(CPPFLAGS) $(HIPFLAGS) -MMD -MP -o $@ -c $<
+
+hip-probe: scripts/hip_probe.cpp Makefile
+	@mkdir -p tmp/bin
+	$(HIPCC) -std=c++17 -O3 --offload-arch=$(HIP_ARCH) \
+	  --rocm-path=$(HIP_PREFIX) --rocm-device-lib-path=$(HIP_DEVICE_LIB_PATH) \
+	  -I$(HIP_PREFIX)/include -I$(HIP_PREFIX)/include/hipfft \
+	  scripts/hip_probe.cpp -o tmp/bin/hip_probe \
+	  -L$(HIP_LIBDIR) -Wl,-rpath,$(HIP_LIBDIR) -lamdhip64 -lhipfft
 
 -include $(OBJS:.o=.d)
 
