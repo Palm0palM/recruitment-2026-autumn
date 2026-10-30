@@ -1,0 +1,11 @@
+default a3-b64-w16 r0 wall=6.384858s rss=597712KiB err=0.0625 PASS
+default a3-b128-w8 r0 wall=6.452137s rss=993204KiB err=0.0625 PASS
+default a3-b128-w16 r0 wall=6.096339s rss=993212KiB err=0.0625 PASS
+default a3-b256-w16 r0 wall=6.745565s rss=993212KiB err=0.0625 PASS
+default a2-b128-w16 r0 wall=9.941798s rss=993620KiB err=0.0625 PASS
+case | program | min_s | median_s | maxrss_kib
+default | a3-b64-w16 | 6.384858 | 6.384858 | 597712
+default | a3-b128-w8 | 6.452137 | 6.452137 | 993204
+default | a3-b128-w16 | 6.096339 | 6.096339 | 993212
+default | a3-b256-w16 | 6.745565 | 6.745565 | 993212
+default | a2-b128-w16 | 9.941798 | 9.941798 | 993620

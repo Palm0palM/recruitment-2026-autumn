@@ -1,0 +1,12 @@
+{
+  "implementation": "cpp-library",
+  "mode": "sparse",
+  "n_fft": 8192, "n_mels": 256, "block_size": 1, "threads": 16,
+  "blas_threads": 1,
+  "read_s": 0.105288, "setup_s": 0.00438155, "compute_s": 1.40463, "write_s": 0.1028,
+  "internal_s": 1.68117,
+  "worker_seconds_sum": 21.9809,
+  "window_s": 1.97599, "fft_s": 14.6772, "power_s": 0.891848, "mel_s": 3.16188, "store_s": 1.10575,
+  "nnz": 3736,
+  "maxrss_kib": 0
+}

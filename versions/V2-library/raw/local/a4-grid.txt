@@ -1,0 +1,19 @@
+default a3-b64-w16 r0 wall=8.362645s rss=601624KiB err=0.0625 PASS
+default a3-b128-w4 r0 wall=8.107531s rss=1000540KiB err=0.0625 PASS
+default a3-b128-w8 r0 wall=8.985085s rss=1000732KiB err=0.0625 PASS
+default a3-b128-w16 r0 wall=9.181252s rss=1000732KiB err=0.0625 PASS
+default a3-b256-w16 r0 wall=10.697303s rss=1000740KiB err=0.0625 PASS
+default a3-b512-w16 r0 wall=11.386682s rss=1000740KiB err=0.0625 PASS
+default a2-b128-blas1 r0 wall=17.885152s rss=1000740KiB err=0.0625 PASS
+default a2-b128-blas4 r0 wall=13.493901s rss=1000740KiB err=0.0625 PASS
+default a2-b128-blas16 r0 wall=15.334833s rss=1000740KiB err=0.0625 PASS
+case | program | min_s | median_s | maxrss_kib
+default | a3-b64-w16 | 8.362645 | 8.362645 | 601624
+default | a3-b128-w4 | 8.107531 | 8.107531 | 1000540
+default | a3-b128-w8 | 8.985085 | 8.985085 | 1000732
+default | a3-b128-w16 | 9.181252 | 9.181252 | 1000732
+default | a3-b256-w16 | 10.697303 | 10.697303 | 1000740
+default | a3-b512-w16 | 11.386682 | 11.386682 | 1000740
+default | a2-b128-blas1 | 17.885152 | 17.885152 | 1000740
+default | a2-b128-blas4 | 13.493901 | 13.493901 | 1000740
+default | a2-b128-blas16 | 15.334833 | 15.334833 | 1000740

@@ -1,0 +1,33 @@
+default fftw-a2 r0 wall=0.980714s rss=784992KiB err=0.03125 PASS
+default a3 r0 wall=5.014911s rss=992912KiB err=0.0625 PASS
+default a3 r1 wall=4.949324s rss=993644KiB err=0.0625 PASS
+default fftw-a2 r1 wall=1.006757s rss=993644KiB err=0.03125 PASS
+default fftw-a2 r2 wall=1.008889s rss=993652KiB err=0.03125 PASS
+default a3 r2 wall=4.948507s rss=993664KiB err=0.0625 PASS
+small_mels fftw-a2 r0 wall=0.681080s rss=993664KiB err=0.01171875 PASS
+small_mels a3 r0 wall=4.676478s rss=993664KiB err=0.015625 PASS
+small_mels a3 r1 wall=4.825511s rss=993664KiB err=0.015625 PASS
+small_mels fftw-a2 r1 wall=0.667441s rss=993664KiB err=0.01171875 PASS
+small_mels fftw-a2 r2 wall=0.665246s rss=993664KiB err=0.01171875 PASS
+small_mels a3 r2 wall=4.640409s rss=993664KiB err=0.015625 PASS
+large_fft fftw-a2 r0 wall=1.351756s rss=993664KiB err=0.125 PASS
+large_fft a3 r0 wall=10.122323s rss=993664KiB err=0.125 PASS
+large_fft a3 r1 wall=10.467856s rss=993664KiB err=0.125 PASS
+large_fft fftw-a2 r1 wall=1.366032s rss=993664KiB err=0.125 PASS
+large_fft fftw-a2 r2 wall=1.361921s rss=993664KiB err=0.125 PASS
+large_fft a3 r2 wall=9.623378s rss=993664KiB err=0.125 PASS
+narrow_band fftw-a2 r0 wall=1.298746s rss=993664KiB err=0.0625 PASS
+narrow_band a3 r0 wall=9.475510s rss=993664KiB err=0.09375 PASS
+narrow_band a3 r1 wall=9.500084s rss=993664KiB err=0.09375 PASS
+narrow_band fftw-a2 r1 wall=1.318728s rss=993664KiB err=0.0625 PASS
+narrow_band fftw-a2 r2 wall=1.303761s rss=993664KiB err=0.0625 PASS
+narrow_band a3 r2 wall=9.383332s rss=993664KiB err=0.09375 PASS
+case | program | min_s | median_s | maxrss_kib
+default | fftw-a2 | 0.980714 | 1.006757 | 993652
+default | a3 | 4.948507 | 4.949324 | 993664
+small_mels | fftw-a2 | 0.665246 | 0.667441 | 993664
+small_mels | a3 | 4.640409 | 4.676478 | 993664
+large_fft | fftw-a2 | 1.351756 | 1.361921 | 993664
+large_fft | a3 | 9.623378 | 10.122323 | 993664
+narrow_band | fftw-a2 | 1.298746 | 1.303761 | 993664
+narrow_band | a3 | 9.383332 | 9.475510 | 993664

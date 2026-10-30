@@ -1,0 +1,13 @@
+default a3-b128-w16 r0 wall=5.071359s rss=605868KiB err=0.0625 PASS
+default a3-b128-w8 r0 wall=4.870858s rss=1000120KiB err=0.0625 PASS
+default a3-b64-w16 r0 wall=4.826822s rss=1000312KiB err=0.0625 PASS
+default a2-b128-blas1 r0 wall=9.181011s rss=1000312KiB err=0.0625 PASS
+default a2-b128-blas4 r0 wall=7.347490s rss=1000312KiB err=0.0625 PASS
+default a2-b128-blas16 r0 wall=9.280943s rss=1000312KiB err=0.0625 PASS
+case | program | min_s | median_s | maxrss_kib
+default | a3-b128-w16 | 5.071359 | 5.071359 | 605868
+default | a3-b128-w8 | 4.870858 | 4.870858 | 1000120
+default | a3-b64-w16 | 4.826822 | 4.826822 | 1000312
+default | a2-b128-blas1 | 9.181011 | 9.181011 | 1000312
+default | a2-b128-blas4 | 7.347490 | 7.347490 | 1000312
+default | a2-b128-blas16 | 9.280943 | 9.280943 | 1000312

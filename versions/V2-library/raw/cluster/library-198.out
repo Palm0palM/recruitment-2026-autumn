@@ -1,0 +1,63 @@
+job=198 node=hepnode3 mode=python
+base=b4552f3962751b5a02d2aa56798907c5a1c29afc
+Cpus_allowed_list:	0-15
+CPU(s):                                  64
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+CPU(s) scaling MHz:                      31%
+               total        used        free      shared  buff/cache   available
+Mem:             503          53         300           4         156         449
+3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]
+2.5.4 1.18.1
+== all-four stage benchmark: A1 reference, A2 dense, A3 sparse ==
+default a1 r0 wall=30.027864s rss=34284032KiB err=0.046875 PASS
+default a2-dense r0 wall=10.283880s rss=994696KiB err=0.0625 PASS
+default a3-sparse r0 wall=6.260333s rss=995556KiB err=0.0625 PASS
+small_mels a1 r0 wall=29.303897s rss=34138260KiB err=0.01171875 PASS
+small_mels a2-dense r0 wall=7.136102s rss=995556KiB err=0.015625 PASS
+small_mels a3-sparse r0 wall=5.954717s rss=995556KiB err=0.015625 PASS
+large_fft a1 r0 wall=65.171873s rss=68130012KiB err=0.125 PASS
+large_fft a2-dense r0 wall=15.101485s rss=995556KiB err=0.125 PASS
+large_fft a3-sparse r0 wall=10.998439s rss=995556KiB err=0.125 PASS
+narrow_band a1 r0 wall=65.096036s rss=68127556KiB err=0.0625 PASS
+narrow_band a2-dense r0 wall=14.726575s rss=995556KiB err=0.125 PASS
+narrow_band a3-sparse r0 wall=10.965268s rss=995556KiB err=0.09375 PASS
+case | program | min_s | median_s | maxrss_kib
+default | a1 | 30.027864 | 30.027864 | 34284032
+default | a2-dense | 10.283880 | 10.283880 | 994696
+default | a3-sparse | 6.260333 | 6.260333 | 995556
+small_mels | a1 | 29.303897 | 29.303897 | 34138260
+small_mels | a2-dense | 7.136102 | 7.136102 | 995556
+small_mels | a3-sparse | 5.954717 | 5.954717 | 995556
+large_fft | a1 | 65.171873 | 65.171873 | 68130012
+large_fft | a2-dense | 15.101485 | 15.101485 | 995556
+large_fft | a3-sparse | 10.998439 | 10.998439 | 995556
+narrow_band | a1 | 65.096036 | 65.096036 | 68127556
+narrow_band | a2-dense | 14.726575 | 14.726575 | 995556
+narrow_band | a3-sparse | 10.965268 | 10.965268 | 995556
+== A3 batch/worker sweep on default ==
+default a3-b64-w16 r0 wall=6.384858s rss=597712KiB err=0.0625 PASS
+default a3-b128-w8 r0 wall=6.452137s rss=993204KiB err=0.0625 PASS
+default a3-b128-w16 r0 wall=6.096339s rss=993212KiB err=0.0625 PASS
+default a3-b256-w16 r0 wall=6.745565s rss=993212KiB err=0.0625 PASS
+default a2-b128-w16 r0 wall=9.941798s rss=993620KiB err=0.0625 PASS
+case | program | min_s | median_s | maxrss_kib
+default | a3-b64-w16 | 6.384858 | 6.384858 | 597712
+default | a3-b128-w8 | 6.452137 | 6.452137 | 993204
+default | a3-b128-w16 | 6.096339 | 6.096339 | 993212
+default | a3-b256-w16 | 6.745565 | 6.745565 | 993212
+default | a2-b128-w16 | 9.941798 | 9.941798 | 993620
+== complete official validate.py, A3 sparse, 3 runs ==
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    6.25e-02 |   PASS |    4.792 |  2.895x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.56e-02 |   PASS |    4.660 |  2.928x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    9.555 |  3.401x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    9.38e-02 |   PASS |    9.375 |  3.463x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED

@@ -1,0 +1,4 @@
+py-a1: 12 valid cases PASS, max_abs_err=0.03125, short inputs rejected
+py-a2: 12 valid cases PASS, max_abs_err=0.03125, short inputs rejected
+py-a3: 12 valid cases PASS, max_abs_err=0.03125, short inputs rejected
+FAIL short-input rejection cpp-sparse N=2047 rc=0

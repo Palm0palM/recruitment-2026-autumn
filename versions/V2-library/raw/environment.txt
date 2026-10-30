@@ -1,0 +1,35 @@
+# environment
+base=b4552f3962751b5a02d2aa56798907c5a1c29afc
+branch=exp/library-first
+date=2026-10-30T19:13:50+08:00
+Linux PalmPC 6.6.87.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025 x86_64 GNU/Linux
+CPU(s):                               24
+Model name:                           Intel(R) Core(TM) i7-14650HX
+Thread(s) per core:                   2
+Core(s) per socket:                   12
+Socket(s):                            1
+NUMA node(s):                         1
+NUMA node0 CPU(s):                    0-23
+               total        used        free      shared  buff/cache   available
+Mem:            15Gi       6.1Gi       6.4Gi       2.5Gi       5.7Gi       9.3Gi
+Swap:          4.0Gi       1.3Gi       2.7Gi
+
+python 3.12.13 numpy 2.5.4 scipy 1.18.1
+cupy 14.2.0 NVIDIA GeForce RTX 5060 Laptop GPU
+fftw=3.3.11 openblas=0.3.34 eigen=5.0.1
+NVIDIA GeForce RTX 5060 Laptop GPU, 8151 MiB, 592.27
+
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+ee18296021d6efe3644950e47c7922dce072846e7fe44d47b6d3645e950ac7ce  validate.py
+b43d32ec26380a411a995ada96ca65fedfee0e920ee0a0d2ccc79aab4ded53b5  src/melspec.cpp
+3bcb8265fb0157fcb8166415c5fe3e6bcf165463e8df976aeb58c861cfe228a1  include/fftw_support.h
+d18af61d15f9b94ebafce4bf9f7d605d51751347d20c6e2b8b477143267be10a  versions/V2-library/impl/library_melspec.py
+e691512038909125cc3c466a79dd6923ad3ed94ad02d53343bb8b91ddc534384  versions/V2-library/impl/cpp/library_melspec.cpp
+57465ad1b53d123e7198d8e8f962cee80444a28c3074b65bfd86f85b45e62272  versions/V2-library/impl/gpu_melspec.py
+
+  217 versions/V2-library/impl/library_melspec.py
+  333 versions/V2-library/impl/cpp/library_melspec.cpp
+  134 versions/V2-library/impl/gpu_melspec.py
+  123 versions/V2-library/scripts/library_bench.py
+  103 versions/V2-library/scripts/library_check.py
+  910 total

@@ -1,0 +1,9 @@
+default gpu-dense-512 r0 wall=2.123688s rss=1189864KiB err=0.09375 PASS
+small_mels gpu-dense-512 r0 wall=1.820407s rss=1000312KiB err=0.0234375 PASS
+large_fft gpu-dense-512 r0 wall=2.497364s rss=1202380KiB err=0.21875 PASS
+narrow_band gpu-dense-512 r0 wall=2.509979s rss=1202888KiB err=0.1875 PASS
+case | program | min_s | median_s | maxrss_kib
+default | gpu-dense-512 | 2.123688 | 2.123688 | 1189864
+small_mels | gpu-dense-512 | 1.820407 | 1.820407 | 1000312
+large_fft | gpu-dense-512 | 2.497364 | 2.497364 | 1202380
+narrow_band | gpu-dense-512 | 2.509979 | 2.509979 | 1202888

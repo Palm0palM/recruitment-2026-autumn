@@ -1,0 +1,39 @@
+==== dense 128
+==== dense 512
+==== dense 1024
+==== sparse 128
+Traceback (most recent call last):
+  File "/home/palm/projects/heptagon/melspec-library-first/versions/V2-library/impl/gpu_melspec.py", line 133, in <module>
+    main()
+  File "/home/palm/projects/heptagon/melspec-library-first/versions/V2-library/impl/gpu_melspec.py", line 79, in main
+    mel_device = gpu_csr(mel_host)
+                 ^^^^^^^^^^^^^^^^^
+  File "/home/palm/projects/heptagon/melspec-library-first/tmp/gpu-venv/lib/python3.12/site-packages/cupyx/scipy/sparse/_base.py", line 786, in __init__
+    super().__init__(*args, **kwargs)
+  File "/home/palm/projects/heptagon/melspec-library-first/tmp/gpu-venv/lib/python3.12/site-packages/cupyx/scipy/sparse/_compressed.py", line 424, in __init__
+    raise ValueError(
+ValueError: Unsupported initializer format
+==== sparse 512
+Traceback (most recent call last):
+  File "/home/palm/projects/heptagon/melspec-library-first/versions/V2-library/impl/gpu_melspec.py", line 133, in <module>
+    main()
+  File "/home/palm/projects/heptagon/melspec-library-first/versions/V2-library/impl/gpu_melspec.py", line 79, in main
+    mel_device = gpu_csr(mel_host)
+                 ^^^^^^^^^^^^^^^^^
+  File "/home/palm/projects/heptagon/melspec-library-first/tmp/gpu-venv/lib/python3.12/site-packages/cupyx/scipy/sparse/_base.py", line 786, in __init__
+    super().__init__(*args, **kwargs)
+  File "/home/palm/projects/heptagon/melspec-library-first/tmp/gpu-venv/lib/python3.12/site-packages/cupyx/scipy/sparse/_compressed.py", line 424, in __init__
+    raise ValueError(
+ValueError: Unsupported initializer format
+==== sparse 1024
+Traceback (most recent call last):
+  File "/home/palm/projects/heptagon/melspec-library-first/versions/V2-library/impl/gpu_melspec.py", line 133, in <module>
+    main()
+  File "/home/palm/projects/heptagon/melspec-library-first/versions/V2-library/impl/gpu_melspec.py", line 79, in main
+    mel_device = gpu_csr(mel_host)
+                 ^^^^^^^^^^^^^^^^^
+  File "/home/palm/projects/heptagon/melspec-library-first/tmp/gpu-venv/lib/python3.12/site-packages/cupyx/scipy/sparse/_base.py", line 786, in __init__
+    super().__init__(*args, **kwargs)
+  File "/home/palm/projects/heptagon/melspec-library-first/tmp/gpu-venv/lib/python3.12/site-packages/cupyx/scipy/sparse/_compressed.py", line 424, in __init__
+    raise ValueError(
+ValueError: Unsupported initializer format

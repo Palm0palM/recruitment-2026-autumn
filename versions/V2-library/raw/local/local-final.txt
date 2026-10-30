@@ -1,0 +1,81 @@
+default fftw-a2 r0 wall=0.931990s rss=784816KiB err=0.03125 PASS
+default py-a2 r0 wall=9.683561s rss=1000628KiB err=0.0625 PASS
+default py-a3 r0 wall=5.435095s rss=1000628KiB err=0.0625 PASS
+default cpp-sparse r0 wall=2.007412s rss=1000628KiB err=0.078125 PASS
+default cpp-dense r0 wall=4.667391s rss=1000628KiB err=0.078125 PASS
+default py-a2 r1 wall=9.648668s rss=1000628KiB err=0.0625 PASS
+default py-a3 r1 wall=5.355379s rss=1000628KiB err=0.0625 PASS
+default cpp-sparse r1 wall=1.911799s rss=1000628KiB err=0.078125 PASS
+default cpp-dense r1 wall=4.867967s rss=1000628KiB err=0.078125 PASS
+default fftw-a2 r1 wall=0.966577s rss=1000628KiB err=0.03125 PASS
+default py-a3 r2 wall=5.526252s rss=1000628KiB err=0.0625 PASS
+default cpp-sparse r2 wall=1.957632s rss=1000628KiB err=0.078125 PASS
+default cpp-dense r2 wall=4.626149s rss=1000628KiB err=0.078125 PASS
+default fftw-a2 r2 wall=0.978887s rss=1000628KiB err=0.03125 PASS
+default py-a2 r2 wall=9.222228s rss=1000628KiB err=0.0625 PASS
+small_mels fftw-a2 r0 wall=0.714943s rss=1000628KiB err=0.01171875 PASS
+small_mels py-a2 r0 wall=8.302291s rss=1000628KiB err=0.015625 PASS
+small_mels py-a3 r0 wall=5.329014s rss=1000628KiB err=0.015625 PASS
+small_mels cpp-sparse r0 wall=1.615838s rss=1000628KiB err=0.015625 PASS
+small_mels cpp-dense r0 wall=2.370068s rss=1000628KiB err=0.015625 PASS
+small_mels py-a2 r1 wall=8.501441s rss=1000628KiB err=0.015625 PASS
+small_mels py-a3 r1 wall=5.066664s rss=1000628KiB err=0.015625 PASS
+small_mels cpp-sparse r1 wall=1.712971s rss=1000628KiB err=0.015625 PASS
+small_mels cpp-dense r1 wall=2.593215s rss=1000628KiB err=0.015625 PASS
+small_mels fftw-a2 r1 wall=0.750545s rss=1000628KiB err=0.01171875 PASS
+small_mels py-a3 r2 wall=5.329997s rss=1000628KiB err=0.015625 PASS
+small_mels cpp-sparse r2 wall=1.604028s rss=1000628KiB err=0.015625 PASS
+small_mels cpp-dense r2 wall=2.431279s rss=1000628KiB err=0.015625 PASS
+small_mels fftw-a2 r2 wall=0.725752s rss=1000628KiB err=0.01171875 PASS
+small_mels py-a2 r2 wall=8.353601s rss=1000628KiB err=0.015625 PASS
+large_fft fftw-a2 r0 wall=1.905343s rss=1000628KiB err=0.125 PASS
+large_fft py-a2 r0 wall=15.998790s rss=1000628KiB err=0.125 PASS
+large_fft py-a3 r0 wall=8.348927s rss=1000628KiB err=0.125 PASS
+large_fft cpp-sparse r0 wall=2.870602s rss=1000628KiB err=0.15625 PASS
+large_fft cpp-dense r0 wall=9.316258s rss=1000628KiB err=0.1875 PASS
+large_fft py-a2 r1 wall=16.921288s rss=1000628KiB err=0.125 PASS
+large_fft py-a3 r1 wall=9.392563s rss=1000628KiB err=0.125 PASS
+large_fft cpp-sparse r1 wall=3.160071s rss=1000628KiB err=0.15625 PASS
+large_fft cpp-dense r1 wall=10.514891s rss=1000628KiB err=0.1875 PASS
+large_fft fftw-a2 r1 wall=1.765360s rss=1000628KiB err=0.125 PASS
+large_fft py-a3 r2 wall=9.127089s rss=1000628KiB err=0.125 PASS
+large_fft cpp-sparse r2 wall=3.015374s rss=1000628KiB err=0.15625 PASS
+large_fft cpp-dense r2 wall=9.842257s rss=1000628KiB err=0.1875 PASS
+large_fft fftw-a2 r2 wall=1.698317s rss=1000628KiB err=0.125 PASS
+large_fft py-a2 r2 wall=17.308250s rss=1000628KiB err=0.125 PASS
+narrow_band fftw-a2 r0 wall=1.647027s rss=1000628KiB err=0.0625 PASS
+narrow_band py-a2 r0 wall=17.145596s rss=1000628KiB err=0.125 PASS
+narrow_band py-a3 r0 wall=8.849931s rss=1000628KiB err=0.09375 PASS
+narrow_band cpp-sparse r0 wall=2.886450s rss=1000628KiB err=0.125 PASS
+narrow_band cpp-dense r0 wall=9.894155s rss=1000628KiB err=0.125 PASS
+narrow_band py-a2 r1 wall=16.607631s rss=1000628KiB err=0.125 PASS
+narrow_band py-a3 r1 wall=9.052028s rss=1000628KiB err=0.09375 PASS
+narrow_band cpp-sparse r1 wall=2.965591s rss=1000628KiB err=0.125 PASS
+narrow_band cpp-dense r1 wall=9.826619s rss=1000628KiB err=0.125 PASS
+narrow_band fftw-a2 r1 wall=1.722628s rss=1000628KiB err=0.0625 PASS
+narrow_band py-a3 r2 wall=9.331955s rss=1000628KiB err=0.09375 PASS
+narrow_band cpp-sparse r2 wall=2.818560s rss=1000628KiB err=0.125 PASS
+narrow_band cpp-dense r2 wall=10.188032s rss=1000628KiB err=0.125 PASS
+narrow_band fftw-a2 r2 wall=1.701674s rss=1000628KiB err=0.0625 PASS
+narrow_band py-a2 r2 wall=17.495255s rss=1000628KiB err=0.125 PASS
+case | program | min_s | median_s | maxrss_kib
+default | fftw-a2 | 0.931990 | 0.966577 | 1000628
+default | py-a2 | 9.222228 | 9.648668 | 1000628
+default | py-a3 | 5.355379 | 5.435095 | 1000628
+default | cpp-sparse | 1.911799 | 1.957632 | 1000628
+default | cpp-dense | 4.626149 | 4.667391 | 1000628
+small_mels | fftw-a2 | 0.714943 | 0.725752 | 1000628
+small_mels | py-a2 | 8.302291 | 8.353601 | 1000628
+small_mels | py-a3 | 5.066664 | 5.329014 | 1000628
+small_mels | cpp-sparse | 1.604028 | 1.615838 | 1000628
+small_mels | cpp-dense | 2.370068 | 2.431279 | 1000628
+large_fft | fftw-a2 | 1.698317 | 1.765360 | 1000628
+large_fft | py-a2 | 15.998790 | 16.921288 | 1000628
+large_fft | py-a3 | 8.348927 | 9.127089 | 1000628
+large_fft | cpp-sparse | 2.870602 | 3.015374 | 1000628
+large_fft | cpp-dense | 9.316258 | 9.842257 | 1000628
+narrow_band | fftw-a2 | 1.647027 | 1.701674 | 1000628
+narrow_band | py-a2 | 16.607631 | 17.145596 | 1000628
+narrow_band | py-a3 | 8.849931 | 9.052028 | 1000628
+narrow_band | cpp-sparse | 2.818560 | 2.886450 | 1000628
+narrow_band | cpp-dense | 9.826619 | 9.894155 | 1000628

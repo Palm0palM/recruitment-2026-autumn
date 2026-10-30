@@ -1,0 +1,52 @@
+job=210 node=hepnode3 mode=baseline
+base=b4552f3962751b5a02d2aa56798907c5a1c29afc
+Cpus_allowed_list:	0-15
+CPU(s):                                  64
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+CPU(s) scaling MHz:                      32%
+               total        used        free      shared  buff/cache   available
+Mem:             503          53         300           4         156         449
+3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]
+2.5.4 1.18.1
+== same-job FFTW A2 baseline vs Python A3 ==
+g++ -I./include -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-library-first/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-library-first/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate/melspec.o -c src/melspec.cpp
+g++  -o tmp/bin/fftw-a2 tmp/build/r2c-estimate/main.o tmp/build/r2c-estimate/melspec.o -pthread /home/zsx/melspec-library-first/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+b43d32ec26380a411a995ada96ca65fedfee0e920ee0a0d2ccc79aab4ded53b5  src/melspec.cpp
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+9436ff16d35056e92e580041e08883e75b0f2130a9a0aa8bcf3ca3bcbf83728d  Makefile
+31a905e895886a593d4c88d98243fee28b446da9b870a36e200b158a3f3ce9f5  /home/zsx/melspec-library-first/tmp/opt/fftw-3.3.11/lib/libfftw3.a
+a9805f8c227d1faf471c081eaf2bcd176a659a0edd31efcf6878f1c65a63f05a  tmp/bin/fftw-a2
+default fftw-a2 r0 wall=0.980714s rss=784992KiB err=0.03125 PASS
+default a3 r0 wall=5.014911s rss=992912KiB err=0.0625 PASS
+default a3 r1 wall=4.949324s rss=993644KiB err=0.0625 PASS
+default fftw-a2 r1 wall=1.006757s rss=993644KiB err=0.03125 PASS
+default fftw-a2 r2 wall=1.008889s rss=993652KiB err=0.03125 PASS
+default a3 r2 wall=4.948507s rss=993664KiB err=0.0625 PASS
+small_mels fftw-a2 r0 wall=0.681080s rss=993664KiB err=0.01171875 PASS
+small_mels a3 r0 wall=4.676478s rss=993664KiB err=0.015625 PASS
+small_mels a3 r1 wall=4.825511s rss=993664KiB err=0.015625 PASS
+small_mels fftw-a2 r1 wall=0.667441s rss=993664KiB err=0.01171875 PASS
+small_mels fftw-a2 r2 wall=0.665246s rss=993664KiB err=0.01171875 PASS
+small_mels a3 r2 wall=4.640409s rss=993664KiB err=0.015625 PASS
+large_fft fftw-a2 r0 wall=1.351756s rss=993664KiB err=0.125 PASS
+large_fft a3 r0 wall=10.122323s rss=993664KiB err=0.125 PASS
+large_fft a3 r1 wall=10.467856s rss=993664KiB err=0.125 PASS
+large_fft fftw-a2 r1 wall=1.366032s rss=993664KiB err=0.125 PASS
+large_fft fftw-a2 r2 wall=1.361921s rss=993664KiB err=0.125 PASS
+large_fft a3 r2 wall=9.623378s rss=993664KiB err=0.125 PASS
+narrow_band fftw-a2 r0 wall=1.298746s rss=993664KiB err=0.0625 PASS
+narrow_band a3 r0 wall=9.475510s rss=993664KiB err=0.09375 PASS
+narrow_band a3 r1 wall=9.500084s rss=993664KiB err=0.09375 PASS
+narrow_band fftw-a2 r1 wall=1.318728s rss=993664KiB err=0.0625 PASS
+narrow_band fftw-a2 r2 wall=1.303761s rss=993664KiB err=0.0625 PASS
+narrow_band a3 r2 wall=9.383332s rss=993664KiB err=0.09375 PASS
+case | program | min_s | median_s | maxrss_kib
+default | fftw-a2 | 0.980714 | 1.006757 | 993652
+default | a3 | 4.948507 | 4.949324 | 993664
+small_mels | fftw-a2 | 0.665246 | 0.667441 | 993664
+small_mels | a3 | 4.640409 | 4.676478 | 993664
+large_fft | fftw-a2 | 1.351756 | 1.361921 | 993664
+large_fft | a3 | 9.623378 | 10.122323 | 993664
+narrow_band | fftw-a2 | 1.298746 | 1.303761 | 993664
+narrow_band | a3 | 9.383332 | 9.475510 | 993664

@@ -1,0 +1,4 @@
+GPU dense, official n_fft=2048, empty/1/2047-sample PCM:
+0 -> exit 1, "Audio too short for given n_fft"
+1 -> exit 1, same
+2047 -> exit 1, same

@@ -1,0 +1,11 @@
+Local C++ build (GCC 16.2.1):
+g++ -std=c++17 -O3 -march=native -pthread -DEIGEN_DONT_PARALLELIZE \
+  -I/usr/include/eigen3 -I/usr/include/openblas \
+  versions/V2-library/impl/cpp/library_melspec.cpp \
+  -o tmp/bin/cpp-library -lfftw3f -lopenblas -lm
+
+Diagnostic build adds -DMELSPEC_LIBRARY_PROFILE.
+System libs: FFTW 3.3.11 float/double, OpenBLAS 0.3.34, Eigen 5.0.1.
+No -fopenmp (std::thread only; avoids nested Eigen OpenMP).
+Cluster: not deployed because C++ sparse was slower than FFTW A2 locally;
+build_deps.sh documents the unprivileged fallback, not a validated cluster result.

@@ -1,0 +1,4 @@
+Device: NVIDIA GeForce RTX 5060 Laptop GPU, 8151 MiB, driver 592.27
+CuPy: 14.2.0 (cupy-cuda13x), isolated tmp/gpu-venv
+CUDA toolkit observed: 13.4 (local)
+Host: WSL2, i7-14650HX, 15 GiB RAM + 4 GiB swap
