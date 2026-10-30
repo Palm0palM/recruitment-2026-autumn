@@ -1,3 +1,5 @@
 logs/
 melspec
 src/*.o
+AGENTS.md
+/tmp
