@@ -1,0 +1,7 @@
+default: allclose=True max_abs_diff=7.62939453e-06 identical=False
+small_mels: allclose=True max_abs_diff=0 identical=True
+large_fft: allclose=True max_abs_diff=0 identical=True
+narrow_band: allclose=True max_abs_diff=0 identical=True
+defaults: allclose=True max_abs_diff=0 identical=True
+power2_4096: allclose=True max_abs_diff=0 identical=True
+Random 3-second V1/V2 comparison: PASS

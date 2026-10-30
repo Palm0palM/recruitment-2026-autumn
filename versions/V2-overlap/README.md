@@ -71,7 +71,9 @@ Z_{t+1,q}[r] = exp(+2πi*r/B)
 | 重组前相位乘法 | 8,192 | 16,384 |
 | V1 半长 FFT 蝶形循环（对照） | 49,152 | 106,496 |
 
-模型上蝶形工作减少约 42%/46%，**但不是等量 wall-time 承诺**。
+固定 S=128 时，每帧渐近成本由 V1 的 `O(N log N)` 降为
+`O(N log S + N)`，即相对 N 的近线性；但正频谱和相位访问本身有 `Ω(N)` 下界，
+不可能借重叠进一步变成亚线性。模型上蝶形工作减少约 42%/46%，**但不是等量 wall-time 承诺**。
 每帧仍有 `N` 次重组前复数乘法、子谱读写、频谱写入及功率/Mel 投影。
 小 FFT 的循环/位反转开销和不自然顺序的频谱访问也可能抵消理论收益。
 
@@ -128,15 +130,17 @@ scaled 的分母为 `max(1, max(abs(reference)))`。原始记录见
 
 ## 6. 原型正确性
 
-`prototype.py` 直接实现上述公式，不依赖正式 C++ 代码。36 组测试全部通过：
+`prototype.py` 直接实现上述公式，不依赖正式 C++ 代码。44 组测试全部通过：
 
-- N=8192/16384，第 0/1/7 帧；
+- N=8192/16384，第 0/1/7/1024 帧及多种输入长度（含非整帧尾长）；
 - 随机 PCM、2^-20 低幅度、全零、DC、Nyquist、帧首尾冲激；
 - 未加窗频谱与 NumPy FFT 对照；
 - 频域 Hann 与时域周期 Hann FFT 对照，包含 DC/Nyquist；
 - 20,000 帧和完整约 192k 帧递推。
 
-判定阈值为缩放后最大误差 `<1e-10`，实测通过。命令：
+判定阈值为缩放后最大误差 `<1e-10`，实测通过；未加窗/Hann 的最大 scaled 误差分别为
+`6.69e-16` 和 `4.89e-16`，DC/Nyquist 最大绝对误差为 `2.84e-14`。
+新增长度矩阵见 `raw/prototype-correctness.json`。命令：
 
 ```bash
 source tmp/session-env.sh
@@ -166,20 +170,84 @@ $PY versions/V2-overlap/prototype.py --drift-frames 192333 --drift-nfft 16384 \
 不能直接缓存任意层中间结果；本文使用的是上述可证明的特定分解。
 也不能跨时间帧复用功率谱，因为 Hann 权重和非线性模平方都随帧变化。
 
-## 8. 工程验证状态
+## 8. 参考资料
 
-C++ 工程原型已实现，保持 double、16 线程连续帧分区和稀疏 Mel，不支持分解时回退 V1。
-本地 smoke 与随机 PCM 对照已通过，default 全量 expected 也已 PASS。
-全量性能需用交错 A/B 判断；宿主机负载波动下不使用单次切片时间作结论。
-详细最终性能、是否保留实现以及是否值得进入集群，将在测量后补充。
+- Eric Jacobsen, [Understanding and Implementing the Sliding DFT](https://www.dsprelated.com/showarticle/776.php)：单样本 SDFT 递推及其计算特点。
+- Zafar Rafii, [Sliding DFT with Kernel Windowing](https://zafarrafii.com/Documents/Presentations/Rafii%20-%20Sliding%20DFT%20with%20Kernel%20Windowing%20-%202021.pdf)：频域窗核的一般背景；本文使用周期 Hann 的三点精确形式。
+- 本文的交错子谱重组公式由 `N=S*B` 直接展开 DFT 推导，`prototype.py` 用 NumPy 独立验证，不声称来自上述资料。
 
-复现交错 A/B：
+## 9. 工程实现与正确性
+
+C++ 工程原型保持了 double、16 线程连续帧分区和稀疏 Mel，不支持分解时回退 V1。
+另外实现了重组输入位反转融合、residue-major 连续频谱写入，避免额外交换和跨步写回。
+完整实验代码归档为 `melspec_overlap_prototype.cpp`，SHA-256：
+`d6ab95e8c23ab562a5718d1cfd85420be747e2b26ff24114ee0c5417b9bb3d92`。
+
+正确性结果：
+
+- 本地 8 项 smoke（官方四组、默认 CLI、小 FFT）全部 PASS；
+- 3 秒随机 PCM 与 V1 对照均满足官方容差，并覆盖 4096 点及刷新边界；
+- **官方输入四组全量输出全部 PASS**，见 `raw/full-correctness.txt`：
+
+| 用例 | max_abs_err | 结果 |
+|---|---:|---|
+| default | 3.12e-2 | PASS |
+| small_mels | 1.17e-2 | PASS |
+| large_fft | 1.25e-1 | PASS |
+| narrow_band | 6.25e-2 | PASS |
+
+这些误差与 V1 的官方结果一致。`raw/full-correctness.txt` 中的一次顺序计时只用于运行记录，
+不作为性能结论。
+
+## 10. 本地性能与否定结论
+
+测量脚本每对交替改变 V1/V2 的先后顺序，同时记录 wall time 和
+`getrusage(RUSAGE_CHILDREN)` 的 user+system CPU time，使用配对中位数而不是只取有利最小值。
+真正的单线程对照在 `tmp/` 生成把线程上限替换为 1 的诊断副本；**仅使用 taskset 不够**，
+因为 `std::thread::hardware_concurrency()` 在本环境不会随 cpuset 降为 1。
+早期未意识到这一点产生的“单核”数据已废弃，不用于结论。
+
+| 用例 | 三组 CPU-time 比值 V2/V1 | 配对中位数 | 解释 |
+|---|---|---:|---|
+| default | 1.370 / 1.237 / 0.697 | **1.237** | 方向不完全一致，中位数为慢约 24%，不能宣称加速 |
+| large_fft | 1.413 / 1.114 / 1.136 | **1.136** | 三组均较慢，中位数为慢约 14% |
+
+原始每次 wall/CPU time 见 `raw/ab-default-cpu-time.json` 和 `raw/ab-large-cpu-time.json`。
+default 第三组出现反向结果，说明共享宿主机的频率/负载扰动无法完全由 CPU time 消除；
+因此不把任何单次最快值当作加速证据。多线程切片也曾出现方向不一致，同样不用于宣称收益。
+
+**结论：不推荐进入集群正式 Benchmark。** 该分解在数学上正确，固定 hop 时具有更好的渐近形式，
+但短 FFT 重组、相位乘法、子谱更新和频谱访存的常数成本抵消了蝶形数收益。
+本路线没有得到稳定、可验证的本地性能改善，继续占用集群资源没有依据。
+
+最终 `src/melspec.cpp` 已恢复为 V1，SHA-256 与 BASE 完全一致：
+`3b00a2d777a20de397c3a2e407b60f6a21258940470851cbeb82c4c21c64f957`。
+慢速原型只留档于本目录，不参与 Make 构建，避免影响 V1 或其他路线的对照。
+恢复后 8 项 smoke 再次全部 PASS，见 `raw/final-v1-smoke.txt`。
+
+## 11. 复现工程原型与 A/B
 
 ```bash
 source tmp/session-env.sh
+mkdir -p tmp/binaries
+make -j4
+cp melspec tmp/binaries/melspec-v1
+g++ -std=c++17 -O3 -march=native -pthread -Iinclude \
+  src/main.cpp versions/V2-overlap/melspec_overlap_prototype.cpp \
+  -o tmp/binaries/melspec-v2-overlap
+
+# 四组全量正确性
+$PY scripts/bench.py tmp/binaries/melspec-v2-overlap --case all --runs 1
+
+# 真正单线程的交错 wall/CPU-time 对照；V1 从共同 BASE 生成
+$PY versions/V2-overlap/ab_benchmark.py --case default --pairs 3 --single-thread \
+  --candidate-source versions/V2-overlap/melspec_overlap_prototype.cpp \
+  --out versions/V2-overlap/raw/ab-default-reproduce.json
+
+# 多线程对照
 $PY versions/V2-overlap/ab_benchmark.py --case default --pairs 5 \
-  --out versions/V2-overlap/raw/ab-default.json
-# --single-thread 可将两版都限制到同一 CPU，分离算法成本与线程调度。
+  --baseline tmp/binaries/melspec-v1 --candidate tmp/binaries/melspec-v2-overlap \
+  --out versions/V2-overlap/raw/ab-default-multithread-reproduce.json
 ```
 
-V1 对照保留在 `tmp/binaries/melspec-v1`，公共 PCM/expected 只读；不执行集群任务。
+V1 对照保留在 `tmp/binaries/melspec-v1`，公共 PCM/expected 只读；本轮未执行 SSH 或集群任务。

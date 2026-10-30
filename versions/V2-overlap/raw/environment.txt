@@ -1,0 +1,14 @@
+V2-overlap local experiment environment
+2026-10-30T13:15:45+08:00
+Linux PalmPC 6.6.87.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025 x86_64 GNU/Linux
+g++ (GCC) 16.2.1 20260810
+23fb9d0607806191ac6be199f6f8777f0b0d46ad
+v2/overlap
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+ee18296021d6efe3644950e47c7922dce072846e7fe44d47b6d3645e950ac7ce  validate.py
+V1 src/melspec.cpp SHA256:
+3b00a2d777a20de397c3a2e407b60f6a21258940470851cbeb82c4c21c64f957  -
+Experimental src/melspec.cpp SHA256:
+d6ab95e8c23ab562a5718d1cfd85420be747e2b26ff24114ee0c5417b9bb3d92  src/melspec.cpp
+Restored final src/melspec.cpp SHA256:
+3b00a2d777a20de397c3a2e407b60f6a21258940470851cbeb82c4c21c64f957  src/melspec.cpp

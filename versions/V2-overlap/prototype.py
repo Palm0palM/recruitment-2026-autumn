@@ -97,6 +97,25 @@ def correctness_tests() -> list[dict]:
                                     dc_nyquist_abs=float(boundary), passed=passed))
                 if not passed:
                     raise AssertionError(results[-1])
+    # 显式改变输入长度，并检查最后一个完整帧，而非只改变同一数组的起点。
+    for n in (8192, 16384):
+        hop = 128
+        for extra in (0, hop, 7 * hop, 1024 * hop + 17):
+            y = rng.integers(-32768, 32768, n + extra, dtype=np.int16).astype(float) / 32768
+            frame = extra // hop
+            start = frame * hop
+            a = assemble(initial_leaves(y, start, n, hop))
+            ref_a = np.fft.fft(y[start:start + n])[:n // 2 + 1]
+            got_h, ref_h = hann_from_unwindowed(a), direct_hann(y, start, n)
+            ea, eh = scaled_error(a, ref_a), scaled_error(got_h, ref_h)
+            passed = ea["max_scaled"] < 1e-10 and eh["max_scaled"] < 1e-10
+            results.append(dict(n_fft=n, signal=f"length_{len(y)}", frame=frame,
+                                input_samples=len(y), unwindowed=ea, hann=eh,
+                                dc_nyquist_abs=float(max(abs(got_h[0] - ref_h[0]),
+                                                         abs(got_h[-1] - ref_h[-1]))),
+                                passed=passed))
+            if not passed:
+                raise AssertionError(results[-1])
     return results
 
 
