@@ -1,0 +1,27 @@
+# V0 baseline - 本地测量（i7-14650HX, 24T, 15GiB, g++ 16.2.1 -O3 -march=native）
+# 日期: 2026-10-30
+# 说明: 本地数字仅作趋势参考；成绩以集群计算节点为准。
+# 输入: tmp/slice_5s.pcm（data/audio.pcm 前 5 秒，3687 帧）
+
+## 1) n_mels 扫描（其余为 default 参数），用于分离 Mel 投影与 FFT 的占比
+# 命令: ../melspec short5s.pcm out.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels <N>
+n_mels=8    1.058 s
+n_mels=64   4.761 s
+n_mels=256 17.546 s
+# 推算: FFT+分帧+功率谱 ~1.0 s；n_mels=256 时 Mel 投影 ~16.5 s  (~94%)
+
+## 2) 完整 default 参数（含进程启动与 197MB 输出写盘）
+# 命令: tmp/.venv/bin/python scripts/bench.py --case small_mels --slice 2 --runs 1
+# (冒烟测试，仅验证工具链)
+small_mels  2s 切片  time=1.847 s  librosa=2.922 s  max|err|=7.32e-04  PASS
+
+## 3) librosa 参考（同机，float32 输入）
+# 命令: librosa.feature.melspectrogram(y=y, center=False, htk=True, sr=96000, n_fft=8192, hop_length=128, n_mels=256, fmin=0, fmax=22050)
+5 s  切片  0.829 s / 0.846 s（两次测量）  shape (256, 3687)
+50 s 切片  2.116 s                        shape (256, 37437)
+# 注意: librosa 在 50s 上只比 5s 慢 2.5 倍，非线性（pocketfft/BLAS 多线程 + 首次调用开销），
+#       不能简单按秒数线性外推。
+
+## 4) 正确性（vs librosa，5 s 切片）
+max abs err = 1.4648e-03
+np.allclose(rtol=1e-3, atol=1e-4) = True
