@@ -41,7 +41,7 @@ versions/
 |---|---|---|---|---|
 | V0-baseline | 原始朴素实现（逐帧 `complex<double>` FFT + 稠密 Mel 乘） | **1645.2**（27.4 min） | 本地 | 完成（集群按学长要求不跑 baseline） |
 | [V1-legacy-port](V1-legacy-port/README.md) | 旧解答迁移：FFT 缓存、半长实数 FFT、稀疏逐帧 Mel、16 线程 | **1.537** | hepnode3 / 16 CPU | 全量 4/4 PASS，vs librosa 12.416×；profile 完成 |
-| [V2-library](V2-library/README.md) | Library-First：Python A1/A2/A3、C++ FFTW+Eigen/OpenBLAS、CuPy | **4.792**（集群 A3 官方） | hepnode3 / 16 CPU | 探索完成；A3 官方 4/4 PASS，但慢于 FFTW A2 |
+| [V2-library](V2-library/README.md) | Library-First：Python A1/A2/A3、C++ FFTW+Eigen/OpenBLAS、CuPy | **4.792**（集群 A3 官方） | hepnode3 / 16 CPU | 已封存；A3 官方 4/4 PASS，但慢于 FFTW A2 |
 
 > 口径提醒：
 > * 本地 15 GiB 内存机器上 default 全量会因功率谱 6.3 GiB 产生换页；集群节点 1 TB 内存没有这个问题，

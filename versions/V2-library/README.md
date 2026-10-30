@@ -5,6 +5,18 @@
 - 本实验独立于 FFTW/SIMD/Overlap/MPI 主线，不修改 master、其他 worktree、`src/main.cpp`、`validate.py` 或 `data`。
 - AI：OpenCode / GPT-6.1 Sol（实现、测试、测量、文档）。
 
+## 封存状态（2026-10-30）
+
+**本路线已封存，不再继续优化**。结论：高性能不是“库越多越好”，而是在合适的抽象层复用成熟内核，并为本题设计专用数据流。FFTW A2（R2C + 自写稀疏逐帧 Mel）仍是主性能路线；Library-First 保留为答辩中的对照实验和负面证据。
+
+答辩速查：
+
+- 分支：`exp/library-first`；严格 BASE：`b4552f3`；阶段提交：`68ce8a4`、`25f1ec3`、`925bc15`、`5e25887`；封存提交为本分支 HEAD。
+- 集群：作业 198/210，hepnode3，16 CPU；A3 官方 **4/4 PASS**，default **4.792 s**；同作业 FFTW A2 **0.981 s**，A3 慢 **4.88×**。
+- 本地同轮：A3 default **5.355 s**；C++ sparse **1.912 s**；GPU dense **2.124 s**；FFTW A2 **0.932 s**。
+- A1 全量 **30–65 s、34–68 GB**，证明全量物化不可行；A3 块处理峰值约 **0.59 GB**。
+- 完整证据在 `raw/`，报告正文在下方；所有表格均注明平台/口径，不混用本地与集群秒数。
+
 ## 0. 核心回答
 
 **如果不再自己写具体数值内核，只组合成熟科学计算库，最接近可用的是 Python A3（NumPy + SciPy FFT + SciPy CSR）和 C++ sparse（FFTWf + Eigen sparse）；但它们都没有超过 FFTW A2。**
@@ -88,7 +100,7 @@ A2 的 dense GEMM 是正确的，但做的是 256×4097 的稠密乘，而不是
 
 `cpp/library_melspec_double.cpp` 是同一代码的 double 试验副本，用于确认精度/类型不是唯一原因；不作为候选。
 
-C++ sparse 的独立 profile（default，block=1，16 workers，线程内累计而非进程 wall）：
+C++ sparse 的独立 profile（default，block=1，16 workers，线程内累计而非进程 wall；该 profile 构建未启用 maxrss 采集，单独 release 统计为 400,204 KiB）：
 window 1.98 s、FFTw execute 14.66 s、power 0.89 s、Eigen Mel 3.16 s、store 1.11 s；
 `compute_s` wall 1.40 s。FFT 线程累计约 14.7 s 是网格/缓存/调度综合结果，不能除以 16 当作单线程 FFT；
 它说明“FFTW 调用”并没有自动带来 A2 的扩展效率。Eigen Mel 线程累计 3.16 s，也高于 V1 的紧致三角循环。
@@ -165,7 +177,7 @@ Python 的固定启动/导入成本约 1.5–2.5 s；即使计算全部免费，
 
 - A1 5 s 切片峰值约 **0.78 GB**；集群全量 default/large 峰值 **34.3 / 68.1 GB**。
 - Python A3 全量 default 峰值约 **0.59 GB**，A2 约 **0.95 GB**（输入 + 输出 + 块内临时）；块处理没有物化全量功率谱。
-- C++ sparse 的独立统计约 **0.4 GB**；C++ dense 约 1.0 GB（工具/OpenBLAS 影响，见原始 stats）。
+- C++ sparse release 的独立统计 **400,204 KiB ≈ 0.38 GiB**；C++ dense 约 1.0 GB（含 OpenBLAS/工具开销，见原始 stats）。
 - GPU 进程 host RSS 约 1.2 GB；设备内存池峰值约几十 MB（每块 512×8192 输入与 512×4097 输出）。
 
 ### A4 调参
