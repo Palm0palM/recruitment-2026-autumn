@@ -23,11 +23,12 @@ PY="$HOME/venv/bin/python"
 git rev-parse HEAD
 grep Cpus_allowed_list /proc/self/status
 programs=()
-for spec in 128:1:32:0 256:1:32:0 512:1:32:0 256:0:32:0 256:1:64:0 256:1:32:1 512:1:32:1; do
-  IFS=: read -r batch fused precision pinned <<< "$spec"
-  name="fp${precision}-b${batch}-f${fused}-h${pinned}"
+for spec in 128:1:32:0:0 256:1:32:0:0 512:1:32:0:0 256:0:32:0:0 256:1:64:0:0 256:1:32:1:0 512:1:32:1:0 256:1:32:0:1 512:1:32:0:1; do
+  IFS=: read -r batch fused precision pinned overlap <<< "$spec"
+  name="fp${precision}-b${batch}-f${fused}-h${pinned}-o${overlap}"
   make -B -j4 CUDA=1 CUDA_HOME="$CUDA_HOME" CUDA_ARCH=89 CUDA_PRECISION="$precision" \
-    CUDA_BATCH="$batch" CUDA_FUSED="$fused" CUDA_PINNED="$pinned" EXEC="tmp/bin/$name"
+    CUDA_BATCH="$batch" CUDA_FUSED="$fused" CUDA_PINNED="$pinned" \
+    CUDA_OVERLAP_INIT="$overlap" EXEC="tmp/bin/$name"
   programs+=("$name=tmp/bin/$name")
 done
 sha256sum src/main.cpp src/melspec.cpp src/melspec_cuda.cu include/melspec.h include/melspec_cuda.h Makefile tmp/bin/* "$A2"
