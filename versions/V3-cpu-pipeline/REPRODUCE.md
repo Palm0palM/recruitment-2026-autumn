@@ -4,8 +4,9 @@
 
 - 共同算法 BASE：`b4552f3962751b5a02d2aa56798907c5a1c29afc`（FFTW A2 R2C + ESTIMATE）。
 - 实验分支：`v3/cpu-pipeline`，独立 worktree；没有合并 master 或修改其他 worktree。
-- 默认候选参数：`FRAME_BLOCK=1`、`MEL_PROJECTION=sparse`、`CPU_THREADS=16`。
-- 最终算法提交：`d94e45c3a1d1f56dc53f93679e4cab0714b45076`；官方结果见 [RESULTS.md](RESULTS.md)。
+- 默认候选参数：`FRAME_BLOCK=1`、`MEL_PROJECTION=sparse`、`CPU_THREADS=16`、`FUSE_POWER_MEL=1`。
+- 最终算法提交：`2e85d8138faf4bef058beba15ee6c606c4e3c39e`；官方结果见 [RESULTS.md](RESULTS.md)。
+- 后续独立实验：output 初始化重叠 `69c88f9`（不采用）、功率/Mel 融合 `97a03dc`。
 - 保留 FFTW 原生 R2C、单变换 Plan、double、外层 worker 分区和受保护 CLI。
 - 不修改 `src/main.cpp`、`validate.py`、`data`，不研究 Wisdom/Batch FFT/Codelet。
 
@@ -21,7 +22,7 @@
 ```bash
 source tmp/session-env.sh
 make -B -j4 FFT_MODE=r2c FFTW_PLAN=estimate FRAME_BLOCK=1 \
-  MEL_PROJECTION=sparse CPU_THREADS=16 EXEC=tmp/bin/candidate
+  MEL_PROJECTION=sparse CPU_THREADS=16 FUSE_POWER_MEL=1 EXEC=tmp/bin/candidate
 $PY scripts/smoke.py tmp/bin/candidate
 ```
 
@@ -43,7 +44,7 @@ $PY scripts/fftw_bench.py \
 
 ```bash
 $PY scripts/fftw_profile.py --mode r2c --planner estimate \
-  --frame-block 1 --mel-projection sparse
+  --frame-block 1 --mel-projection sparse --output-overlap 0 --fuse-power-mel 1
 ```
 
 双前缀失败实验可用 `MEL_PROJECTION=moments` 独立复现；`scripts/moment_check.cpp` 展示抵消。
@@ -58,7 +59,8 @@ sbatch -w hepnode2 --export=ALL,MODE=build scripts/cpu_pipeline_cluster.slurm
 # 等 build 完成后串行执行
 sbatch -w hepnode2 --export=ALL,MODE=bench,OFFICIAL=b1 scripts/cpu_pipeline_cluster.slurm
 sbatch -w hepnode2 --export=ALL,MODE=threads,OFFICIAL=t16 scripts/cpu_pipeline_cluster.slurm
-sbatch -w hepnode2 --export=ALL,MODE=profile,PROFILE_BLOCK=1,PROFILE_MEL=sparse scripts/cpu_pipeline_cluster.slurm
+sbatch -w hepnode2 --export=ALL,MODE=fusion,OFFICIAL=fusion scripts/cpu_pipeline_cluster.slurm
+sbatch -w hepnode2 --export=ALL,MODE=profile,PROFILE_BLOCK=1,PROFILE_MEL=sparse,OUTPUT_OVERLAP=0,FUSE_POWER_MEL=1 scripts/cpu_pipeline_cluster.slurm
 ```
 
 可用 `--dependency=afterok:<jobid>` 保证不并行占用节点。作业一 task、16 CPU、nomultithread、不写 mem。
@@ -71,6 +73,7 @@ sbatch -w hepnode2 --export=ALL,MODE=profile,PROFILE_BLOCK=1,PROFILE_MEL=sparse 
 
 - `BASELINE.md`：固定 V1/A2 与本地基线。
 - `EXPERIMENTS.md`：逐项采用/回退决策、数学与性能结果。
+- `DATAFLOW.md`：output 初始化、功率/Mel 融合、SIMD 与加窗审查。
 - `research/`：Kimi 三项独立研究和审查材料。
 - `raw/`：本地逐次输出、正确性与压力测试。
 - `raw/cluster/`：集群原始日志、完整官方输出和比较 JSON。

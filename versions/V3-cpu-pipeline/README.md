@@ -1,6 +1,6 @@
 # V3 CPU-Pipeline 公共实验上下文
 
-状态：**已完成首轮 V3 CPU-Pipeline 优化与集群验证**。最终推荐 B=1 / sparse / 16 workers，见 [RESULTS.md](RESULTS.md)；复现见 [REPRODUCE.md](REPRODUCE.md)。所有正式改动均留在 `v3/cpu-pipeline` 与本 worktree。
+状态：**已完成 V3 CPU-Pipeline 与数据流融合验证**。最终推荐 B=1 / sparse / 16 workers / `FUSE_POWER_MEL=1`，见 [RESULTS.md](RESULTS.md)；复现见 [REPRODUCE.md](REPRODUCE.md)，数据流实验见 [DATAFLOW.md](DATAFLOW.md)。所有正式改动均留在 `v3/cpu-pipeline` 与本 worktree。
 
 ## 基线与目标
 

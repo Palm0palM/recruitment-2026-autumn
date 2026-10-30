@@ -51,6 +51,17 @@ narrow_band 1.308→1.274 s（约 2.7%）。官方 fusion 四组全 PASS：
 `0.958 / 0.638 / 1.316 / 1.261 s`。三组稳定收益、default 无明显回退，且 39 组输出与稳定版完全相同，
 因此将 `FUSE_POWER_MEL=1` 设为默认，并再做最终复测。原始结果见 `raw/cluster/*244*`。
 
+最终作业 261 复测（stable → fusion median）：default 0.980→0.973 s，
+small_mels 0.664→0.650 s，large_fft 1.349→1.350 s，narrow_band 1.298→1.267 s。
+第二轮官方为 `0.961 / 0.641 / 1.320 / 1.256 s`，仍 4/4 PASS。
+两轮共同结论是 narrow_band 约 2.4–2.7%、small_mels 约 1.7–2.2% 的端到端改善；
+default 与 large_fft 接近测量噪声，不对它们宣称稳定收益。
+
+作业 262 显示独立 power_s 已变为 0（工作融合进 mel_s）。
+default 原 power+Mel 线程秒约 0.913，融合后约 0.831；narrow_band 原约 1.075，融合后约 0.572。
+FFT 线程秒基本不变，证明收益来自消除中间 power pass，而不是改变 FFT backend。
+最终融合版另通过 ASan/UBSan、8 项 smoke 和 39 组逐元素一致检查。
+
 D1 的 output-overlap 在作业 248 也完成官方四组 PASS，但因性能无稳定收益仍不采用。
 
 ## D3：Mel 向量化审查（不新增实现）
