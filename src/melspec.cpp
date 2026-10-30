@@ -49,10 +49,8 @@ struct FFTPlan {
         }
     }
 
-    void apply(std::vector<std::complex<double>>& a) const {
+    void apply_permuted(std::vector<std::complex<double>>& a) const {
         const int n = static_cast<int>(a.size());
-        for (int i = 1; i < n; ++i)
-            if (i < reversed[i]) std::swap(a[i], a[reversed[i]]);
         for (int len = 2; len <= n; len <<= 1) {
             for (int i = 0; i < n; i += len) {
                 for (int j = 0; j < len / 2; ++j) {
@@ -71,10 +69,10 @@ struct FFTPlan {
 void compute_rfft(const std::vector<double>& frame,
                   std::vector<std::complex<double>>& out) {
     const int n = static_cast<int>(frame.size());
-    // Copy real input into complex array
+    FFTPlan plan(n);
     std::vector<std::complex<double>> a(n);
-    for (int i = 0; i < n; ++i) a[i] = {frame[i], 0.0};
-    FFTPlan(n).apply(a);
+    for (int i = 0; i < n; ++i) a[plan.reversed[i]] = {frame[i], 0.0};
+    plan.apply_permuted(a);
     // Keep only DC + positive frequencies (n/2+1 bins)
     out.resize(n / 2 + 1);
     for (int k = 0; k <= n / 2; ++k) out[k] = a[k];
@@ -181,11 +179,11 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                 double sample = y[start] * window[0];
                 power[0] = sample * sample;
             } else {
-                // Pack even/odd real samples into a half-length complex FFT.
+                // Fuse bit reversal with windowing and even/odd packing.
                 for (int i = 0; i < half; ++i)
-                    fft_out[i] = {y[start + 2 * i] * window[2 * i],
-                                  y[start + 2 * i + 1] * window[2 * i + 1]};
-                plan.apply(fft_out);
+                    fft_out[plan.reversed[i]] = {y[start + 2 * i] * window[2 * i],
+                                                 y[start + 2 * i + 1] * window[2 * i + 1]};
+                plan.apply_permuted(fft_out);
 
                 double dc = fft_out[0].real() + fft_out[0].imag();
                 double nyquist = fft_out[0].real() - fft_out[0].imag();
