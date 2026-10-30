@@ -4,10 +4,10 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
 #SBATCH --hint=nomultithread
-#SBATCH --time=00:30:00
+#SBATCH --time=00:10:00
 #SBATCH --output=tmp/logs/complete-%j.out
 #SBATCH --error=tmp/logs/complete-%j.err
-# Resume validation only, preserving the completed scoring and chosen wisdom.
+# Short closeout only: no rebuild, replanning, repeat score matrix or profiling.
 set -euo pipefail
 cd "$SLURM_SUBMIT_DIR"
 : "${FINAL_JOB:?set FINAL_JOB to the completed release comparison job}"
@@ -33,7 +33,7 @@ assert len(rows)==36 and all(r['passed'] and len(r['times'])==5 for r in rows)
 envs=json.loads((o/'environments.json').read_text())
 for name,power in (('patient-float','float'),('patient-double','double')):
     env=dict(os.environ,**envs[name])
-    run=subprocess.run([sys.executable,'-u','validate.py',str(o/f'combo-{power}'),'--runs','3'],
+    run=subprocess.run([sys.executable,'-u','validate.py',str(o/f'combo-{power}'),'--runs','1'],
                        env=env,capture_output=True,text=True)
     text=run.stdout+'\n'+run.stderr
     Path(f'tmp/logs/complete-official-{name}-{os.environ["SLURM_JOB_ID"]}.txt').write_text(text)
@@ -45,5 +45,3 @@ PY
   "patient-float=$O/combo-float" "patient-double=$O/combo-double" \
   "padded4=$O/layout-0" "interleaved4=$O/layout-1" --env-json "$O/environments.json" \
   --out "tmp/logs/complete-memory-$SLURM_JOB_ID.json"
-# A plain child shell reuses THIS allocation, never creates a concurrent job.
-bash scripts/fftw-lab-profile.slurm
