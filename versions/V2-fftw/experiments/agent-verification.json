@@ -1,0 +1,80 @@
+[
+  {
+    "agent": "fftw-probe",
+    "model": {
+      "id": "moonshotai/kimi-k3.1-pro-highspeed",
+      "providerID": "ppio",
+      "variant": "high"
+    },
+    "ordered_rule_evaluation": {
+      "production_edit": "deny",
+      "shell_git": "deny",
+      "shell_python": "deny",
+      "execute": "deny"
+    }
+  },
+  {
+    "agent": "fftw-wisdom",
+    "model": {
+      "id": "moonshotai/kimi-k3.1-pro-highspeed",
+      "providerID": "ppio",
+      "variant": "high"
+    },
+    "ordered_rule_evaluation": {
+      "production_edit": "deny",
+      "shell_git": "deny",
+      "shell_python": "ask",
+      "execute": "deny",
+      "private_edit": "allow",
+      "other_edit": "deny"
+    }
+  },
+  {
+    "agent": "fftw-batch",
+    "model": {
+      "id": "moonshotai/kimi-k3.1-pro-highspeed",
+      "providerID": "ppio",
+      "variant": "high"
+    },
+    "ordered_rule_evaluation": {
+      "production_edit": "deny",
+      "shell_git": "deny",
+      "shell_python": "ask",
+      "execute": "deny",
+      "private_edit": "allow",
+      "other_edit": "deny"
+    }
+  },
+  {
+    "agent": "fftw-precision",
+    "model": {
+      "id": "moonshotai/kimi-k3.1-pro-highspeed",
+      "providerID": "ppio",
+      "variant": "high"
+    },
+    "ordered_rule_evaluation": {
+      "production_edit": "deny",
+      "shell_git": "deny",
+      "shell_python": "ask",
+      "execute": "deny",
+      "private_edit": "allow",
+      "other_edit": "deny"
+    }
+  },
+  {
+    "agent": "fftw-isa",
+    "model": {
+      "id": "moonshotai/kimi-k3.1-pro-highspeed",
+      "providerID": "ppio",
+      "variant": "high"
+    },
+    "ordered_rule_evaluation": {
+      "production_edit": "deny",
+      "shell_git": "deny",
+      "shell_python": "ask",
+      "execute": "deny",
+      "private_edit": "allow",
+      "other_edit": "deny"
+    }
+  }
+]
