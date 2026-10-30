@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/home/zsx/melspec-v3-mpi-spike/validate.py", line 244, in <module>
+    main()
+    ~~~~^^
+  File "/home/zsx/melspec-v3-mpi-spike/validate.py", line 239, in main
+    results = validate_program(args.program_path, runs=args.runs)
+  File "/home/zsx/melspec-v3-mpi-spike/validate.py", line 155, in validate_program
+    prog_time, out_bytes = run_and_time(cmd, runs)
+                           ~~~~~~~~~~~~^^^^^^^^^^^
+  File "/home/zsx/melspec-v3-mpi-spike/validate.py", line 91, in run_and_time
+    subprocess.run(full_cmd, check=True, capture_output=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['./scripts/mpi-official-wrapper.sh', 'data/audio.pcm', '/tmp/melspec-mpi-300-muVPSS/tmplcs0m122.bin', '--sr', '96000', '--n_fft', '8192', '--hop_length', '128', '--n_mels', '256', '--f_min', '0.0', '--f_max', '22050.0']' returned non-zero exit status 1.

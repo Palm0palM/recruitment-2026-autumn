@@ -1,0 +1,38 @@
+job=304 mode=official nodes=hepnode[0,2-3]
+hepnode0
+hepnode2
+hepnode3
+source snapshot: no Git metadata (recorded by the local orchestrator)
+Open MPI v4.1.6
+
+http://www.open-mpi.org/community/help/
+MPI plugin types are...
+	none
+	cray_shasta
+	pmi2
+	pmix
+specific pmix plugin versions available: pmix_v5
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+b43d32ec26380a411a995ada96ca65fedfee0e920ee0a0d2ccc79aab4ded53b5  src/melspec.cpp
+3bcb8265fb0157fcb8166415c5fe3e6bcf165463e8df976aeb58c861cfe228a1  include/fftw_support.h
+6a867dc6a03653cb0d0026f6e05b8473659b73a327865025b5f2d90c36ee9bec  scripts/mpi_melspec.cpp
+4ea24a5e953708491f376d3f199e052d96bf61bb5e7936c3d09d8a1da2cedc63  /home/zsx/melspec-v3-mpi-spike/tmp/opt/fftw-3.3.11/lib/libfftw3.a
+bc03dc054f760fab6ed55524fbe76ddf5082943aa95f6a60aa987f9670f6ed3a  tmp/bin/a2-estimate
+282d1c959406f2ed7f4718c8b875f6a23734080f77135732d8ee9b32374b4afa  tmp/bin/mpi-melspec
+	libmpi.so.40 => /cache/toolchain/openmpi-4.1.6/lib/libmpi.so.40 (0x0000764efe744000)
+	libopen-rte.so.40 => /cache/toolchain/openmpi-4.1.6/lib/libopen-rte.so.40 (0x0000764efdffb000)
+	libopen-pal.so.40 => /cache/toolchain/openmpi-4.1.6/lib/libopen-pal.so.40 (0x0000764efdd10000)
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    4.889 |  2.890x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    4.356 |  3.214x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    4.758 |  5.700x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    5.291 |  5.103x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED

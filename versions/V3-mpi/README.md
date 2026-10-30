@@ -30,7 +30,9 @@
 - 2 节点最强组合（`srun` + scatter）仍为 A2 的 **0.45–0.59 倍**，即慢 1.7–2.2 倍。
 - 即使把 launcher、float 打包和 Gather 全部设为零，default/small_mels 仍慢 15%/52%；
   large_fft/narrow_band 也只有 1–6% 理论余量。详细阶段数据见 [PERFORMANCE.md](PERFORMANCE.md)。
-- 当前无 4 节点空闲资源，未伪造 4 Rank 实测；2 Rank 固定成本和零通信下界已否定通用收益。
+- 3 节点（hepnode0/2/3）也已实测：全新作业的 3 Rank 官方四组 **4/4 PASS**，
+  但耗时 4.356–5.291 秒；干净 default 首轮最佳 2.195 秒，仍只有 A2 的 0.47×。
+- 当前无 4 节点空闲资源，未伪造 4 Rank 实测；2/3 Rank 固定成本和零通信下界已否定通用收益。
 - 独立 driver 需要 launcher，正式评测兼容性未知，因此不能作为最终提交方案。
 
 详见 [ENVIRONMENT.md](ENVIRONMENT.md)、[DESIGN.md](DESIGN.md) 和后续 [PERFORMANCE.md](PERFORMANCE.md)。

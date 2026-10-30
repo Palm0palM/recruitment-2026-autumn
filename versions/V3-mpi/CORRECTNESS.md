@@ -56,3 +56,19 @@
 四组 4/4 PASS，但耗时为 2.327/1.680/2.527/2.491 秒，明显慢于同节点 A2；
 这只证明独立原型的汇集语义和数值正确，不证明正式评测启动资格。原始结果：
 `raw/mpi-official-264.txt`。
+
+### 3 节点官方验证
+
+作业 304（hepnode0/2/3，3 Rank，scatter，全新 Slurm 分配）通过未修改的官方
+`validate.py` 四组：
+
+| 用例 | max abs err | 状态 | 最小 wall (s) |
+|---|---:|---|---:|
+| default | 3.12e-02 | PASS | 4.889 |
+| small_mels | 1.17e-02 | PASS | 4.356 |
+| large_fft | 1.25e-01 | PASS | 4.758 |
+| narrow_band | 6.25e-02 | PASS | 5.291 |
+
+数值仍正确，但重复 MPI launcher 的初始化成本极大，远慢于 A2。原始结果：
+`raw/mpi-official-304.txt`。作业 300 在大量重复 `mpirun` 后出现过 wrapper 失败，
+与该全新作业对照可判定为重复启动环境问题，而不是输出布局错误。

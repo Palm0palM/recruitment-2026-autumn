@@ -1,0 +1,137 @@
+job=300 mode=full nodes=hepnode[0,2-3]
+hepnode0
+hepnode2
+hepnode3
+source snapshot: no Git metadata (recorded by the local orchestrator)
+Open MPI v4.1.6
+
+http://www.open-mpi.org/community/help/
+MPI plugin types are...
+	none
+	cray_shasta
+	pmi2
+	pmix
+specific pmix plugin versions available: pmix_v5
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+b43d32ec26380a411a995ada96ca65fedfee0e920ee0a0d2ccc79aab4ded53b5  src/melspec.cpp
+3bcb8265fb0157fcb8166415c5fe3e6bcf165463e8df976aeb58c861cfe228a1  include/fftw_support.h
+6a867dc6a03653cb0d0026f6e05b8473659b73a327865025b5f2d90c36ee9bec  scripts/mpi_melspec.cpp
+4ea24a5e953708491f376d3f199e052d96bf61bb5e7936c3d09d8a1da2cedc63  /home/zsx/melspec-v3-mpi-spike/tmp/opt/fftw-3.3.11/lib/libfftw3.a
+bc03dc054f760fab6ed55524fbe76ddf5082943aa95f6a60aa987f9670f6ed3a  tmp/bin/a2-estimate
+282d1c959406f2ed7f4718c8b875f6a23734080f77135732d8ee9b32374b4afa  tmp/bin/mpi-melspec
+	libmpi.so.40 => /cache/toolchain/openmpi-4.1.6/lib/libmpi.so.40 (0x00007d6d0ac73000)
+	libopen-rte.so.40 => /cache/toolchain/openmpi-4.1.6/lib/libopen-rte.so.40 (0x00007d6d0a52a000)
+	libopen-pal.so.40 => /cache/toolchain/openmpi-4.1.6/lib/libopen-pal.so.40 (0x00007d6d0a23f000)
+default a2 round=0 wall_s=1.038552 err=0.03125 PASS
+default 1:scatter round=0 wall_s=2.686829 err=0.03125 PASS
+default 2:scatter round=0 wall_s=2.455054 err=0.03125 PASS
+default 3:bcast round=0 wall_s=2.486756 err=0.03125 PASS
+default 3:scatter round=0 wall_s=2.329910 err=0.03125 PASS
+default 3:shared round=0 wall_s=2.194623 err=0.03125 PASS
+default 3:scatter:srun round=0 wall_s=7.586207 err=0.03125 PASS
+default 1:scatter round=1 wall_s=5.266446 err=0.03125 PASS
+default 2:scatter round=1 wall_s=4.901256 err=0.03125 PASS
+default 3:bcast round=1 wall_s=4.923034 err=0.03125 PASS
+default 3:scatter round=1 wall_s=4.719116 err=0.03125 PASS
+default 3:shared round=1 wall_s=4.634954 err=0.03125 PASS
+default 3:scatter:srun round=1 wall_s=7.176511 err=0.03125 PASS
+default a2 round=1 wall_s=1.060115 err=0.03125 PASS
+default 2:scatter round=2 wall_s=5.053497 err=0.03125 PASS
+default 3:bcast round=2 wall_s=4.854000 err=0.03125 PASS
+default 3:scatter round=2 wall_s=5.052360 err=0.03125 PASS
+default 3:shared round=2 wall_s=4.835526 err=0.03125 PASS
+default 3:scatter:srun round=2 wall_s=7.448590 err=0.03125 PASS
+default a2 round=2 wall_s=1.036422 err=0.03125 PASS
+default 1:scatter round=2 wall_s=5.251507 err=0.03125 PASS
+SUMMARY {"case": "default", "config": "a2", "min_s": 1.0364221170020755, "median_s": 1.0385520900017582, "vs_a2": 1.0, "efficiency": 1.0}
+SUMMARY {"case": "default", "config": "1:scatter", "min_s": 2.6868288139958167, "median_s": 5.251507061002485, "vs_a2": 0.3857417754355262, "efficiency": 0.3857417754355262}
+SUMMARY {"case": "default", "config": "2:scatter", "min_s": 2.4550537819959573, "median_s": 4.901255949000188, "vs_a2": 0.4221586201502539, "efficiency": 0.21107931007512695}
+SUMMARY {"case": "default", "config": "3:bcast", "min_s": 2.4867560299971956, "median_s": 4.853999712999212, "vs_a2": 0.4167767583550383, "efficiency": 0.1389255861183461}
+SUMMARY {"case": "default", "config": "3:scatter", "min_s": 2.3299103200042737, "median_s": 4.719115654996131, "vs_a2": 0.4448334805436522, "efficiency": 0.14827782684788407}
+SUMMARY {"case": "default", "config": "3:shared", "min_s": 2.194622625996999, "median_s": 4.63495361799869, "vs_a2": 0.47225527738794615, "efficiency": 0.15741842579598206}
+SUMMARY {"case": "default", "config": "3:scatter:srun", "min_s": 7.176511300000129, "median_s": 7.4485903669992695, "vs_a2": 0.14441865604002557, "efficiency": 0.048139552013341864}
+small_mels a2 round=0 wall_s=0.687359 err=0.01171875 PASS
+small_mels 1:scatter round=0 wall_s=4.379255 err=0.01171875 PASS
+small_mels 2:scatter round=0 wall_s=4.244308 err=0.01171875 PASS
+small_mels 3:bcast round=0 wall_s=4.476567 err=0.01171875 PASS
+small_mels 3:scatter round=0 wall_s=4.164212 err=0.01171875 PASS
+small_mels 3:shared round=0 wall_s=3.808767 err=0.01171875 PASS
+small_mels 3:scatter:srun round=0 wall_s=6.982272 err=0.01171875 PASS
+small_mels 1:scatter round=1 wall_s=4.545526 err=0.01171875 PASS
+small_mels 2:scatter round=1 wall_s=4.402567 err=0.01171875 PASS
+small_mels 3:bcast round=1 wall_s=4.254472 err=0.01171875 PASS
+small_mels 3:scatter round=1 wall_s=4.337285 err=0.01171875 PASS
+small_mels 3:shared round=1 wall_s=4.324683 err=0.01171875 PASS
+small_mels 3:scatter:srun round=1 wall_s=7.446020 err=0.01171875 PASS
+small_mels a2 round=1 wall_s=0.693604 err=0.01171875 PASS
+small_mels 2:scatter round=2 wall_s=4.368973 err=0.01171875 PASS
+small_mels 3:bcast round=2 wall_s=4.566461 err=0.01171875 PASS
+small_mels 3:scatter round=2 wall_s=4.476759 err=0.01171875 PASS
+small_mels 3:shared round=2 wall_s=4.265141 err=0.01171875 PASS
+small_mels 3:scatter:srun round=2 wall_s=7.027619 err=0.01171875 PASS
+small_mels a2 round=2 wall_s=0.694205 err=0.01171875 PASS
+small_mels 1:scatter round=2 wall_s=4.515900 err=0.01171875 PASS
+SUMMARY {"case": "small_mels", "config": "a2", "min_s": 0.6873586590008927, "median_s": 0.6936040650034556, "vs_a2": 1.0, "efficiency": 1.0}
+SUMMARY {"case": "small_mels", "config": "1:scatter", "min_s": 4.379254660001607, "median_s": 4.515900006997981, "vs_a2": 0.15695791004778892, "efficiency": 0.15695791004778892}
+SUMMARY {"case": "small_mels", "config": "2:scatter", "min_s": 4.244308458000887, "median_s": 4.368973019001714, "vs_a2": 0.1619483281676105, "efficiency": 0.08097416408380526}
+SUMMARY {"case": "small_mels", "config": "3:bcast", "min_s": 4.2544720220030285, "median_s": 4.476566666999133, "vs_a2": 0.1615614476828268, "efficiency": 0.053853815894275604}
+SUMMARY {"case": "small_mels", "config": "3:scatter", "min_s": 4.164211543997226, "median_s": 4.337284601999272, "vs_a2": 0.165063338338738, "efficiency": 0.055021112779579336}
+SUMMARY {"case": "small_mels", "config": "3:shared", "min_s": 3.8087672010005917, "median_s": 4.265140747003898, "vs_a2": 0.1804674905886394, "efficiency": 0.06015583019621313}
+SUMMARY {"case": "small_mels", "config": "3:scatter:srun", "min_s": 6.982271833003324, "median_s": 7.0276189079959295, "vs_a2": 0.09844341146271803, "efficiency": 0.032814470487572675}
+large_fft a2 round=0 wall_s=1.450397 err=0.125 PASS
+large_fft 1:scatter round=0 wall_s=6.130656 err=0.125 PASS
+large_fft 2:scatter round=0 wall_s=5.453004 err=0.125 PASS
+large_fft 3:bcast round=0 wall_s=5.069276 err=0.125 PASS
+large_fft 3:scatter round=0 wall_s=5.300292 err=0.125 PASS
+large_fft 3:shared round=0 wall_s=4.834394 err=0.125 PASS
+large_fft 3:scatter:srun round=0 wall_s=7.752830 err=0.125 PASS
+large_fft 1:scatter round=1 wall_s=5.857279 err=0.125 PASS
+large_fft 2:scatter round=1 wall_s=5.275710 err=0.125 PASS
+large_fft 3:bcast round=1 wall_s=5.088870 err=0.125 PASS
+large_fft 3:scatter round=1 wall_s=5.220497 err=0.125 PASS
+large_fft 3:shared round=1 wall_s=4.878554 err=0.125 PASS
+large_fft 3:scatter:srun round=1 wall_s=8.440439 err=0.125 PASS
+large_fft a2 round=1 wall_s=1.507297 err=0.125 PASS
+large_fft 2:scatter round=2 wall_s=5.144758 err=0.125 PASS
+large_fft 3:bcast round=2 wall_s=5.083766 err=0.125 PASS
+large_fft 3:scatter round=2 wall_s=5.001546 err=0.125 PASS
+large_fft 3:shared round=2 wall_s=4.646146 err=0.125 PASS
+large_fft 3:scatter:srun round=2 wall_s=7.699527 err=0.125 PASS
+large_fft a2 round=2 wall_s=1.429538 err=0.125 PASS
+large_fft 1:scatter round=2 wall_s=5.769130 err=0.125 PASS
+SUMMARY {"case": "large_fft", "config": "a2", "min_s": 1.4295378409951809, "median_s": 1.4503973159953603, "vs_a2": 1.0, "efficiency": 1.0}
+SUMMARY {"case": "large_fft", "config": "1:scatter", "min_s": 5.769130330001644, "median_s": 5.857279114999983, "vs_a2": 0.24779087301270475, "efficiency": 0.24779087301270475}
+SUMMARY {"case": "large_fft", "config": "2:scatter", "min_s": 5.144758312002523, "median_s": 5.275710362999234, "vs_a2": 0.2778629732051988, "efficiency": 0.1389314866025994}
+SUMMARY {"case": "large_fft", "config": "3:bcast", "min_s": 5.069276310998248, "median_s": 5.083766237999953, "vs_a2": 0.28200037900748687, "efficiency": 0.09400012633582897}
+SUMMARY {"case": "large_fft", "config": "3:scatter", "min_s": 5.001545997001813, "median_s": 5.220497006994265, "vs_a2": 0.285819193075925, "efficiency": 0.09527306435864166}
+SUMMARY {"case": "large_fft", "config": "3:shared", "min_s": 4.64614615499886, "median_s": 4.834393625998928, "vs_a2": 0.3076824949764267, "efficiency": 0.1025608316588089}
+SUMMARY {"case": "large_fft", "config": "3:scatter:srun", "min_s": 7.699527488002786, "median_s": 7.752830463003193, "vs_a2": 0.18566565847354288, "efficiency": 0.0618885528245143}
+narrow_band a2 round=0 wall_s=1.357013 err=0.0625 PASS
+narrow_band 1:scatter round=0 wall_s=5.577884 err=0.0625 PASS
+narrow_band 2:scatter round=0 wall_s=5.239894 err=0.0625 PASS
+narrow_band 3:bcast round=0 wall_s=5.333683 err=0.0625 PASS
+narrow_band 3:scatter round=0 wall_s=5.213298 err=0.0625 PASS
+narrow_band 3:shared round=0 wall_s=5.113762 err=0.0625 PASS
+narrow_band 3:scatter:srun round=0 wall_s=7.990824 err=0.0625 PASS
+narrow_band 1:scatter round=1 wall_s=5.634103 err=0.0625 PASS
+narrow_band 2:scatter round=1 wall_s=5.169628 err=0.0625 PASS
+narrow_band 3:bcast round=1 wall_s=5.167950 err=0.0625 PASS
+narrow_band 3:scatter round=1 wall_s=4.950943 err=0.0625 PASS
+narrow_band 3:shared round=1 wall_s=4.915168 err=0.0625 PASS
+narrow_band 3:scatter:srun round=1 wall_s=7.984284 err=0.0625 PASS
+narrow_band a2 round=1 wall_s=1.408344 err=0.0625 PASS
+narrow_band 2:scatter round=2 wall_s=5.400245 err=0.0625 PASS
+narrow_band 3:bcast round=2 wall_s=5.147694 err=0.0625 PASS
+narrow_band 3:scatter round=2 wall_s=5.371319 err=0.0625 PASS
+narrow_band 3:shared round=2 wall_s=5.129814 err=0.0625 PASS
+narrow_band 3:scatter:srun round=2 wall_s=8.054359 err=0.0625 PASS
+narrow_band a2 round=2 wall_s=1.688538 err=0.0625 PASS
+narrow_band 1:scatter round=2 wall_s=5.829403 err=0.0625 PASS
+SUMMARY {"case": "narrow_band", "config": "a2", "min_s": 1.3570127179991687, "median_s": 1.4083441179973306, "vs_a2": 1.0, "efficiency": 1.0}
+SUMMARY {"case": "narrow_band", "config": "1:scatter", "min_s": 5.577883798003313, "median_s": 5.63410303099954, "vs_a2": 0.2432845084519207, "efficiency": 0.2432845084519207}
+SUMMARY {"case": "narrow_band", "config": "2:scatter", "min_s": 5.169627715004026, "median_s": 5.239893687001313, "vs_a2": 0.26249718409328665, "efficiency": 0.13124859204664333}
+SUMMARY {"case": "narrow_band", "config": "3:bcast", "min_s": 5.147694358005538, "median_s": 5.167949782000505, "vs_a2": 0.26361563519962755, "efficiency": 0.08787187839987584}
+SUMMARY {"case": "narrow_band", "config": "3:scatter", "min_s": 4.950943112002278, "median_s": 5.213298171001952, "vs_a2": 0.2740917613675348, "efficiency": 0.09136392045584495}
+SUMMARY {"case": "narrow_band", "config": "3:shared", "min_s": 4.91516827599844, "median_s": 5.113762230001157, "vs_a2": 0.2760867261911827, "efficiency": 0.09202890873039422}
+SUMMARY {"case": "narrow_band", "config": "3:scatter:srun", "min_s": 7.984283839999989, "median_s": 7.9908240899967495, "vs_a2": 0.16996048051307386, "efficiency": 0.05665349350435795}
+Running test case: default...
