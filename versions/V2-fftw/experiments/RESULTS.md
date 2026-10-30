@@ -232,8 +232,33 @@ whole-process memory reduction: the final output conversion dominates, and large
 than A2 despite smaller explicit FFT scratch. Sampled VmHWM is approximate; inherited wait4 RSS is invalid
 for this purpose and is intentionally not the reported metric. Memory checks all compared full output again.
 
-## Delivery decision
+## Targeted profile and deployment proof — job 251
 
+Commit `818c81e`, hepnode2, one task/16 CPU/nomultithread, COMPLETED 0:0 in **30 seconds**.
+The committed PATIENT wisdom loaded for both 8192 and 16384; every run's output passed; two runs per case.
+Separate instrumented build only — values below are diagnostic, not scores.
+
+| Case | process wall s (mean) | read | compute | write | fixed |
+|---|---:|---:|---:|---:|---:|
+| default | 0.830 | 21.5% | 47.2% | 27.4% | 3.9% |
+| small_mels | 0.517 | 35.0% | 46.7% | 14.1% | 4.2% |
+| large_fft | 1.032 | 17.4% | 57.4% | 21.8% | 3.4% |
+| narrow_band | 0.986 | 18.3% | 54.4% | 24.0% | 3.2% |
+
+Worker-stage shares: FFT **50.0–62.0%**, packing 14.5–17.2%, power 9.1–11.3%, Mel 9.5–25.7%;
+effective parallelism 7.2–11.9×. `compute setup` is 0.054–0.217 s, versus wisdom import only 1.6–1.9 ms
+(9.2 ms on the first run while the file was cold). Therefore the next fixed-cost target is filter/window and
+output initialization, not further plan import tuning. FFT remains the largest worker hotspot, but the whole
+process now spends only 47–57% of wall time in compute.
+
+Deployment verification in the same job: all four cases reported `status=loaded` with no fallback and matched
+the expected output; forcing a wrong library identity produced explicit `reason=library-id-mismatch` fallback,
+whose output also met the original tolerance and matched the loaded path within that tolerance.
+Raw: `raw/cluster/profile-final-251.{json,txt}` and `raw/cluster/deploy-final-251.json`.
+`PROFILE.md` section 0 replaces the old double-A2 percentages for this candidate; those historical figures
+remain labeled as A2-only and are not applied to float+PATIENT.
+
+## Delivery decision
 - Best observed tested balanced configuration: native R2C, **float FFT + float power + PATIENT wisdom**,
   double Hann/Mel/accumulation/output API, at most 16 outer workers, no internal FFTW threads.
 - Production implementation commit: **d8234a5**; delivery/report commits leave those production files unchanged.

@@ -1,0 +1,8 @@
+job=251 node=hepnode2
+Cpus_allowed_list:	0-15
+818c81e656d83aafa54291e0b83af6412d50d047
+g++ -I./include -DMELSPEC_FFTWF_WISDOM=1 -DMELSPEC_FFTW_FLOAT=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-float-float-wisdom1/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FFTWF_WISDOM=1 -DMELSPEC_FFTW_FLOAT=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-float-float-wisdom1/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FFTWF_WISDOM=1 -DMELSPEC_FFTW_FLOAT=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-float-float-wisdom1/fftw_float_wisdom.o -c src/fftw_float_wisdom.cpp
+g++  -o tmp/fftw-lab/final/float-patient tmp/build/r2c-estimate-float-float-wisdom1/main.o tmp/build/r2c-estimate-float-float-wisdom1/melspec.o tmp/build/r2c-estimate-float-float-wisdom1/fftw_float_wisdom.o -pthread /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/lib/libfftw3f.a -lm
+profile + deployment verification complete

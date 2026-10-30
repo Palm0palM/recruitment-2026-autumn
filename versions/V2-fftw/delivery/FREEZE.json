@@ -72,5 +72,76 @@
       "default": 787508,
       "large_fft": 796680
     }
+  },
+  "reproducibility": {
+    "clean_checkout_job": 251,
+    "rebuilt_binary_sha256": "a9d994473813cdc44b5588a8510007c5b2ee73072ba235221b880440c030030c",
+    "matches_frozen_binary": true,
+    "command": "make -B FFT_PRECISION=float FFT_POWER=float FFTW_WISDOM=1 FFTW_PREFIX=<float-prefix>"
+  },
+  "profile": {
+    "job": 251,
+    "instrumented_only": true,
+    "runs_per_case": 2,
+    "wisdom_loaded": true,
+    "process_wall_share_pct": {
+      "default": {
+        "read": 21.5,
+        "compute": 47.2,
+        "write": 27.4,
+        "fixed": 3.9
+      },
+      "small_mels": {
+        "read": 35.0,
+        "compute": 46.7,
+        "write": 14.1,
+        "fixed": 4.2
+      },
+      "large_fft": {
+        "read": 17.4,
+        "compute": 57.4,
+        "write": 21.8,
+        "fixed": 3.4
+      },
+      "narrow_band": {
+        "read": 18.3,
+        "compute": 54.4,
+        "write": 24.0,
+        "fixed": 3.2
+      }
+    },
+    "worker_stage_share_pct": {
+      "fft": [
+        50.0,
+        62.0
+      ],
+      "pack": [
+        14.5,
+        17.2
+      ],
+      "power": [
+        9.1,
+        11.3
+      ],
+      "mel": [
+        9.5,
+        25.7
+      ]
+    },
+    "effective_parallelism_range": [
+      7.2,
+      11.9
+    ],
+    "wisdom_import_ms": [
+      1.6,
+      1.9
+    ]
+  },
+  "deployment_check": {
+    "job": 251,
+    "cases_passed": 4,
+    "loaded_diagnostic": true,
+    "fallback_on_wrong_library_id": true,
+    "fallback_output_meets_tolerance": true
   }
 }

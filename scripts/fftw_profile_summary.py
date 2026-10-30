@@ -49,7 +49,7 @@ def main():
         fixed = w - sum(phases.values())
         print(f"| {case} | {100*phases['read_s']/w:.1f} | {100*phases['compute_s']/w:.1f} | "
               f"{100*phases['write_s']/w:.1f} | {100*fixed/w:.1f} |", file=out)
-    if args.out is not "-":
+    if str(args.out.name) != "<stdout>":
         args.out.close()
 
 

@@ -5,6 +5,8 @@
 > **1.216× / 1.358× / 1.338× / 1.343×**，几何平均 **1.313×**。
 > 这不是本地结果；完整数据、官方验收状态与失败记录见 [experiments/RESULTS.md](experiments/RESULTS.md)。
 > PATIENT 最佳组合已在作业 **209** 完成官方 **4/4 PASS**，补测耗时 **3:35**；本轮已收尾。
+> 目标版本针对性 Profile（作业 251，30 秒）与部署级 Wisdom 加载/回退校验已完成，见 [PROFILE.md](PROFILE.md) 第 0 节。
+> 冻结清单与交付流程见 [delivery/](delivery/)。
 > 原理见 [DESIGN.md](experiments/DESIGN.md)，构建及 Wisdom 准备见 [REPRODUCE.md](experiments/REPRODUCE.md)。
 > 下文保留第一轮 all-double A2 的历史交付记录，不把两轮数据混算。
 

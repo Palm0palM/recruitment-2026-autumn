@@ -68,6 +68,9 @@ make -B FFT_PRECISION=float FFT_POWER=float FFTW_WISDOM=1 \
 sha256sum tmp/bin/fftw-float-patient   # 同一工具链/目标应复现冻结 SHA
 ```
 
+Job 251 已在同一集群环境从该提交重新构建，二进制 SHA 与冻结值完全一致
+（`a9d99447…c030030c`），说明构建流程可复现，而不是只保留了一次构建产物。
+
 ## 3. 部署 PATIENT Wisdom
 
 Wisdom 与 FFTW 库、精度、CPU 特性、尺寸和布局绑定，**不可跨机器强行复用**。
@@ -117,6 +120,11 @@ python3 scripts/fftw_verify_deployment.py \
 要求：4 个官方用例 `passed=true`、`status=loaded` 无 fallback；fallback 用例同样通过原容差。
 更全面的 envelope 失配矩阵可运行 `scripts/fftw_wisdom_check.py`（19 项）。
 `scripts/fftw-profile-final.slurm` 已把上述部署校验与一次目标版本 Profile 放在同一轻量作业中。
+
+**Job 251 已完成该校验**：4/4 `status=loaded` 且无 fallback；错误 library id 时明确
+`reason=library-id-mismatch` 回退，输出仍满足原容差。原始记录：
+`../experiments/raw/cluster/deploy-final-251.json`；同作业的目标版本 Profile 见
+`../PROFILE.md` 第 0 节。
 
 ## 6. 交付边界
 

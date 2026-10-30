@@ -1,0 +1,11 @@
+a9d994473813cdc44b5588a8510007c5b2ee73072ba235221b880440c030030c  tmp/fftw-lab/final/float-patient
+15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a  /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/lib/libfftw3f.a
+82dafed5e3e3915b1985fe01fd2472ca33b59c2227ca8e14d79f3fb71fc80cc2  /home/zsx/melspec-v2-fftw-agent-a/versions/V2-fftw/experiments/raw/cluster/final-wisdom/patient/r2c-16384.wisdom
+cd92e16757eccad457143810c51203b8a65a2cf620ed7dd97516183fe41a5a8e  /home/zsx/melspec-v2-fftw-agent-a/versions/V2-fftw/experiments/raw/cluster/final-wisdom/patient/r2c-1.wisdom
+5d51ac259c3b91e5e21a61ea7f427ea4e12ddc8b6cd048b1ac29b400de6014db  /home/zsx/melspec-v2-fftw-agent-a/versions/V2-fftw/experiments/raw/cluster/final-wisdom/patient/r2c-2048.wisdom
+d5aa1d965187cc883239ca39a9c64eada8322f43aa110e15fb10b31b3ed25146  /home/zsx/melspec-v2-fftw-agent-a/versions/V2-fftw/experiments/raw/cluster/final-wisdom/patient/r2c-256.wisdom
+95e3ea8d52e2c29c4e2df8cac703a0f14b6bc8a7a050d4428c682dd4aff21c9c  /home/zsx/melspec-v2-fftw-agent-a/versions/V2-fftw/experiments/raw/cluster/final-wisdom/patient/r2c-2.wisdom
+f2ab35e39a7dc2b5d4d9087ed78ecff912d107db4c29d6da7c04cb7f30c70d68  /home/zsx/melspec-v2-fftw-agent-a/versions/V2-fftw/experiments/raw/cluster/final-wisdom/patient/r2c-32768.wisdom
+18e9486b248daf5d2c35cba33bd28f9585d3599b6d44e935ed312706a3b7f1e0  /home/zsx/melspec-v2-fftw-agent-a/versions/V2-fftw/experiments/raw/cluster/final-wisdom/patient/r2c-65536.wisdom
+dedf4e8f151618a9a0f8fd98e44b8c60d3fce395697ab6fa2e72ebc0c10e3adf  /home/zsx/melspec-v2-fftw-agent-a/versions/V2-fftw/experiments/raw/cluster/final-wisdom/patient/r2c-8192.wisdom
+a11542085314f4f7ca19b912c4bd89a3aff573b23023ac68618ab3f089f0900a  /home/zsx/melspec-v2-fftw-agent-a/versions/V2-fftw/experiments/raw/cluster/final-wisdom/patient/r2c-8.wisdom
