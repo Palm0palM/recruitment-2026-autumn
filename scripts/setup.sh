@@ -13,6 +13,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
+export PYTHONPYCACHEPREFIX="$ROOT/tmp/pycache"
 
 VENV="$ROOT/tmp/.venv"
 PY="$VENV/bin/python"
@@ -55,7 +56,7 @@ if [ -n "$SRC" ]; then
   echo "样例数: $(ls "$SRC/expected" | wc -l) 个 expected，$(stat -c%s "$SRC/audio.pcm") 字节 PCM"
 else
   echo "警告: 未找到可用的 data/audio.pcm 与 data/expected/" >&2
-  echo "      本地可仅做小样例检查（脚本会自己合成音频）；" >&2
+  echo "      本地可用 scripts/smoke.py 合成音频做小样例检查；" >&2
   echo "      集群上请确认 /cache/recuritment/melspec/data 可读。" >&2
 fi
 
@@ -65,6 +66,6 @@ make -j"$(nproc)"
 echo
 echo "完成。常用命令："
 echo "  source scripts/env.sh                     # 设置 PY / PATH"
-echo "  \$PY scripts/bench.py --case default --slice 5    # 本地小样例快速计时"
-echo "  \$PY scripts/bench.py --case all                  # 全量四组（耗时很长）"
-echo "  \$PY validate.py ./melspec                        # 官方校验（需要 data/ 可解析）"
+echo "  \$PY scripts/smoke.py                         # 随机小样例正确性"
+echo "  \$PY scripts/bench.py --slice 0.5 --runs 1     # 真实 PCM 小样例"
+echo "  集群流程见 scripts/README.md；全量 benchmark/profile 通过 Slurm 运行。"

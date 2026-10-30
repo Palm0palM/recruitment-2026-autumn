@@ -39,7 +39,10 @@ def load_official_cases():
 
 
 def find_data_dir() -> Path:
-    for cand in (ROOT / "tmp" / "data", ROOT / "data"):
+    candidates = [ROOT / "data", ROOT / "tmp" / "data"]
+    if os.environ.get("MELSPEC_DATA"):
+        candidates.insert(0, Path(os.environ["MELSPEC_DATA"]))
+    for cand in candidates:
         if (cand / "audio.pcm").exists():
             return cand
     raise SystemExit(
@@ -54,6 +57,7 @@ def make_input(data_dir: Path, seconds: float | None) -> Path:
         return data_dir / "audio.pcm"
     src = data_dir / "audio.pcm"
     dst = ROOT / "tmp" / f"slice_{seconds:g}s.pcm"
+    dst.parent.mkdir(parents=True, exist_ok=True)
     want = int(seconds * 96000) * 2  # 单声道 int16
     size = want if want <= src.stat().st_size else src.stat().st_size
     if not dst.exists() or dst.stat().st_size != size:
@@ -69,7 +73,7 @@ def make_input(data_dir: Path, seconds: float | None) -> Path:
     return dst
 
 
-def run_once(cmd: list[str], out_path: Path) -> float:
+def run_once(cmd: list[str]) -> float:
     t0 = time.perf_counter()
     subprocess.run(cmd, check=True, capture_output=True)
     dt = time.perf_counter() - t0
@@ -81,7 +85,7 @@ def timed(prog: str, pcm: Path, params: dict, out_path: Path, runs: int) -> floa
     for k, v in params.items():
         args += [f"--{k}", str(v)]
     cmd = [prog, str(pcm), str(out_path), *args]
-    times = [run_once(cmd, out_path) for _ in range(runs)]
+    times = [run_once(cmd) for _ in range(runs)]
     return min(times)
 
 
@@ -127,8 +131,10 @@ def main() -> None:
     ap.add_argument("--no-check", action="store_true", help="跳过正确性校验")
     ap.add_argument("--rtol", type=float, default=1e-3)
     ap.add_argument("--atol", type=float, default=1e-4)
-    ap.add_argument("--out", type=Path, default=None, help="把 markdown 表格另存到文件")
+    ap.add_argument("--out", type=Path, default=None, help="把测量摘要另存到文件")
     args = ap.parse_args()
+    if args.runs < 1 or (args.slice is not None and args.slice <= 0):
+        ap.error("--runs 必须 >= 1，--slice 必须 > 0")
 
     data_dir = find_data_dir()
     cases = load_official_cases()
@@ -140,6 +146,8 @@ def main() -> None:
     prog = shutil.which(args.program) or args.program
     pcm = make_input(data_dir, args.slice)
     n_samples = pcm.stat().st_size // 2
+    if any(n_samples < tc["params"]["n_fft"] for tc in cases):
+        ap.error("输入长度必须至少覆盖一帧 n_fft")
     mode = f"截断 {args.slice:g}s" if args.slice else "全量"
     print(f"# 程序: {prog}\n# 输入: {pcm} ({n_samples} samples, {n_samples/96000:.1f}s, {mode})\n")
 
@@ -149,7 +157,9 @@ def main() -> None:
         n_frames = 1 + (n_samples - p["n_fft"]) // p["hop_length"]
         shape = (p["n_mels"], n_frames)
 
-        with tempfile.TemporaryDirectory() as td:
+        scratch = ROOT / "tmp" / "bench"
+        scratch.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=scratch) as td:
             out = Path(td) / "out.bin"
             t_prog = timed(prog, pcm, p, out, args.runs)
             got = np.fromfile(out, dtype="<f4")
@@ -167,7 +177,8 @@ def main() -> None:
                       f"（shape {shape}）")
                 passed = False
             elif args.slice is None:
-                exp = np.fromfile(data_dir / tc["expected"], dtype="<f4").reshape(shape)
+                expected = Path(tc["expected"]).relative_to("data")
+                exp = np.fromfile(data_dir / expected, dtype="<f4").reshape(shape)
                 err = float(np.max(np.abs(view - exp)))
                 passed = bool(np.allclose(view, exp, rtol=args.rtol, atol=args.atol))
                 del exp
@@ -216,6 +227,9 @@ def main() -> None:
         lines += [sep, ""]
         args.out.write_text("\n".join(lines))
         print(f"\n已写入 {args.out}")
+
+    if any(r["ok"] is False for r in rows):
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")/.." && pwd)"
 export ROOT
 export PY="$ROOT/tmp/.venv/bin/python"
+export PYTHONPYCACHEPREFIX="$ROOT/tmp/pycache"
 export PATH="$HOME/.local/bin:$ROOT/tmp/.venv/bin:$PATH"
 
 if [ ! -x "$PY" ]; then

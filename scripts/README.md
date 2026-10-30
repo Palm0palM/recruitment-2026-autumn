@@ -1,70 +1,71 @@
-# scripts/ —— 本地与集群的评测/分析工具
+# 本地 → 集群工作流
 
-这些脚本是**工作流基础设施**，不参与被测代码本身；所有产物都落在 `tmp/`（已被 `.gitignore` 忽略）。
+题目原文见根目录 `README.md`；优化结论和原始数据见 `versions/`。
+不要修改 `src/main.cpp`、`validate.py` 或 `data`。临时文件放 `tmp/`，需要展示的测量日志再归档进对应版本。
 
-## 一次性配置
-
-```bash
-./scripts/setup.sh          # 建 uv venv（numpy/scipy/librosa）+ 链接数据 + 编译
-source scripts/env.sh       # 之后可用 $PY、$ROOT
-```
-
-- Python 环境在 `tmp/.venv`（`uv venv --python 3.12` + `numpy scipy librosa`）。
-- 仓库自带的 `data` 是指向集群 `/cache/recuritment/melspec/data` 的符号链接，本地（WSL）通常是断的；
-  `setup.sh` **不会改这个链接**，而是在 `tmp/data/` 下建可用的副本链接。
-  数据来源优先级：`$MELSPEC_DATA` > `./data` > `~/projects/heptagon/autumn26/cluster_melspec/data`。
-- `clang-format` 通过 `uv tool install clang-format` 提供（`~/.local/bin/clang-format`），
-  用于 `make format`。
-
-## benchmark
+## 本地：编译与小规模验证
 
 ```bash
-$PY scripts/bench.py --case default --slice 5     # 开发期：截断 5 秒，秒级反馈
-$PY scripts/bench.py --case all --runs 3          # 本地全量（朴素实现约十几分钟/组）
-$PY scripts/bench.py ./melspec --case all --out tmp/bench/step2.md
+./scripts/setup.sh
+source scripts/env.sh
+make -j4
+$PY scripts/smoke.py                 # 固定种子随机 PCM，官方四组、默认 CLI、小 FFT
+$PY scripts/bench.py --slice 0.5 --runs 1  # 真实 PCM 切片；不是正式成绩
 ```
 
-参数组直接 import 自 `validate.py` 的 `TEST_CASES`，与官方一致：
+- venv：`tmp/.venv`；目标文件：`tmp/build`；程序：`./melspec`。
+- 迁移解答使用 `std::thread`，编译/链接用 `-pthread`，不依赖 OpenMP 或外部数学库。
+- `data` 是题目提供的集群绝对路径链接，本地不改它；副本从 `$MELSPEC_DATA` 或 `tmp/data` 读取。
+- `setup.sh` 可自动发现旧的本地副本 `../autumn26/cluster_melspec/data`。
+- 本地只有约 15 GiB 内存，不跑官方全量 librosa；默认只做 smoke test。
 
-| 用例 | n_fft | hop | n_mels | f_min | f_max | 输出 shape |
-|---|---|---|---|---|---|---|
-| default | 8192 | 128 | 256 | 0 | 22050 | (256, 192397) |
-| small_mels | 8192 | 128 | 64 | 0 | 22050 | (64, 192397) |
-| large_fft | 16384 | 128 | 256 | 0 | 22050 | (256, 192333) |
-| narrow_band | 16384 | 128 | 256 | 300 | 8000 | (256, 192333) |
+## 同步、计算节点编译与 benchmark
 
-- 截断模式用 librosa 现算参考值；全量模式与 `data/expected/*.bin` 对比（`rtol=1e-3, atol=1e-4`）。
-- 全量模式下默认**不跑** librosa（其峰值内存约 25 GB），需要时加 `--force-librosa`。
-
-## 集群
+远端目录可自选。V1 使用独立的 `~/recruitment-2026-autumn-v1`，避免覆盖远端旧工作区。
 
 ```bash
-# 登录节点：只编译与提交
-git pull && make -j
-mkdir -p logs
-sbatch scripts/bench.slurm        # 正式成绩：计算节点上跑官方 validate.py
-sbatch scripts/profile.slurm      # perf stat/record + 火焰图
+rsync -av --exclude=.git/ --exclude=tmp/ --exclude=__pycache__/ \
+  --exclude=AGENTS.md --exclude=melspec --exclude='*.o' \
+  ./ hepnode:recruitment-2026-autumn-v1/
+ssh hepnode 'cd ~/recruitment-2026-autumn-v1 && mkdir -p tmp/logs && sbatch scripts/bench.slurm'
 ```
 
-- `VARIANT=./melspec_v3 sbatch scripts/bench.slurm` 可以指定被测二进制。
-- 集群 Python 依赖用 spack（`spack load python py-numpy py-librosa`）或自己建 uv venv，
-  通过 `PY=/path/to/python sbatch ...` 传入。
-- 注意：`sbatch` 会读 `#SBATCH` 头里的 `--output=logs/...`，所以**先 `mkdir -p logs`**。
-- 禁止在登录节点跑全量；`profile.slurm` 默认单例（`-n 1`）采样，避免线程干扰。
+作业默认在 `hepnode[1-3]` 上申请 1 节点、1 task、16 核，**不写 `--mem`**，
+加 `--hint=nomultithread`。编译在作业内执行 `make -B`，避免复用本地二进制或其他 CPU 的目标文件。
+默认使用集群已有的 `~/venv/bin/python`，没有 spack 或系统 FFTW/BLAS 可直接调用。
 
-## 本地环境实测（2026-10-30）
+```bash
+# 默认：官方 validate.py，四组全量，各 3 次取最小，含同作业内 librosa 对照
+sbatch scripts/bench.slurm
+# 快速检查：单组全量，不额外测 librosa；参数仍来自官方 TEST_CASES
+CASE=small_mels RUNS=1 sbatch scripts/bench.slurm
+```
 
-| 项 | 版本/状态 | 备注 |
-|---|---|---|
-| CPU | i7-14650HX，12C/24T | 仅 AVX2 + FMA，**无 AVX-512** |
-| 内存 | 15 GiB + 4 GiB swap | default 全量朴素实现 RSS ≈ 6.7 GB；large_fft 需 12.6 GB，本地会 swap |
-| GPU | RTX 5060 Laptop | CUDA 13.4（`/opt/cuda/bin/nvcc`） |
-| 编译器 | g++ 16.2.1 | `make` 已带 `-O3 -march=native -fopenmp` |
-| FFTW | 3.3.11（double/float/omp/threads） | `-lfftw3 -lfftw3_omp` 本地实测可用 |
-| BLAS | **无 OpenBLAS/cblas** | 需要时 `sudo pacman -S openblas` 或集群 spack 取用 |
-| Python | venv 内 3.12.13 | numpy 2.5.4 / scipy 1.18.1 / librosa 1.0.0 |
-| clang-format | 23.1.3（`uv tool`） | 现有源码格式已符合 `.clang-format`，`make format` 无 diff |
-| perf | 可用（`perf_event_paranoid=2`） | 用户态采样可用，内核态不可 |
+- 官方四组：`sr=96000, hop=128`；FFT 为 8192/16384，Mel 数为 256/64。
+- 正确性：`rtol=1e-3, atol=1e-4`。包装脚本将官方 FAIL 转为作业失败。
+- 计时：整体进程 wall time，含 PCM 读取、输出转换和写盘。官方输出文件使用节点本地 scratch。
+- `OMP_NUM_THREADS` / `OPENBLAS_NUM_THREADS` 只约束 Python 对照库；**不控制 V1 的 `std::thread`**。
+  V1 继承 Slurm cpuset，自己最多启动 16 个线程。
+- 提交前必须创建 `tmp/logs`（Slurm 在脚本执行前打开日志）。`slurm.job` 只是同一流程的兼容入口。
 
-集群：`ssh hepnode`（222.20.97.229:2200）在 2026-10-30 上午不可达（`No route to host`），
-建议开工前先 `ssh hepnode 'hostname; nproc; free -g'` 确认节点规格与 spack 里的 fftw/openblas 版本。
+## 集群 profile
+
+```bash
+ssh hepnode 'cd ~/recruitment-2026-autumn-v1 && sbatch scripts/profile.slurm'
+rsync -av hepnode:recruitment-2026-autumn-v1/tmp/logs/ tmp/logs/v1-cluster/
+```
+
+集群 `perf_event_paranoid=4`，不能使用 perf 硬件计数或火焰图。
+`profile.py` 在 `tmp/profile/` 生成诊断源码副本（正式源码不变），分线程累计：
+加窗打包、半长 FFT、功率谱恢复、稀疏 Mel 投影，并计时 read/compute/write。
+同时记录 `/usr/bin/time -v` 和诊断输出的全量正确性检查。
+
+**各线程阶段耗时之和不是进程 wall time**；插桩会引入开销，不作为性能成绩。
+源码结构变化后插桩定位会报错，需同步维护 `profile.py`，不能静默沿用。
+
+## 环境信息
+
+集群完整复核见 `versions/_cluster/recheck-2026-10-30.md`。
+本地历史环境（2026-10-30）：WSL，i7-14650HX，15 GiB 内存，AVX2/FMA、无 AVX-512，
+GCC 16.2.1，Python 3.12.13，numpy 2.5.4 / scipy 1.18.1 / librosa 1.0.0。
+本地虽有 FFTW 和 CUDA，但 V1 不使用；本地时间不能与集群 V0/V1 混算加速比。
