@@ -1,0 +1,98 @@
+== next profile job 200 on hepnode2 ==
+Cpus_allowed_list:	0-15
+{
+  "case": "default",
+  "source": "versions/V2-overlap/melspec_overlap_half_delta_prototype.cpp",
+  "single_thread": true,
+  "phases_seconds": {
+    "update": 1.007199444,
+    "twiddle": 1.463052924,
+    "fft": 5.329742929,
+    "store": 0.799043899,
+    "hann_power": 2.917027385,
+    "mel": 0.601298905
+  },
+  "total_timed_seconds": 12.117365486,
+  "phases_percent": {
+    "update": 8.312033215171109,
+    "twiddle": 12.074018281369515,
+    "fft": 43.9843374796098,
+    "store": 6.594204820537835,
+    "hann_power": 24.073115466973707,
+    "mel": 4.962290736338033
+  },
+  "passed": true,
+  "note": "\u8bca\u65ad\u63d2\u6869\u6709\u989d\u5916\u5f00\u9500\uff1bHann \u4e0e\u6a21\u5e73\u65b9\u4e3a\u878d\u5408\u9636\u6bb5\uff0c\u4e0d\u662f\u672a\u63d2\u6869\u6210\u7ee9\u3002"
+}
+{
+  "case": "default",
+  "source": "versions/V2-overlap/next/melspec_overlap_pruned_power_prototype.cpp",
+  "single_thread": true,
+  "phases_seconds": {
+    "update": 1.014823409,
+    "twiddle": 1.467214964,
+    "fft": 5.311822055,
+    "store": 0.807825242,
+    "hann_power": 1.615168487,
+    "mel": 0.599775634
+  },
+  "total_timed_seconds": 10.816629791,
+  "phases_percent": {
+    "update": 9.382066582738977,
+    "twiddle": 13.564437281756646,
+    "fft": 49.10792139174175,
+    "store": 7.468363599465638,
+    "hann_power": 14.93227112518822,
+    "mel": 5.544940019108767
+  },
+  "passed": true,
+  "note": "\u8bca\u65ad\u63d2\u6869\u6709\u989d\u5916\u5f00\u9500\uff1bHann \u4e0e\u6a21\u5e73\u65b9\u4e3a\u878d\u5408\u9636\u6bb5\uff0c\u4e0d\u662f\u672a\u63d2\u6869\u6210\u7ee9\u3002"
+}
+{
+  "case": "narrow_band",
+  "source": "versions/V2-overlap/melspec_overlap_half_delta_prototype.cpp",
+  "single_thread": true,
+  "phases_seconds": {
+    "update": 1.975836495,
+    "twiddle": 2.87338266,
+    "fft": 10.432885352,
+    "store": 1.59805017,
+    "hann_power": 5.823864406,
+    "mel": 0.439062742
+  },
+  "total_timed_seconds": 23.143081825,
+  "phases_percent": {
+    "update": 8.537482215811162,
+    "twiddle": 12.41573046203409,
+    "fft": 45.07993114698327,
+    "store": 6.905088017593784,
+    "hann_power": 25.164601888538673,
+    "mel": 1.8971662690390199
+  },
+  "passed": true,
+  "note": "\u8bca\u65ad\u63d2\u6869\u6709\u989d\u5916\u5f00\u9500\uff1bHann \u4e0e\u6a21\u5e73\u65b9\u4e3a\u878d\u5408\u9636\u6bb5\uff0c\u4e0d\u662f\u672a\u63d2\u6869\u6210\u7ee9\u3002"
+}
+{
+  "case": "narrow_band",
+  "source": "versions/V2-overlap/next/melspec_overlap_pruned_power_prototype.cpp",
+  "single_thread": true,
+  "phases_seconds": {
+    "update": 1.958927847,
+    "twiddle": 2.872270542,
+    "fft": 10.430045363,
+    "store": 1.598396715,
+    "hann_power": 1.136049527,
+    "mel": 0.434506736
+  },
+  "total_timed_seconds": 18.43019673,
+  "phases_percent": {
+    "update": 10.628903617785745,
+    "twiddle": 15.584589703942896,
+    "fft": 56.592154255317055,
+    "store": 8.672705660261284,
+    "hann_power": 6.164066198765965,
+    "mel": 2.357580563927057
+  },
+  "passed": true,
+  "note": "\u8bca\u65ad\u63d2\u6869\u6709\u989d\u5916\u5f00\u9500\uff1bHann \u4e0e\u6a21\u5e73\u65b9\u4e3a\u878d\u5408\u9636\u6bb5\uff0c\u4e0d\u662f\u672a\u63d2\u6869\u6210\u7ee9\u3002"
+}

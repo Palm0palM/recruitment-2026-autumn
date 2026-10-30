@@ -1,0 +1,699 @@
+== job 199 on hepnode2 ==
+Cpus_allowed_list:	0-15
+CPU(s):                                  64
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+CPU(s) scaling MHz:                      31%
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+g++ -I./include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/main.o -c src/main.cpp
+g++ -I./include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/melspec.o -c src/melspec.cpp
+g++  -o melspec tmp/build/main.o tmp/build/melspec.o -pthread
+3b00a2d777a20de397c3a2e407b60f6a21258940470851cbeb82c4c21c64f957  src/melspec.cpp
+cc1b08d7203b68e482645ad8bfeb6cbcc1cb0da4e697aad63734b0a6b4d26efe  versions/V2-overlap/melspec_overlap_half_delta_prototype.cpp
+57afb298f14448d117d9b31865b7099a257064e943ad6862af91bf2a01a23289  versions/V2-overlap/next/melspec_overlap_codelet_prototype.cpp
+302f771b07bb237fa74754798462a784ec394d09fce47dda8b13b5a2d9b960a0  versions/V2-overlap/next/melspec_overlap_fftw_prototype.cpp
+761109fca0a3662be76aaf3341adfffd907b54f937d2489ced19150028f4e761  versions/V2-overlap/next/melspec_overlap_fftw_pruned_prototype.cpp
+4ab78ab7ee30591503baf4ccdfec4e0539c3b5f018b5d84176d5407edfb115a3  versions/V2-overlap/next/melspec_overlap_pruned_power_prototype.cpp
+91c160a230cef2aa32c35322270dff5986349f8d9962effca3f2fa537b8c1e0e  tmp/binaries/melspec-v1
+811f99cd56885200d0d425e121d2df9d4a284e7ec884c078ed5668995b450890  tmp/binaries/melspec-overlap-half-delta
+eb3fa05dac1e0317cdd891d43771c0d3c90ec92b2f3b540d176ccaee85ff638b  tmp/binaries/melspec-overlap-pruned-power
+be109d90fa7ecfc06dee38c364453674daf025685497e9773f5125c373b6d02e  tmp/binaries/melspec-overlap-fftw
+53c306adb0071802763ac5b93ed0d50ba348db368d25cdce90724eb6f3dd1375  tmp/binaries/melspec-overlap-fftw-pruned
+== 128-point microbenchmark ==
+groups=33 scalar radix2: 820.222 ns/FFT, 54.135 ms total
+groups=33 FFTW batched: 456.718 ns/FFT, 15071.697 ns/batch, 30.143 ms total, plan 5.571 ms
+groups=33 FFTW/scalar per-FFT ratio: 0.5568
+groups=33 checksum=-11517.384392
+groups=65 scalar radix2: 818.962 ns/FFT, 106.465 ms total
+groups=65 FFTW batched: 464.337 ns/FFT, 30181.877 ns/batch, 60.364 ms total, plan 0.429 ms
+groups=65 FFTW/scalar per-FFT ratio: 0.5670
+groups=65 checksum=-39933.959684
+official 128-point calls: default/small=6349101, large/narrow=12501645
+== official validate.py: v1 ==
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    1.541 |  9.087x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    1.199 | 11.496x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    2.644 | 11.214x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    2.591 | 11.426x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+== official validate.py: half-delta ==
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    1.380 |  9.645x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    1.052 | 12.459x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    2.134 | 13.511x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    2.080 | 13.772x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+== official validate.py: pruned-power ==
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    1.296 | 10.288x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    0.964 | 13.606x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.959 | 14.399x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    1.779 | 15.906x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+== official validate.py: fftw ==
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    1.177 | 11.394x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    0.843 | 15.656x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.729 | 16.419x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    1.690 | 16.722x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+== official validate.py: fftw-pruned ==
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    1.089 | 12.287x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    0.766 | 17.178x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.537 | 18.365x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    1.357 | 20.947x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+== interleaved candidates: default ==
+{"round": 0, "variant": "v1", "wall": 1.7795600419631228, "cpu": 14.779317}
+{"round": 0, "variant": "half_delta", "wall": 1.6277969480142929, "cpu": 12.415805999999998}
+{"round": 0, "variant": "pruned", "wall": 1.5204097440000623, "cpu": 10.907766999999998}
+{"round": 0, "variant": "fftw", "wall": 1.406549813982565, "cpu": 9.12862}
+{"round": 0, "variant": "fftw_pruned", "wall": 1.328212608001195, "cpu": 7.788705000000004}
+{"round": 1, "variant": "v1", "wall": 1.7753420079825446, "cpu": 14.726037999999996}
+{"round": 1, "variant": "fftw_pruned", "wall": 1.329237207013648, "cpu": 7.778922000000003}
+{"round": 1, "variant": "fftw", "wall": 1.4072367509943433, "cpu": 9.124288000000007}
+{"round": 1, "variant": "pruned", "wall": 1.5276815020479262, "cpu": 10.927434999999987}
+{"round": 1, "variant": "half_delta", "wall": 1.6156319939764217, "cpu": 12.379297000000012}
+{"round": 2, "variant": "pruned", "wall": 1.534267544047907, "cpu": 10.922734999999996}
+{"round": 2, "variant": "fftw", "wall": 1.4098891540197656, "cpu": 9.123229000000006}
+{"round": 2, "variant": "fftw_pruned", "wall": 1.3366225279751234, "cpu": 7.7999099999999855}
+{"round": 2, "variant": "v1", "wall": 1.7954170110169798, "cpu": 14.771948000000021}
+{"round": 2, "variant": "half_delta", "wall": 1.6205106920097023, "cpu": 12.39716699999998}
+{
+  "case": "default",
+  "rounds": 3,
+  "wall": {
+    "v1": [
+      1.7795600419631228,
+      1.7753420079825446,
+      1.7954170110169798
+    ],
+    "half_delta": [
+      1.6277969480142929,
+      1.6156319939764217,
+      1.6205106920097023
+    ],
+    "pruned": [
+      1.5204097440000623,
+      1.5276815020479262,
+      1.534267544047907
+    ],
+    "fftw": [
+      1.406549813982565,
+      1.4072367509943433,
+      1.4098891540197656
+    ],
+    "fftw_pruned": [
+      1.328212608001195,
+      1.329237207013648,
+      1.3366225279751234
+    ]
+  },
+  "cpu": {
+    "v1": [
+      14.779317,
+      14.726037999999996,
+      14.771948000000021
+    ],
+    "half_delta": [
+      12.415805999999998,
+      12.379297000000012,
+      12.39716699999998
+    ],
+    "pruned": [
+      10.907766999999998,
+      10.927434999999987,
+      10.922734999999996
+    ],
+    "fftw": [
+      9.12862,
+      9.124288000000007,
+      9.123229000000006
+    ],
+    "fftw_pruned": [
+      7.788705000000004,
+      7.778922000000003,
+      7.7999099999999855
+    ]
+  },
+  "correctness": {
+    "v1": {
+      "passed": true,
+      "max_abs_err": 0.03125
+    },
+    "half_delta": {
+      "passed": true,
+      "max_abs_err": 0.03125
+    },
+    "pruned": {
+      "passed": true,
+      "max_abs_err": 0.03125
+    },
+    "fftw": {
+      "passed": true,
+      "max_abs_err": 0.03125
+    },
+    "fftw_pruned": {
+      "passed": true,
+      "max_abs_err": 0.03125
+    }
+  },
+  "ratios": {
+    "half_delta_over_v1_wall": [
+      0.9147187561137795,
+      0.910039860889895,
+      0.9025817857723175
+    ],
+    "half_delta_over_v1_cpu": [
+      0.8400798223625623,
+      0.8406400282275528,
+      0.8392371134802236
+    ],
+    "pruned_over_v1_wall": [
+      0.8543739509473484,
+      0.8604998333723575,
+      0.8545466232264617
+    ],
+    "pruned_over_delta_wall": [
+      0.9340291157658027,
+      0.9455627938438937,
+      0.9467802660068602
+    ],
+    "pruned_over_v1_cpu": [
+      0.7380426984548742,
+      0.7420485401436551,
+      0.7394241436539026
+    ],
+    "pruned_over_delta_cpu": [
+      0.8785387754931093,
+      0.8827185420949167,
+      0.8810670211992799
+    ],
+    "fftw_over_v1_wall": [
+      0.7903918838450253,
+      0.7926567076467103,
+      0.7852711349889465
+    ],
+    "fftw_over_delta_wall": [
+      0.8640818596560084,
+      0.8710131739411942,
+      0.8700276776768865
+    ],
+    "fftw_over_v1_cpu": [
+      0.6176618310575516,
+      0.6196023669095523,
+      0.617605003754413
+    ],
+    "fftw_over_delta_cpu": [
+      0.7352418360918334,
+      0.7370602708699855,
+      0.7359124064393116
+    ],
+    "fftw_pruned_over_v1_wall": [
+      0.7463713371176711,
+      0.7487217679956555,
+      0.7444635534660657
+    ],
+    "fftw_pruned_over_delta_wall": [
+      0.8159571804219481,
+      0.8227351352099102,
+      0.8248156180429081
+    ],
+    "fftw_pruned_over_v1_cpu": [
+      0.5270003343185617,
+      0.5282426950140972,
+      0.5280217612463822
+    ],
+    "fftw_pruned_over_delta_cpu": [
+      0.6273217381134987,
+      0.6283815631856959,
+      0.6291687447624121
+    ]
+  },
+  "median_ratios": {
+    "half_delta_over_v1_wall": 0.910039860889895,
+    "half_delta_over_v1_cpu": 0.8400798223625623,
+    "pruned_over_v1_wall": 0.8545466232264617,
+    "pruned_over_delta_wall": 0.9455627938438937,
+    "pruned_over_v1_cpu": 0.7394241436539026,
+    "pruned_over_delta_cpu": 0.8810670211992799,
+    "fftw_over_v1_wall": 0.7903918838450253,
+    "fftw_over_delta_wall": 0.8700276776768865,
+    "fftw_over_v1_cpu": 0.6176618310575516,
+    "fftw_over_delta_cpu": 0.7359124064393116,
+    "fftw_pruned_over_v1_wall": 0.7463713371176711,
+    "fftw_pruned_over_delta_wall": 0.8227351352099102,
+    "fftw_pruned_over_v1_cpu": 0.5280217612463822,
+    "fftw_pruned_over_delta_cpu": 0.6283815631856959
+  },
+  "median_wall": {
+    "v1": 1.7795600419631228,
+    "half_delta": 1.6205106920097023,
+    "pruned": 1.5276815020479262,
+    "fftw": 1.4072367509943433,
+    "fftw_pruned": 1.329237207013648
+  },
+  "median_cpu": {
+    "v1": 14.771948000000021,
+    "half_delta": 12.39716699999998,
+    "pruned": 10.922734999999996,
+    "fftw": 9.124288000000007,
+    "fftw_pruned": 7.788705000000004
+  }
+}
+== interleaved candidates: large_fft ==
+{"round": 0, "variant": "v1", "wall": 2.878195301978849, "cpu": 32.097578999999996}
+{"round": 0, "variant": "half_delta", "wall": 2.3761958809918724, "cpu": 23.925202999999996}
+{"round": 0, "variant": "pruned", "wall": 2.205169313994702, "cpu": 21.019870000000008}
+{"round": 0, "variant": "fftw", "wall": 1.9805187390302308, "cpu": 17.474769999999996}
+{"round": 0, "variant": "fftw_pruned", "wall": 1.7801743560121395, "cpu": 14.766668}
+{"round": 1, "variant": "v1", "wall": 2.882469726027921, "cpu": 32.084803000000015}
+{"round": 1, "variant": "fftw_pruned", "wall": 1.780435211956501, "cpu": 14.774203999999994}
+{"round": 1, "variant": "fftw", "wall": 1.9775510450126603, "cpu": 17.470362999999985}
+{"round": 1, "variant": "pruned", "wall": 2.3652558689936996, "cpu": 21.171774}
+{"round": 1, "variant": "half_delta", "wall": 2.3664929950027727, "cpu": 23.917995000000012}
+{"round": 2, "variant": "pruned", "wall": 2.3868308819946833, "cpu": 21.192588999999987}
+{"round": 2, "variant": "fftw", "wall": 1.9714405380073003, "cpu": 17.44899500000001}
+{"round": 2, "variant": "fftw_pruned", "wall": 1.7700197359663434, "cpu": 14.775838000000014}
+{"round": 2, "variant": "v1", "wall": 2.87875365302898, "cpu": 32.05895899999999}
+{"round": 2, "variant": "half_delta", "wall": 2.369331701018382, "cpu": 23.90943800000002}
+{
+  "case": "large_fft",
+  "rounds": 3,
+  "wall": {
+    "v1": [
+      2.878195301978849,
+      2.882469726027921,
+      2.87875365302898
+    ],
+    "half_delta": [
+      2.3761958809918724,
+      2.3664929950027727,
+      2.369331701018382
+    ],
+    "pruned": [
+      2.205169313994702,
+      2.3652558689936996,
+      2.3868308819946833
+    ],
+    "fftw": [
+      1.9805187390302308,
+      1.9775510450126603,
+      1.9714405380073003
+    ],
+    "fftw_pruned": [
+      1.7801743560121395,
+      1.780435211956501,
+      1.7700197359663434
+    ]
+  },
+  "cpu": {
+    "v1": [
+      32.097578999999996,
+      32.084803000000015,
+      32.05895899999999
+    ],
+    "half_delta": [
+      23.925202999999996,
+      23.917995000000012,
+      23.90943800000002
+    ],
+    "pruned": [
+      21.019870000000008,
+      21.171774,
+      21.192588999999987
+    ],
+    "fftw": [
+      17.474769999999996,
+      17.470362999999985,
+      17.44899500000001
+    ],
+    "fftw_pruned": [
+      14.766668,
+      14.774203999999994,
+      14.775838000000014
+    ]
+  },
+  "correctness": {
+    "v1": {
+      "passed": true,
+      "max_abs_err": 0.125
+    },
+    "half_delta": {
+      "passed": true,
+      "max_abs_err": 0.125
+    },
+    "pruned": {
+      "passed": true,
+      "max_abs_err": 0.125
+    },
+    "fftw": {
+      "passed": true,
+      "max_abs_err": 0.125
+    },
+    "fftw_pruned": {
+      "passed": true,
+      "max_abs_err": 0.125
+    }
+  },
+  "ratios": {
+    "half_delta_over_v1_wall": [
+      0.8255853518203451,
+      0.820994917529916,
+      0.8230407970217972
+    ],
+    "half_delta_over_v1_cpu": [
+      0.7453896444962407,
+      0.7454618000927106,
+      0.745795831985687
+    ],
+    "pruned_over_v1_wall": [
+      0.7661638918243593,
+      0.8205657279367342,
+      0.8291195321570142
+    ],
+    "pruned_over_delta_wall": [
+      0.928025055356219,
+      0.9994772323384495,
+      1.0073857033056115
+    ],
+    "pruned_over_v1_cpu": [
+      0.654874001556317,
+      0.6598692221984342,
+      0.6610504414694187
+    ],
+    "pruned_over_delta_cpu": [
+      0.8785660042257536,
+      0.8851818055819474,
+      0.8863691819105063
+    ],
+    "fftw_over_v1_wall": [
+      0.6881113097740665,
+      0.6860613407856152,
+      0.684824328727462
+    ],
+    "fftw_over_delta_wall": [
+      0.8334829442611112,
+      0.835646270320079,
+      0.8320660788693872
+    ],
+    "fftw_over_v1_cpu": [
+      0.5444264192012737,
+      0.5445058521942608,
+      0.5442782780314238
+    ],
+    "fftw_over_delta_cpu": [
+      0.7303917128728228,
+      0.7304275713746062,
+      0.7297952800061631
+    ],
+    "fftw_pruned_over_v1_wall": [
+      0.6185036695696828,
+      0.6176769857735723,
+      0.6148562709087512
+    ],
+    "fftw_pruned_over_delta_wall": [
+      0.7491698686343394,
+      0.752351777806304,
+      0.7470544268687903
+    ],
+    "fftw_pruned_over_v1_cpu": [
+      0.4600555076132066,
+      0.4604735768519441,
+      0.46089575148088935
+    ],
+    "fftw_pruned_over_delta_cpu": [
+      0.6172013671106574,
+      0.6177024453763782,
+      0.6179918574414004
+    ]
+  },
+  "median_ratios": {
+    "half_delta_over_v1_wall": 0.8230407970217972,
+    "half_delta_over_v1_cpu": 0.7454618000927106,
+    "pruned_over_v1_wall": 0.8205657279367342,
+    "pruned_over_delta_wall": 0.9994772323384495,
+    "pruned_over_v1_cpu": 0.6598692221984342,
+    "pruned_over_delta_cpu": 0.8851818055819474,
+    "fftw_over_v1_wall": 0.6860613407856152,
+    "fftw_over_delta_wall": 0.8334829442611112,
+    "fftw_over_v1_cpu": 0.5444264192012737,
+    "fftw_over_delta_cpu": 0.7303917128728228,
+    "fftw_pruned_over_v1_wall": 0.6176769857735723,
+    "fftw_pruned_over_delta_wall": 0.7491698686343394,
+    "fftw_pruned_over_v1_cpu": 0.4604735768519441,
+    "fftw_pruned_over_delta_cpu": 0.6177024453763782
+  },
+  "median_wall": {
+    "v1": 2.87875365302898,
+    "half_delta": 2.369331701018382,
+    "pruned": 2.3652558689936996,
+    "fftw": 1.9775510450126603,
+    "fftw_pruned": 1.7801743560121395
+  },
+  "median_cpu": {
+    "v1": 32.084803000000015,
+    "half_delta": 23.917995000000012,
+    "pruned": 21.171774,
+    "fftw": 17.470362999999985,
+    "fftw_pruned": 14.774203999999994
+  }
+}
+== interleaved candidates: narrow_band ==
+{"round": 0, "variant": "v1", "wall": 2.824625045992434, "cpu": 31.23433}
+{"round": 0, "variant": "half_delta", "wall": 2.3331046490347944, "cpu": 23.145574999999997}
+{"round": 0, "variant": "pruned", "wall": 2.032241442007944, "cpu": 18.141453}
+{"round": 0, "variant": "fftw", "wall": 1.936697216995526, "cpu": 16.67403600000001}
+{"round": 0, "variant": "fftw_pruned", "wall": 1.6228828870225698, "cpu": 11.924476999999996}
+{"round": 1, "variant": "v1", "wall": 2.850655217014719, "cpu": 31.308215999999994}
+{"round": 1, "variant": "fftw_pruned", "wall": 1.618217581009958, "cpu": 11.958288000000003}
+{"round": 1, "variant": "fftw", "wall": 1.9363355089444667, "cpu": 16.663835999999982}
+{"round": 1, "variant": "pruned", "wall": 2.1490991300088353, "cpu": 18.27514100000002}
+{"round": 1, "variant": "half_delta", "wall": 2.3212303839973174, "cpu": 23.132213999999987}
+{"round": 2, "variant": "pruned", "wall": 2.006123847037088, "cpu": 18.13728799999999}
+{"round": 2, "variant": "fftw", "wall": 1.9251551919733174, "cpu": 16.66226600000001}
+{"round": 2, "variant": "fftw_pruned", "wall": 1.597223135002423, "cpu": 11.904761000000011}
+{"round": 2, "variant": "v1", "wall": 2.8402291089878418, "cpu": 31.220559999999978}
+{"round": 2, "variant": "half_delta", "wall": 2.3252344969660044, "cpu": 23.121800000000015}
+{
+  "case": "narrow_band",
+  "rounds": 3,
+  "wall": {
+    "v1": [
+      2.824625045992434,
+      2.850655217014719,
+      2.8402291089878418
+    ],
+    "half_delta": [
+      2.3331046490347944,
+      2.3212303839973174,
+      2.3252344969660044
+    ],
+    "pruned": [
+      2.032241442007944,
+      2.1490991300088353,
+      2.006123847037088
+    ],
+    "fftw": [
+      1.936697216995526,
+      1.9363355089444667,
+      1.9251551919733174
+    ],
+    "fftw_pruned": [
+      1.6228828870225698,
+      1.618217581009958,
+      1.597223135002423
+    ]
+  },
+  "cpu": {
+    "v1": [
+      31.23433,
+      31.308215999999994,
+      31.220559999999978
+    ],
+    "half_delta": [
+      23.145574999999997,
+      23.132213999999987,
+      23.121800000000015
+    ],
+    "pruned": [
+      18.141453,
+      18.27514100000002,
+      18.13728799999999
+    ],
+    "fftw": [
+      16.67403600000001,
+      16.663835999999982,
+      16.66226600000001
+    ],
+    "fftw_pruned": [
+      11.924476999999996,
+      11.958288000000003,
+      11.904761000000011
+    ]
+  },
+  "correctness": {
+    "v1": {
+      "passed": true,
+      "max_abs_err": 0.0625
+    },
+    "half_delta": {
+      "passed": true,
+      "max_abs_err": 0.0625
+    },
+    "pruned": {
+      "passed": true,
+      "max_abs_err": 0.0625
+    },
+    "fftw": {
+      "passed": true,
+      "max_abs_err": 0.0625
+    },
+    "fftw_pruned": {
+      "passed": true,
+      "max_abs_err": 0.0625
+    }
+  },
+  "ratios": {
+    "half_delta_over_v1_wall": [
+      0.8259873827660749,
+      0.8142795979473698,
+      0.8186784966071404
+    ],
+    "half_delta_over_v1_cpu": [
+      0.7410299820742112,
+      0.738854427221276,
+      0.7405953000202441
+    ],
+    "pruned_over_v1_wall": [
+      0.7194729951471893,
+      0.7538965488290192,
+      0.7063246555317505
+    ],
+    "pruned_over_delta_wall": [
+      0.8710459870922131,
+      0.9258448212744569,
+      0.8627619492376808
+    ],
+    "pruned_over_v1_cpu": [
+      0.5808177412481714,
+      0.5837170984127624,
+      0.5809405084341858
+    ],
+    "pruned_over_delta_cpu": [
+      0.7837978965741832,
+      0.7900299123983562,
+      0.7844237040368821
+    ],
+    "fftw_over_v1_wall": [
+      0.6856475409871848,
+      0.6792598057411686,
+      0.6778168655060983
+    ],
+    "fftw_over_delta_wall": [
+      0.8300944485266608,
+      0.8341849746124573,
+      0.8279402333335775
+    ],
+    "fftw_over_v1_cpu": [
+      0.5338368391446211,
+      0.5322512148248877,
+      0.53369529566414
+    ],
+    "fftw_over_delta_cpu": [
+      0.7203984346900008,
+      0.7203735881053146,
+      0.7206301412519787
+    ],
+    "fftw_pruned_over_v1_wall": [
+      0.5745480765049185,
+      0.5676651358436107,
+      0.5623571457485758
+    ],
+    "fftw_pruned_over_delta_wall": [
+      0.6955894103138308,
+      0.6971378593723544,
+      0.6869084116404174
+    ],
+    "fftw_pruned_over_v1_cpu": [
+      0.38177470110612255,
+      0.38195366992485313,
+      0.38131157801141363
+    ],
+    "fftw_pruned_over_delta_cpu": [
+      0.5151946754401218,
+      0.5169538894979966,
+      0.5148717227897484
+    ]
+  },
+  "median_ratios": {
+    "half_delta_over_v1_wall": 0.8186784966071404,
+    "half_delta_over_v1_cpu": 0.7405953000202441,
+    "pruned_over_v1_wall": 0.7194729951471893,
+    "pruned_over_delta_wall": 0.8710459870922131,
+    "pruned_over_v1_cpu": 0.5809405084341858,
+    "pruned_over_delta_cpu": 0.7844237040368821,
+    "fftw_over_v1_wall": 0.6792598057411686,
+    "fftw_over_delta_wall": 0.8300944485266608,
+    "fftw_over_v1_cpu": 0.53369529566414,
+    "fftw_over_delta_cpu": 0.7203984346900008,
+    "fftw_pruned_over_v1_wall": 0.5676651358436107,
+    "fftw_pruned_over_delta_wall": 0.6955894103138308,
+    "fftw_pruned_over_v1_cpu": 0.38177470110612255,
+    "fftw_pruned_over_delta_cpu": 0.5151946754401218
+  },
+  "median_wall": {
+    "v1": 2.8402291089878418,
+    "half_delta": 2.3252344969660044,
+    "pruned": 2.032241442007944,
+    "fftw": 1.9363355089444667,
+    "fftw_pruned": 1.618217581009958
+  },
+  "median_cpu": {
+    "v1": 31.23433,
+    "half_delta": 23.132213999999987,
+    "pruned": 18.141453,
+    "fftw": 16.663835999999982,
+    "fftw_pruned": 11.924476999999996
+  }
+}

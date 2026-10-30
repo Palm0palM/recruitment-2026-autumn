@@ -1,0 +1,9 @@
+groups=33 scalar radix2: 819.095 ns/FFT, 54.060 ms total
+groups=33 FFTW batched: 449.303 ns/FFT, 14827.011 ns/batch, 29.654 ms total, plan 0.950 ms
+groups=33 FFTW/scalar per-FFT ratio: 0.5485
+groups=33 checksum=-11517.384392
+groups=65 scalar radix2: 820.289 ns/FFT, 106.638 ms total
+groups=65 FFTW batched: 454.739 ns/FFT, 29558.042 ns/batch, 59.116 ms total, plan 0.419 ms
+groups=65 FFTW/scalar per-FFT ratio: 0.5544
+groups=65 checksum=-39933.959684
+official 128-point calls: default/small=6349101, large/narrow=12501645

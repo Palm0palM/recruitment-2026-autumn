@@ -1,0 +1,62 @@
+configure: WARNING: *** Couldn't find f77 compiler; using default Fortran wrappers.
+ar: `u' modifier ignored since `D' is the default (see `U')
+fftw-wisdom.c: In function ‘bench_main’:
+fftw-wisdom.c:303:54: warning: ‘%s’ directive output may be truncated writing up to 1535 bytes into a region of size between 1 and 64 [-Wformat-truncation=]
+  303 |                          snprintf(ps, sizeof(ps), "%s%s", types[j], canonical_sizes[i]);
+      |                                                      ^~
+In file included from /usr/include/stdio.h:974,
+                 from fftw-wisdom.c:6:
+In function ‘snprintf’,
+    inlined from ‘bench_main’ at fftw-wisdom.c:303:5:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:68:10: note: ‘__builtin___snprintf_chk’ output between 1 and 1599 bytes into a destination of size 64
+   68 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   69 |                                    __glibc_objsize (__s), __fmt,
+      |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   70 |                                    __va_arg_pack ());
+      |                                    ~~~~~~~~~~~~~~~~~
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+Traceback (most recent call last):
+  File "/home/zsx/recruitment-2026-autumn-v2-overlap-next/validate.py", line 244, in <module>
+    main()
+    ~~~~^^
+  File "/home/zsx/recruitment-2026-autumn-v2-overlap-next/validate.py", line 239, in main
+    results = validate_program(args.program_path, runs=args.runs)
+  File "/home/zsx/recruitment-2026-autumn-v2-overlap-next/validate.py", line 155, in validate_program
+    prog_time, out_bytes = run_and_time(cmd, runs)
+                           ~~~~~~~~~~~~^^^^^^^^^^^
+  File "/home/zsx/recruitment-2026-autumn-v2-overlap-next/validate.py", line 91, in run_and_time
+    subprocess.run(full_cmd, check=True, capture_output=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 555, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 1039, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        pass_fds, cwd, env,
+                        ^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                        gid, gids, uid, umask,
+                        ^^^^^^^^^^^^^^^^^^^^^^
+                        start_new_session, process_group)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 1875, in _execute_child
+    self._posix_spawn(args, executable, env, restore_signals, close_fds,
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                      p2cread, p2cwrite,
+                      ^^^^^^^^^^^^^^^^^^
+                      c2pread, c2pwrite,
+                      ^^^^^^^^^^^^^^^^^^
+                      errread, errwrite)
+                      ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 1819, in _posix_spawn
+    self.pid = os.posix_spawn(executable, args, env, **kwargs)
+               ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'tmp/binaries/melspec-half-delta'

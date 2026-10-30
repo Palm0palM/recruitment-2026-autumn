@@ -1,5 +1,8 @@
 # V2-overlap 第三轮：P0/P1 与组合候选
 
+> **推荐实现与集群结果见 [cluster-next.md](cluster-next.md)**。FFTW+P0 四组全部最快，
+> 相对 V1 加速 1.415× / 1.565× / 1.720× / 1.909×，全部 PASS。
+
 起点：`4f9f87c15bca240ec286d8eb90f877f53bc1f49d`。
 默认 `src/melspec.cpp` 始终为 V1；以下实现都在独立实验文件中。
 
@@ -49,5 +52,5 @@ default/large 还受到按索引循环、分支和访存的影响，并不达到
 
 - 自研 codelet 保留为研究记录，不作为当前推荐。
 - FFTW 路线依赖外部 libfftw3；集群使用私有源码构建，不使用其他 Agent 的库。
-- 集群作业将测 V1、half+delta、P0、FFTW、FFTW+P0，
-  包含官方三次最小值和三轮交错逐次值；结果在 `cluster-next.md` 补充。
+- 集群作业 199/200 已完成官方三次最小值、三轮交错逐次值和 P0 Profile；
+  最终推荐为 FFTW+P0，详见 `cluster-next.md`。

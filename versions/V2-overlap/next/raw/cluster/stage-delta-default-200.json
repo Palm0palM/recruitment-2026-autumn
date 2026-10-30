@@ -1,0 +1,24 @@
+{
+  "case": "default",
+  "source": "versions/V2-overlap/melspec_overlap_half_delta_prototype.cpp",
+  "single_thread": true,
+  "phases_seconds": {
+    "update": 1.007199444,
+    "twiddle": 1.463052924,
+    "fft": 5.329742929,
+    "store": 0.799043899,
+    "hann_power": 2.917027385,
+    "mel": 0.601298905
+  },
+  "total_timed_seconds": 12.117365486,
+  "phases_percent": {
+    "update": 8.312033215171109,
+    "twiddle": 12.074018281369515,
+    "fft": 43.9843374796098,
+    "store": 6.594204820537835,
+    "hann_power": 24.073115466973707,
+    "mel": 4.962290736338033
+  },
+  "passed": true,
+  "note": "\u8bca\u65ad\u63d2\u6869\u6709\u989d\u5916\u5f00\u9500\uff1bHann \u4e0e\u6a21\u5e73\u65b9\u4e3a\u878d\u5408\u9636\u6bb5\uff0c\u4e0d\u662f\u672a\u63d2\u6869\u6210\u7ee9\u3002"
+}

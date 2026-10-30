@@ -1,0 +1,11 @@
+Command: sacct -j 182,199,200
+JobID|JobName|State|ExitCode|Elapsed|NodeList
+182|melspec-overlap-next|FAILED|1:0|00:07:54|hepnode3
+182.batch|batch|FAILED|1:0|00:07:54|hepnode3
+182.extern|extern|COMPLETED|0:0|00:07:54|hepnode3
+199|melspec-overlap-next|COMPLETED|0:0|00:25:23|hepnode2
+199.batch|batch|COMPLETED|0:0|00:25:23|hepnode2
+199.extern|extern|COMPLETED|0:0|00:25:23|hepnode2
+200|melspec-overlap-next-profile|COMPLETED|0:0|00:01:24|hepnode2
+200.batch|batch|COMPLETED|0:0|00:01:24|hepnode2
+200.extern|extern|COMPLETED|0:0|00:01:24|hepnode2
