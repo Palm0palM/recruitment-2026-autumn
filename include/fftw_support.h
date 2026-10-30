@@ -52,6 +52,11 @@ public:
         plan_ = fftw_plan_dft_1d(n, buffer, buffer, FFTW_FORWARD, planner_flags());
         if (!plan_) throw std::runtime_error("FFTW C2C plan creation failed");
     }
+    Plan(int n, double* input, fftw_complex* output) {
+        std::lock_guard<std::mutex> lock(planner_mutex());
+        plan_ = fftw_plan_dft_r2c_1d(n, input, output, planner_flags());
+        if (!plan_) throw std::runtime_error("FFTW R2C plan creation failed");
+    }
     Plan(const Plan&) = delete;
     Plan& operator=(const Plan&) = delete;
     ~Plan() {
@@ -60,6 +65,9 @@ public:
     }
     void apply(fftw_complex* buffer) const {
         fftw_execute_dft(plan_, buffer, buffer);
+    }
+    void apply(double* input, fftw_complex* output) const {
+        fftw_execute_dft_r2c(plan_, input, output);
     }
 };
 

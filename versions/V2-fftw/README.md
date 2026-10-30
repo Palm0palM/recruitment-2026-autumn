@@ -15,8 +15,8 @@
 
 ```bash
 source tmp/session-env.sh
-make EXEC=tmp/bin/a1-estimate FFTW_PLAN=estimate -j4
-make EXEC=tmp/bin/a1-measure FFTW_PLAN=measure -j4
+make EXEC=tmp/bin/a1-estimate FFT_MODE=c2c FFTW_PLAN=estimate -j4
+make EXEC=tmp/bin/a1-measure FFT_MODE=c2c FFTW_PLAN=measure -j4
 $PY scripts/smoke.py tmp/bin/a1-estimate
 $PY scripts/smoke.py tmp/bin/a1-measure
 ```
@@ -32,7 +32,28 @@ tarball SHA-256：`5630c24cdeb33b131612f7eb4b1a9934234754f9f388ff8617458d0be6f23
 源代码/库不提交 Git；FFTW 为 GPL-2.0-or-later，分发链接后的可执行文件时须遵循 GPL、
 提供相应完整源码/构建材料并保留许可和版权说明；本实验不重新授权原题代码，也不擅自发布二进制。
 
-后续补充 A2、ESTIMATE/MEASURE 对照、正式集群四组验证与新瓶颈分析。失败实验同样保留。
+## A2：原生 R2C
+
+保留相同的窗口、Mel 与线程分区；每线程独立对齐的 n_fft 个 double 输入和 n_fft/2+1 个
+复数输出，使用一个 out-of-place R2C plan 的 new-array execute。直接模平方，移除手工共轭恢复。
+V1 的 n_fft=1 周期窗为零的特殊处理保留，避免 scipy 单点 Hann 特例改变语义。
+`compute_rfft` 公共辅助接口同样支持 R2C（不修改头文件或 CLI）。
+
+```bash
+make EXEC=tmp/bin/a2-estimate FFT_MODE=r2c FFTW_PLAN=estimate -j4
+make EXEC=tmp/bin/a2-measure FFT_MODE=r2c FFTW_PLAN=measure -j4
+$PY scripts/smoke.py tmp/bin/a2-estimate
+$PY scripts/smoke.py tmp/bin/a2-measure
+```
+
+A1 独立代码提交 `a7a0752`；A2 增量提交后仍可通过 `FFT_MODE=c2c` 独立构建 A1。
+两条路线与两种规划方式的对象目录分开，防止复用不匹配的目标文件。
+额外修正 V1 的非法短输入边界：先检查 N>=n_fft 与 hop>0，再算 n_frames，
+避免 C++ 向零取整使 N=n_fft-1 被误判成一帧；不改变任何合法输入的数学语义。
+本地 A2 两种 planner 各 8 项 smoke 全 PASS。进一步将 A1/A2 × 两种 planner 与独立编译的 BASE/V1
+比较：各 39 组随机/零值/满幅正负/冲激/Nyquist/精确帧边界合法输入均 PASS，另各 3 组短输入安全拒绝。
+最大输出差为 `3.0517578125e-05`，容差仍为题目 `rtol=1e-3, atol=1e-4`。
+后续补充 ESTIMATE/MEASURE 对照、正式集群四组验证与新瓶颈分析。失败实验同样保留。
 
 资料：FFTW 官方 [下载](https://www.fftw.org/download.html)、
 [线程安全](https://www.fftw.org/fftw3_doc/Thread-safety.html)、

@@ -4,6 +4,14 @@ CXXFLAGS = -std=c++17 -Wall -Wextra -O3 -march=native -pthread
 LDLIBS = -pthread
 FFTW_PREFIX ?=
 FFTW_PLAN ?= estimate
+FFT_MODE ?= r2c
+ifeq ($(FFT_MODE),r2c)
+CPPFLAGS += -DMELSPEC_FFTW_R2C=1
+else ifeq ($(FFT_MODE),c2c)
+CPPFLAGS += -DMELSPEC_FFTW_R2C=0
+else
+$(error FFT_MODE must be c2c or r2c)
+endif
 ifeq ($(FFTW_PLAN),measure)
 CPPFLAGS += -DMELSPEC_FFTW_MEASURE=1
 else ifneq ($(FFTW_PLAN),estimate)
@@ -19,7 +27,7 @@ endif
 
 SRCS = $(wildcard src/*.cpp)
 INCS = $(wildcard include/*.h)
-BUILD = tmp/build/c2c-$(FFTW_PLAN)
+BUILD = tmp/build/$(FFT_MODE)-$(FFTW_PLAN)
 OBJS = $(patsubst src/%.cpp,$(BUILD)/%.o,$(SRCS))
 EXEC = melspec
 

@@ -11,6 +11,10 @@
 #include <thread>
 #include <vector>
 
+#ifndef MELSPEC_FFTW_R2C
+#define MELSPEC_FFTW_R2C 1
+#endif
+
 // ─────────────────────────────────────────────────────────────────────────────
 // HTK mel scale
 // ─────────────────────────────────────────────────────────────────────────────
@@ -24,7 +28,7 @@ double mel_to_hz(double m) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// FFTW in-place C2C, with one plan shared by independent worker buffers.
+// FFTW C2C/R2C, with one plan shared by independent worker buffers.
 // ─────────────────────────────────────────────────────────────────────────────
 
 using melspec_fftw::Buffer;
@@ -34,7 +38,16 @@ using melspec_fftw::Plan;
 void compute_rfft(const std::vector<double>& frame,
                   std::vector<std::complex<double>>& out) {
     const int n = static_cast<int>(frame.size());
-    // Copy real input into complex array
+    if (n < 1 || (n & (n - 1)) != 0)
+        throw std::runtime_error("FFT length must be a positive power of two");
+#if MELSPEC_FFTW_R2C
+    Buffer<double> input(n);
+    Buffer<fftw_complex> a(n / 2 + 1);
+    Plan plan(n, input.get(), a.get());
+    for (int i = 0; i < n; ++i) input[i] = frame[i];
+    plan.apply(input.get(), a.get());
+#else
+    // Public helper in A1 uses full C2C; the hot path below uses half C2C.
     Buffer<fftw_complex> a(n);
     Plan plan(n, a.get());
     // MEASURE may overwrite arrays: initialize only AFTER plan creation.
@@ -43,6 +56,7 @@ void compute_rfft(const std::vector<double>& frame,
         a[i][1] = 0.0;
     }
     plan.apply(a.get());
+#endif
     // Keep only DC + positive frequencies (n/2+1 bins)
     out.resize(n / 2 + 1);
     for (int k = 0; k <= n / 2; ++k) out[k] = {a[k][0], a[k][1]};
@@ -98,6 +112,10 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                             int hop_length, int n_mels, double f_min,
                             double f_max, std::vector<double>& output) {
     const int n_samples = static_cast<int>(y.size());
+    // Check BEFORE integer division (V1 rounded short input toward zero).
+    if (n_fft < 1 || (n_fft & (n_fft - 1)) != 0 || hop_length < 1 ||
+        n_mels < 1 || sr < 1 || n_samples < n_fft)
+        throw std::runtime_error("Invalid parameters or audio too short for n_fft");
     const int n_frames = 1 + (n_samples - n_fft) / hop_length;
     const int n_bins = n_fft / 2 + 1;
 
@@ -118,6 +136,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
         while (last[m] > first[m] && mel_fb[m][last[m] - 1] == 0.0) --last[m];
     }
 
+#if !MELSPEC_FFTW_R2C
     const int half = std::max(1, n_fft / 2);
     // -i/2 * exp(-2*pi*i*k/n_fft), for real-FFT reconstruction.
     std::vector<std::complex<double>> recovery(n_bins);
@@ -125,6 +144,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
         double ang = -2.0 * M_PI * k / static_cast<double>(n_fft);
         recovery[k] = {0.5 * std::sin(ang), -0.5 * std::cos(ang)};
     }
+#endif
     output.resize(static_cast<size_t>(n_mels) * n_frames);
 
     // Keep short inputs single-threaded, and use at most the judge's 16 cores.
@@ -134,10 +154,20 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     // Allocate scratch before launching threads, so workers cannot throw.
     std::vector<Buffer<fftw_complex>> fft_buffers;
     fft_buffers.reserve(n_threads);
+#if MELSPEC_FFTW_R2C
+    std::vector<Buffer<double>> input_buffers;
+    input_buffers.reserve(n_threads);
+    for (int id = 0; id < n_threads; ++id) {
+        input_buffers.emplace_back(n_fft);
+        fft_buffers.emplace_back(n_bins);
+    }
+    Plan plan(n_fft, input_buffers[0].get(), fft_buffers[0].get());
+#else
     for (int id = 0; id < n_threads; ++id) fft_buffers.emplace_back(half);
+    Plan plan(half, fft_buffers[0].get());
+#endif
     std::vector<std::vector<double>> power_buffers(
         n_threads, std::vector<double>(n_bins));
-    Plan plan(half, fft_buffers[0].get());
     auto worker = [&](int id) {
         auto& fft_out = fft_buffers[id];
         auto& power = power_buffers[id];
@@ -150,6 +180,15 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                 double sample = y[start] * window[0];
                 power[0] = sample * sample;
             } else {
+#if MELSPEC_FFTW_R2C
+                auto& input = input_buffers[id];
+                for (int i = 0; i < n_fft; ++i)
+                    input[i] = y[start + i] * window[i];
+                plan.apply(input.get(), fft_out.get());
+                for (int k = 0; k < n_bins; ++k)
+                    power[k] = fft_out[k][0] * fft_out[k][0] +
+                               fft_out[k][1] * fft_out[k][1];
+#else
                 // Pack even/odd real samples into a half-length complex FFT.
                 for (int i = 0; i < half; ++i) {
                     fft_out[i][0] = y[start + 2 * i] * window[2 * i];
@@ -167,6 +206,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                     auto x = 0.5 * (a + b) + recovery[k] * (a - b);
                     power[k] = std::norm(x);
                 }
+#endif
             }
 
             // Apply filters immediately, while this frame's power is in cache.
