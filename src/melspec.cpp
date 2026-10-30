@@ -14,6 +14,9 @@
 #ifndef MELSPEC_FP32_BATCH
 #define MELSPEC_FP32_BATCH 0
 #endif
+#ifndef MELSPEC_PACK_REUSE
+#define MELSPEC_PACK_REUSE 0
+#endif
 #if MELSPEC_FP32_BATCH != 0 && MELSPEC_FP32_BATCH != 8 && MELSPEC_FP32_BATCH != 16
 #error "MELSPEC_FP32_BATCH must be 0, 8, or 16"
 #endif
@@ -706,6 +709,62 @@ static inline __m512 narrow16(__m512d lo, __m512d hi) {
     return _mm512_castpd_ps(merged);
 }
 
+#if MELSPEC_PACK_REUSE
+// Raw samples are transposed once per slab, BEFORE windowing, and reused by
+// multiple overlapping batches. In each hop-phase row, 16 adjacent doubles
+// are exactly the samples needed by the 16 frame lanes at one window index.
+struct OverlapPack16 {
+    bool enabled;
+    int frames = 16;
+    size_t stride = 0;
+    std::vector<size_t> offsets;
+    std::vector<std::vector<double>> buffers;
+
+    OverlapPack16(int n_fft, int hop, int workers)
+        : enabled(n_fft >= 32 && hop > 0 && hop <= n_fft / 4) {
+        if (!enabled) return;
+        // A dimension-based cache budget, not an official-parameter dispatch.
+        frames = std::max(16, std::min(128, 16384 / hop / 16 * 16));
+        stride = (static_cast<size_t>(n_fft) + hop - 1) / hop + frames;
+        offsets.resize(n_fft);
+        for (int i = 0; i < n_fft; ++i)
+            offsets[i] = static_cast<size_t>(i % hop) * stride + i / hop;
+        buffers.assign(workers, std::vector<double>(static_cast<size_t>(hop) * stride));
+    }
+
+    void prepare(int id, const std::vector<double>& y, size_t start, int hop) {
+        auto& buffer = buffers[id];
+        for (int phase = 0; phase < hop; ++phase) {
+            double* row = buffer.data() + static_cast<size_t>(phase) * stride;
+            for (size_t q = 0; q < stride; ++q) {
+                const size_t at = start + phase + q * hop;
+                // Final slab padding is never consumed by valid frames.
+                row[q] = at < y.size() ? y[at] : 0.0;
+            }
+        }
+    }
+
+    void pack(int id, int relative_frame, const std::vector<double>& window,
+              const FFTPlan& plan, Batch16fBuffer& a) const {
+        const double* raw = buffers[id].data() + relative_frame;
+        const int half = static_cast<int>(a.im.size());
+        for (int i = 0; i < half; ++i) {
+            const int p = plan.reversed[i];
+            const double* even = raw + offsets[2 * i];
+            const double* odd = raw + offsets[2 * i + 1];
+            const auto we = _mm512_set1_pd(window[2 * i]);
+            const auto wo = _mm512_set1_pd(window[2 * i + 1]);
+            store16f(a.re[p], narrow16(
+                _mm512_mul_pd(_mm512_loadu_pd(even), we),
+                _mm512_mul_pd(_mm512_loadu_pd(even + 8), we)));
+            store16f(a.im[p], narrow16(
+                _mm512_mul_pd(_mm512_loadu_pd(odd), wo),
+                _mm512_mul_pd(_mm512_loadu_pd(odd + 8), wo)));
+        }
+    }
+};
+#endif
+
 void recover_power_batch16f(Batch16fBuffer& a, const std::vector<double>& recovery_re,
                             const std::vector<double>& recovery_im,
                             int support_first, int support_last) {
@@ -1102,6 +1161,9 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
         batch_buffers.assign(n_threads, Batch16fBuffer(half));
     const int n_batches = n_fft > 1 ? n_frames / 16 : 0;
     tail_begin = n_batches * 16;
+#if MELSPEC_PACK_REUSE
+    OverlapPack16 overlap_pack(n_fft, hop_length, n_threads);
+#endif
 #elif defined(__AVX512F__)
     std::vector<Batch8Buffer> batch_buffers;
     if (n_fft > 1)
@@ -1166,9 +1228,22 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
         auto& a = batch_buffers[id];
         const int begin = static_cast<long long>(n_batches) * id / n_threads;
         const int end = static_cast<long long>(n_batches) * (id + 1) / n_threads;
+#if MELSPEC_PACK_REUSE
+        int slab_begin = -1;
+#endif
         for (int batch = begin; batch < end; ++batch) {
             const int t = batch * 16;
             const int start = t * hop_length;
+#if MELSPEC_PACK_REUSE
+            if (overlap_pack.enabled) {
+                if (slab_begin < 0 || (batch - slab_begin) * 16 >= overlap_pack.frames) {
+                    slab_begin = batch;
+                    overlap_pack.prepare(id, y, static_cast<size_t>(start), hop_length);
+                }
+                overlap_pack.pack(id, (batch - slab_begin) * 16, window, plan, a);
+            } else
+#endif
+            {
             for (int i = 0; i < half; ++i) {
                 const int p = plan.reversed[i];
                 const double we = window[2 * i], wo = window[2 * i + 1];
@@ -1206,6 +1281,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                     static_cast<float>(y[start + 13 * hop_length + 2 * i + 1] * wo),
                     static_cast<float>(y[start + 14 * hop_length + 2 * i + 1] * wo),
                     static_cast<float>(y[start + 15 * hop_length + 2 * i + 1] * wo)));
+            }
             }
             apply_batch16f(plan32, a);
             recover_power_batch16f(a, recovery_re, recovery_im, support_first, support_last);

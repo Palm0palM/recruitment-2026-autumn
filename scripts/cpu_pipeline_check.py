@@ -82,6 +82,10 @@ def main():
             expected = librosa.feature.melspectrogram(
                 y=pcm.astype(np.float64) / 32768, sr=sr, n_fft=nfft, hop_length=hop,
                 n_mels=mels, fmin=lo, fmax=hi, htk=True, center=False).astype("<f4").ravel()
+            if nfft == 1:
+                # The problem's explicit periodic Hann formula gives w[0]=0;
+                # scipy/librosa use a length-one window special case of 1.
+                expected.fill(0)
             np.testing.assert_allclose(got, expected, rtol=1e-3, atol=1e-4, err_msg=str(index))
             print(json.dumps(dict(case=index, params=params, frames=frames, pattern=pattern,
                                   exact=bool(np.array_equal(got.view("u4"), ref.view("u4"))),

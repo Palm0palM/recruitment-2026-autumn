@@ -26,6 +26,17 @@ if [ "${MODE:-profile}" = profile ]; then
     cp tmp/pipeline-profile/control/results.json "tmp/logs/profile-$SLURM_JOB_ID.json"
     g++ "${flags[@]}" src/main.cpp tmp/control/melspec.cpp -o tmp/bin/frozen-b16
     "$PY" -u scripts/bench.py tmp/bin/frozen-b16 --runs 3 --no-librosa
+elif [ "$MODE" = reuse ]; then
+    g++ "${flags[@]}" src/main.cpp tmp/control/melspec.cpp -o tmp/bin/frozen-b16
+    g++ "${flags[@]}" -DMELSPEC_PACK_REUSE=1 src/main.cpp src/melspec.cpp -o tmp/bin/reuse-b16
+    sha256sum tmp/bin/frozen-b16 tmp/bin/reuse-b16
+    "$PY" -u scripts/cpu_pipeline_check.py tmp/bin/frozen-b16 tmp/bin/reuse-b16 --exact
+    "$PY" -u scripts/smoke.py tmp/bin/reuse-b16
+    "$PY" -u scripts/multi_bench.py frozen=tmp/bin/frozen-b16 reuse=tmp/bin/reuse-b16 --runs 8 \
+        --out "tmp/logs/reuse-$SLURM_JOB_ID.json"
+    "$PY" -u scripts/cpu_pipeline_profile.py --source src/melspec.cpp --tag reuse --runs 2 \
+        --cppflag=-DMELSPEC_PACK_REUSE=1
+    cp tmp/pipeline-profile/reuse/results.json "tmp/logs/reuse-profile-$SLURM_JOB_ID.json"
 else
     echo 'Set MODE=profile until a separately reviewed experiment is available.' >&2
     exit 2
