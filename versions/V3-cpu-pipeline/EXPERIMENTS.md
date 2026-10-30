@@ -104,3 +104,17 @@ large_fft 2.362→2.885 s、narrow_band 2.558→3.055 s，整体回退，不能�
 - power scratch 与 output 接口不同，可在证明每分支写后读后评估合法免零初始化/worker first-touch。
 - `OMP_*` 不直接控制 std::thread；8/12/16 与绑核必须按实际 cpuset 做独立 A/B。
 - 任何诊断 affinity/chrono/日志都不能混入正式二进制和正式计时。
+
+### M1：setup 细分结果
+
+新增的三个计时宏在默认构建中为空；插桩前后 B1 二进制 SHA-256 完全相同
+（`887f92fe43040d0251588741a034c5883915b9bed0b92724c2cd35c84b6aa5c2`），smoke 8/8 PASS。
+
+本地 default / small_mels：
+- `mel_setup_s`：56.9 / 50.7 μs，压缩构造已经不是可优化的大项；
+- `output_resize_s`：0.173689 / 0.031118 s，与输出 double 容量相符，是 setup 的主要部分；
+- `scratch_setup_s`：0.001230 / 0.001043 s，power/FFTW scratch 合计仅约 1 ms。
+
+因此不为约 1 ms 的 scratch 引入未初始化 owner 或额外 NUMA 复杂性；output 初始化虽贵，
+但在受保护 main 与 vector 接口下没有合法“跳过”路线，保持现状并转向线程实验。
+原始插桩见 `raw/m1-profile.txt`。

@@ -1,0 +1,61 @@
++ g++ -std=c++17 -O3 -march=native -pthread -g -DMELSPEC_PROFILE=1 -DMELSPEC_FFTW_R2C=1 -DMELSPEC_FFTW_MEASURE=0 -DMELSPEC_FRAME_BLOCK=1 -DMELSPEC_MOMENTS=0 -I/home/palm/projects/heptagon/melspec-v3-cpu/include /home/palm/projects/heptagon/melspec-v3-cpu/tmp/fftw-profile/r2c-estimate-b1-sparse/main.cpp /home/palm/projects/heptagon/melspec-v3-cpu/src/melspec.cpp -o /home/palm/projects/heptagon/melspec-v3-cpu/tmp/fftw-profile/r2c-estimate-b1-sparse/melspec-profile -lfftw3
+== r2c-estimate default ==
+diagnostic_process_wall_s=0.832502
+GNU time unavailable: RSS/user/system statistics NOT collected
+read_s=0.112808
+mel_setup_s=0.000056946
+output_resize_s=0.173689178
+r2c_plan_s=0.000909352
+scratch_setup_s=0.001229550
+compute_setup_s=0.175125335
+worker=3 pack_s=0.025955711 fft_s=0.159374017 power_s=0.016050482 mel_s=0.019145925
+worker=0 pack_s=0.029243058 fft_s=0.187875984 power_s=0.017433454 mel_s=0.023582556
+worker=5 pack_s=0.030046155 fft_s=0.192564583 power_s=0.018631298 mel_s=0.023033841
+worker=13 pack_s=0.029538764 fft_s=0.200960080 power_s=0.018981351 mel_s=0.023480647
+worker=6 pack_s=0.030576867 fft_s=0.202195406 power_s=0.018131874 mel_s=0.024091315
+worker=7 pack_s=0.029672117 fft_s=0.201246185 power_s=0.018529790 mel_s=0.024808787
+worker=12 pack_s=0.031010904 fft_s=0.203107420 power_s=0.019189231 mel_s=0.022759502
+worker=11 pack_s=0.030546544 fft_s=0.203157503 power_s=0.018516030 mel_s=0.024197214
+worker=1 pack_s=0.031821324 fft_s=0.203493328 power_s=0.019548732 mel_s=0.023304503
+worker=8 pack_s=0.030415621 fft_s=0.209993567 power_s=0.019314934 mel_s=0.023829781
+worker=15 pack_s=0.030885449 fft_s=0.210614543 power_s=0.019324415 mel_s=0.023943822
+worker=2 pack_s=0.031295482 fft_s=0.211065948 power_s=0.018915740 mel_s=0.025065405
+worker=14 pack_s=0.030790081 fft_s=0.211342771 power_s=0.019281788 mel_s=0.024785161
+worker=9 pack_s=0.031756673 fft_s=0.219244499 power_s=0.020199748 mel_s=0.025019405
+worker=4 pack_s=0.034631256 fft_s=0.220371121 power_s=0.020442202 mel_s=0.024688687
+worker=10 pack_s=0.034191158 fft_s=0.235277469 power_s=0.021062216 mel_s=0.024188536
+compute_s=0.492478
+write_s=0.210167
+
+{"case": "default", "thread_wall_sums": {"pack_s": 0.49237716400000003, "fft_s": 3.271884424, "power_s": 0.303553285, "mel_s": 0.37992508699999994}, "percentages": {"pack_s": 11.070277678733719, "fft_s": 73.5628533463094, "power_s": 6.824888319235282, "mel_s": 8.541980655721607}}
+Profile output PASS
+== r2c-estimate small_mels ==
+diagnostic_process_wall_s=0.510602
+GNU time unavailable: RSS/user/system statistics NOT collected
+read_s=0.0967959
+mel_setup_s=0.000050675
+output_resize_s=0.031117666
+r2c_plan_s=0.000828964
+scratch_setup_s=0.001042861
+compute_setup_s=0.032368574
+worker=8 pack_s=0.028474518 fft_s=0.189991737 power_s=0.017863168 mel_s=0.020776210
+worker=2 pack_s=0.029684973 fft_s=0.198602596 power_s=0.018751572 mel_s=0.021413483
+worker=0 pack_s=0.030533138 fft_s=0.206328432 power_s=0.018723417 mel_s=0.021532630
+worker=4 pack_s=0.030496354 fft_s=0.207383812 power_s=0.018890090 mel_s=0.021855691
+worker=11 pack_s=0.030366155 fft_s=0.205500503 power_s=0.020067176 mel_s=0.022411630
+worker=15 pack_s=0.031097746 fft_s=0.211442389 power_s=0.019880881 mel_s=0.022226532
+worker=7 pack_s=0.032166638 fft_s=0.214589692 power_s=0.020278005 mel_s=0.022650806
+worker=6 pack_s=0.031856473 fft_s=0.216944166 power_s=0.019749189 mel_s=0.023034284
+worker=3 pack_s=0.031866300 fft_s=0.217596604 power_s=0.020236544 mel_s=0.023439933
+worker=1 pack_s=0.032137905 fft_s=0.217640076 power_s=0.020744110 mel_s=0.023006632
+worker=10 pack_s=0.031547110 fft_s=0.223951899 power_s=0.020108080 mel_s=0.023512267
+worker=12 pack_s=0.032628910 fft_s=0.224240734 power_s=0.020470736 mel_s=0.023461616
+worker=14 pack_s=0.032797354 fft_s=0.224817046 power_s=0.020516586 mel_s=0.023778095
+worker=9 pack_s=0.033610623 fft_s=0.224826757 power_s=0.021163512 mel_s=0.023360143
+worker=13 pack_s=0.033805235 fft_s=0.226644666 power_s=0.021169500 mel_s=0.022830039
+worker=5 pack_s=0.032907153 fft_s=0.228279065 power_s=0.021416775 mel_s=0.023486568
+compute_s=0.340786
+write_s=0.0609094
+
+{"case": "small_mels", "thread_wall_sums": {"pack_s": 0.505976585, "fft_s": 3.4387801740000006, "power_s": 0.32002934099999997, "mel_s": 0.362776559}, "percentages": {"pack_s": 10.933975880714268, "fft_s": 74.31082899141356, "power_s": 6.915721397690532, "mel_s": 7.8394737301816395}}
+Profile output PASS

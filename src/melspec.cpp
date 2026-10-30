@@ -255,6 +255,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
         window[i] =
             0.5 * (1.0 - std::cos(2.0 * M_PI * i / static_cast<double>(n_fft)));
 
+    FFTW_START(mel_setup_start);
 #if MELSPEC_MOMENTS
     auto moment_fb =
         build_moment_mel_filterbank(sr, n_fft, n_mels, f_min, f_max);
@@ -262,6 +263,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     auto mel_fb =
         build_compressed_mel_filterbank(sr, n_fft, n_mels, f_min, f_max);
 #endif
+    FFTW_TIME("mel_setup_s", mel_setup_start);
 
 #if !MELSPEC_FFTW_R2C
     const int half = std::max(1, n_fft / 2);
@@ -272,7 +274,9 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
         recovery[k] = {0.5 * std::sin(ang), -0.5 * std::cos(ang)};
     }
 #endif
+    FFTW_START(output_resize_start);
     output.resize(static_cast<size_t>(n_mels) * n_frames);
+    FFTW_TIME("output_resize_s", output_resize_start);
 
     // Keep short inputs single-threaded, and use at most the judge's 16 cores.
     const int n_threads = std::min(
@@ -280,6 +284,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
          static_cast<int>(std::max(1u, std::thread::hardware_concurrency())),
          std::max(1, n_frames / 256)});
     // Allocate scratch before launching threads, so workers cannot throw.
+    FFTW_START(scratch_setup_start);
     std::vector<Buffer<fftw_complex>> fft_buffers;
     fft_buffers.reserve(n_threads);
 #if MELSPEC_FFTW_R2C
@@ -301,6 +306,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     std::vector<std::vector<double>> moment_buffers(
         n_threads, std::vector<double>(static_cast<size_t>(2) * (n_bins + 1)));
 #endif
+    FFTW_TIME("scratch_setup_s", scratch_setup_start);
     FFTW_TIME("compute_setup_s", setup_start);
     auto worker = [&](int id) {
         FFTW_COUNTERS(counters);
