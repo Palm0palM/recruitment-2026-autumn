@@ -1,0 +1,10 @@
+g++ -I./include -DMELSPEC_FP32_BATCH=8 -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/fp8/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FP32_BATCH=8 -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/fp8/melspec.o -c src/melspec.cpp
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+g++  -o melspec tmp/build/fp8/main.o tmp/build/fp8/melspec.o -pthread

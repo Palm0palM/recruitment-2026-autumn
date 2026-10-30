@@ -11,7 +11,8 @@
 - 谱恢复：float FFT 输入转 double，recovery 系数和运算保持 double，功率存 float。
 - Mel：权重和累加保持 double；FP32 功率转换后以 double 累加，最终写 main 的 double 输出。
 - 尾帧：全局最后 0..7（Batch8）或 0..15（Batch16）走原 FP64 单帧路径。
-- 默认宏 `MELSPEC_FP32_BATCH=0`，普通 `make` 仍是 FP64。FP32 通过显式编译宏启用。
+- 普通 `make` 按编译目标自动选择：AVX-512F → Batch16，AVX2+FMA → Batch8，否则 FP64。
+  构建目录按精度隔离；仍可用 `MELSPEC_FP32_BATCH=0/8/16` 显式覆盖。
 
 缓存/每 worker 工作区（N=n_fft/2，不含尾帧单帧缓冲）：
 
@@ -37,6 +38,8 @@ hepnode3，16 物理核，`--hint=nomultithread`，同作业四程序轮转 6 �
 
 B8 相对 FP64 改善约 3%～10%，B16 相对 B8 再改善约 0.6%～2%，四组均略快于 FFTW float+PATIENT。
 上表取最终提交后的独立作业 271（`raw/fp32-final-271.*`）；作业 268 的同方向结果略高，但不重复引用其倍率。
+冻结作业 322 用普通 `make` 自动构建 B16，再次跑官方 `validate.py --runs 3`：
+0.811 / 0.495 / 1.061 / 1.021 s，4/4 PASS，见 `raw/final-freeze-official-322.txt`。
 
 ## 3. 数值误差与安全余量
 
@@ -85,7 +88,8 @@ re/im/power 工作区。Mel 本身收益有限，且 B16 large_fft 的 Mel 因 1
 - `fft_check.py`：公开 `compute_rfft` 的 1～16384 二次幂，random/zero/impulse/sine 全部 PASS。
 - 高动态组合：zero、单样本冲激、满幅交替、满幅 1kHz、近 Nyquist、DC step、随机、两帧输入。
 - 官方四组完整 expected 与 FP64、FFTW 同作业交错，B8/B16 均 4/4 PASS。
-- 未修改 `src/main.cpp`、`validate.py`、`data`；默认构建仍是 FP64。
+- 未修改 `src/main.cpp`、`validate.py`、`data`；自动构建在目标 Xeon 上选择 FP32 B16，
+  严格 FP64 通过 `MELSPEC_FP32_BATCH=0` 显式回退。
 
 ## 6. 结论：是否值得进入 Hybrid CPU Backend
 
@@ -101,25 +105,21 @@ re/im/power 工作区。Mel 本身收益有限，且 B16 large_fft 的 Mel 因 1
 建议交付形态：
 
 ```text
-compile-time feature default: FP64 Batch8 (安全默认)
-MELSPEC_FP32_BATCH=8  -> AVX2/FMA fast path
-MELSPEC_FP32_BATCH=16 -> AVX-512F fast path
-runtime/CLI fallback -> FP64 on unsupported ISA or strict-precision mode
+ordinary make  -> AVX-512F: FP32 B16; AVX2+FMA: FP32 B8; otherwise FP64
+MELSPEC_FP32_BATCH=0  -> strict FP64 fallback
+runtime dispatch -> not implemented; selection is compile-target based
 ```
 
 ## 7. 构建与复现
 
 ```bash
-# FP64 默认
+# 自动选择：Xeon 6338 上为 FP32 Batch16；AVX2 上为 Batch8
 make -B -j16
 
-# FP32 Batch8（AVX2/FMA）
-g++ -std=c++17 -O3 -march=native -pthread -DMELSPEC_FP32_BATCH=8 \
-  -Iinclude src/main.cpp src/melspec.cpp -o melspec-fp32-b8
-
-# FP32 Batch16（AVX-512F）
-g++ -std=c++17 -O3 -march=native -pthread -DMELSPEC_FP32_BATCH=16 \
-  -Iinclude src/main.cpp src/melspec.cpp -o melspec-fp32-b16
+# 显式覆盖/回退
+make -B -j16 MELSPEC_FP32_BATCH=16
+make -B -j16 MELSPEC_FP32_BATCH=8
+make -B -j16 MELSPEC_FP32_BATCH=0
 
 # 正确性与同节点 A/B
 python3 scripts/smoke.py ./melspec
