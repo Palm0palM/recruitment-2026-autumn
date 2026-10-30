@@ -1,0 +1,4 @@
+default: dispatch: backend=cuda (auto) frames=192397 work=204.895 input_mb=49.270 output_mb=197.015 t_cpu=0.9164 t_cuda=0.8732
+small_mels: dispatch: backend=cpu (auto) frames=192397 work=204.895 input_mb=49.270 output_mb=49.254 t_cpu=0.5054 t_cuda=0.5524
+large_fft: dispatch: backend=cuda (auto) frames=192333 work=441.166 input_mb=49.270 output_mb=196.949 t_cpu=1.2982 t_cuda=0.8936
+narrow_band: dispatch: backend=cuda (auto) frames=192333 work=441.166 input_mb=49.270 output_mb=196.949 t_cpu=1.2982 t_cuda=0.8936

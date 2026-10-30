@@ -1,0 +1,12 @@
+point                         frames     cpu    cuda    auto chosen oracle  regret
+official-default              192397  1.0496  0.9273  0.9138  cuda   cuda   -1.5%
+official-small_mels           192397  0.6725  0.5601  0.6775   cpu   cuda  +21.0%
+official-large_fft            192333  1.3099  0.9202  0.9202  cuda   cuda   +0.0%
+official-narrow_band          192333  1.2178  0.9196  0.8990  cuda   cuda   -2.2%
+
+points: 4
+always CPU  total    4.250s  x1.000
+always CUDA total    3.327s  x0.783
+auto        total    3.411s  x0.803  (oracle 3.327s, gap +2.51%)
+auto chose CUDA on 3/4 points; matches per-point oracle 3/4
+worst per-point regret +21.0% on official-small_mels

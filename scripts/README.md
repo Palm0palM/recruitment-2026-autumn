@@ -77,6 +77,14 @@ $PY scripts/summarize_hybrid.py tmp/logs/hybrid-h2.json               # auto vs 
   `src/melspec.cpp` 中的常量一致；模型结构与适用范围见
   `versions/V3-hybrid/DISPATCH_MODEL.md`。
 
+```bash
+# 调度器开销 vs 统一二进制的 CUDA DSO 加载成本（可加 --auto-nogpu 测失败探测）
+$PY scripts/dispatch_overhead.py \
+  --cpu-only tmp/bin/h2-cpu-only --cpu-old tmp/bin/hybrid-cpu-only \
+  --unified-cpu tmp/bin/run-cpu --auto tmp/bin/run-auto \
+  --auto-nogpu tmp/bin/run-auto --runs 5 --out tmp/logs/overhead.json
+```
+
 ## 集群 profile
 
 ```bash

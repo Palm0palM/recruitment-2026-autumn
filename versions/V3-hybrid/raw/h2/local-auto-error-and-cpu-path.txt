@@ -1,0 +1,11 @@
+$ ./tmp/bin/hybrid-cuda data/audio.pcm /tmp/opencode/auto-big.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels 256 --f_min 0 --f_max 22050  (MELSPEC_DISPATCH_LOG=1, auto)
+dispatch: backend=cuda (auto) frames=192397 work=204.895 input_mb=49.270 output_mb=197.015 t_cpu=0.9164 t_cuda=0.8732
+Error: CUDA kernel launch: the provided PTX was compiled with an unsupported toolchain.
+exit=1
+
+$ 同一二进制 MELSPEC_BACKEND=cpu，n_mels=8（模型判 CPU）
+dispatch: backend=cpu (forced) frames=192397 work=204.895 input_mb=49.270 output_mb=6.157 t_cpu=0.3856 t_cuda=0.4588
+exit=0
+
+$ cmp auto(n_mels=8) forced-cpu 输出
+identical

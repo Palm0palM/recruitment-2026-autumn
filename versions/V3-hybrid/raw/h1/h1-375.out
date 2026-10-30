@@ -1,0 +1,49 @@
+== hybrid H1 job 375 on hepnode3 ==
+16
+Cpus_allowed_list:	0-3,16-19,32-35,48-51
+NVIDIA L40, 46068 MiB, 595.91.07
+NVIDIA L40, 46068 MiB, 595.91.07
+f49e47c25bec6d342fa3bbe97b4b4c4c405d3d0e37799d936dbae573d28d0103  src/melspec.cpp
+8ae8c3692aa78057bc28337766146c60877f57b525c92df37a17f79bb0d5d27e  src/melspec_cpu.cpp
+66bf1b66a249869476a35c89a4404864a1f404ee36f6a7668f0e47271bfc83e2  src/melspec_cuda.cu
+360795c3947256b72e11af7db60664e1243009db6e7d6eae1de3dddc674b1f26  Makefile
+539600db5692134035ee21321b3778ffa6dc693d4665da849f1a32d4f9bbbdd4  tmp/bin/hybrid-cpu-only
+d7910f6e888285925d9c5eeb9fa0835ebbbaf981e67eef7b8eb712921fa361b3  tmp/bin/hybrid-cuda
+official-default: frames=192397 output=49253632 cpu=0.8490s cuda=0.8973s winner=cpu speedup=1.057 PASS cpu/cuda=True/True
+official-small_mels: frames=192397 output=12313408 cpu=0.4929s cuda=0.5519s winner=cpu speedup=1.120 PASS cpu/cuda=True/True
+official-large_fft: frames=192333 output=49237248 cpu=1.3521s cuda=0.9375s winner=cuda speedup=0.693 PASS cpu/cuda=True/True
+official-narrow_band: frames=192333 output=49237248 cpu=1.2440s cuda=0.9191s winner=cuda speedup=0.739 PASS cpu/cuda=True/True
+frames-1: frames=1 output=256 cpu=0.0123s cuda=0.2516s winner=cpu speedup=20.475 PASS cpu/cuda=True/True
+frames-8: frames=8 output=2048 cpu=0.0130s cuda=0.2527s winner=cpu speedup=19.455 PASS cpu/cuda=True/True
+frames-64: frames=64 output=16384 cpu=0.0137s cuda=0.2512s winner=cpu speedup=18.275 PASS cpu/cuda=True/True
+frames-512: frames=512 output=131072 cpu=0.0218s cuda=0.2517s winner=cpu speedup=11.543 PASS cpu/cuda=True/True
+frames-4096: frames=4096 output=1048576 cpu=0.0513s cuda=0.2541s winner=cpu speedup=4.957 PASS cpu/cuda=True/True
+frames-32768: frames=32768 output=8388608 cpu=0.2053s cuda=0.3394s winner=cpu speedup=1.653 PASS cpu/cuda=True/True
+frames-192397: frames=192397 output=49253632 cpu=0.9810s cuda=0.8519s winner=cuda speedup=0.868 PASS cpu/cuda=True/True
+nfft-256: frames=4096 output=1048576 cpu=0.0172s cuda=0.2502s winner=cpu speedup=14.533 PASS cpu/cuda=True/True
+nfft-512: frames=4096 output=1048576 cpu=0.0184s cuda=0.2579s winner=cpu speedup=14.052 PASS cpu/cuda=True/True
+nfft-1024: frames=4096 output=1048576 cpu=0.0227s cuda=0.2555s winner=cpu speedup=11.255 PASS cpu/cuda=True/True
+nfft-2048: frames=4096 output=1048576 cpu=0.0271s cuda=0.2575s winner=cpu speedup=9.486 PASS cpu/cuda=True/True
+nfft-4096: frames=4096 output=1048576 cpu=0.0342s cuda=0.2598s winner=cpu speedup=7.604 PASS cpu/cuda=True/True
+nfft-8192: frames=4096 output=1048576 cpu=0.0527s cuda=0.2561s winner=cpu speedup=4.862 PASS cpu/cuda=True/True
+nfft-16384: frames=4096 output=1048576 cpu=0.0769s cuda=0.2728s winner=cpu speedup=3.548 PASS cpu/cuda=True/True
+mels-8: frames=4096 output=32768 cpu=0.0400s cuda=0.2518s winner=cpu speedup=6.302 PASS cpu/cuda=True/True
+mels-16: frames=4096 output=65536 cpu=0.0372s cuda=0.2548s winner=cpu speedup=6.854 PASS cpu/cuda=True/True
+mels-32: frames=4096 output=131072 cpu=0.0408s cuda=0.2540s winner=cpu speedup=6.226 PASS cpu/cuda=True/True
+mels-64: frames=4096 output=262144 cpu=0.0405s cuda=0.2587s winner=cpu speedup=6.390 PASS cpu/cuda=True/True
+mels-128: frames=4096 output=524288 cpu=0.0461s cuda=0.2616s winner=cpu speedup=5.668 PASS cpu/cuda=True/True
+mels-256: frames=4096 output=1048576 cpu=0.0512s cuda=0.2649s winner=cpu speedup=5.175 PASS cpu/cuda=True/True
+band-8192-0-22050: frames=4096 output=1048576 cpu=0.0531s cuda=0.2576s winner=cpu speedup=4.853 PASS cpu/cuda=True/True
+band-8192-300-8000: frames=4096 output=1048576 cpu=0.0490s cuda=0.2620s winner=cpu speedup=5.344 PASS cpu/cuda=True/True
+band-8192-0-8000: frames=4096 output=1048576 cpu=0.0507s cuda=0.2621s winner=cpu speedup=5.171 PASS cpu/cuda=True/True
+band-8192-300-22050: frames=4096 output=1048576 cpu=0.0511s cuda=0.2616s winner=cpu speedup=5.116 PASS cpu/cuda=True/True
+band-8192-0-48000: frames=4096 output=1048576 cpu=0.0541s cuda=0.2569s winner=cpu speedup=4.750 PASS cpu/cuda=True/True
+band-16384-0-22050: frames=4096 output=1048576 cpu=0.0855s cuda=0.2645s winner=cpu speedup=3.094 PASS cpu/cuda=True/True
+band-16384-300-8000: frames=4096 output=1048576 cpu=0.0841s cuda=0.2581s winner=cpu speedup=3.070 PASS cpu/cuda=True/True
+band-16384-0-8000: frames=4096 output=1048576 cpu=0.0853s cuda=0.2664s winner=cpu speedup=3.125 PASS cpu/cuda=True/True
+band-16384-300-22050: frames=4096 output=1048576 cpu=0.0817s cuda=0.2631s winner=cpu speedup=3.221 PASS cpu/cuda=True/True
+band-16384-0-48000: frames=4096 output=1048576 cpu=0.0910s cuda=0.2619s winner=cpu speedup=2.879 PASS cpu/cuda=True/True
+large-32768: frames=32768 output=8388608 cpu=0.3290s cuda=0.3422s winner=cpu speedup=1.040 PASS cpu/cuda=True/True
+large-65536: frames=65536 output=16777216 cpu=0.5653s cuda=0.4346s winner=cuda speedup=0.769 PASS cpu/cuda=True/True
+large-128000: frames=128000 output=32768000 cpu=0.9569s cuda=0.6323s winner=cuda speedup=0.661 PASS cpu/cuda=True/True
+large-192333: frames=192333 output=49237248 cpu=1.2023s cuda=0.8665s winner=cuda speedup=0.721 PASS cpu/cuda=True/True

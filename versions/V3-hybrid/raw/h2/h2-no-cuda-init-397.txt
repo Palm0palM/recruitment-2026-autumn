@@ -1,0 +1,6 @@
+auto-small dispatch: dispatch: backend=cpu (auto) frames=64 work=0.068 input_mb=0.033 output_mb=0.066 t_cpu=0.0375 t_cuda=0.2461
+forced-small dispatch: dispatch: backend=cuda (forced) frames=64 work=0.068 input_mb=0.033 output_mb=0.066 t_cpu=0.0375 t_cuda=0.2461
+libcuda opens (auto, CPU-chosen): 1
+libcuda opens (forced cuda): 3
+nvidia device opens (auto, CPU-chosen): 0
+nvidia device opens (forced cuda): 46

@@ -1,3 +1,6 @@
+# 准备阶段记录：此时 auto 仍是占位策略（有设备即选 CUDA）。
+# 最终成本模型 auto 的行为、正确性与全部原始数据见 raw/h2/ 与 BENCHMARK.md。
+
 CPU-only build: smoke 11/11 PASS; no CUDA/cuFFT DSO.
 CPU+CUDA explicit cpu mode output == CPU-only golden: yes.
 CPU+CUDA auto with no visible GPU -> CPU golden: yes.

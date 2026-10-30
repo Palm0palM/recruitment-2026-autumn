@@ -1,0 +1,11 @@
+g++ -I./include -DMELSPEC_FP32_BATCH=16 -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/hybrid-cpu/fp16/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FP32_BATCH=16 -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/hybrid-cpu/fp16/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FP32_BATCH=16 -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/hybrid-cpu/fp16/melspec_cpu.o -c src/melspec_cpu.cpp
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+g++  -o tmp/bin/h2-cpu-only tmp/build/hybrid-cpu/fp16/main.o tmp/build/hybrid-cpu/fp16/melspec.o tmp/build/hybrid-cpu/fp16/melspec_cpu.o -pthread

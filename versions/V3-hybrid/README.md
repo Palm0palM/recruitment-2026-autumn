@@ -1,6 +1,8 @@
 # V4 Hybrid SIMD + CUDA — 准备工作
 
-状态：**后端拆分、构建模式、运行模式和符号审计完成；交叉点性能模型尚未开始。**
+状态：**后端拆分、构建模式、运行模式和符号审计完成（准备阶段记录）。**
+后续的交叉点测量、自适应调度与最终成绩见同目录 `ARCHITECTURE.md`、
+`BENCHMARK.md`、`DISPATCH_MODEL.md`、`FINAL_HYBRID.md`。
 
 ## 1. Worktree 与来源
 

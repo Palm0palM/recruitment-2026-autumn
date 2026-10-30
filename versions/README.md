@@ -42,6 +42,7 @@ versions/
 | V0-baseline | 原始朴素实现（逐帧 `complex<double>` FFT + 稠密 Mel 乘） | **1645.2**（27.4 min） | 本地 | 完成（集群按学长要求不跑 baseline） |
 | [V1-legacy-port](V1-legacy-port/README.md) | 旧解答迁移：FFT 缓存、半长实数 FFT、稀疏逐帧 Mel、16 线程 | **1.537** | hepnode3 / 16 CPU | 全量 4/4 PASS，vs librosa 12.416×；profile 完成 |
 | [V2-simd](V2-simd/README.md) | 自研 radix-4 + FP32 Batch16/8 + 支持裁剪/原位恢复 | **0.834**（交错中位数） | hepnode3 / 16 CPU | 全量 4/4 PASS；FP64/AVX2 回退保留 |
+| [V3-hybrid](V3-hybrid/FINAL_HYBRID.md) | 冻结 V2 CPU + 冻结 V3 CUDA，按实测成本模型 auto 选后端 | **0.914**（auto，3 轮中位） | hepnode2 / 16 CPU + L40 | 三模式 4/4 PASS；38 点 auto 8.331 s vs 始终 CPU 10.010 s、始终 CUDA 14.003 s |
 
 > 口径提醒：
 > * 本地 15 GiB 内存机器上 default 全量会因功率谱 6.3 GiB 产生换页；集群节点 1 TB 内存没有这个问题，
