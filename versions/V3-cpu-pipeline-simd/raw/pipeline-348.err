@@ -1,0 +1,2 @@
+/usr/include/c++/15/bits/stl_vector.h:1264:34: runtime error: reference binding to null pointer of type 'struct value_type'
+src/melspec.cpp:1228:35: runtime error: reference binding to null pointer of type 'struct Batch16fBuffer'

@@ -73,6 +73,34 @@ elif [ "$MODE" = hugepage ] || [ "$MODE" = hugepage-confirm ]; then
         "$PY" -u validate.py tmp/bin/hugepage-b16 --runs 3 | tee "tmp/logs/official-hugepage-$SLURM_JOB_ID.txt"
         grep -q 'Result: 4/4 PASSED' "tmp/logs/official-hugepage-$SLURM_JOB_ID.txt"
     fi
+elif [ "$MODE" = final ]; then
+    cat /sys/kernel/mm/transparent_hugepage/enabled /sys/kernel/mm/transparent_hugepage/defrag
+    g++ "${flags[@]}" src/main.cpp tmp/control/melspec.cpp -o tmp/bin/frozen-b16
+    for variant in reuse hugepage combined; do
+        extra=()
+        if [ "$variant" != hugepage ]; then extra+=(-DMELSPEC_PACK_REUSE=1); fi
+        if [ "$variant" != reuse ]; then extra+=(-DMELSPEC_OUTPUT_HUGEPAGE=1); fi
+        g++ "${flags[@]}" "${extra[@]}" src/main.cpp src/melspec.cpp -o "tmp/bin/$variant-b16"
+        sha256sum "tmp/bin/$variant-b16"
+        "$PY" -u scripts/cpu_pipeline_check.py tmp/bin/frozen-b16 "tmp/bin/$variant-b16" --exact
+        g++ -std=c++17 -O1 -g -march=native -pthread -Iinclude -DMELSPEC_FP32_BATCH=16 \
+            "${extra[@]}" -fsanitize=address,undefined -fno-omit-frame-pointer \
+            scripts/cpu_pipeline_interface_check.cpp src/melspec.cpp -o "tmp/bin/sanitize-$variant"
+        ASAN_OPTIONS=detect_leaks=1 "tmp/bin/sanitize-$variant"
+        "$PY" -u scripts/multi_bench.py frozen=tmp/bin/frozen-b16 "$variant=tmp/bin/$variant-b16" --runs 8 \
+            --out "tmp/logs/final-$variant-$SLURM_JOB_ID.json"
+    done
+    "$PY" -u scripts/cpu_pipeline_synthetic_bench.py tmp/bin/frozen-b16 tmp/bin/reuse-b16 \
+        --out "tmp/logs/synthetic-reuse-$SLURM_JOB_ID.json"
+    "$PY" -u scripts/multi_bench.py reuse=tmp/bin/reuse-b16 combined=tmp/bin/combined-b16 --runs 8 \
+        --out "tmp/logs/incremental-$SLURM_JOB_ID.json"
+    "$PY" -u scripts/cpu_pipeline_profile.py --source src/melspec.cpp --tag combined --runs 2 \
+        --cppflag=-DMELSPEC_PACK_REUSE=1 --cppflag=-DMELSPEC_OUTPUT_HUGEPAGE=1
+    cp tmp/pipeline-profile/combined/results.json "tmp/logs/combined-profile-$SLURM_JOB_ID.json"
+    for variant in hugepage combined; do
+        "$PY" -u validate.py "tmp/bin/$variant-b16" --runs 1 | tee "tmp/logs/official-$variant-$SLURM_JOB_ID.txt"
+        grep -q 'Result: 4/4 PASSED' "tmp/logs/official-$variant-$SLURM_JOB_ID.txt"
+    done
 else
     echo 'Set MODE=profile until a separately reviewed experiment is available.' >&2
     exit 2

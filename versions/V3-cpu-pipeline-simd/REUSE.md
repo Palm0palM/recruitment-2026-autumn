@@ -46,3 +46,19 @@ slab 在多个 B16 间共享；最多 K=128 帧。按约 16k 个附加 double �
 FFT/recover/Mel阶段近似不变，符合“只改变打包”的假设。
 原始日志 raw/pipeline-342.out、reuse-342.json、reuse-profile-342.json。
 尚需独立第二轮和完整官方 validate.py 确认，不把本轮单独当作最终结论。
+
+## 第二轮（作业348）
+
+| 用例 | 冻结B16 median | slab median | elapsed减少 |
+|---|---:|---:|---:|
+| default | .835524 | .789198 | 5.54% |
+| small_mels | .486570 | .448187 | 7.89% |
+| large_fft | 1.031655 | .969378 | 6.04% |
+| narrow_band | .995978 | .937891 | 5.83% |
+
+官方未修改validate.py完整四组、runs=3：**4/4 PASS**，
+时间 `.775 / .447 / .966 / .930 s`，只作为正确性/单程序记录，不拿不同作业最小值算加速。
+两轮每轮8次同节点交错，改善都超过3%。
+
+此作业的复用vector数值测试通过，但sanitizer发现冻结版已有n_fft=1空batch引用；
+不能把这一轮称为sanitizer通过。独立修复与重跑见SAFETY.md。
