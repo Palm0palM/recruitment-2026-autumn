@@ -1,0 +1,35 @@
+node=hepnode2 job=238 precision=32 arch=89 mode=bench
+d00ce2daa64719a48db707f416108166a410b57a
+Cpus_allowed_list:	0-3,16-19,32-35,48-51
+0, NVIDIA L40, 595.91.07, 46068 MiB, 8.9
+1, NVIDIA L40, 595.91.07, 46068 MiB, 8.9
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2026 NVIDIA Corporation
+Built on Tue_Sep_01_08:45:21_PDT_2026
+Cuda compilation tools, release 13.4, V13.4.92
+Build cuda_13.4.r13.4/compiler.38855100_0
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1/melspec.o -c src/melspec.cpp
+/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/bin/nvcc -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -O3 -arch=sm_89 -Xcompiler -O3,-march=native,-pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1/melspec_cuda.o -c src/melspec_cuda.cu
+g++  -o tmp/bin/cuda-fp32 tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1/main.o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1/melspec.o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1/melspec_cuda.o -pthread -L/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -Wl,-rpath,/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -lcufft -lcudart
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+7c963b180a2cd7f06a0a0c2ad0c3a536c3034c4b65d5c900341f841904c9561d  src/melspec.cpp
+35db64a35fae8de66efb15da3d25d3ab41bb175a751f29f73619bc316b2a4647  src/melspec_cuda.cu
+ae96df25e59816e6162e2cee7101c380d0058c820d1771cea302d0e91de2ea9d  include/melspec.h
+6eb64b3912ed90cbb348a7b65ef4ea9f75b57df4a14fd90c2e57adad26df7c22  include/melspec_cuda.h
+ac0f60dc3b488f1bf6728900ddcde73140cb313af52f6ec9ec01d243150f32fe  Makefile
+a81e5dc2bb83fdef4b0cb86c51a555d48cb7acdaacf38739fd0874a5ffd8343e  tmp/bin/cuda-fp32
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    9.38e-02 |   PASS |    1.011 | 13.172x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    2.34e-02 |   PASS |    0.567 | 23.199x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    2.19e-01 |   PASS |    1.038 | 28.293x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    1.56e-01 |   PASS |    1.031 | 28.456x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED

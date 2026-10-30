@@ -2,8 +2,8 @@
 
 当前候选：FP32 cuFFT R2C、batch512、全 GPU 加窗/模平方/稀疏 Mel、初始化重叠。
 G1–G3 与 G4 实验均已完成；FP32/FP64 均通过本地 74 项合成测试与四组官方音频检查。
-正式 226 在 hepnode2/L40 上四组全 PASS，时间为 1.016 / 0.578 / 1.035 / 1.040 秒；
-最终默认构建另以 238 复核，见 [BENCHMARK.md](BENCHMARK.md)。
+最终默认构建在 hepnode2/L40 的作业 238 中四组全 PASS，时间为 1.011 / 0.567 / 1.038 / 1.031 秒；
+详见 [BENCHMARK.md](BENCHMARK.md)。
 环境、设计、profile 和复现分别见 [ENVIRONMENT.md](ENVIRONMENT.md)、[IMPLEMENTATION.md](IMPLEMENTATION.md)、
 [PROFILE.md](PROFILE.md)、[REPRODUCE.md](REPRODUCE.md)。本地 GPU 时间不作为集群成绩。
 
