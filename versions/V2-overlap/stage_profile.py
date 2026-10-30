@@ -67,12 +67,14 @@ void overlap_power(""")
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--case", default="default")
+    ap.add_argument("--source", type=Path,
+                    default=ROOT / "versions/V2-overlap/melspec_overlap_half_delta_prototype.cpp")
     ap.add_argument("--out", type=Path, required=True)
     args = ap.parse_args()
     case = next(c for c in load_official_cases() if c["name"] == args.case)
     build = ROOT / "tmp/phase-profile"
     build.mkdir(parents=True, exist_ok=True)
-    source = instrument((ROOT / "versions/V2-overlap/melspec_overlap_half_delta_prototype.cpp").read_text())
+    source = instrument(args.source.read_text())
     source_path = build / f"{args.case}.cpp"
     binary = build / args.case
     source_path.write_text(source)
@@ -81,6 +83,7 @@ def main():
     data = find_data_dir()
     flags = [s for k, v in case["params"].items() for s in (f"--{k}", str(v))]
     scratch = ROOT / "tmp/scratch"
+    scratch.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=scratch) as td:
         output = Path(td) / "out.bin"
         result = subprocess.run(["taskset", "-c", "0", str(binary), str(data / "audio.pcm"),
@@ -93,7 +96,7 @@ def main():
         expected = np.fromfile(data / Path(case["expected"]).relative_to("data"), dtype="<f4")
         passed = got.shape == expected.shape and bool(np.allclose(got, expected, rtol=1e-3, atol=1e-4))
     total = sum(phases.values())
-    report = dict(case=args.case, single_thread=True, phases_seconds=phases,
+    report = dict(case=args.case, source=str(args.source), single_thread=True, phases_seconds=phases,
                   total_timed_seconds=total,
                   phases_percent={k: 100 * v / total for k, v in phases.items()},
                   passed=passed,

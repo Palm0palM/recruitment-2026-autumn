@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/zsx/recruitment-2026-autumn-v2-overlap-half-r/versions/V2-overlap/stage_profile.py", line 111, in <module>
+    main()
+    ~~~~^^
+  File "/home/zsx/recruitment-2026-autumn-v2-overlap-half-r/versions/V2-overlap/stage_profile.py", line 86, in main
+    with tempfile.TemporaryDirectory(dir=scratch) as td:
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/tempfile.py", line 907, in __init__
+    self.name = mkdtemp(suffix, prefix, dir)
+                ~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/tempfile.py", line 381, in mkdtemp
+    _os.mkdir(file, 0o700)
+    ~~~~~~~~~^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/zsx/recruitment-2026-autumn-v2-overlap-half-r/tmp/scratch/tmp3isqogod'

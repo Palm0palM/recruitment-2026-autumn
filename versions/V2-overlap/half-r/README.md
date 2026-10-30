@@ -1,5 +1,8 @@
 # V2-overlap 第二轮：利用实信号对称减少重组 FFT
 
+> 集群正式对照与阶段 Profile 见 [cluster.md](cluster.md)。同节点 half+delta 相对 V1
+> 四组加速约 1.11× / 1.15× / 1.24× / 1.24×，全部 PASS。
+
 - 分支：`v2/overlap`；仅修改本 worktree 的实验档案，默认 `src/melspec.cpp` 保持 V1。
 - 原实现保留为 `../melspec_overlap_prototype.cpp`，不覆盖、不删除历史。
 - 新实现：`../melspec_overlap_half_prototype.cpp`。
@@ -173,8 +176,8 @@ delta 只优化约 8% 的递推阶段，因此收益小且容易受数据布局�
    default 约快 **7.4%**，large_fft 约快 **18.4%**；单线程与 CPU-time 也同向。
 4. half-delta 在 default 多线程下约快 **9.4%**，large_fft 约快 **17.6%**。
    delta 的独立影响很小且方向不完全稳定，不作为必要优化；保留 half 作为更简洁的主结果。
-5. **值得在后续获准后做同节点集群 A/B，但本轮不 SSH、不提交集群任务。**
-   不继续扩大该路线，也不修改默认 V1 或 master。
+5. 后续已获授权完成同节点集群 Benchmark 与 Profile，见 [cluster.md](cluster.md)；
+   本地与集群均支持 half/half-delta 的性能收益，不继续扩大该路线，也不修改默认 V1 或 master。
 
 所有实现均只存在于实验档案：原 full、新 half、half-delta 分别独立保存。
 主 `src/melspec.cpp` 未改变。

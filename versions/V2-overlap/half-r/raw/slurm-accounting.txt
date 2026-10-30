@@ -1,0 +1,11 @@
+Command: sacct -j 77,80,85
+JobID|JobName|State|ExitCode|Elapsed|AllocCPUS|NodeList
+77|melspec-v2-overlap-bench|COMPLETED|0:0|00:15:00|16|hepnode2
+77.batch|batch|COMPLETED|0:0|00:15:00|16|hepnode2
+77.extern|extern|COMPLETED|0:0|00:15:00|16|hepnode2
+80|melspec-v2-overlap-profile|FAILED|1:0|00:00:03|16|hepnode3
+80.batch|batch|FAILED|1:0|00:00:03|16|hepnode3
+80.extern|extern|COMPLETED|0:0|00:00:03|16|hepnode3
+85|melspec-v2-overlap-profile|COMPLETED|0:0|00:01:33|16|hepnode2
+85.batch|batch|COMPLETED|0:0|00:01:33|16|hepnode2
+85.extern|extern|COMPLETED|0:0|00:01:33|16|hepnode2
