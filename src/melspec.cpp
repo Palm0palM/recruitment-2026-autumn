@@ -172,6 +172,46 @@ struct FFTPlan {
     }
 };
 
+void recover_power(const ComplexBuffer& a, const std::vector<double>& recovery_re,
+                   const std::vector<double>& recovery_im, std::vector<double>& power) {
+    const int half = static_cast<int>(a.re.size());
+    double dc = a.re[0] + a.im[0];
+    double nyquist = a.re[0] - a.im[0];
+    power[0] = dc * dc;
+    power[half] = nyquist * nyquist;
+    int k = 1;
+#if defined(__AVX2__) && defined(__FMA__)
+    const auto scale = _mm256_set1_pd(0.5);
+    for (; k + 3 < half; k += 4) {
+        auto ar = _mm256_loadu_pd(a.re.data() + k);
+        auto ai = _mm256_loadu_pd(a.im.data() + k);
+        auto br = _mm256_loadu_pd(a.re.data() + half - k - 3);
+        auto bi = _mm256_loadu_pd(a.im.data() + half - k - 3);
+        br = _mm256_permute4x64_pd(br, _MM_SHUFFLE(0, 1, 2, 3));
+        bi = _mm256_permute4x64_pd(bi, _MM_SHUFFLE(0, 1, 2, 3));
+        bi = _mm256_sub_pd(_mm256_setzero_pd(), bi);
+        auto rr = _mm256_loadu_pd(recovery_re.data() + k);
+        auto ri = _mm256_loadu_pd(recovery_im.data() + k);
+        auto dr = _mm256_sub_pd(ar, br);
+        auto di = _mm256_sub_pd(ai, bi);
+        auto xr = _mm256_fmadd_pd(rr, dr, _mm256_mul_pd(scale, _mm256_add_pd(ar, br)));
+        xr = _mm256_fnmadd_pd(ri, di, xr);
+        auto xi = _mm256_fmadd_pd(ri, dr, _mm256_mul_pd(scale, _mm256_add_pd(ai, bi)));
+        xi = _mm256_fmadd_pd(rr, di, xi);
+        _mm256_storeu_pd(power.data() + k,
+                         _mm256_fmadd_pd(xr, xr, _mm256_mul_pd(xi, xi)));
+    }
+#endif
+    for (; k < half; ++k) {
+        double ar = a.re[k], ai = a.im[k];
+        double br = a.re[half - k], bi = -a.im[half - k];
+        double dr = ar - br, di = ai - bi;
+        double xr = 0.5 * (ar + br) + recovery_re[k] * dr - recovery_im[k] * di;
+        double xi = 0.5 * (ai + bi) + recovery_im[k] * dr + recovery_re[k] * di;
+        power[k] = xr * xr + xi * xi;
+    }
+}
+
 // Real FFT: input n real values → output n/2+1 complex values.
 void compute_rfft(const std::vector<double>& frame,
                   std::vector<std::complex<double>>& out) {
@@ -260,10 +300,11 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     const int half = std::max(1, n_fft / 2);
     FFTPlan plan(half);
     // -i/2 * exp(-2*pi*i*k/n_fft), for real-FFT reconstruction.
-    std::vector<std::complex<double>> recovery(n_bins);
+    std::vector<double> recovery_re(n_bins), recovery_im(n_bins);
     for (int k = 1; k < n_fft / 2; ++k) {
         double ang = -2.0 * M_PI * k / static_cast<double>(n_fft);
-        recovery[k] = {0.5 * std::sin(ang), -0.5 * std::cos(ang)};
+        recovery_re[k] = 0.5 * std::sin(ang);
+        recovery_im[k] = -0.5 * std::cos(ang);
     }
     output.resize(static_cast<size_t>(n_mels) * n_frames);
 
@@ -294,17 +335,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                         y[start + 2 * i + 1] * window[2 * i + 1];
                 }
                 plan.apply_permuted(fft_out);
-
-                double dc = fft_out.re[0] + fft_out.im[0];
-                double nyquist = fft_out.re[0] - fft_out.im[0];
-                power[0] = dc * dc;
-                power[half] = nyquist * nyquist;
-                for (int k = 1; k < half; ++k) {
-                    std::complex<double> a(fft_out.re[k], fft_out.im[k]);
-                    std::complex<double> b(fft_out.re[half - k], -fft_out.im[half - k]);
-                    auto x = 0.5 * (a + b) + recovery[k] * (a - b);
-                    power[k] = std::norm(x);
-                }
+                recover_power(fft_out, recovery_re, recovery_im, power);
             }
 
             // Apply filters immediately, while this frame's power is in cache.
