@@ -14,8 +14,14 @@
 #ifndef MELSPEC_FP32_BATCH
 #define MELSPEC_FP32_BATCH 0
 #endif
-#if MELSPEC_FP32_BATCH != 0 && MELSPEC_FP32_BATCH != 8
-#error "MELSPEC_FP32_BATCH must be 0 or 8"
+#if MELSPEC_FP32_BATCH != 0 && MELSPEC_FP32_BATCH != 8 && MELSPEC_FP32_BATCH != 16
+#error "MELSPEC_FP32_BATCH must be 0, 8, or 16"
+#endif
+#if MELSPEC_FP32_BATCH == 8 && !(defined(__AVX2__) && defined(__FMA__))
+#error "MELSPEC_FP32_BATCH=8 requires AVX2 and FMA"
+#endif
+#if MELSPEC_FP32_BATCH == 16 && !defined(__AVX512F__)
+#error "MELSPEC_FP32_BATCH=16 requires AVX-512F"
 #endif
 
 #if defined(__AVX512F__) || (defined(__AVX2__) && defined(__FMA__))
@@ -609,6 +615,144 @@ void recover_power_batch8f(Batch8fBuffer& a, const std::vector<double>& recovery
 }
 #endif
 
+#if MELSPEC_FP32_BATCH == 16 && defined(__AVX512F__)
+struct alignas(64) Lane16f {
+    std::array<float, 16> values;
+};
+
+struct Batch16fBuffer {
+    std::vector<Lane16f> re, im, power;
+    explicit Batch16fBuffer(int n) : re(n), im(n), power(n + 1) {}
+};
+
+static inline __m512 load16f(const Lane16f& value) {
+    return _mm512_load_ps(value.values.data());
+}
+
+static inline void store16f(Lane16f& destination, __m512 value) {
+    _mm512_store_ps(destination.values.data(), value);
+}
+
+void apply_batch16f(const FFTPlan32& plan, Batch16fBuffer& a) {
+    const int n = static_cast<int>(a.im.size());
+    if (plan.initial_radix2) {
+        for (int i = 0; i < n; i += 2) {
+            auto rr = load16f(a.re[i]), ri = load16f(a.im[i]);
+            store16f(a.re[i], _mm512_add_ps(rr, load16f(a.re[i + 1])));
+            store16f(a.im[i], _mm512_add_ps(ri, load16f(a.im[i + 1])));
+            store16f(a.re[i + 1], _mm512_sub_ps(rr, load16f(a.re[i + 1])));
+            store16f(a.im[i + 1], _mm512_sub_ps(ri, load16f(a.im[i + 1])));
+        }
+    }
+    for (const auto& stage : plan.stages) {
+        const int len = stage.len;
+        const int quarter = len / 4;
+        for (int base = 0; base < n; base += len) {
+            for (int j = 0; j < quarter; ++j) {
+                const int p = base + j;
+                auto ar = load16f(a.re[p]), ai = load16f(a.im[p]);
+                auto br = load16f(a.re[p + quarter]), bi = load16f(a.im[p + quarter]);
+                auto cr = load16f(a.re[p + 2 * quarter]), ci = load16f(a.im[p + 2 * quarter]);
+                auto dr = load16f(a.re[p + 3 * quarter]), di = load16f(a.im[p + 3 * quarter]);
+                auto w1r = _mm512_set1_ps(stage.w1re[j]);
+                auto w1i = _mm512_set1_ps(stage.w1im[j]);
+                auto w2r = _mm512_set1_ps(stage.w2re[j]);
+                auto w2i = _mm512_set1_ps(stage.w2im[j]);
+                auto w3r = _mm512_set1_ps(stage.w3re[j]);
+                auto w3i = _mm512_set1_ps(stage.w3im[j]);
+                auto br2 = _mm512_fmsub_ps(br, w2r, _mm512_mul_ps(bi, w2i));
+                auto bi2 = _mm512_fmadd_ps(br, w2i, _mm512_mul_ps(bi, w2r));
+                auto cr1 = _mm512_fmsub_ps(cr, w1r, _mm512_mul_ps(ci, w1i));
+                auto ci1 = _mm512_fmadd_ps(cr, w1i, _mm512_mul_ps(ci, w1r));
+                auto dr3 = _mm512_fmsub_ps(dr, w3r, _mm512_mul_ps(di, w3i));
+                auto di3 = _mm512_fmadd_ps(dr, w3i, _mm512_mul_ps(di, w3r));
+                auto sum01r = _mm512_add_ps(ar, br2);
+                auto sum01i = _mm512_add_ps(ai, bi2);
+                auto dif01r = _mm512_sub_ps(ar, br2);
+                auto dif01i = _mm512_sub_ps(ai, bi2);
+                auto sum23r = _mm512_add_ps(cr1, dr3);
+                auto sum23i = _mm512_add_ps(ci1, di3);
+                auto dif23r = _mm512_sub_ps(cr1, dr3);
+                auto dif23i = _mm512_sub_ps(ci1, di3);
+                store16f(a.re[p], _mm512_add_ps(sum01r, sum23r));
+                store16f(a.im[p], _mm512_add_ps(sum01i, sum23i));
+                store16f(a.re[p + quarter], _mm512_add_ps(dif01r, dif23i));
+                store16f(a.im[p + quarter], _mm512_sub_ps(dif01i, dif23r));
+                store16f(a.re[p + 2 * quarter], _mm512_sub_ps(sum01r, sum23r));
+                store16f(a.im[p + 2 * quarter], _mm512_sub_ps(sum01i, sum23i));
+                store16f(a.re[p + 3 * quarter], _mm512_sub_ps(dif01r, dif23i));
+                store16f(a.im[p + 3 * quarter], _mm512_add_ps(dif01i, dif23r));
+            }
+        }
+    }
+}
+
+// Widen 16 packed floats to two __m512d halves, and narrow back.
+static inline __m512d expand16_lo(__m512 value) {
+    return _mm512_cvtps_pd(_mm512_castps512_ps256(value));
+}
+
+static inline __m512d expand16_hi(__m512 value) {
+    const __m512 upper = _mm512_shuffle_f32x4(value, value, 0xEE);
+    return _mm512_cvtps_pd(_mm512_castps512_ps256(upper));
+}
+
+static inline __m512 narrow16(__m512d lo, __m512d hi) {
+    const __m256 lo_f = _mm512_cvtpd_ps(lo);
+    const __m256 hi_f = _mm512_cvtpd_ps(hi);
+    const __m512d merged = _mm512_insertf64x4(
+        _mm512_castps_pd(_mm512_castps256_ps512(lo_f)),
+        _mm256_castps_pd(hi_f), 1);
+    return _mm512_castpd_ps(merged);
+}
+
+void recover_power_batch16f(Batch16fBuffer& a, const std::vector<double>& recovery_re,
+                            const std::vector<double>& recovery_im,
+                            int support_first, int support_last) {
+    const int half = static_cast<int>(a.im.size());
+    const auto scale = _mm512_set1_pd(0.5);
+    auto power = [](__m512d xr, __m512d xi) {
+        return _mm512_fmadd_pd(xr, xr, _mm512_mul_pd(xi, xi));
+    };
+    const auto ar0 = load16f(a.re[0]), ai0 = load16f(a.im[0]);
+    const auto arlo0 = expand16_lo(ar0), arhi0 = expand16_hi(ar0);
+    const auto ailo0 = expand16_lo(ai0), aihi0 = expand16_hi(ai0);
+    const auto dclo = _mm512_add_pd(arlo0, ailo0);
+    const auto dchi = _mm512_add_pd(arhi0, aihi0);
+    const auto nyqlo = _mm512_sub_pd(arlo0, ailo0);
+    const auto nyqhi = _mm512_sub_pd(arhi0, aihi0);
+    store16f(a.power[0], narrow16(_mm512_mul_pd(dclo, dclo),
+                                  _mm512_mul_pd(dchi, dchi)));
+    store16f(a.power[half], narrow16(_mm512_mul_pd(nyqlo, nyqlo),
+                                     _mm512_mul_pd(nyqhi, nyqhi)));
+    const int begin = std::max(1, support_first);
+    const int end = std::min(half - 1, support_last - 1);
+    for (int k = begin; k <= end; ++k) {
+        const auto arf = load16f(a.re[k]), aif = load16f(a.im[k]);
+        const auto brf = load16f(a.re[half - k]), bif = load16f(a.im[half - k]);
+        const auto arlo = expand16_lo(arf), arhi = expand16_hi(arf);
+        const auto ailo = expand16_lo(aif), aihi = expand16_hi(aif);
+        const auto brlo = expand16_lo(brf), brhi = expand16_hi(brf);
+        const auto bilo = _mm512_sub_pd(_mm512_setzero_pd(), expand16_lo(bif));
+        const auto bihi = _mm512_sub_pd(_mm512_setzero_pd(), expand16_hi(bif));
+        const auto rr = _mm512_set1_pd(recovery_re[k]);
+        const auto ri = _mm512_set1_pd(recovery_im[k]);
+        auto calc = [&](__m512d ar, __m512d ai, __m512d br, __m512d bi) {
+            const auto dr = _mm512_sub_pd(ar, br);
+            const auto di = _mm512_sub_pd(ai, bi);
+            auto xr = _mm512_fnmadd_pd(ri, di,
+                _mm512_fmadd_pd(rr, dr, _mm512_mul_pd(scale, _mm512_add_pd(ar, br))));
+            auto xi = _mm512_fmadd_pd(ri, dr,
+                _mm512_mul_pd(scale, _mm512_add_pd(ai, bi)));
+            xi = _mm512_fmadd_pd(rr, di, xi);
+            return power(xr, xi);
+        };
+        store16f(a.power[k], narrow16(calc(arlo, ailo, brlo, bilo),
+                                      calc(arhi, aihi, brhi, bihi)));
+    }
+}
+#endif
+
 #if defined(__AVX512F__)
 struct alignas(64) Lane8 {
     std::array<double, 8> values;
@@ -903,7 +1047,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
 
     const int half = std::max(1, n_fft / 2);
     FFTPlan plan(half);
-#if MELSPEC_FP32_BATCH == 8
+#if MELSPEC_FP32_BATCH == 8 || MELSPEC_FP32_BATCH == 16
     FFTPlan32 plan32(plan);
 #endif
     // -i/2 * exp(-2*pi*i*k/n_fft), for real-FFT reconstruction.
@@ -952,6 +1096,12 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
         batch_buffers.assign(n_threads, Batch8fBuffer(half));
     const int n_batches = n_fft > 1 ? n_frames / 8 : 0;
     tail_begin = n_batches * 8;
+#elif MELSPEC_FP32_BATCH == 16 && defined(__AVX512F__)
+    std::vector<Batch16fBuffer> batch_buffers;
+    if (n_fft > 1)
+        batch_buffers.assign(n_threads, Batch16fBuffer(half));
+    const int n_batches = n_fft > 1 ? n_frames / 16 : 0;
+    tail_begin = n_batches * 16;
 #elif defined(__AVX512F__)
     std::vector<Batch8Buffer> batch_buffers;
     if (n_fft > 1)
@@ -1010,6 +1160,77 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                 }
                 _mm256_storeu_pd(output.data() + static_cast<size_t>(m) * n_frames + t, acc_lo);
                 _mm256_storeu_pd(output.data() + static_cast<size_t>(m) * n_frames + t + 4, acc_hi);
+            }
+        }
+#elif MELSPEC_FP32_BATCH == 16 && defined(__AVX512F__)
+        auto& a = batch_buffers[id];
+        const int begin = static_cast<long long>(n_batches) * id / n_threads;
+        const int end = static_cast<long long>(n_batches) * (id + 1) / n_threads;
+        for (int batch = begin; batch < end; ++batch) {
+            const int t = batch * 16;
+            const int start = t * hop_length;
+            for (int i = 0; i < half; ++i) {
+                const int p = plan.reversed[i];
+                const double we = window[2 * i], wo = window[2 * i + 1];
+                store16f(a.re[p], _mm512_setr_ps(
+                    static_cast<float>(y[start + 2 * i] * we),
+                    static_cast<float>(y[start + hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 2 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 3 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 4 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 5 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 6 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 7 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 8 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 9 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 10 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 11 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 12 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 13 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 14 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 15 * hop_length + 2 * i] * we)));
+                store16f(a.im[p], _mm512_setr_ps(
+                    static_cast<float>(y[start + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 2 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 3 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 4 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 5 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 6 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 7 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 8 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 9 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 10 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 11 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 12 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 13 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 14 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 15 * hop_length + 2 * i + 1] * wo)));
+            }
+            apply_batch16f(plan32, a);
+            recover_power_batch16f(a, recovery_re, recovery_im, support_first, support_last);
+            for (int m = 0; m < n_mels; ++m) {
+                auto acc0 = _mm256_setzero_pd();
+                auto acc1 = _mm256_setzero_pd();
+                auto acc2 = _mm256_setzero_pd();
+                auto acc3 = _mm256_setzero_pd();
+                for (int k = first[m]; k < last[m]; ++k) {
+                    auto p = load16f(a.power[k]);
+                    auto weight = _mm256_set1_pd(mel_fb[m][k]);
+                    acc0 = _mm256_fmadd_pd(weight,
+                        _mm256_cvtps_pd(_mm512_castps512_ps128(p)), acc0);
+                    acc1 = _mm256_fmadd_pd(weight,
+                        _mm256_cvtps_pd(_mm512_extractf32x4_ps(p, 1)), acc1);
+                    acc2 = _mm256_fmadd_pd(weight,
+                        _mm256_cvtps_pd(_mm512_extractf32x4_ps(p, 2)), acc2);
+                    acc3 = _mm256_fmadd_pd(weight,
+                        _mm256_cvtps_pd(_mm512_extractf32x4_ps(p, 3)), acc3);
+                }
+                double* out = output.data() + static_cast<size_t>(m) * n_frames + t;
+                _mm256_storeu_pd(out, acc0);
+                _mm256_storeu_pd(out + 4, acc1);
+                _mm256_storeu_pd(out + 8, acc2);
+                _mm256_storeu_pd(out + 12, acc3);
             }
         }
 #elif defined(__AVX512F__)
