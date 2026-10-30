@@ -1,0 +1,7 @@
+/sys/kernel/mm/transparent_hugepage/enabled=always [madvise] never
+/sys/kernel/mm/transparent_hugepage/defrag=always defer defer+madvise [madvise] never
+plain_resize_ms=0.000 size=49253632
+plain AnonHugePages:         0 kB
+huge_reserve_ms=0.007 advise_ms=0.000 (rc=-1) resize_ms=209.130
+huge AnonHugePages:         0 kB
+huge_resize_again_ms=204.711

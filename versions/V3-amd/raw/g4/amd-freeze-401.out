@@ -1,0 +1,33 @@
+host=hepnode0 job=401
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+55803861929f0b0e9c99eafb72623a1bfa94ab8ec95072f13ef745b41e5b0dbd  src/melspec.cpp
+d9c466af6a18e95eb2e74cea62056fce83dc28f1693bf4e187b10449664fe544  src/melspec_hip.cu
+ae96df25e59816e6162e2cee7101c380d0058c820d1771cea302d0e91de2ea9d  include/melspec.h
+8f3d071112ef8d53e859b7a4c778a42748ecd7283c3928c2a252fd95819a1820  Makefile
+g++ -I./include -DMELSPEC_HIP=1 -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include/hipfft -DMELSPEC_HIP_PRECISION=32 -DMELSPEC_HIP_BATCH=512 -DMELSPEC_HIP_BATCH_LARGE=256 -DMELSPEC_HIP_FUSED=1 -DMELSPEC_HIP_PINNED=0 -DMELSPEC_HIP_PINNED_INPUT=0 -DMELSPEC_HIP_ASYNC_H2D=1 -DMELSPEC_HIP_PREWARM=1 -DMELSPEC_HIP_DIRECT_OUTPUT=1 -DMELSPEC_HIP_HUGEPAGE=1 -DMELSPEC_HIP_OVERLAP_INIT=1 -DMELSPEC_HIP_DEFER_RESIZE=0 -DMELSPEC_HIP_ASYNC_OUTPUT=1 -DMELSPEC_HIP_RESIZE_THREAD=1 -DMELSPEC_HIP_STAGING_ROWS=16 -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/hip-gfx1201-fp32-b512-l256-f1-p0-h0-i0-y1-w1-g1-u1-o1-d0-a1-t1-r16/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_HIP=1 -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include/hipfft -DMELSPEC_HIP_PRECISION=32 -DMELSPEC_HIP_BATCH=512 -DMELSPEC_HIP_BATCH_LARGE=256 -DMELSPEC_HIP_FUSED=1 -DMELSPEC_HIP_PINNED=0 -DMELSPEC_HIP_PINNED_INPUT=0 -DMELSPEC_HIP_ASYNC_H2D=1 -DMELSPEC_HIP_PREWARM=1 -DMELSPEC_HIP_DIRECT_OUTPUT=1 -DMELSPEC_HIP_HUGEPAGE=1 -DMELSPEC_HIP_OVERLAP_INIT=1 -DMELSPEC_HIP_DEFER_RESIZE=0 -DMELSPEC_HIP_ASYNC_OUTPUT=1 -DMELSPEC_HIP_RESIZE_THREAD=1 -DMELSPEC_HIP_STAGING_ROWS=16 -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/hip-gfx1201-fp32-b512-l256-f1-p0-h0-i0-y1-w1-g1-u1-o1-d0-a1-t1-r16/melspec.o -c src/melspec.cpp
+/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/bin/hipcc -I./include -DMELSPEC_HIP=1 -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include/hipfft -DMELSPEC_HIP_PRECISION=32 -DMELSPEC_HIP_BATCH=512 -DMELSPEC_HIP_BATCH_LARGE=256 -DMELSPEC_HIP_FUSED=1 -DMELSPEC_HIP_PINNED=0 -DMELSPEC_HIP_PINNED_INPUT=0 -DMELSPEC_HIP_ASYNC_H2D=1 -DMELSPEC_HIP_PREWARM=1 -DMELSPEC_HIP_DIRECT_OUTPUT=1 -DMELSPEC_HIP_HUGEPAGE=1 -DMELSPEC_HIP_OVERLAP_INIT=1 -DMELSPEC_HIP_DEFER_RESIZE=0 -DMELSPEC_HIP_ASYNC_OUTPUT=1 -DMELSPEC_HIP_RESIZE_THREAD=1 -DMELSPEC_HIP_STAGING_ROWS=16 -std=c++17 -O3 --offload-arch=gfx1201 --rocm-path=/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr --rocm-device-lib-path=/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/lib/llvm-21/lib/clang/21/amdgcn/bitcode -march=native -pthread -MMD -MP -o tmp/build/hip-gfx1201-fp32-b512-l256-f1-p0-h0-i0-y1-w1-g1-u1-o1-d0-a1-t1-r16/melspec_hip.o -c src/melspec_hip.cu
+g++  -o tmp/bin/melspec-hip-freeze tmp/build/hip-gfx1201-fp32-b512-l256-f1-p0-h0-i0-y1-w1-g1-u1-o1-d0-a1-t1-r16/main.o tmp/build/hip-gfx1201-fp32-b512-l256-f1-p0-h0-i0-y1-w1-g1-u1-o1-d0-a1-t1-r16/melspec.o tmp/build/hip-gfx1201-fp32-b512-l256-f1-p0-h0-i0-y1-w1-g1-u1-o1-d0-a1-t1-r16/melspec_hip.o -pthread -L/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/lib/x86_64-linux-gnu -Wl,-rpath,/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/lib/x86_64-linux-gnu -lamdhip64 -lhipfft -lrocfft
+9d84f8617568e105f1187125e065512cf9b4c50e4d9d695ae74d3ce24a9e4970  tmp/bin/melspec-hip-freeze
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    5.47e-02 |   PASS |    0.694 | 20.820x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.95e-02 |   PASS |    0.452 | 30.850x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.56e-01 |   PASS |    0.746 | 36.699x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    1.56e-01 |   PASS |    0.741 | 36.955x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+default: PASS shape=(256, 1437) max_abs_err=0.0002746582
+small_mels: PASS shape=(64, 1437) max_abs_err=9.1552734e-05
+large_fft: PASS shape=(256, 1373) max_abs_err=0.00061035156
+narrow_band: PASS shape=(256, 1373) max_abs_err=0.00061035156
+cli_defaults: PASS shape=(128, 372) max_abs_err=2.6702881e-05
+fft_1: PASS shape=(4, 1500) max_abs_err=0
+fft_2: PASS shape=(4, 1500) max_abs_err=3.2311743e-27
+fft_8: PASS shape=(4, 1500) max_abs_err=8.7311491e-11

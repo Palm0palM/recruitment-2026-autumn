@@ -1,0 +1,15 @@
+device=AMD Radeon AI PRO R9700 arch=gfx1201 wavefront=32
+samples=6158720 float_bytes=24634880
+host_fill_double_ms=34.517
+convert_pageable_ms=16.890 (2.92 GB/s effective)
+hipHostMalloc_ms=12.348 kind=host(pinned)
+convert_pinned_ms=5.648
+hipHostMalloc_second_ms=10.340
+convert_pinned_repeat_min_ms=4.663 median_ms=5.065
+pageable_kind=other
+h2d_pageable           bytes=24634880 min_ms=0.904 median_ms=1.112 GB/s=27.24
+h2d_pinned             bytes=24634880 min_ms=0.894 median_ms=0.895 GB/s=27.54
+h2d_async_pageable     min_ms=0.900 GB/s=27.37
+h2d_async_pinned       min_ms=0.891 GB/s=27.64
+hipMalloc_pipeline_ms=0.064 bytes=28896768
+hipMemset_first_touch_ms=0.314

@@ -1,0 +1,163 @@
+host=hepnode0 job=390
+Cpus_allowed_list:	0-15,64-79
+08a13f44bc63e0c8e82273371034556f0a690fbb7a6759119d870e04a87d94db  src/melspec_hip.cu
+f0215c95c2e4913920ad6864f7bfa4f2393769cd521af420d18a28c3805f6416  Makefile
+== profile base ==
+== cuda profile default ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33550237696 total=34208743424 used=658505728 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=0.001 staging_rows=1 y_convert_ms=50.057 h2d_y_ms=16.617 h2d_aux_ms=0.605 window_fb_ms=9.018 output_resize_ms=0.000 resize_wait_ms=0.016 device_alloc_ms=1.010 h2d_ms=17.222 batch_alloc_ms=0.326 plan_ms=24.922 gather_ms=25.992 fft_ms=31.398 mel_ms=31.677 pipeline_sync_ms=0.000 staging_alloc_ms=18.863 d2h_ms=0.015 host_convert_ms=48.707 async_output_total_ms=76.487 compute_total_ms=268.276
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.796989
+profile output PASS: default
+== cuda profile small_mels ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33703329792 total=34208743424 used=505413632 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=2.216 staging_rows=1 y_convert_ms=51.379 h2d_y_ms=17.042 h2d_aux_ms=0.256 window_fb_ms=2.427 output_resize_ms=0.000 resize_wait_ms=0.020 device_alloc_ms=0.186 h2d_ms=17.298 batch_alloc_ms=0.072 plan_ms=25.102 gather_ms=25.694 fft_ms=30.498 mel_ms=18.927 pipeline_sync_ms=0.000 staging_alloc_ms=17.924 d2h_ms=0.006 host_convert_ms=12.113 async_output_total_ms=38.281 compute_total_ms=212.254
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.556086
+profile output PASS: small_mels
+== cuda profile large_fft ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33546043392 total=34208743424 used=662700032 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=0.001 staging_rows=1 y_convert_ms=49.735 h2d_y_ms=15.565 h2d_aux_ms=1.332 window_fb_ms=19.708 output_resize_ms=0.000 resize_wait_ms=0.014 device_alloc_ms=3.272 h2d_ms=16.898 batch_alloc_ms=0.612 plan_ms=25.655 gather_ms=50.202 fft_ms=68.401 mel_ms=46.542 pipeline_sync_ms=0.000 staging_alloc_ms=17.937 d2h_ms=0.015 host_convert_ms=47.224 async_output_total_ms=73.846 compute_total_ms=355.098
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.869809
+profile output PASS: large_fft
+== cuda profile narrow_band ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33546043392 total=34208743424 used=662700032 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=0.001 staging_rows=1 y_convert_ms=49.262 h2d_y_ms=14.853 h2d_aux_ms=2.148 window_fb_ms=19.622 output_resize_ms=0.000 resize_wait_ms=0.018 device_alloc_ms=0.715 h2d_ms=17.001 batch_alloc_ms=0.556 plan_ms=24.797 gather_ms=49.992 fft_ms=67.373 mel_ms=42.358 pipeline_sync_ms=0.000 staging_alloc_ms=18.541 d2h_ms=0.015 host_convert_ms=48.383 async_output_total_ms=75.535 compute_total_ms=347.431
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.872244
+profile output PASS: narrow_band
+== profile direct ==
+== cuda profile default ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33353105408 total=34208743424 used=855638016 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=0.191 staging_rows=1 y_convert_ms=51.205 h2d_y_ms=14.783 h2d_aux_ms=2.137 window_fb_ms=9.250 output_resize_ms=0.000 resize_wait_ms=8.911 device_alloc_ms=6.267 h2d_ms=16.920 batch_alloc_ms=0.079 plan_ms=25.245 gather_ms=26.338 fft_ms=30.434 mel_ms=35.171 pipeline_sync_ms=0.000 staging_alloc_ms=0.000 d2h_ms=24.929 host_convert_ms=0.000 async_output_total_ms=33.841 compute_total_ms=235.119
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.788568
+profile output PASS: default
+== cuda profile small_mels ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33655095296 total=34208743424 used=553648128 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=9.577 staging_rows=1 y_convert_ms=48.171 h2d_y_ms=17.232 h2d_aux_ms=0.182 window_fb_ms=2.375 output_resize_ms=0.000 resize_wait_ms=0.014 device_alloc_ms=0.216 h2d_ms=17.413 batch_alloc_ms=0.070 plan_ms=30.060 gather_ms=25.394 fft_ms=30.147 mel_ms=19.779 pipeline_sync_ms=0.000 staging_alloc_ms=0.000 d2h_ms=6.449 host_convert_ms=0.000 async_output_total_ms=6.463 compute_total_ms=189.827
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.524170
+profile output PASS: small_mels
+== cuda profile large_fft ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33348911104 total=34208743424 used=859832320 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=0.001 staging_rows=1 y_convert_ms=49.662 h2d_y_ms=14.337 h2d_aux_ms=0.804 window_fb_ms=19.643 output_resize_ms=0.000 resize_wait_ms=0.018 device_alloc_ms=4.637 h2d_ms=15.141 batch_alloc_ms=0.071 plan_ms=28.557 gather_ms=49.854 fft_ms=68.654 mel_ms=49.254 pipeline_sync_ms=0.000 staging_alloc_ms=0.000 d2h_ms=19.509 host_convert_ms=0.000 async_output_total_ms=19.528 compute_total_ms=305.222
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.842282
+profile output PASS: large_fft
+== cuda profile narrow_band ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33348911104 total=34208743424 used=859832320 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=0.001 staging_rows=1 y_convert_ms=50.628 h2d_y_ms=14.435 h2d_aux_ms=0.777 window_fb_ms=18.131 output_resize_ms=0.000 resize_wait_ms=0.018 device_alloc_ms=1.525 h2d_ms=15.213 batch_alloc_ms=0.073 plan_ms=30.357 gather_ms=49.902 fft_ms=67.948 mel_ms=45.519 pipeline_sync_ms=0.000 staging_alloc_ms=0.000 d2h_ms=18.650 host_convert_ms=0.000 async_output_total_ms=18.668 compute_total_ms=298.180
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.841041
+profile output PASS: narrow_band
+== profile s8 ==
+== cuda profile default ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33550237696 total=34208743424 used=658505728 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=8 prewarm_wait_ms=0.001 staging_rows=1 y_convert_ms=49.318 h2d_y_ms=15.209 h2d_aux_ms=0.444 window_fb_ms=8.954 output_resize_ms=0.000 resize_wait_ms=1.523 device_alloc_ms=0.199 h2d_ms=15.653 batch_alloc_ms=0.078 plan_ms=25.320 gather_ms=25.580 fft_ms=29.939 mel_ms=31.782 pipeline_sync_ms=0.000 staging_alloc_ms=14.227 d2h_ms=0.023 host_convert_ms=47.470 async_output_total_ms=71.980 compute_total_ms=258.964
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.779092
+profile output PASS: default
+== cuda profile small_mels ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33703329792 total=34208743424 used=505413632 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=8 prewarm_wait_ms=0.001 staging_rows=1 y_convert_ms=51.877 h2d_y_ms=14.846 h2d_aux_ms=0.197 window_fb_ms=2.390 output_resize_ms=0.000 resize_wait_ms=0.018 device_alloc_ms=0.157 h2d_ms=15.043 batch_alloc_ms=0.074 plan_ms=28.500 gather_ms=25.936 fft_ms=31.042 mel_ms=18.937 pipeline_sync_ms=0.000 staging_alloc_ms=15.985 d2h_ms=0.008 host_convert_ms=11.717 async_output_total_ms=36.094 compute_total_ms=210.227
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.552561
+profile output PASS: small_mels
+== cuda profile large_fft ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33546043392 total=34208743424 used=662700032 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=8 prewarm_wait_ms=0.001 staging_rows=1 y_convert_ms=50.883 h2d_y_ms=16.423 h2d_aux_ms=0.807 window_fb_ms=20.275 output_resize_ms=0.000 resize_wait_ms=0.016 device_alloc_ms=3.684 h2d_ms=17.229 batch_alloc_ms=0.074 plan_ms=31.792 gather_ms=49.947 fft_ms=67.364 mel_ms=46.436 pipeline_sync_ms=0.000 staging_alloc_ms=14.898 d2h_ms=0.025 host_convert_ms=48.291 async_output_total_ms=71.939 compute_total_ms=359.831
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.876933
+profile output PASS: large_fft
+== cuda profile narrow_band ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33546043392 total=34208743424 used=662700032 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=8 prewarm_wait_ms=0.001 staging_rows=1 y_convert_ms=50.283 h2d_y_ms=14.431 h2d_aux_ms=0.828 window_fb_ms=18.479 output_resize_ms=0.000 resize_wait_ms=0.014 device_alloc_ms=2.642 h2d_ms=15.259 batch_alloc_ms=0.073 plan_ms=27.985 gather_ms=50.064 fft_ms=68.708 mel_ms=42.535 pipeline_sync_ms=0.000 staging_alloc_ms=14.787 d2h_ms=0.022 host_convert_ms=46.802 async_output_total_ms=70.131 compute_total_ms=346.361
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.863522
+profile output PASS: narrow_band
+default base round=0 elapsed=0.773599 max_abs_err=0.0546875 PASS
+default direct round=0 elapsed=0.767583 max_abs_err=0.0546875 PASS
+default s8 round=0 elapsed=0.789373 max_abs_err=0.0546875 PASS
+default direct round=1 elapsed=0.760561 max_abs_err=0.0546875 PASS
+default s8 round=1 elapsed=0.780013 max_abs_err=0.0546875 PASS
+default base round=1 elapsed=0.799588 max_abs_err=0.0546875 PASS
+default s8 round=2 elapsed=0.779038 max_abs_err=0.0546875 PASS
+default base round=2 elapsed=0.782258 max_abs_err=0.0546875 PASS
+default direct round=2 elapsed=0.773921 max_abs_err=0.0546875 PASS
+default base round=3 elapsed=0.790387 max_abs_err=0.0546875 PASS
+default direct round=3 elapsed=0.788578 max_abs_err=0.0546875 PASS
+default s8 round=3 elapsed=0.780813 max_abs_err=0.0546875 PASS
+default direct round=4 elapsed=0.789124 max_abs_err=0.0546875 PASS
+default s8 round=4 elapsed=0.787688 max_abs_err=0.0546875 PASS
+default base round=4 elapsed=0.780929 max_abs_err=0.0546875 PASS
+small_mels base round=0 elapsed=0.504098 max_abs_err=0.01953125 PASS
+small_mels direct round=0 elapsed=0.477044 max_abs_err=0.01953125 PASS
+small_mels s8 round=0 elapsed=0.483865 max_abs_err=0.01953125 PASS
+small_mels direct round=1 elapsed=0.474895 max_abs_err=0.01953125 PASS
+small_mels s8 round=1 elapsed=0.474112 max_abs_err=0.01953125 PASS
+small_mels base round=1 elapsed=0.484972 max_abs_err=0.01953125 PASS
+small_mels s8 round=2 elapsed=0.471417 max_abs_err=0.01953125 PASS
+small_mels base round=2 elapsed=0.479988 max_abs_err=0.01953125 PASS
+small_mels direct round=2 elapsed=0.476484 max_abs_err=0.01953125 PASS
+small_mels base round=3 elapsed=0.496663 max_abs_err=0.01953125 PASS
+small_mels direct round=3 elapsed=0.485602 max_abs_err=0.01953125 PASS
+small_mels s8 round=3 elapsed=0.520213 max_abs_err=0.01953125 PASS
+small_mels direct round=4 elapsed=0.476004 max_abs_err=0.01953125 PASS
+small_mels s8 round=4 elapsed=0.505457 max_abs_err=0.01953125 PASS
+small_mels base round=4 elapsed=0.485262 max_abs_err=0.01953125 PASS
+large_fft base round=0 elapsed=0.783754 max_abs_err=0.15625 PASS
+large_fft direct round=0 elapsed=0.782388 max_abs_err=0.15625 PASS
+large_fft s8 round=0 elapsed=0.784657 max_abs_err=0.15625 PASS
+large_fft direct round=1 elapsed=0.781307 max_abs_err=0.15625 PASS
+large_fft s8 round=1 elapsed=0.834783 max_abs_err=0.15625 PASS
+large_fft base round=1 elapsed=0.790186 max_abs_err=0.15625 PASS
+large_fft s8 round=2 elapsed=0.797808 max_abs_err=0.15625 PASS
+large_fft base round=2 elapsed=0.822884 max_abs_err=0.15625 PASS
+large_fft direct round=2 elapsed=0.795135 max_abs_err=0.15625 PASS
+large_fft base round=3 elapsed=0.831894 max_abs_err=0.15625 PASS
+large_fft direct round=3 elapsed=0.790161 max_abs_err=0.15625 PASS
+large_fft s8 round=3 elapsed=0.793792 max_abs_err=0.15625 PASS
+large_fft direct round=4 elapsed=0.789288 max_abs_err=0.15625 PASS
+large_fft s8 round=4 elapsed=0.833138 max_abs_err=0.15625 PASS
+large_fft base round=4 elapsed=0.845741 max_abs_err=0.15625 PASS
+narrow_band base round=0 elapsed=0.819058 max_abs_err=0.15625 PASS
+narrow_band direct round=0 elapsed=0.781250 max_abs_err=0.15625 PASS
+narrow_band s8 round=0 elapsed=0.778440 max_abs_err=0.15625 PASS
+narrow_band direct round=1 elapsed=0.768047 max_abs_err=0.15625 PASS
+narrow_band s8 round=1 elapsed=0.785020 max_abs_err=0.15625 PASS
+narrow_band base round=1 elapsed=0.792364 max_abs_err=0.15625 PASS
+narrow_band s8 round=2 elapsed=0.788777 max_abs_err=0.15625 PASS
+narrow_band base round=2 elapsed=0.795469 max_abs_err=0.15625 PASS
+narrow_band direct round=2 elapsed=0.794704 max_abs_err=0.15625 PASS
+narrow_band base round=3 elapsed=0.796352 max_abs_err=0.15625 PASS
+narrow_band direct round=3 elapsed=0.784292 max_abs_err=0.15625 PASS
+narrow_band s8 round=3 elapsed=0.808906 max_abs_err=0.15625 PASS
+narrow_band direct round=4 elapsed=0.785009 max_abs_err=0.15625 PASS
+narrow_band s8 round=4 elapsed=0.850490 max_abs_err=0.15625 PASS
+narrow_band base round=4 elapsed=0.802328 max_abs_err=0.15625 PASS
+default | base | min=0.773599 | median=0.782258 | vs_a2=None
+default | direct | min=0.760561 | median=0.773921 | vs_a2=None
+default | s8 | min=0.779038 | median=0.780813 | vs_a2=None
+small_mels | base | min=0.479988 | median=0.485262 | vs_a2=None
+small_mels | direct | min=0.474895 | median=0.476484 | vs_a2=None
+small_mels | s8 | min=0.471417 | median=0.483865 | vs_a2=None
+large_fft | base | min=0.783754 | median=0.822884 | vs_a2=None
+large_fft | direct | min=0.781307 | median=0.789288 | vs_a2=None
+large_fft | s8 | min=0.784657 | median=0.797808 | vs_a2=None
+narrow_band | base | min=0.792364 | median=0.796352 | vs_a2=None
+narrow_band | direct | min=0.768047 | median=0.784292 | vs_a2=None
+narrow_band | s8 | min=0.778440 | median=0.788777 | vs_a2=None

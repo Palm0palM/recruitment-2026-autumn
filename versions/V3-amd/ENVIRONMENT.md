@@ -77,7 +77,7 @@ cd /home/palm/projects/heptagon/melspec-v3-amd   # 或远端同一项目目录
 bash scripts/setup_amd_rocm.sh
 source tmp/amd-gpu/env.sh
 
-# 生产 HIP 入口（G2 已实现完整 Melspec 流水线）
+# 生产 HIP 入口（G2 实现流水线，G3 完成系统优化，见 FINAL_AMD.md）
 make -B -j4 HIP=1 EXEC=tmp/bin/melspec-hip
 
 # 官方 V1 CPU 对照
@@ -112,15 +112,34 @@ hipFFT R2C: PASS
 这是作业 329 的真实输出，证明 HIP runtime、显存访问、GPU kernel 与 hipFFT 不只是枚举。
 原始 `rocminfo`、`rocm-smi`、probe、构建日志和包清单均在 `raw/`。
 
-## 7. 待解决问题
+## 7. 生产配置与已解决/遗留问题
 
-1. G2 已完成 gather/Hann、hipFFT batched R2C/D2Z、fused power+Mel、Warp 内归约和官方四组；
-   FP32 为主，FP64 仍需专门回归。
-2. G1 已测 hipFFT batch/workspace；16384 点更优 batch 是 256，8192 点是 512，待 G3 端到端采用。
-3. 重新验证 HIP pinned/async D2H、stream/event 和 resize/context 初始化重叠；
-   CUDA 的 `cudaFree(0)` 行为不能假设与 HIP 一致。
-4. 评估 gfx1201 的 FP32/FP64 性能与精度；R9700 32 GB 显存足够当前全量布局，但仍按分块设计。
-5. 增加 AMD 专用阶段计时；ROCm profiler/rocprof 未安装，暂不能依赖硬件计数器。
-6. 与其它 Agent 协调 hepnode0 作业槽；没有 GPU GRES，无法并发计量。
-7. Ubuntu 26.04 不在 ROCm 官方 OS 支持表内；虽然用户态 HIP/hipFFT 实测可用，
-   任何新库和版本升级都必须重新做 probe，不能把当前成功外推为全栈官方支持。
+G3 后的默认构建参数（`make -B -j4 HIP=1`）：
+
+| 参数 | 值 | 依据 |
+|---|---|---|
+| `HIP_PRECISION` | 32 | G1：FP64 明显更慢 |
+| `HIP_BATCH` / `HIP_BATCH_LARGE` | 512 / 256 | G1 曲线 + 端到端复核 |
+| `HIP_FUSED` | 1 | 不落功率矩阵 |
+| `HIP_PINNED_INPUT` | 0 | 实测负优化（写 pinned 只有 ~2.4 GB/s） |
+| `HIP_ASYNC_H2D` | 1 | 避免同步拷贝路径 |
+| `HIP_PREWARM` | 1 | 进程级 GPU 初始化与 PCM 读取重叠，省 ~190 ms |
+| `HIP_HUGEPAGE` | 1 | 对齐 `MADV_HUGEPAGE`，省 ~70–80 ms |
+| `HIP_DIRECT_OUTPUT` | 1 | Mel 直接写 double，一次 D2H，省 ~50 ms |
+| `HIP_RESIZE_THREAD` | 1 | 394 MB output 初始化与 GPU 计算重叠 |
+| `HIP_STAGING_ROWS` | 16 | 仅在关闭 direct output 时使用 |
+
+已解决：
+
+1. G2 完成 gather/Hann、hipFFT batched R2C/D2Z、fused power+Mel、warp 归约与官方四组。
+2. G1 的 batch 结论已端到端采用（8192→512，16384→256）。
+3. pinned/async D2H、stream/event、resize/context 初始化重叠均已实测并取舍。
+4. 已增加 HIP 专用阶段计时（`HIP_PROFILE=1`），足以定位到 H2D/plan/gather/FFT/Mel/D2H。
+5. rocFFT 持久 kernel 缓存已作为环境前提写入作业脚本（`ROCFFT_RTC_CACHE_PATH`）。
+
+遗留：
+
+1. FP64 仍未做完整官方回归（主线是 FP32）。
+2. ROCm profiler/rocprof 未安装，暂不能依赖硬件计数器。
+3. hepnode0 无 GPU GRES，只能独占节点串行使用。
+4. Ubuntu 26.04 不在 ROCm 官方 OS 支持表内；任何新库/升级都必须重新 probe。

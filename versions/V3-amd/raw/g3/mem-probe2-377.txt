@@ -1,0 +1,14 @@
+device=AMD Radeon AI PRO R9700 arch=gfx1201
+fresh_dst_pageable_25MB            bytes= 24600000 min_ms=  1.407 first_ms=  1.407 GB/s=17.49
+reused_dst_pageable_25MB           bytes= 24600000 min_ms=  0.900 first_ms=  0.900 GB/s=27.34
+reused_dst_pinned_25MB             bytes= 24600000 min_ms=  0.914 first_ms=  0.914 GB/s=26.91
+fresh_dst_pageable_49MB            bytes= 49200000 min_ms=  2.638 first_ms=  2.638 GB/s=18.65
+reused_dst_pageable_49MB           bytes= 49200000 min_ms=  1.999 first_ms=  1.999 GB/s=24.61
+reused_dst_pinned_49MB             bytes= 49200000 min_ms=  1.802 first_ms=  1.802 GB/s=27.31
+fresh_dst_pageable_98MB            bytes= 98500000 min_ms=  5.157 first_ms=  5.157 GB/s=19.10
+reused_dst_pageable_98MB           bytes= 98500000 min_ms=  4.002 first_ms=  4.002 GB/s=24.61
+reused_dst_pinned_98MB             bytes= 98500000 min_ms=  3.542 first_ms=  3.542 GB/s=27.81
+fresh_dst_pageable_197MB           bytes=197000000 min_ms=  7.340 first_ms=  7.340 GB/s=26.84
+reused_dst_pageable_197MB          bytes=197000000 min_ms=  7.233 first_ms=  7.233 GB/s=27.24
+reused_dst_pinned_197MB            bytes=197000000 min_ms=  7.050 first_ms=  7.050 GB/s=27.94
+d2d_98MB_ms=0.006 GB/s=17217.27

@@ -1,5 +1,9 @@
 # G2 — HIP Melspec 流水线
 
+> 本文保留 G2 首次可用版本的记录。G3 已把同一份代码优化到
+> **0.689 / 0.458 / 0.754 / 0.739 s**（官方作业 395），
+> 结论与最终参数见 [G3-OPTIMIZATION.md](G3-OPTIMIZATION.md) 和 [FINAL_AMD.md](FINAL_AMD.md)。
+
 ## 1. 实现
 
 `src/melspec_hip.cu` 已从占位 scaffold 替换为与冻结 CUDA 设计对应的完整 HIP 后端：

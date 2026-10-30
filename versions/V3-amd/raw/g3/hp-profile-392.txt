@@ -1,0 +1,58 @@
+== profile nohp ==
+== cuda profile default ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33353105408 total=34208743424 used=855638016 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=0.001 staging_rows=1 y_convert_ms=76.200 h2d_y_ms=14.961 h2d_aux_ms=0.452 window_fb_ms=9.028 output_resize_ms=0.000 resize_wait_ms=0.018 device_alloc_ms=5.557 h2d_ms=15.412 batch_alloc_ms=0.079 plan_ms=24.694 gather_ms=26.063 fft_ms=30.091 mel_ms=35.216 pipeline_sync_ms=0.000 staging_alloc_ms=0.000 d2h_ms=23.041 host_convert_ms=0.000 async_output_total_ms=23.059 compute_total_ms=245.564
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.779828
+profile output PASS: default
+== cuda profile small_mels ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33655095296 total=34208743424 used=553648128 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=0.001 staging_rows=1 y_convert_ms=75.370 h2d_y_ms=15.796 h2d_aux_ms=0.211 window_fb_ms=2.438 output_resize_ms=0.000 resize_wait_ms=0.017 device_alloc_ms=0.181 h2d_ms=16.007 batch_alloc_ms=0.079 plan_ms=27.713 gather_ms=25.887 fft_ms=31.495 mel_ms=19.490 pipeline_sync_ms=0.000 staging_alloc_ms=0.000 d2h_ms=5.987 host_convert_ms=0.000 async_output_total_ms=6.004 compute_total_ms=204.846
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.542912
+profile output PASS: small_mels
+== cuda profile large_fft ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33348911104 total=34208743424 used=859832320 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=0.001 staging_rows=1 y_convert_ms=76.296 h2d_y_ms=14.750 h2d_aux_ms=0.785 window_fb_ms=18.017 output_resize_ms=0.000 resize_wait_ms=0.020 device_alloc_ms=4.750 h2d_ms=15.535 batch_alloc_ms=0.073 plan_ms=24.827 gather_ms=49.876 fft_ms=68.755 mel_ms=49.187 pipeline_sync_ms=0.000 staging_alloc_ms=0.000 d2h_ms=21.145 host_convert_ms=0.000 async_output_total_ms=21.165 compute_total_ms=328.698
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.874082
+profile output PASS: large_fft
+== cuda profile narrow_band ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33348911104 total=34208743424 used=859832320 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=0.001 staging_rows=1 y_convert_ms=76.263 h2d_y_ms=14.885 h2d_aux_ms=0.788 window_fb_ms=17.731 output_resize_ms=0.000 resize_wait_ms=0.016 device_alloc_ms=0.201 h2d_ms=15.673 batch_alloc_ms=0.074 plan_ms=27.419 gather_ms=50.228 fft_ms=67.772 mel_ms=45.768 pipeline_sync_ms=0.000 staging_alloc_ms=0.000 d2h_ms=19.174 host_convert_ms=0.000 async_output_total_ms=19.190 compute_total_ms=320.547
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.853410
+profile output PASS: narrow_band
+== profile hp ==
+== cuda profile default ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33353105408 total=34208743424 used=855638016 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=0.001 staging_rows=1 y_convert_ms=44.018 h2d_y_ms=14.405 h2d_aux_ms=0.470 window_fb_ms=10.935 output_resize_ms=0.000 resize_wait_ms=0.017 device_alloc_ms=1.519 h2d_ms=14.875 batch_alloc_ms=0.075 plan_ms=24.651 gather_ms=25.636 fft_ms=30.802 mel_ms=35.358 pipeline_sync_ms=0.000 staging_alloc_ms=0.000 d2h_ms=18.321 host_convert_ms=0.000 async_output_total_ms=18.339 compute_total_ms=206.369
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.711531
+profile output PASS: default
+== cuda profile small_mels ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33655095296 total=34208743424 used=553648128 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=2.273 staging_rows=1 y_convert_ms=44.714 h2d_y_ms=15.117 h2d_aux_ms=0.211 window_fb_ms=2.415 output_resize_ms=0.000 resize_wait_ms=0.016 device_alloc_ms=0.231 h2d_ms=15.329 batch_alloc_ms=0.075 plan_ms=24.795 gather_ms=25.549 fft_ms=29.972 mel_ms=19.929 pipeline_sync_ms=0.000 staging_alloc_ms=0.000 d2h_ms=5.644 host_convert_ms=0.000 async_output_total_ms=5.660 compute_total_ms=171.115
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.498812
+profile output PASS: small_mels
+== cuda profile large_fft ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33348911104 total=34208743424 used=859832320 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=0.001 staging_rows=1 y_convert_ms=44.677 h2d_y_ms=13.455 h2d_aux_ms=0.889 window_fb_ms=19.881 output_resize_ms=0.000 resize_wait_ms=0.018 device_alloc_ms=4.594 h2d_ms=14.344 batch_alloc_ms=0.078 plan_ms=25.137 gather_ms=51.047 fft_ms=67.671 mel_ms=49.629 pipeline_sync_ms=0.000 staging_alloc_ms=0.000 d2h_ms=18.429 host_convert_ms=0.000 async_output_total_ms=18.447 compute_total_ms=295.741
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.803401
+profile output PASS: large_fft
+== cuda profile narrow_band ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33348911104 total=34208743424 used=859832320 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=0.001 staging_rows=1 y_convert_ms=44.346 h2d_y_ms=13.810 h2d_aux_ms=0.856 window_fb_ms=19.682 output_resize_ms=0.000 resize_wait_ms=0.020 device_alloc_ms=4.729 h2d_ms=14.665 batch_alloc_ms=0.071 plan_ms=30.279 gather_ms=50.126 fft_ms=70.301 mel_ms=45.858 pipeline_sync_ms=0.000 staging_alloc_ms=0.000 d2h_ms=18.342 host_convert_ms=0.000 async_output_total_ms=18.363 compute_total_ms=298.631
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.816819
+profile output PASS: narrow_band

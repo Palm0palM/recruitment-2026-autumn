@@ -1,0 +1,13 @@
+case=1 y_only                     n=24634880 ms=192.581
+case=2 y_after_output_alloc       n=24634880 ms=196.651
+case=2 output                     n=49253632 ms=8.604
+case=3 output_only                n=49253632 ms=194.291
+case=4 y_full_set                 n=24634880 ms=190.609
+case=5 memset_y_ms=173.792
+case=5 y_after_memset             n=24634880 ms=14.282
+case=6 memset_output_ms=183.338
+case=6 y_after_output_memset      n=24634880 ms=14.835
+case=7 memset_async_enqueue_ms=0.141
+case=7 host_work_ms=0.000
+case=7 stream_sync_ms=1.757
+case=7 y_after_async_pretouch     n=24634880 ms=19.274

@@ -1,0 +1,36 @@
+mode=0 setup_ms=230.937
+host_work_ms=168.750 sink=6158720.000
+mode=0 first_h2d_ms=17.207
+mode=0 second_h2d_ms=3.779
+mode=0 total_ms=461.094
+mode=1 setup_ms=227.827
+mode=1 wake_sync_ms=0.093
+host_work_ms=167.362 sink=6158720.000
+mode=1 first_h2d_ms=16.427
+mode=1 second_h2d_ms=3.695
+mode=1 total_ms=455.466
+mode=2 setup_ms=232.543
+mode=2 wake_sync_ms=0.079
+host_work_ms=169.088 sink=6158720.000
+extra_host_work_ms=159.406
+mode=2 first_h2d_ms=16.014
+mode=2 second_h2d_ms=3.722
+mode=2 total_ms=637.505
+mode=0 setup_ms=232.917
+host_work_ms=166.534 sink=6158720.000
+mode=0 first_h2d_ms=15.458
+mode=0 second_h2d_ms=3.726
+mode=0 total_ms=457.206
+mode=1 setup_ms=234.485
+mode=1 wake_sync_ms=0.091
+host_work_ms=163.935 sink=6158720.000
+mode=1 first_h2d_ms=16.262
+mode=1 second_h2d_ms=3.816
+mode=1 total_ms=457.555
+mode=2 setup_ms=233.046
+mode=2 wake_sync_ms=0.076
+host_work_ms=167.109 sink=6158720.000
+extra_host_work_ms=156.597
+mode=2 first_h2d_ms=15.615
+mode=2 second_h2d_ms=3.732
+mode=2 total_ms=631.556

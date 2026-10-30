@@ -16,6 +16,8 @@ cd "${SLURM_SUBMIT_DIR:?}"
 mkdir -p tmp/logs tmp/amd-gpu
 source tmp/amd-gpu/env.sh
 export HIP_VISIBLE_DEVICES=0
+export ROCFFT_RTC_CACHE_PATH="$PWD/tmp/rocfft-cache/rocfft_kernel_cache.db"
+mkdir -p tmp/rocfft-cache
 
 echo "host=$(hostname) job=$SLURM_JOB_ID"
 grep Cpus_allowed_list /proc/self/status

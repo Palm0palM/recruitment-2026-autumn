@@ -1,0 +1,24 @@
+device=AMD Radeon AI PRO R9700 arch=gfx1201
+start VmPeak:	 4522012 kB
+start VmSize:	 4520096 kB
+start VmHWM:	   69756 kB
+start VmRSS:	   69756 kB
+after_host_buffers VmPeak:	 4616328 kB
+after_host_buffers VmSize:	 4616328 kB
+after_host_buffers VmHWM:	  165988 kB
+after_host_buffers VmRSS:	  165988 kB
+alloc_all_ms=0.219
+after_device_alloc VmPeak:	 4919436 kB
+after_device_alloc VmSize:	 4917384 kB
+after_device_alloc VmHWM:	  166044 kB
+after_device_alloc VmRSS:	  166044 kB
+copy_y_0_ms=192.374
+copy_y_1_ms=3.814
+copy_y_2_ms=3.795
+memset_output_ms=0.360
+copy_y_after_memset_ms=3.978
+resize_output_ms=0.000
+end VmPeak:	 5086724 kB
+end VmSize:	 5082780 kB
+end VmHWM:	  284200 kB
+end VmRSS:	  284200 kB
