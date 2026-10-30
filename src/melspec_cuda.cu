@@ -22,6 +22,25 @@
 #define MELSPEC_CUDA_FUSED 1
 #endif
 
+#ifdef MELSPEC_CUDA_PROFILE
+#include <chrono>
+#include <cstdio>
+using ProfileClock = std::chrono::steady_clock;
+double profile_elapsed(ProfileClock::time_point start) {
+    return std::chrono::duration<double, std::milli>(ProfileClock::now() - start).count();
+}
+#define PROFILE_POINT(name) auto name = ProfileClock::now()
+#define PROFILE_ADD(variable, point) variable += profile_elapsed(point); point = ProfileClock::now()
+#define PROFILE_ADD_SYNC(variable, point) \
+    cudaDeviceSynchronize(); PROFILE_ADD(variable, point)
+#define PROFILE_PRINT(...) std::fprintf(stderr, __VA_ARGS__)
+#else
+#define PROFILE_POINT(name)
+#define PROFILE_ADD(variable, point)
+#define PROFILE_ADD_SYNC(variable, point)
+#define PROFILE_PRINT(...)
+#endif
+
 namespace {
 
 using Real = std::conditional_t<MELSPEC_CUDA_PRECISION == 32, float, double>;
@@ -158,6 +177,11 @@ public:
     CufftPlan(const CufftPlan&) = delete;
     CufftPlan& operator=(const CufftPlan&) = delete;
     cufftHandle get() const { return handle_; }
+    size_t workspace() const {
+        size_t bytes = 0;
+        cufft_check(cufftGetSize(handle_, &bytes), "cufftGetSize");
+        return bytes;
+    }
 };
 
 void copy_to_device(void* destination, const void* source, size_t bytes) {
@@ -171,6 +195,13 @@ void copy_to_device(void* destination, const void* source, size_t bytes) {
 void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft,
                                  int hop_length, int n_mels, double f_min,
                                  double f_max, std::vector<double>& output) {
+#ifdef MELSPEC_CUDA_PROFILE
+    double host_setup_ms = 0, device_alloc_ms = 0, h2d_ms = 0, batch_alloc_ms = 0;
+    double plan_ms = 0, gather_ms = 0, fft_ms = 0, mel_ms = 0, pipeline_sync_ms = 0;
+    double d2h_ms = 0, host_convert_ms = 0;
+#endif
+    PROFILE_POINT(total_start);
+    PROFILE_POINT(phase);
     const int n_samples = static_cast<int>(y.size());
     if (n_fft < 1 || (n_fft & (n_fft - 1)) != 0 || hop_length < 1 ||
         n_mels < 1 || sr < 1 || n_samples < n_fft)
@@ -197,6 +228,7 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
         while (first[m] < n_bins && mel_fb[m][first[m]] == 0.0) ++first[m];
         while (last[m] > first[m] && mel_fb[m][last[m] - 1] == 0.0) --last[m];
     }
+    PROFILE_ADD(host_setup_ms, phase);
 
     DeviceBuffer<Real> device_y(host_y.size());
     DeviceBuffer<Real> device_window(window.size());
@@ -204,11 +236,13 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
     DeviceBuffer<int> device_first(first.size());
     DeviceBuffer<int> device_last(last.size());
     DeviceBuffer<Real> device_output(output.size());
+    PROFILE_ADD(device_alloc_ms, phase);
     copy_to_device(device_y.get(), host_y.data(), host_y.size() * sizeof(Real));
     copy_to_device(device_window.get(), window.data(), window.size() * sizeof(Real));
     copy_to_device(device_weights.get(), weights.data(), weights.size() * sizeof(Real));
     copy_to_device(device_first.get(), first.data(), first.size() * sizeof(int));
     copy_to_device(device_last.get(), last.data(), last.size() * sizeof(int));
+    PROFILE_ADD(h2d_ms, phase);
 
     const int capacity = std::min(MELSPEC_CUDA_BATCH, n_frames);
     DeviceBuffer<Real> fft_input(static_cast<size_t>(capacity) * n_fft);
@@ -216,19 +250,26 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
 #if !MELSPEC_CUDA_FUSED
     DeviceBuffer<Real> power(static_cast<size_t>(capacity) * n_bins);
 #endif
+    PROFILE_ADD(batch_alloc_ms, phase);
     CufftPlan full_plan(n_fft, capacity);
     const int tail = n_frames % capacity;
     CufftPlan tail_plan(n_fft, tail ? tail : capacity);
+    PROFILE_ADD(plan_ms, phase);
+    PROFILE_PRINT("cufft_workspace full=%zu tail=%zu bytes\n",
+                  full_plan.workspace(), tail_plan.workspace());
 
     for (int frame_begin = 0; frame_begin < n_frames; frame_begin += capacity) {
         const int batch = std::min(capacity, n_frames - frame_begin);
         const int items = batch * n_fft;
+        PROFILE_POINT(phase);
         gather_window_kernel<<<blocks_for(items), 256>>>(
             device_y.get(), device_window.get(), fft_input.get(), batch,
             static_cast<size_t>(frame_begin), n_fft, hop_length);
+        PROFILE_ADD_SYNC(gather_ms, phase);
         auto& plan = batch == capacity ? full_plan : tail_plan;
         cufft_check(FftTraits<Real>::execute(plan.get(), fft_input.get(), fft_output.get()),
                     "cuFFT execute");
+        PROFILE_ADD_SYNC(fft_ms, phase);
 #if MELSPEC_CUDA_FUSED
         const Real* power_pointer = nullptr;
 #else
@@ -240,19 +281,29 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
             fft_output.get(), power_pointer, device_weights.get(), device_first.get(),
             device_last.get(), device_output.get(), batch, n_bins, n_mels,
             static_cast<size_t>(n_frames), static_cast<size_t>(frame_begin));
+        PROFILE_ADD_SYNC(mel_ms, phase);
     }
     cuda_check(cudaGetLastError(), "CUDA kernel launch");
     cuda_check(cudaDeviceSynchronize(), "CUDA pipeline synchronize");
+    PROFILE_ADD_SYNC(pipeline_sync_ms, phase);
 
     if constexpr (std::is_same_v<Real, double>) {
         cuda_check(cudaMemcpy(output.data(), device_output.get(),
                               output.size() * sizeof(Real), cudaMemcpyDeviceToHost),
                    "cudaMemcpy D2H output");
+        PROFILE_ADD(d2h_ms, phase);
     } else {
         std::vector<Real> host_output(output.size());
         cuda_check(cudaMemcpy(host_output.data(), device_output.get(),
                               output.size() * sizeof(Real), cudaMemcpyDeviceToHost),
                    "cudaMemcpy D2H output");
+        PROFILE_ADD(d2h_ms, phase);
         std::copy(host_output.begin(), host_output.end(), output.begin());
+        PROFILE_ADD(host_convert_ms, phase);
     }
+    PROFILE_PRINT("cuda_profile precision=%d batch=%d fused=%d host_setup_ms=%.3f device_alloc_ms=%.3f h2d_ms=%.3f batch_alloc_ms=%.3f plan_ms=%.3f gather_ms=%.3f fft_ms=%.3f mel_ms=%.3f pipeline_sync_ms=%.3f d2h_ms=%.3f host_convert_ms=%.3f total_ms=%.3f\n",
+                  MELSPEC_CUDA_PRECISION, MELSPEC_CUDA_BATCH, MELSPEC_CUDA_FUSED,
+                  host_setup_ms, device_alloc_ms, h2d_ms, batch_alloc_ms, plan_ms,
+                  gather_ms, fft_ms, mel_ms, pipeline_sync_ms, d2h_ms, host_convert_ms,
+                  profile_elapsed(total_start));
 }

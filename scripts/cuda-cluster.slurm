@@ -35,6 +35,10 @@ nvcc --version
 make -B -j4 CUDA=1 CUDA_HOME="$CUDA_HOME" CUDA_ARCH="$ARCH" CUDA_PRECISION="$P" EXEC="tmp/bin/cuda-fp$P"
 sha256sum src/main.cpp src/melspec.cpp src/melspec_cuda.cu include/melspec.h include/melspec_cuda.h Makefile "tmp/bin/cuda-fp$P"
 if [ "$MODE" = build ]; then exit 0; fi
+if [ "$MODE" = smoke ]; then
+  "$PY" -u scripts/smoke.py "./tmp/bin/cuda-fp$P" | tee "tmp/logs/smoke-${SLURM_JOB_ID}.txt"
+  exit 0
+fi
 scratch=$(mktemp -d "/tmp/melspec-cuda-${SLURM_JOB_ID}-XXXXXX")
 trap 'rm -rf -- "$scratch"' EXIT
 export TMPDIR="$scratch"

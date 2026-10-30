@@ -1,0 +1,7 @@
+Correctness artifacts: /home/palm/projects/heptagon/melspec-v3-cuda/tmp/v3-cuda-lab/precision/runs/20261030-165044-222149
+Acceptance: np.allclose(rtol=0.001, atol=0.0001, equal_nan=False); no timing
+[1/4] PASS official-audio/default
+[2/4] PASS official-audio/small_mels
+[3/4] PASS official-audio/large_fft
+[4/4] PASS official-audio/narrow_band
+Result: PASS; summary: /home/palm/projects/heptagon/melspec-v3-cuda/tmp/v3-cuda-lab/precision/runs/20261030-165044-222149/summary.json

@@ -10,6 +10,7 @@ CUDA_ARCH ?= 89
 CUDA_PRECISION ?= 32
 CUDA_BATCH ?= 256
 CUDA_FUSED ?= 1
+CUDA_PROFILE ?= 0
 
 SRCS = $(wildcard src/*.cpp)
 INCS = $(wildcard include/*.h)
@@ -18,9 +19,14 @@ OBJS = $(patsubst src/%.cpp,$(BUILD)/%.o,$(SRCS))
 EXEC = melspec
 
 ifeq ($(CUDA),1)
-BUILD = tmp/build/cuda-$(CUDA_ARCH)-fp$(CUDA_PRECISION)-b$(CUDA_BATCH)-f$(CUDA_FUSED)
+BUILD = tmp/build/cuda-$(CUDA_ARCH)-fp$(CUDA_PRECISION)-b$(CUDA_BATCH)-f$(CUDA_FUSED)-p$(CUDA_PROFILE)
 CPPFLAGS += -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=$(CUDA_PRECISION)
 CPPFLAGS += -DMELSPEC_CUDA_BATCH=$(CUDA_BATCH) -DMELSPEC_CUDA_FUSED=$(CUDA_FUSED)
+ifeq ($(CUDA_PROFILE),1)
+CPPFLAGS += -DMELSPEC_CUDA_PROFILE=1
+else ifneq ($(CUDA_PROFILE),0)
+$(error CUDA_PROFILE must be 0 or 1)
+endif
 CPPFLAGS += -I$(CUDA_HOME)/targets/x86_64-linux/include
 OBJS += $(BUILD)/melspec_cuda.o
 NVCCFLAGS = -std=c++17 -O3 -arch=sm_$(CUDA_ARCH) -Xcompiler -O3,-march=native,-pthread

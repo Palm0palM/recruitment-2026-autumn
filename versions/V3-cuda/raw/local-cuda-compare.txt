@@ -1,0 +1,64 @@
+default v1 round=0 elapsed=1.575832 max_abs_err=0.03125 PASS
+default fp32-fused round=0 elapsed=1.572434 max_abs_err=0.09375 PASS
+default fp32-separate round=0 elapsed=1.159785 max_abs_err=0.09375 PASS
+default fp64-fused round=0 elapsed=1.748878 max_abs_err=0.03125 PASS
+default fp32-fused round=1 elapsed=1.212035 max_abs_err=0.09375 PASS
+default fp32-separate round=1 elapsed=1.186174 max_abs_err=0.09375 PASS
+default fp64-fused round=1 elapsed=1.486900 max_abs_err=0.03125 PASS
+default v1 round=1 elapsed=1.387795 max_abs_err=0.03125 PASS
+default fp32-separate round=2 elapsed=1.009282 max_abs_err=0.09375 PASS
+default fp64-fused round=2 elapsed=1.838359 max_abs_err=0.03125 PASS
+default v1 round=2 elapsed=1.506213 max_abs_err=0.03125 PASS
+default fp32-fused round=2 elapsed=1.149912 max_abs_err=0.09375 PASS
+small_mels v1 round=0 elapsed=1.043054 max_abs_err=0.01171875 PASS
+small_mels fp32-fused round=0 elapsed=0.945325 max_abs_err=0.0234375 PASS
+small_mels fp32-separate round=0 elapsed=0.663828 max_abs_err=0.0234375 PASS
+small_mels fp64-fused round=0 elapsed=1.148919 max_abs_err=0.01171875 PASS
+small_mels fp32-fused round=1 elapsed=0.551955 max_abs_err=0.0234375 PASS
+small_mels fp32-separate round=1 elapsed=0.700441 max_abs_err=0.0234375 PASS
+small_mels fp64-fused round=1 elapsed=1.111089 max_abs_err=0.01171875 PASS
+small_mels v1 round=1 elapsed=1.091968 max_abs_err=0.01171875 PASS
+small_mels fp32-separate round=2 elapsed=0.629768 max_abs_err=0.0234375 PASS
+small_mels fp64-fused round=2 elapsed=1.207197 max_abs_err=0.01171875 PASS
+small_mels v1 round=2 elapsed=1.543341 max_abs_err=0.01171875 PASS
+small_mels fp32-fused round=2 elapsed=0.617675 max_abs_err=0.0234375 PASS
+large_fft v1 round=0 elapsed=3.788616 max_abs_err=0.125 PASS
+large_fft fp32-fused round=0 elapsed=1.545919 max_abs_err=0.21875 PASS
+large_fft fp32-separate round=0 elapsed=1.536801 max_abs_err=0.21875 PASS
+large_fft fp64-fused round=0 elapsed=2.687475 max_abs_err=0.125 PASS
+large_fft fp32-fused round=1 elapsed=1.436829 max_abs_err=0.21875 PASS
+large_fft fp32-separate round=1 elapsed=1.223081 max_abs_err=0.21875 PASS
+large_fft fp64-fused round=1 elapsed=2.280592 max_abs_err=0.125 PASS
+large_fft v1 round=1 elapsed=3.381737 max_abs_err=0.125 PASS
+large_fft fp32-separate round=2 elapsed=1.029373 max_abs_err=0.21875 PASS
+large_fft fp64-fused round=2 elapsed=2.311712 max_abs_err=0.125 PASS
+large_fft v1 round=2 elapsed=2.973118 max_abs_err=0.125 PASS
+large_fft fp32-fused round=2 elapsed=1.127670 max_abs_err=0.21875 PASS
+narrow_band v1 round=0 elapsed=3.273742 max_abs_err=0.0625 PASS
+narrow_band fp32-fused round=0 elapsed=1.148244 max_abs_err=0.15625 PASS
+narrow_band fp32-separate round=0 elapsed=1.218754 max_abs_err=0.15625 PASS
+narrow_band fp64-fused round=0 elapsed=2.511828 max_abs_err=0.0625 PASS
+narrow_band fp32-fused round=1 elapsed=1.310740 max_abs_err=0.15625 PASS
+narrow_band fp32-separate round=1 elapsed=1.162908 max_abs_err=0.15625 PASS
+narrow_band fp64-fused round=1 elapsed=2.360998 max_abs_err=0.0625 PASS
+narrow_band v1 round=1 elapsed=3.562977 max_abs_err=0.0625 PASS
+narrow_band fp32-separate round=2 elapsed=1.335753 max_abs_err=0.15625 PASS
+narrow_band fp64-fused round=2 elapsed=2.475905 max_abs_err=0.0625 PASS
+narrow_band v1 round=2 elapsed=3.573807 max_abs_err=0.0625 PASS
+narrow_band fp32-fused round=2 elapsed=1.415512 max_abs_err=0.15625 PASS
+default | v1 | min=1.387795 | median=1.506213 | vs_a2=None
+default | fp32-fused | min=1.149912 | median=1.212035 | vs_a2=None
+default | fp32-separate | min=1.009282 | median=1.159785 | vs_a2=None
+default | fp64-fused | min=1.486900 | median=1.748878 | vs_a2=None
+small_mels | v1 | min=1.043054 | median=1.091968 | vs_a2=None
+small_mels | fp32-fused | min=0.551955 | median=0.617675 | vs_a2=None
+small_mels | fp32-separate | min=0.629768 | median=0.663828 | vs_a2=None
+small_mels | fp64-fused | min=1.111089 | median=1.148919 | vs_a2=None
+large_fft | v1 | min=2.973118 | median=3.381737 | vs_a2=None
+large_fft | fp32-fused | min=1.127670 | median=1.436829 | vs_a2=None
+large_fft | fp32-separate | min=1.029373 | median=1.223081 | vs_a2=None
+large_fft | fp64-fused | min=2.280592 | median=2.311712 | vs_a2=None
+narrow_band | v1 | min=3.273742 | median=3.562977 | vs_a2=None
+narrow_band | fp32-fused | min=1.148244 | median=1.310740 | vs_a2=None
+narrow_band | fp32-separate | min=1.162908 | median=1.218754 | vs_a2=None
+narrow_band | fp64-fused | min=2.360998 | median=2.475905 | vs_a2=None
