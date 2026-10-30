@@ -14,4 +14,17 @@
 - 优先 >3% 端到端空间；线程累计阶段时间不当作进程 wall time。
 - 已知负结果：每帧连续加载后 8x8 转置、普通 frame block、双前缀矩等不重复。
 
-研究与最终决策待 Profile 后补入；所有原始日志见 raw/。
+## 结果与交付
+
+- 找到两个独立有效方向：跨批raw slab复用、可选Linux输出THP提示。
+- slab四轮端到端减少约4.5–7.9%；HP三轮约6.0–16.1%。均以冻结B16为控制，不是旧FFTW。
+- 组合两轮约14.5–20.8%，68组合成、严格sanitizer及两轮官方四组通过。
+- 两种优化默认关闭；不改稳定分支或未来Hybrid，未Push/Merge。
+
+入口：[研究结果](RESULTS.md) · [完整基线Profile/上界](BASELINE.md) · [移植与复现](REPRODUCE.md)
+
+独立研究：[slab](REUSE.md) · [THP](HUGEPAGE.md) · [激进等价方案的停止分析](AGGRESSIVE.md)
+
+安全与组合：[空batch UB修复](SAFETY.md) · [组合尾帧舍入诊断](INTEGRATION.md)
+
+[仅源码补丁](patches/cpu-pipeline-simd.patch)只修改src/melspec.cpp；所有原始日志见raw/。

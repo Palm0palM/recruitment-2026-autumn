@@ -1,0 +1,6 @@
+/home/zsx/melspec-cpu-pipeline-simd/tmp/.venv/lib/python3.14/site-packages/librosa/feature/spectral.py:2170: UserWarning: Empty filters detected in mel frequency basis. Some channels will produce empty responses. Try increasing your sampling rate (and fmax) or reducing n_mels.
+  mel_basis = filters.mel(sr=sr, n_fft=n_fft, **kwargs)
+/home/zsx/melspec-cpu-pipeline-simd/tmp/.venv/lib/python3.14/site-packages/librosa/feature/spectral.py:2170: UserWarning: Empty filters detected in mel frequency basis. Some channels will produce empty responses. Try increasing your sampling rate (and fmax) or reducing n_mels.
+  mel_basis = filters.mel(sr=sr, n_fft=n_fft, **kwargs)
+/home/zsx/melspec-cpu-pipeline-simd/tmp/.venv/lib/python3.14/site-packages/librosa/feature/spectral.py:2170: UserWarning: Empty filters detected in mel frequency basis. Some channels will produce empty responses. Try increasing your sampling rate (and fmax) or reducing n_mels.
+  mel_basis = filters.mel(sr=sr, n_fft=n_fft, **kwargs)

@@ -1,0 +1,762 @@
+job=380 node=hepnode3 mode=final
+Cpus_allowed_list:	0-15
+Architecture:                            x86_64
+CPU op-mode(s):                          32-bit, 64-bit
+Address sizes:                           46 bits physical, 57 bits virtual
+Byte Order:                              Little Endian
+CPU(s):                                  64
+On-line CPU(s) list:                     0-63
+Vendor ID:                               GenuineIntel
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+CPU family:                              6
+Model:                                   106
+Thread(s) per core:                      1
+Core(s) per socket:                      32
+Socket(s):                               2
+Stepping:                                6
+CPU(s) scaling MHz:                      33%
+CPU max MHz:                             3200.0000
+CPU min MHz:                             800.0000
+BogoMIPS:                                4000.00
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb intel_pt avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local split_lock_detect wbnoinvd dtherm ida arat pln pts vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq la57 rdpid fsrm md_clear pconfig flush_l1d arch_capabilities
+Virtualization:                          VT-x
+L1d cache:                               3 MiB (64 instances)
+L1i cache:                               2 MiB (64 instances)
+L2 cache:                                80 MiB (64 instances)
+L3 cache:                                96 MiB (2 instances)
+NUMA node(s):                            4
+NUMA node0 CPU(s):                       0-15
+NUMA node1 CPU(s):                       16-31
+NUMA node2 CPU(s):                       32-47
+NUMA node3 CPU(s):                       48-63
+Vulnerability Gather data sampling:      Vulnerable
+Vulnerability Ghostwrite:                Not affected
+Vulnerability Indirect target selection: Mitigation; Aligned branch/return thunks
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Mitigation; Clear CPU buffers; SMT disabled
+Vulnerability Old microcode:             Not affected
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Not affected
+Vulnerability Spec rstack overflow:      Not affected
+Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
+Vulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI SW loop, KVM SW loop
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Not affected
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+595289c17c0ab385a191707e4722d52dc79f7d9840fe9951e384efa502d34700  src/melspec.cpp
+ee18296021d6efe3644950e47c7922dce072846e7fe44d47b6d3645e950ac7ce  validate.py
+95aa8e56fb5ca91d89de153bc699a2a2361bb48b174b5076478d258dcf282f3f  tmp/control/melspec.cpp
+always [madvise] never
+always defer defer+madvise [madvise] never
+37c0424be3ed45753cb08750002ea04e22cd400b9bc5a1c98c9f3e694288d0ca  tmp/bin/reuse-b16
+{"case": 0, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 32, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 1, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 2, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 34, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 3, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 35, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 4, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 5, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 37, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 6, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 38, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 7, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 8, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 40, "pattern": "random", "exact": true, "max_abs": 2.980232238769531e-07, "status": "PASS"}
+{"case": 9, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 41, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 10, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 11, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 43, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 12, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 44, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 13, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 45, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 14, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 46, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 15, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 47, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 16, "params": {"sr": 48000, "n_fft": 1, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 17, "params": {"sr": 48000, "n_fft": 2, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 18, "params": {"sr": 48000, "n_fft": 4, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 2.9103830456733704e-11, "status": "PASS"}
+{"case": 19, "params": {"sr": 48000, "n_fft": 8, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.1641532182693481e-10, "status": "PASS"}
+{"case": 20, "params": {"sr": 48000, "n_fft": 32, "hop_length": 2, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.862645149230957e-09, "status": "PASS"}
+{"case": 21, "params": {"sr": 48000, "n_fft": 128, "hop_length": 11, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 4.470348358154297e-08, "status": "PASS"}
+{"case": 22, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 93, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.430511474609375e-06, "status": "PASS"}
+{"case": 23, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 372, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 24, "params": {"sr": 48000, "n_fft": 8192, "hop_length": 744, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 25, "params": {"sr": 48000, "n_fft": 16384, "hop_length": 1489, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 26, "params": {"sr": 16000, "n_fft": 1024, "hop_length": 63, "n_mels": 53, "f_min": 4126.514116156395, "f_max": 7169.201476938688}, "frames": 20, "pattern": "random", "exact": true, "max_abs": 2.86102294921875e-06, "status": "PASS"}
+{"case": 27, "params": {"sr": 16000, "n_fft": 4096, "hop_length": 63, "n_mels": 98, "f_min": 2213.4792219253245, "f_max": 7272.5884360673535}, "frames": 68, "pattern": "random", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 28, "params": {"sr": 22050, "n_fft": 32, "hop_length": 63, "n_mels": 28, "f_min": 1614.36904477932, "f_max": 2762.572616201831}, "frames": 35, "pattern": "random", "exact": true, "max_abs": 5.960464477539063e-08, "status": "PASS"}
+{"case": 29, "params": {"sr": 32000, "n_fft": 4096, "hop_length": 1, "n_mels": 3, "f_min": 1460.9059014936959, "f_max": 12607.56348198878}, "frames": 27, "pattern": "random", "exact": true, "max_abs": 7.62939453125e-06, "status": "PASS"}
+{"case": 30, "params": {"sr": 22050, "n_fft": 256, "hop_length": 128, "n_mels": 54, "f_min": 4427.166869427109, "f_max": 9510.052536142139}, "frames": 30, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 31, "params": {"sr": 32000, "n_fft": 512, "hop_length": 256, "n_mels": 64, "f_min": 3909.0041042675675, "f_max": 9043.697887199742}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 32, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 4096, "n_mels": 38, "f_min": 9437.689356574121, "f_max": 13282.236824481011}, "frames": 56, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 33, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 3, "n_mels": 59, "f_min": 13113.249022192895, "f_max": 19377.583482439906}, "frames": 81, "pattern": "random", "exact": true, "max_abs": 1.9073486328125e-06, "status": "PASS"}
+{"case": 34, "params": {"sr": 22050, "n_fft": 16, "hop_length": 23, "n_mels": 8, "f_min": 5998.973436402179, "f_max": 8142.1361611996945}, "frames": 72, "pattern": "random", "exact": true, "max_abs": 1.862645149230957e-09, "status": "PASS"}
+{"case": 35, "params": {"sr": 22050, "n_fft": 128, "hop_length": 1, "n_mels": 19, "f_min": 2393.8564884232715, "f_max": 3083.0930309841647}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 36, "params": {"sr": 32000, "n_fft": 1024, "hop_length": 3, "n_mels": 25, "f_min": 10556.93939221244, "f_max": 10905.375274827546}, "frames": 45, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-06, "status": "PASS"}
+{"case": 37, "params": {"sr": 48000, "n_fft": 256, "hop_length": 17, "n_mels": 49, "f_min": 1379.7027460165748, "f_max": 20518.154486700834}, "frames": 17, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 38, "params": {"sr": 16000, "n_fft": 16, "hop_length": 16, "n_mels": 16, "f_min": 593.1529569920327, "f_max": 4326.203970230686}, "frames": 66, "pattern": "random", "exact": true, "max_abs": 3.725290298461914e-09, "status": "PASS"}
+{"case": 39, "params": {"sr": 48000, "n_fft": 16, "hop_length": 17, "n_mels": 94, "f_min": 6965.733790987455, "f_max": 12534.890642020737}, "frames": 65, "pattern": "random", "exact": true, "max_abs": 1.4901161193847656e-08, "status": "PASS"}
+{"case": 40, "params": {"sr": 16000, "n_fft": 2048, "hop_length": 1, "n_mels": 61, "f_min": 2649.9197337162827, "f_max": 4832.569052954124}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 41, "params": {"sr": 22050, "n_fft": 16, "hop_length": 17, "n_mels": 69, "f_min": 3874.437358460031, "f_max": 6907.504509624455}, "frames": 84, "pattern": "random", "exact": true, "max_abs": 2.2351741790771484e-08, "status": "PASS"}
+{"case": 42, "params": {"sr": 22050, "n_fft": 4096, "hop_length": 4103, "n_mels": 66, "f_min": 2639.20036322145, "f_max": 7490.456572161991}, "frames": 55, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 43, "params": {"sr": 48000, "n_fft": 256, "hop_length": 3, "n_mels": 63, "f_min": 10522.934561261069, "f_max": 21592.403947859828}, "frames": 40, "pattern": "random", "exact": true, "max_abs": 2.980232238769531e-07, "status": "PASS"}
+{"case": 44, "params": {"sr": 32000, "n_fft": 16, "hop_length": 63, "n_mels": 1, "f_min": 7656.643536669292, "f_max": 8819.993938980246}, "frames": 57, "pattern": "random", "exact": true, "max_abs": 9.313225746154785e-10, "status": "PASS"}
+{"case": 45, "params": {"sr": 32000, "n_fft": 256, "hop_length": 263, "n_mels": 73, "f_min": 3678.243839715076, "f_max": 4928.519805376212}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 46, "params": {"sr": 22050, "n_fft": 256, "hop_length": 1, "n_mels": 20, "f_min": 2082.721789675146, "f_max": 2120.009389733122}, "frames": 70, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 47, "params": {"sr": 32000, "n_fft": 512, "hop_length": 519, "n_mels": 2, "f_min": 7278.0702170730965, "f_max": 10796.184122257038}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 48, "params": {"sr": 22050, "n_fft": 2048, "hop_length": 1, "n_mels": 39, "f_min": 262.90770934686515, "f_max": 6934.209045676231}, "frames": 64, "pattern": "random", "exact": true, "max_abs": 7.62939453125e-06, "status": "PASS"}
+{"case": 49, "params": {"sr": 22050, "n_fft": 1024, "hop_length": 1031, "n_mels": 17, "f_min": 729.155894671932, "f_max": 2596.379755162121}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 1.9073486328125e-06, "status": "PASS"}
+{"case": 50, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 1, "n_mels": 45, "f_min": 12953.22307881253, "f_max": 15140.712772748602}, "frames": 83, "pattern": "random", "exact": true, "max_abs": 2.288818359375e-05, "status": "PASS"}
+{"case": 51, "params": {"sr": 48000, "n_fft": 512, "hop_length": 63, "n_mels": 24, "f_min": 6182.31057078804, "f_max": 8609.158348485598}, "frames": 53, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 52, "params": {"sr": 48000, "n_fft": 256, "hop_length": 128, "n_mels": 77, "f_min": 13148.546058576998, "f_max": 14706.73693796187}, "frames": 21, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 53, "params": {"sr": 48000, "n_fft": 16, "hop_length": 17, "n_mels": 20, "f_min": 5649.685572604561, "f_max": 10638.081163844792}, "frames": 61, "pattern": "random", "exact": true, "max_abs": 3.725290298461914e-09, "status": "PASS"}
+{"case": 54, "params": {"sr": 48000, "n_fft": 32, "hop_length": 1, "n_mels": 64, "f_min": 6267.829512587163, "f_max": 7806.2500943095}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 55, "params": {"sr": 16000, "n_fft": 128, "hop_length": 17, "n_mels": 82, "f_min": 4607.668596146821, "f_max": 7090.671959072437}, "frames": 27, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 56, "params": {"sr": 16000, "n_fft": 1024, "hop_length": 17, "n_mels": 36, "f_min": 4085.363397985271, "f_max": 6415.57826248639}, "frames": 74, "pattern": "random", "exact": true, "max_abs": 3.814697265625e-06, "status": "PASS"}
+{"case": 57, "params": {"sr": 22050, "n_fft": 4096, "hop_length": 4103, "n_mels": 73, "f_min": 2205.8060408025804, "f_max": 7933.355389473766}, "frames": 62, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 58, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "zero", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 59, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "impulse", "exact": true, "max_abs": 1.1175870895385742e-08, "status": "PASS"}
+{"case": 60, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "dc", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 61, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "alternating", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 62, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "sine", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 63, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "step", "exact": true, "max_abs": 0.00048828125, "status": "PASS"}
+{"case": 64, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "low", "exact": true, "max_abs": 7.105427357601002e-15, "status": "PASS"}
+{"case": 65, "params": {"sr": 22050, "n_fft": 256, "hop_length": 11, "n_mels": 27, "f_min": 110.0, "f_max": 9876.0}, "frames": 4127, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 66, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 5, "n_mels": 7, "f_min": 233.0, "f_max": 7777.0}, "frames": 4175, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 67, "params": {"sr": 44100, "n_fft": 512, "hop_length": 13, "n_mels": 129, "f_min": 317.0, "f_max": 17003.0}, "frames": 17001, "pattern": "random", "exact": true, "max_abs": 5.7220458984375e-06, "status": "PASS"}
+PASS 68 independent synthetic cases
+PASS 24 reused-vector / arbitrary-double interface cases
+default/frozen: min=0.831518s median=0.837031s PASS=True
+  runs: 0.835584 0.841451 0.843609 0.836069 0.851283 0.831518 0.836858 0.837204
+default/reuse: min=0.785244s median=0.795585s PASS=True
+  runs: 0.785720 0.798744 0.797196 0.795606 0.800919 0.795565 0.785244 0.787831
+small_mels/frozen: min=0.484825s median=0.487482s PASS=True
+  runs: 0.488748 0.490542 0.487514 0.493034 0.487088 0.487320 0.487451 0.484825
+small_mels/reuse: min=0.449052s median=0.453338s PASS=True
+  runs: 0.454293 0.454340 0.451695 0.456773 0.452382 0.449052 0.455852 0.450716
+large_fft/frozen: min=1.031162s median=1.037111s PASS=True
+  runs: 1.040177 1.039680 1.034401 1.034881 1.039340 1.032757 1.031162 1.046590
+large_fft/reuse: min=0.965729s median=0.976277s PASS=True
+  runs: 0.974224 0.965729 0.977493 0.975061 0.991559 0.970353 0.977714 0.994631
+narrow_band/frozen: min=0.994125s median=0.999263s PASS=True
+  runs: 0.994125 0.998570 0.996601 0.999956 1.008506 1.006485 1.021715 0.994528
+narrow_band/reuse: min=0.929746s median=0.938186s PASS=True
+  runs: 0.940490 0.935385 0.929746 0.934588 0.949420 0.938254 0.938118 0.939747
+6d577092e3d4e5ed99540732b4f532415917f980b5d00b21cdf84494742a4d2e  tmp/bin/hugepage-b16
+{"case": 0, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 32, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 1, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 2, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 34, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 3, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 35, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 4, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 5, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 37, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 6, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 38, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 7, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 8, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 40, "pattern": "random", "exact": true, "max_abs": 2.980232238769531e-07, "status": "PASS"}
+{"case": 9, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 41, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 10, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 11, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 43, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 12, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 44, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 13, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 45, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 14, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 46, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 15, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 47, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 16, "params": {"sr": 48000, "n_fft": 1, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 17, "params": {"sr": 48000, "n_fft": 2, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 18, "params": {"sr": 48000, "n_fft": 4, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 2.9103830456733704e-11, "status": "PASS"}
+{"case": 19, "params": {"sr": 48000, "n_fft": 8, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.1641532182693481e-10, "status": "PASS"}
+{"case": 20, "params": {"sr": 48000, "n_fft": 32, "hop_length": 2, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.862645149230957e-09, "status": "PASS"}
+{"case": 21, "params": {"sr": 48000, "n_fft": 128, "hop_length": 11, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 4.470348358154297e-08, "status": "PASS"}
+{"case": 22, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 93, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.430511474609375e-06, "status": "PASS"}
+{"case": 23, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 372, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 24, "params": {"sr": 48000, "n_fft": 8192, "hop_length": 744, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 25, "params": {"sr": 48000, "n_fft": 16384, "hop_length": 1489, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 26, "params": {"sr": 16000, "n_fft": 1024, "hop_length": 63, "n_mels": 53, "f_min": 4126.514116156395, "f_max": 7169.201476938688}, "frames": 20, "pattern": "random", "exact": true, "max_abs": 2.86102294921875e-06, "status": "PASS"}
+{"case": 27, "params": {"sr": 16000, "n_fft": 4096, "hop_length": 63, "n_mels": 98, "f_min": 2213.4792219253245, "f_max": 7272.5884360673535}, "frames": 68, "pattern": "random", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 28, "params": {"sr": 22050, "n_fft": 32, "hop_length": 63, "n_mels": 28, "f_min": 1614.36904477932, "f_max": 2762.572616201831}, "frames": 35, "pattern": "random", "exact": true, "max_abs": 5.960464477539063e-08, "status": "PASS"}
+{"case": 29, "params": {"sr": 32000, "n_fft": 4096, "hop_length": 1, "n_mels": 3, "f_min": 1460.9059014936959, "f_max": 12607.56348198878}, "frames": 27, "pattern": "random", "exact": true, "max_abs": 7.62939453125e-06, "status": "PASS"}
+{"case": 30, "params": {"sr": 22050, "n_fft": 256, "hop_length": 128, "n_mels": 54, "f_min": 4427.166869427109, "f_max": 9510.052536142139}, "frames": 30, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 31, "params": {"sr": 32000, "n_fft": 512, "hop_length": 256, "n_mels": 64, "f_min": 3909.0041042675675, "f_max": 9043.697887199742}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 32, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 4096, "n_mels": 38, "f_min": 9437.689356574121, "f_max": 13282.236824481011}, "frames": 56, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 33, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 3, "n_mels": 59, "f_min": 13113.249022192895, "f_max": 19377.583482439906}, "frames": 81, "pattern": "random", "exact": true, "max_abs": 1.9073486328125e-06, "status": "PASS"}
+{"case": 34, "params": {"sr": 22050, "n_fft": 16, "hop_length": 23, "n_mels": 8, "f_min": 5998.973436402179, "f_max": 8142.1361611996945}, "frames": 72, "pattern": "random", "exact": true, "max_abs": 1.862645149230957e-09, "status": "PASS"}
+{"case": 35, "params": {"sr": 22050, "n_fft": 128, "hop_length": 1, "n_mels": 19, "f_min": 2393.8564884232715, "f_max": 3083.0930309841647}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 36, "params": {"sr": 32000, "n_fft": 1024, "hop_length": 3, "n_mels": 25, "f_min": 10556.93939221244, "f_max": 10905.375274827546}, "frames": 45, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-06, "status": "PASS"}
+{"case": 37, "params": {"sr": 48000, "n_fft": 256, "hop_length": 17, "n_mels": 49, "f_min": 1379.7027460165748, "f_max": 20518.154486700834}, "frames": 17, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 38, "params": {"sr": 16000, "n_fft": 16, "hop_length": 16, "n_mels": 16, "f_min": 593.1529569920327, "f_max": 4326.203970230686}, "frames": 66, "pattern": "random", "exact": true, "max_abs": 3.725290298461914e-09, "status": "PASS"}
+{"case": 39, "params": {"sr": 48000, "n_fft": 16, "hop_length": 17, "n_mels": 94, "f_min": 6965.733790987455, "f_max": 12534.890642020737}, "frames": 65, "pattern": "random", "exact": true, "max_abs": 1.4901161193847656e-08, "status": "PASS"}
+{"case": 40, "params": {"sr": 16000, "n_fft": 2048, "hop_length": 1, "n_mels": 61, "f_min": 2649.9197337162827, "f_max": 4832.569052954124}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 41, "params": {"sr": 22050, "n_fft": 16, "hop_length": 17, "n_mels": 69, "f_min": 3874.437358460031, "f_max": 6907.504509624455}, "frames": 84, "pattern": "random", "exact": true, "max_abs": 2.2351741790771484e-08, "status": "PASS"}
+{"case": 42, "params": {"sr": 22050, "n_fft": 4096, "hop_length": 4103, "n_mels": 66, "f_min": 2639.20036322145, "f_max": 7490.456572161991}, "frames": 55, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 43, "params": {"sr": 48000, "n_fft": 256, "hop_length": 3, "n_mels": 63, "f_min": 10522.934561261069, "f_max": 21592.403947859828}, "frames": 40, "pattern": "random", "exact": true, "max_abs": 2.980232238769531e-07, "status": "PASS"}
+{"case": 44, "params": {"sr": 32000, "n_fft": 16, "hop_length": 63, "n_mels": 1, "f_min": 7656.643536669292, "f_max": 8819.993938980246}, "frames": 57, "pattern": "random", "exact": true, "max_abs": 9.313225746154785e-10, "status": "PASS"}
+{"case": 45, "params": {"sr": 32000, "n_fft": 256, "hop_length": 263, "n_mels": 73, "f_min": 3678.243839715076, "f_max": 4928.519805376212}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 46, "params": {"sr": 22050, "n_fft": 256, "hop_length": 1, "n_mels": 20, "f_min": 2082.721789675146, "f_max": 2120.009389733122}, "frames": 70, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 47, "params": {"sr": 32000, "n_fft": 512, "hop_length": 519, "n_mels": 2, "f_min": 7278.0702170730965, "f_max": 10796.184122257038}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 48, "params": {"sr": 22050, "n_fft": 2048, "hop_length": 1, "n_mels": 39, "f_min": 262.90770934686515, "f_max": 6934.209045676231}, "frames": 64, "pattern": "random", "exact": true, "max_abs": 7.62939453125e-06, "status": "PASS"}
+{"case": 49, "params": {"sr": 22050, "n_fft": 1024, "hop_length": 1031, "n_mels": 17, "f_min": 729.155894671932, "f_max": 2596.379755162121}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 1.9073486328125e-06, "status": "PASS"}
+{"case": 50, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 1, "n_mels": 45, "f_min": 12953.22307881253, "f_max": 15140.712772748602}, "frames": 83, "pattern": "random", "exact": true, "max_abs": 2.288818359375e-05, "status": "PASS"}
+{"case": 51, "params": {"sr": 48000, "n_fft": 512, "hop_length": 63, "n_mels": 24, "f_min": 6182.31057078804, "f_max": 8609.158348485598}, "frames": 53, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 52, "params": {"sr": 48000, "n_fft": 256, "hop_length": 128, "n_mels": 77, "f_min": 13148.546058576998, "f_max": 14706.73693796187}, "frames": 21, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 53, "params": {"sr": 48000, "n_fft": 16, "hop_length": 17, "n_mels": 20, "f_min": 5649.685572604561, "f_max": 10638.081163844792}, "frames": 61, "pattern": "random", "exact": true, "max_abs": 3.725290298461914e-09, "status": "PASS"}
+{"case": 54, "params": {"sr": 48000, "n_fft": 32, "hop_length": 1, "n_mels": 64, "f_min": 6267.829512587163, "f_max": 7806.2500943095}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 55, "params": {"sr": 16000, "n_fft": 128, "hop_length": 17, "n_mels": 82, "f_min": 4607.668596146821, "f_max": 7090.671959072437}, "frames": 27, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 56, "params": {"sr": 16000, "n_fft": 1024, "hop_length": 17, "n_mels": 36, "f_min": 4085.363397985271, "f_max": 6415.57826248639}, "frames": 74, "pattern": "random", "exact": true, "max_abs": 3.814697265625e-06, "status": "PASS"}
+{"case": 57, "params": {"sr": 22050, "n_fft": 4096, "hop_length": 4103, "n_mels": 73, "f_min": 2205.8060408025804, "f_max": 7933.355389473766}, "frames": 62, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 58, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "zero", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 59, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "impulse", "exact": true, "max_abs": 1.1175870895385742e-08, "status": "PASS"}
+{"case": 60, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "dc", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 61, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "alternating", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 62, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "sine", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 63, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "step", "exact": true, "max_abs": 0.00048828125, "status": "PASS"}
+{"case": 64, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "low", "exact": true, "max_abs": 7.105427357601002e-15, "status": "PASS"}
+{"case": 65, "params": {"sr": 22050, "n_fft": 256, "hop_length": 11, "n_mels": 27, "f_min": 110.0, "f_max": 9876.0}, "frames": 4127, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 66, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 5, "n_mels": 7, "f_min": 233.0, "f_max": 7777.0}, "frames": 4175, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 67, "params": {"sr": 44100, "n_fft": 512, "hop_length": 13, "n_mels": 129, "f_min": 317.0, "f_max": 17003.0}, "frames": 17001, "pattern": "random", "exact": true, "max_abs": 5.7220458984375e-06, "status": "PASS"}
+PASS 68 independent synthetic cases
+PASS 24 reused-vector / arbitrary-double interface cases
+default/frozen: min=0.829326s median=0.833531s PASS=True
+  runs: 0.836256 0.829875 0.834684 0.837766 0.832379 0.830634 0.829326 0.837421
+default/hugepage: min=0.699680s median=0.700610s PASS=True
+  runs: 0.700689 0.699840 0.701396 0.700531 0.700525 0.703524 0.699680 0.710044
+small_mels/frozen: min=0.483512s median=0.488435s PASS=True
+  runs: 0.483512 0.492743 0.487518 0.485966 0.489351 0.489734 0.484421 0.492807
+small_mels/hugepage: min=0.452096s median=0.458987s PASS=True
+  runs: 0.458448 0.463789 0.453867 0.459526 0.461250 0.459981 0.454536 0.452096
+large_fft/frozen: min=1.028723s median=1.043783s PASS=True
+  runs: 1.041951 1.037380 1.073550 1.053735 1.045615 1.049302 1.041887 1.028723
+large_fft/hugepage: min=0.903110s median=0.912028s PASS=True
+  runs: 0.922222 0.903110 0.922171 0.928156 0.913890 0.904509 0.910165 0.903691
+narrow_band/frozen: min=0.993344s median=1.005169s PASS=True
+  runs: 1.004208 1.006722 0.993344 1.006130 0.996043 1.027796 1.014752 1.000804
+narrow_band/hugepage: min=0.866237s median=0.869583s PASS=True
+  runs: 0.872699 0.882905 0.890882 0.866371 0.866237 0.870024 0.867717 0.869143
+51db61cb844c3a4860c20f7e39130670e49ef332974932f092c3f0993f4645d0  tmp/bin/combined-b16
+{"case": 0, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 32, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 1, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 2, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 34, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 3, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 35, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 4, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 5, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 37, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 6, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 38, "pattern": "random", "exact": true, "max_abs": 3.5762786865234375e-07, "status": "PASS"}
+{"case": 7, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 8, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 40, "pattern": "random", "exact": true, "max_abs": 2.980232238769531e-07, "status": "PASS"}
+{"case": 9, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 41, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 10, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 11, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 43, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 12, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 44, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 13, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 45, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 14, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 46, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 15, "params": {"sr": 32000, "n_fft": 512, "hop_length": 37, "n_mels": 19, "f_min": 173.0, "f_max": 13111.0}, "frames": 47, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 16, "params": {"sr": 48000, "n_fft": 1, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 17, "params": {"sr": 48000, "n_fft": 2, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 18, "params": {"sr": 48000, "n_fft": 4, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 2.9103830456733704e-11, "status": "PASS"}
+{"case": 19, "params": {"sr": 48000, "n_fft": 8, "hop_length": 1, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.1641532182693481e-10, "status": "PASS"}
+{"case": 20, "params": {"sr": 48000, "n_fft": 32, "hop_length": 2, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.862645149230957e-09, "status": "PASS"}
+{"case": 21, "params": {"sr": 48000, "n_fft": 128, "hop_length": 11, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 4.470348358154297e-08, "status": "PASS"}
+{"case": 22, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 93, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.430511474609375e-06, "status": "PASS"}
+{"case": 23, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 372, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 24, "params": {"sr": 48000, "n_fft": 8192, "hop_length": 744, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 25, "params": {"sr": 48000, "n_fft": 16384, "hop_length": 1489, "n_mels": 23, "f_min": 0.0, "f_max": 24000.0}, "frames": 33, "pattern": "random", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 26, "params": {"sr": 16000, "n_fft": 1024, "hop_length": 63, "n_mels": 53, "f_min": 4126.514116156395, "f_max": 7169.201476938688}, "frames": 20, "pattern": "random", "exact": true, "max_abs": 2.86102294921875e-06, "status": "PASS"}
+{"case": 27, "params": {"sr": 16000, "n_fft": 4096, "hop_length": 63, "n_mels": 98, "f_min": 2213.4792219253245, "f_max": 7272.5884360673535}, "frames": 68, "pattern": "random", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 28, "params": {"sr": 22050, "n_fft": 32, "hop_length": 63, "n_mels": 28, "f_min": 1614.36904477932, "f_max": 2762.572616201831}, "frames": 35, "pattern": "random", "exact": true, "max_abs": 5.960464477539063e-08, "status": "PASS"}
+{"case": 29, "params": {"sr": 32000, "n_fft": 4096, "hop_length": 1, "n_mels": 3, "f_min": 1460.9059014936959, "f_max": 12607.56348198878}, "frames": 27, "pattern": "random", "exact": true, "max_abs": 7.62939453125e-06, "status": "PASS"}
+{"case": 30, "params": {"sr": 22050, "n_fft": 256, "hop_length": 128, "n_mels": 54, "f_min": 4427.166869427109, "f_max": 9510.052536142139}, "frames": 30, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 31, "params": {"sr": 32000, "n_fft": 512, "hop_length": 256, "n_mels": 64, "f_min": 3909.0041042675675, "f_max": 9043.697887199742}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 32, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 4096, "n_mels": 38, "f_min": 9437.689356574121, "f_max": 13282.236824481011}, "frames": 56, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 33, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 3, "n_mels": 59, "f_min": 13113.249022192895, "f_max": 19377.583482439906}, "frames": 81, "pattern": "random", "exact": true, "max_abs": 1.9073486328125e-06, "status": "PASS"}
+{"case": 34, "params": {"sr": 22050, "n_fft": 16, "hop_length": 23, "n_mels": 8, "f_min": 5998.973436402179, "f_max": 8142.1361611996945}, "frames": 72, "pattern": "random", "exact": true, "max_abs": 1.862645149230957e-09, "status": "PASS"}
+{"case": 35, "params": {"sr": 22050, "n_fft": 128, "hop_length": 1, "n_mels": 19, "f_min": 2393.8564884232715, "f_max": 3083.0930309841647}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 36, "params": {"sr": 32000, "n_fft": 1024, "hop_length": 3, "n_mels": 25, "f_min": 10556.93939221244, "f_max": 10905.375274827546}, "frames": 45, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-06, "status": "PASS"}
+{"case": 37, "params": {"sr": 48000, "n_fft": 256, "hop_length": 17, "n_mels": 49, "f_min": 1379.7027460165748, "f_max": 20518.154486700834}, "frames": 17, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 38, "params": {"sr": 16000, "n_fft": 16, "hop_length": 16, "n_mels": 16, "f_min": 593.1529569920327, "f_max": 4326.203970230686}, "frames": 66, "pattern": "random", "exact": true, "max_abs": 3.725290298461914e-09, "status": "PASS"}
+{"case": 39, "params": {"sr": 48000, "n_fft": 16, "hop_length": 17, "n_mels": 94, "f_min": 6965.733790987455, "f_max": 12534.890642020737}, "frames": 65, "pattern": "random", "exact": true, "max_abs": 1.4901161193847656e-08, "status": "PASS"}
+{"case": 40, "params": {"sr": 16000, "n_fft": 2048, "hop_length": 1, "n_mels": 61, "f_min": 2649.9197337162827, "f_max": 4832.569052954124}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 1.52587890625e-05, "status": "PASS"}
+{"case": 41, "params": {"sr": 22050, "n_fft": 16, "hop_length": 17, "n_mels": 69, "f_min": 3874.437358460031, "f_max": 6907.504509624455}, "frames": 84, "pattern": "random", "exact": true, "max_abs": 2.2351741790771484e-08, "status": "PASS"}
+{"case": 42, "params": {"sr": 22050, "n_fft": 4096, "hop_length": 4103, "n_mels": 66, "f_min": 2639.20036322145, "f_max": 7490.456572161991}, "frames": 55, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 43, "params": {"sr": 48000, "n_fft": 256, "hop_length": 3, "n_mels": 63, "f_min": 10522.934561261069, "f_max": 21592.403947859828}, "frames": 40, "pattern": "random", "exact": true, "max_abs": 2.980232238769531e-07, "status": "PASS"}
+{"case": 44, "params": {"sr": 32000, "n_fft": 16, "hop_length": 63, "n_mels": 1, "f_min": 7656.643536669292, "f_max": 8819.993938980246}, "frames": 57, "pattern": "random", "exact": true, "max_abs": 9.313225746154785e-10, "status": "PASS"}
+{"case": 45, "params": {"sr": 32000, "n_fft": 256, "hop_length": 263, "n_mels": 73, "f_min": 3678.243839715076, "f_max": 4928.519805376212}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 46, "params": {"sr": 22050, "n_fft": 256, "hop_length": 1, "n_mels": 20, "f_min": 2082.721789675146, "f_max": 2120.009389733122}, "frames": 70, "pattern": "random", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 47, "params": {"sr": 32000, "n_fft": 512, "hop_length": 519, "n_mels": 2, "f_min": 7278.0702170730965, "f_max": 10796.184122257038}, "frames": 42, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 48, "params": {"sr": 22050, "n_fft": 2048, "hop_length": 1, "n_mels": 39, "f_min": 262.90770934686515, "f_max": 6934.209045676231}, "frames": 64, "pattern": "random", "exact": true, "max_abs": 7.62939453125e-06, "status": "PASS"}
+{"case": 49, "params": {"sr": 22050, "n_fft": 1024, "hop_length": 1031, "n_mels": 17, "f_min": 729.155894671932, "f_max": 2596.379755162121}, "frames": 36, "pattern": "random", "exact": true, "max_abs": 1.9073486328125e-06, "status": "PASS"}
+{"case": 50, "params": {"sr": 48000, "n_fft": 4096, "hop_length": 1, "n_mels": 45, "f_min": 12953.22307881253, "f_max": 15140.712772748602}, "frames": 83, "pattern": "random", "exact": true, "max_abs": 2.288818359375e-05, "status": "PASS"}
+{"case": 51, "params": {"sr": 48000, "n_fft": 512, "hop_length": 63, "n_mels": 24, "f_min": 6182.31057078804, "f_max": 8609.158348485598}, "frames": 53, "pattern": "random", "exact": true, "max_abs": 7.152557373046875e-07, "status": "PASS"}
+{"case": 52, "params": {"sr": 48000, "n_fft": 256, "hop_length": 128, "n_mels": 77, "f_min": 13148.546058576998, "f_max": 14706.73693796187}, "frames": 21, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 53, "params": {"sr": 48000, "n_fft": 16, "hop_length": 17, "n_mels": 20, "f_min": 5649.685572604561, "f_max": 10638.081163844792}, "frames": 61, "pattern": "random", "exact": true, "max_abs": 3.725290298461914e-09, "status": "PASS"}
+{"case": 54, "params": {"sr": 48000, "n_fft": 32, "hop_length": 1, "n_mels": 64, "f_min": 6267.829512587163, "f_max": 7806.2500943095}, "frames": 39, "pattern": "random", "exact": true, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 55, "params": {"sr": 16000, "n_fft": 128, "hop_length": 17, "n_mels": 82, "f_min": 4607.668596146821, "f_max": 7090.671959072437}, "frames": 27, "pattern": "random", "exact": true, "max_abs": 2.384185791015625e-07, "status": "PASS"}
+{"case": 56, "params": {"sr": 16000, "n_fft": 1024, "hop_length": 17, "n_mels": 36, "f_min": 4085.363397985271, "f_max": 6415.57826248639}, "frames": 74, "pattern": "random", "exact": true, "max_abs": 3.814697265625e-06, "status": "PASS"}
+{"case": 57, "params": {"sr": 22050, "n_fft": 4096, "hop_length": 4103, "n_mels": 73, "f_min": 2205.8060408025804, "f_max": 7933.355389473766}, "frames": 62, "pattern": "random", "exact": true, "max_abs": 3.0517578125e-05, "status": "PASS"}
+{"case": 58, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "zero", "exact": true, "max_abs": 0.0, "status": "PASS"}
+{"case": 59, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "impulse", "exact": true, "max_abs": 1.1175870895385742e-08, "status": "PASS"}
+{"case": 60, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "dc", "exact": false, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 61, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "alternating", "exact": false, "max_abs": 1.1920928955078125e-07, "status": "PASS"}
+{"case": 62, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "sine", "exact": true, "max_abs": 6.103515625e-05, "status": "PASS"}
+{"case": 63, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "step", "exact": false, "max_abs": 0.00048828125, "status": "PASS"}
+{"case": 64, "params": {"sr": 32000, "n_fft": 2048, "hop_length": 29, "n_mels": 31, "f_min": 0.0, "f_max": 16000.0}, "frames": 79, "pattern": "low", "exact": true, "max_abs": 7.105427357601002e-15, "status": "PASS"}
+{"case": 65, "params": {"sr": 22050, "n_fft": 256, "hop_length": 11, "n_mels": 27, "f_min": 110.0, "f_max": 9876.0}, "frames": 4127, "pattern": "random", "exact": true, "max_abs": 4.76837158203125e-07, "status": "PASS"}
+{"case": 66, "params": {"sr": 48000, "n_fft": 1024, "hop_length": 5, "n_mels": 7, "f_min": 233.0, "f_max": 7777.0}, "frames": 4175, "pattern": "random", "exact": true, "max_abs": 9.5367431640625e-07, "status": "PASS"}
+{"case": 67, "params": {"sr": 44100, "n_fft": 512, "hop_length": 13, "n_mels": 129, "f_min": 317.0, "f_max": 17003.0}, "frames": 17001, "pattern": "random", "exact": true, "max_abs": 5.7220458984375e-06, "status": "PASS"}
+PASS 68 independent synthetic cases
+PASS 24 reused-vector / arbitrary-double interface cases
+default/frozen: min=0.835213s median=0.839665s PASS=True
+  runs: 0.837189 0.849991 0.843667 0.837443 0.840989 0.844840 0.838341 0.835213
+default/combined: min=0.657830s median=0.665051s PASS=True
+  runs: 0.659284 0.657830 0.665070 0.667549 0.669434 0.669013 0.665032 0.660977
+small_mels/frozen: min=0.483804s median=0.489775s PASS=True
+  runs: 0.483854 0.492314 0.483804 0.496490 0.491550 0.493183 0.487999 0.487305
+small_mels/combined: min=0.414903s median=0.418123s PASS=True
+  runs: 0.418923 0.422891 0.414903 0.417099 0.422265 0.418199 0.418047 0.417777
+large_fft/frozen: min=1.031433s median=1.041353s PASS=True
+  runs: 1.031433 1.033855 1.033062 1.043392 1.042237 1.042194 1.040512 1.043774
+large_fft/combined: min=0.841577s median=0.845978s PASS=True
+  runs: 0.846431 0.846079 0.845671 0.861262 0.845278 0.841577 0.846957 0.845878
+narrow_band/frozen: min=0.991340s median=1.000576s PASS=True
+  runs: 0.995859 1.006969 1.002721 0.998430 0.991340 1.004761 0.995608 1.014739
+narrow_band/combined: min=0.791629s median=0.805212s PASS=True
+  runs: 0.797468 0.805143 0.824053 0.791629 0.806664 0.798829 0.807200 0.805280
+{"params": {"sr": 44100, "n_fft": 4096, "hop_length": 31, "n_mels": 73, "f_min": 137, "f_max": 18317}, "frames": 20013, "times_s": [[0.04037368297576904, 0.044047300005331635, 0.04001801903359592, 0.042338211031164974, 0.04323720803949982, 0.044017165957484394, 0.044626044982578605, 0.04116245801560581], [0.03756731498287991, 0.038015151978470385, 0.037408594973385334, 0.04044168599648401, 0.03938176098745316, 0.04009115096414462, 0.04223260999424383, 0.040739295014645904]], "medians_s": [0.0427877095353324, 0.03973645597579889], "exact": true}
+{"params": {"sr": 44100, "n_fft": 8192, "hop_length": 257, "n_mels": 91, "f_min": 137, "f_max": 18317}, "frames": 12007, "times_s": [[0.06573074200423434, 0.057401671016123146, 0.0574967369902879, 0.0615973380045034, 0.05867824895540252, 0.05967070203041658, 0.059810323000419885, 0.057121174002531916], [0.05722456402145326, 0.05585726199205965, 0.058575857954565436, 0.056349496997427195, 0.06095458404161036, 0.05941864801570773, 0.06270137097453699, 0.06250784499570727]], "medians_s": [0.05917447549290955, 0.05899725298513658], "exact": true}
+{"params": {"sr": 44100, "n_fft": 2048, "hop_length": 509, "n_mels": 43, "f_min": 137, "f_max": 18317}, "frames": 17009, "times_s": [[0.07740050094434991, 0.07938234298489988, 0.08067735302029178, 0.0760643279645592, 0.07487030199263245, 0.07548100198619068, 0.0808234519790858, 0.07720139995217323], [0.07704304601065814, 0.07872705603949726, 0.0807167729944922, 0.07656176399905235, 0.07798555900808424, 0.07484881399432197, 0.07747298100730404, 0.07944633101578802]], "medians_s": [0.07730095044826157, 0.07772927000769414], "exact": true}
+{"params": {"sr": 44100, "n_fft": 1024, "hop_length": 1027, "n_mels": 29, "f_min": 137, "f_max": 18317}, "frames": 12001, "times_s": [[0.09434104204410687, 0.09358740202151239, 0.09482462203595787, 0.09050669195130467, 0.09074794396292418, 0.09336189401801676, 0.0965395100065507, 0.09792075998848304], [0.09331962600117549, 0.09551061899401248, 0.09537397301755846, 0.09125837200554088, 0.09590101597132161, 0.09343181399162859, 0.09662825899431482, 0.09259004797786474]], "medians_s": [0.09396422203280963, 0.09440289350459352], "exact": true}
+default/reuse: min=0.787811s median=0.790342s PASS=True
+  runs: 0.789955 0.789570 0.788469 0.787811 0.798905 0.795291 0.790729 0.796036
+default/combined: min=0.656174s median=0.662967s PASS=True
+  runs: 0.659187 0.656174 0.666595 0.666507 0.665878 0.660229 0.665704 0.656906
+small_mels/reuse: min=0.445938s median=0.449577s PASS=True
+  runs: 0.445938 0.448090 0.446122 0.453889 0.454058 0.452805 0.448262 0.450893
+small_mels/combined: min=0.413355s median=0.418384s PASS=True
+  runs: 0.417328 0.418018 0.413355 0.421211 0.425646 0.421385 0.416962 0.418750
+large_fft/reuse: min=0.968636s median=0.977254s PASS=True
+  runs: 0.976160 0.972931 0.979644 1.004574 0.978859 0.978348 0.968636 0.975827
+large_fft/combined: min=0.836246s median=0.844766s PASS=True
+  runs: 0.853162 0.867991 0.836246 0.848065 0.853822 0.837747 0.838051 0.841468
+narrow_band/reuse: min=0.931474s median=0.944162s PASS=True
+  runs: 0.944918 0.939479 0.931474 0.966149 0.936916 0.943707 0.946272 0.944617
+narrow_band/combined: min=0.798682s median=0.805584s PASS=True
+  runs: 0.804719 0.802258 0.806448 0.812506 0.798682 0.808247 0.816751 0.803012
++ g++ -std=c++17 -O3 -march=native -pthread -I/home/zsx/melspec-cpu-pipeline-simd/include -DMELSPEC_FP32_BATCH=16 -DMELSPEC_PACK_REUSE=1 -DMELSPEC_OUTPUT_HUGEPAGE=1 -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -c /home/zsx/melspec-cpu-pipeline-simd/src/main.cpp -o /home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/combined/main.o
++ g++ -std=c++17 -O3 -march=native -pthread -I/home/zsx/melspec-cpu-pipeline-simd/include -DMELSPEC_FP32_BATCH=16 -DMELSPEC_PACK_REUSE=1 -DMELSPEC_OUTPUT_HUGEPAGE=1 /home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/combined/main.o /home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/combined/melspec.cpp /home/zsx/melspec-cpu-pipeline-simd/scripts/cpu_pipeline_io_hooks.cpp -o /home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/combined/profile
+== default run=0 diagnostic_wall_s=0.655467931 ==
+io read_s=0.177650040
+setup before_resize_s=0.006850142 output_init_s=0.081002449
+worker id=0 pack_s=0.040478228 fft_s=0.064431812 recover_s=0.016462087 mel_s=0.012008257 wall_s=0.133493260
+worker id=3 pack_s=0.040729349 fft_s=0.064881846 recover_s=0.016581924 mel_s=0.012076952 wall_s=0.134383896
+worker id=12 pack_s=0.041525385 fft_s=0.064145975 recover_s=0.016786510 mel_s=0.012203967 wall_s=0.134777859
+worker id=1 pack_s=0.040712011 fft_s=0.065844774 recover_s=0.016537715 mel_s=0.012061573 wall_s=0.135271024
+worker id=13 pack_s=0.041692124 fft_s=0.064163125 recover_s=0.016852912 mel_s=0.012236173 wall_s=0.135060646
+worker id=7 pack_s=0.041090669 fft_s=0.065134936 recover_s=0.016733538 mel_s=0.012152322 wall_s=0.135227306
+worker id=8 pack_s=0.041010713 fft_s=0.065275853 recover_s=0.016735524 mel_s=0.012113419 wall_s=0.135252606
+worker id=5 pack_s=0.041573933 fft_s=0.064642444 recover_s=0.016789134 mel_s=0.012221666 wall_s=0.135343588
+worker id=10 pack_s=0.041578441 fft_s=0.064869275 recover_s=0.016793117 mel_s=0.012190887 wall_s=0.135548069
+worker id=2 pack_s=0.041466591 fft_s=0.065449551 recover_s=0.016850399 mel_s=0.012236224 wall_s=0.136128344
+worker id=14 pack_s=0.041733565 fft_s=0.064810977 recover_s=0.016886662 mel_s=0.012283026 wall_s=0.135830989
+worker id=9 pack_s=0.041687310 fft_s=0.065192868 recover_s=0.016860115 mel_s=0.012245506 wall_s=0.136103298
+worker id=11 pack_s=0.041911931 fft_s=0.065490638 recover_s=0.016902466 mel_s=0.012416583 wall_s=0.136838970
+worker id=4 pack_s=0.041995421 fft_s=0.065876706 recover_s=0.016887120 mel_s=0.012273061 wall_s=0.137148974
+worker id=6 pack_s=0.042072476 fft_s=0.065765989 recover_s=0.016996379 mel_s=0.012313481 wall_s=0.137269305
+worker id=15 pack_s=0.041592427 fft_s=0.068116820 recover_s=0.016841991 mel_s=0.012221972 wall_s=0.138889791
+pipeline setup_s=0.096035070 workers_s=0.139386844 tail_s=0.001604211 total_s=0.237026100
+AnonHugePages:    382976 kB
+io write_s=0.218011529
+	Command being timed: "/home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/combined/profile /home/zsx/melspec-cpu-pipeline-simd/tmp/data/audio.pcm /tmp/cpu-simd-380-4gPPQh/tmpujy4723q/out.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels 256 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 2.32
+	System time (seconds): 0.34
+	Percent of CPU this job got: 409%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.65
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 781384
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 115741
+	Voluntary context switches: 211
+	Involuntary context switches: 972
+	Swaps: 0
+	File system inputs: 96430
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== default run=1 diagnostic_wall_s=0.671042180 ==
+io read_s=0.180117909
+setup before_resize_s=0.006399265 output_init_s=0.080585536
+worker id=14 pack_s=0.040953877 fft_s=0.063276178 recover_s=0.016486114 mel_s=0.012027582 wall_s=0.132857612
+worker id=0 pack_s=0.040226983 fft_s=0.064247791 recover_s=0.016475572 mel_s=0.012044246 wall_s=0.133124265
+worker id=10 pack_s=0.041284832 fft_s=0.064483380 recover_s=0.016678935 mel_s=0.012208547 wall_s=0.134771767
+worker id=12 pack_s=0.041711299 fft_s=0.064982628 recover_s=0.016968681 mel_s=0.012338974 wall_s=0.136119195
+worker id=13 pack_s=0.041101279 fft_s=0.065752129 recover_s=0.017045314 mel_s=0.012272602 wall_s=0.136285957
+worker id=9 pack_s=0.041754299 fft_s=0.065625327 recover_s=0.016940732 mel_s=0.012314481 wall_s=0.136751755
+worker id=8 pack_s=0.041533473 fft_s=0.065981748 recover_s=0.016906152 mel_s=0.012331846 wall_s=0.136871993
+worker id=4 pack_s=0.041838243 fft_s=0.066175867 recover_s=0.016958930 mel_s=0.012326417 wall_s=0.137417168
+worker id=5 pack_s=0.042146065 fft_s=0.065754294 recover_s=0.017056911 mel_s=0.012373913 wall_s=0.137449067
+worker id=6 pack_s=0.042058587 fft_s=0.065941123 recover_s=0.017014690 mel_s=0.012369750 wall_s=0.137501896
+worker id=11 pack_s=0.042268928 fft_s=0.066366097 recover_s=0.017168350 mel_s=0.012424038 wall_s=0.138346338
+worker id=15 pack_s=0.041640920 fft_s=0.068021713 recover_s=0.016751401 mel_s=0.012162217 wall_s=0.138692294
+worker id=7 pack_s=0.041579349 fft_s=0.067830484 recover_s=0.017063260 mel_s=0.012409646 wall_s=0.138999097
+worker id=2 pack_s=0.041767565 fft_s=0.067952855 recover_s=0.017098192 mel_s=0.012339303 wall_s=0.139274839
+worker id=1 pack_s=0.041683966 fft_s=0.068110360 recover_s=0.017149217 mel_s=0.012433082 wall_s=0.139493071
+worker id=3 pack_s=0.041778760 fft_s=0.068811393 recover_s=0.017059449 mel_s=0.012381925 wall_s=0.140148364
+pipeline setup_s=0.095126220 workers_s=0.140508708 tail_s=0.002050757 total_s=0.237685737
+AnonHugePages:    382976 kB
+io write_s=0.231674837
+	Command being timed: "/home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/combined/profile /home/zsx/melspec-cpu-pipeline-simd/tmp/data/audio.pcm /tmp/cpu-simd-380-4gPPQh/tmpujy4723q/out.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels 256 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 2.33
+	System time (seconds): 0.35
+	Percent of CPU this job got: 404%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.66
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 781848
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 115744
+	Voluntary context switches: 411
+	Involuntary context switches: 974
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== small_mels run=0 diagnostic_wall_s=0.442969189 ==
+io read_s=0.184290822
+setup before_resize_s=0.001883272 output_init_s=0.020679447
+worker id=0 pack_s=0.040583653 fft_s=0.062383358 recover_s=0.016481060 mel_s=0.010125096 wall_s=0.129688655
+worker id=8 pack_s=0.041473802 fft_s=0.063234702 recover_s=0.016878710 mel_s=0.010380463 wall_s=0.132082948
+worker id=2 pack_s=0.040607466 fft_s=0.064225739 recover_s=0.017015872 mel_s=0.010435441 wall_s=0.132397398
+worker id=7 pack_s=0.041363999 fft_s=0.064076046 recover_s=0.016850856 mel_s=0.010342472 wall_s=0.132749828
+worker id=3 pack_s=0.041626518 fft_s=0.064052869 recover_s=0.016891266 mel_s=0.010456486 wall_s=0.133143116
+worker id=1 pack_s=0.041389177 fft_s=0.064626541 recover_s=0.016845226 mel_s=0.010360101 wall_s=0.133336715
+worker id=15 pack_s=0.041114285 fft_s=0.064670309 recover_s=0.016884932 mel_s=0.010335630 wall_s=0.133120881
+worker id=5 pack_s=0.041219510 fft_s=0.064861513 recover_s=0.016846497 mel_s=0.010408654 wall_s=0.133452609
+worker id=14 pack_s=0.041131113 fft_s=0.065028173 recover_s=0.016870791 mel_s=0.010348687 wall_s=0.133494494
+worker id=6 pack_s=0.041273287 fft_s=0.064984970 recover_s=0.016883455 mel_s=0.010468641 wall_s=0.133727764
+worker id=9 pack_s=0.041490515 fft_s=0.065035500 recover_s=0.016796635 mel_s=0.010392925 wall_s=0.133831004
+worker id=4 pack_s=0.041306718 fft_s=0.064958117 recover_s=0.017162824 mel_s=0.010490210 wall_s=0.134032936
+worker id=13 pack_s=0.041338296 fft_s=0.065450990 recover_s=0.016812652 mel_s=0.010334141 wall_s=0.134052053
+worker id=10 pack_s=0.041548226 fft_s=0.065154489 recover_s=0.016996752 mel_s=0.010506542 wall_s=0.134325358
+worker id=11 pack_s=0.041881587 fft_s=0.065104530 recover_s=0.016987609 mel_s=0.010499035 wall_s=0.134590270
+worker id=12 pack_s=0.041811533 fft_s=0.065755025 recover_s=0.017025601 mel_s=0.010430949 wall_s=0.135155642
+pipeline setup_s=0.030631794 workers_s=0.135598991 tail_s=0.000753647 total_s=0.166984481
+AnonHugePages:     94208 kB
+io write_s=0.071116302
+	Command being timed: "/home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/combined/profile /home/zsx/melspec-cpu-pipeline-simd/tmp/data/audio.pcm /tmp/cpu-simd-380-4gPPQh/tmpujy4723q/out.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels 64 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 2.21
+	System time (seconds): 0.21
+	Percent of CPU this job got: 551%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.44
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 341632
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 78029
+	Voluntary context switches: 150
+	Involuntary context switches: 874
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== small_mels run=1 diagnostic_wall_s=0.426724672 ==
+io read_s=0.178830178
+setup before_resize_s=0.001894174 output_init_s=0.020769876
+worker id=0 pack_s=0.040318905 fft_s=0.062358731 recover_s=0.016489086 mel_s=0.010154856 wall_s=0.129444380
+worker id=1 pack_s=0.040456959 fft_s=0.062914202 recover_s=0.016501609 mel_s=0.010131144 wall_s=0.130117373
+worker id=10 pack_s=0.040704936 fft_s=0.063527729 recover_s=0.016585099 mel_s=0.010200802 wall_s=0.131132128
+worker id=5 pack_s=0.040581823 fft_s=0.063723257 recover_s=0.016626027 mel_s=0.010288613 wall_s=0.131334921
+worker id=11 pack_s=0.040972646 fft_s=0.063691399 recover_s=0.016712629 mel_s=0.010249365 wall_s=0.131743924
+worker id=6 pack_s=0.040912620 fft_s=0.063959357 recover_s=0.016693807 mel_s=0.010282268 wall_s=0.131962958
+worker id=4 pack_s=0.041440412 fft_s=0.063498649 recover_s=0.016808992 mel_s=0.010330810 wall_s=0.132194132
+worker id=3 pack_s=0.041636010 fft_s=0.063937329 recover_s=0.016857162 mel_s=0.010412940 wall_s=0.132961921
+worker id=13 pack_s=0.040847248 fft_s=0.064967162 recover_s=0.016716001 mel_s=0.010281221 wall_s=0.132926215
+worker id=8 pack_s=0.041783051 fft_s=0.063816842 recover_s=0.016999309 mel_s=0.010500924 wall_s=0.133215968
+worker id=15 pack_s=0.041180728 fft_s=0.064651260 recover_s=0.016755135 mel_s=0.010353548 wall_s=0.133056488
+worker id=14 pack_s=0.041131767 fft_s=0.064780398 recover_s=0.016802294 mel_s=0.010319477 wall_s=0.133149634
+worker id=2 pack_s=0.041892814 fft_s=0.064577954 recover_s=0.016925644 mel_s=0.010375465 wall_s=0.133888345
+worker id=7 pack_s=0.041732365 fft_s=0.064792278 recover_s=0.017001930 mel_s=0.010432248 wall_s=0.134075731
+worker id=9 pack_s=0.041607844 fft_s=0.065150478 recover_s=0.016919950 mel_s=0.010399756 wall_s=0.134194904
+worker id=12 pack_s=0.041861530 fft_s=0.065683040 recover_s=0.016985894 mel_s=0.010425180 wall_s=0.135072389
+pipeline setup_s=0.030783431 workers_s=0.135520925 tail_s=0.001110288 total_s=0.167414632
+AnonHugePages:     94208 kB
+io write_s=0.058063457
+	Command being timed: "/home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/combined/profile /home/zsx/melspec-cpu-pipeline-simd/tmp/data/audio.pcm /tmp/cpu-simd-380-4gPPQh/tmpujy4723q/out.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels 64 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 2.20
+	System time (seconds): 0.19
+	Percent of CPU this job got: 566%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.42
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 342180
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 78030
+	Voluntary context switches: 209
+	Involuntary context switches: 862
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== large_fft run=0 diagnostic_wall_s=0.843228052 ==
+io read_s=0.178446705
+setup before_resize_s=0.013418301 output_init_s=0.081131524
+worker id=9 pack_s=0.093073562 fft_s=0.145581793 recover_s=0.033165020 mel_s=0.022172899 wall_s=0.294129198
+worker id=0 pack_s=0.094219150 fft_s=0.145817367 recover_s=0.033041585 mel_s=0.022357305 wall_s=0.295573265
+worker id=1 pack_s=0.093862807 fft_s=0.146608436 recover_s=0.033318298 mel_s=0.022322242 wall_s=0.296257397
+worker id=10 pack_s=0.094069404 fft_s=0.147681634 recover_s=0.033281016 mel_s=0.022261715 wall_s=0.297441777
+worker id=15 pack_s=0.094538914 fft_s=0.146885593 recover_s=0.033462483 mel_s=0.022541043 wall_s=0.297557407
+worker id=4 pack_s=0.094547079 fft_s=0.146752308 recover_s=0.033514239 mel_s=0.023014476 wall_s=0.297971924
+worker id=8 pack_s=0.094166032 fft_s=0.148091226 recover_s=0.033327857 mel_s=0.022448728 wall_s=0.298172535
+worker id=13 pack_s=0.094441699 fft_s=0.147703197 recover_s=0.033468653 mel_s=0.022560057 wall_s=0.298331107
+worker id=7 pack_s=0.094757320 fft_s=0.148603164 recover_s=0.033441891 mel_s=0.022406087 wall_s=0.299357391
+worker id=2 pack_s=0.095080019 fft_s=0.149040685 recover_s=0.033484766 mel_s=0.022517283 wall_s=0.300265104
+worker id=5 pack_s=0.094271570 fft_s=0.148432669 recover_s=0.033773831 mel_s=0.023591862 wall_s=0.300211242
+worker id=6 pack_s=0.094774036 fft_s=0.149508282 recover_s=0.033499354 mel_s=0.022489344 wall_s=0.300416439
+worker id=11 pack_s=0.095240299 fft_s=0.148918878 recover_s=0.033629657 mel_s=0.022541341 wall_s=0.300475534
+worker id=3 pack_s=0.094454438 fft_s=0.149050532 recover_s=0.033755964 mel_s=0.023638538 wall_s=0.301040009
+worker id=14 pack_s=0.095139953 fft_s=0.150050442 recover_s=0.033681345 mel_s=0.022548400 wall_s=0.301572614
+worker id=12 pack_s=0.094954016 fft_s=0.153492222 recover_s=0.033646594 mel_s=0.022579922 wall_s=0.304797582
+pipeline setup_s=0.110014260 workers_s=0.305235456 tail_s=0.003375996 total_s=0.418625685
+AnonHugePages:    382976 kB
+io write_s=0.222383323
+	Command being timed: "/home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/combined/profile /home/zsx/melspec-cpu-pipeline-simd/tmp/data/audio.pcm /tmp/cpu-simd-380-4gPPQh/tmpujy4723q/out.bin --sr 96000 --n_fft 16384 --hop_length 128 --n_mels 256 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 4.94
+	System time (seconds): 0.36
+	Percent of CPU this job got: 631%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.84
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 789780
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 121778
+	Voluntary context switches: 220
+	Involuntary context switches: 1929
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== large_fft run=1 diagnostic_wall_s=0.859487322 ==
+io read_s=0.180904294
+setup before_resize_s=0.013184881 output_init_s=0.079352376
+worker id=4 pack_s=0.093447046 fft_s=0.150223211 recover_s=0.033469556 mel_s=0.022527571 wall_s=0.299811000
+worker id=15 pack_s=0.094456735 fft_s=0.146858885 recover_s=0.035361468 mel_s=0.022771456 wall_s=0.299590465
+worker id=13 pack_s=0.094648530 fft_s=0.148691812 recover_s=0.033555110 mel_s=0.022754860 wall_s=0.299795092
+worker id=14 pack_s=0.093944886 fft_s=0.149870517 recover_s=0.033647933 mel_s=0.022674599 wall_s=0.300291260
+worker id=2 pack_s=0.095379809 fft_s=0.149383023 recover_s=0.033637690 mel_s=0.022605567 wall_s=0.301144795
+worker id=0 pack_s=0.093612247 fft_s=0.151757467 recover_s=0.033317697 mel_s=0.022395918 wall_s=0.301213351
+worker id=12 pack_s=0.094971834 fft_s=0.149873353 recover_s=0.033702139 mel_s=0.022854896 wall_s=0.301542007
+worker id=9 pack_s=0.095542846 fft_s=0.149797740 recover_s=0.033786872 mel_s=0.022898106 wall_s=0.302170107
+worker id=10 pack_s=0.095124866 fft_s=0.150891961 recover_s=0.033855943 mel_s=0.022662098 wall_s=0.302680716
+worker id=1 pack_s=0.094292712 fft_s=0.154370083 recover_s=0.034114618 mel_s=0.022770132 wall_s=0.305687355
+worker id=5 pack_s=0.094730227 fft_s=0.154518503 recover_s=0.033943418 mel_s=0.022960106 wall_s=0.306286779
+worker id=7 pack_s=0.095720669 fft_s=0.156048470 recover_s=0.033694688 mel_s=0.022693528 wall_s=0.308291904
+worker id=8 pack_s=0.096884750 fft_s=0.154911195 recover_s=0.033944475 mel_s=0.022963376 wall_s=0.308838433
+worker id=6 pack_s=0.095463841 fft_s=0.158903722 recover_s=0.033760816 mel_s=0.022459228 wall_s=0.310712719
+worker id=11 pack_s=0.096811970 fft_s=0.158346115 recover_s=0.034062033 mel_s=0.022855085 wall_s=0.312202843
+worker id=3 pack_s=0.095244055 fft_s=0.161740621 recover_s=0.033800173 mel_s=0.022614285 wall_s=0.313550497
+pipeline setup_s=0.108457909 workers_s=0.313931064 tail_s=0.003143352 total_s=0.425532404
+AnonHugePages:    382976 kB
+io write_s=0.231108798
+	Command being timed: "/home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/combined/profile /home/zsx/melspec-cpu-pipeline-simd/tmp/data/audio.pcm /tmp/cpu-simd-380-4gPPQh/tmpujy4723q/out.bin --sr 96000 --n_fft 16384 --hop_length 128 --n_mels 256 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 5.02
+	System time (seconds): 0.36
+	Percent of CPU this job got: 629%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.85
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 790160
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 121778
+	Voluntary context switches: 376
+	Involuntary context switches: 1958
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== narrow_band run=0 diagnostic_wall_s=0.810117771 ==
+io read_s=0.177919601
+setup before_resize_s=0.013085910 output_init_s=0.080333166
+worker id=1 pack_s=0.090944633 fft_s=0.144668704 recover_s=0.011597510 mel_s=0.009382206 wall_s=0.256726900
+worker id=0 pack_s=0.090621346 fft_s=0.146320995 recover_s=0.011527375 mel_s=0.009376438 wall_s=0.257979917
+worker id=7 pack_s=0.091289905 fft_s=0.146424108 recover_s=0.011616109 mel_s=0.009314664 wall_s=0.258772271
+worker id=2 pack_s=0.092149444 fft_s=0.146520172 recover_s=0.011609315 mel_s=0.009431662 wall_s=0.259844118
+worker id=4 pack_s=0.091319266 fft_s=0.147414655 recover_s=0.011661603 mel_s=0.009375786 wall_s=0.259904887
+worker id=3 pack_s=0.090799111 fft_s=0.149151012 recover_s=0.011713754 mel_s=0.009367322 wall_s=0.261170901
+worker id=10 pack_s=0.092176629 fft_s=0.147618832 recover_s=0.011616537 mel_s=0.009466390 wall_s=0.261013189
+worker id=14 pack_s=0.090716598 fft_s=0.149401106 recover_s=0.011675201 mel_s=0.009402646 wall_s=0.261337980
+worker id=9 pack_s=0.092454096 fft_s=0.148469651 recover_s=0.011672128 mel_s=0.009480923 wall_s=0.262217293
+worker id=5 pack_s=0.091898744 fft_s=0.149476467 recover_s=0.011676410 mel_s=0.009465328 wall_s=0.262657585
+worker id=8 pack_s=0.092466267 fft_s=0.149006007 recover_s=0.011765926 mel_s=0.009500817 wall_s=0.262870980
+worker id=15 pack_s=0.092016681 fft_s=0.150000751 recover_s=0.011767221 mel_s=0.009441174 wall_s=0.263362104
+worker id=13 pack_s=0.090942332 fft_s=0.149026238 recover_s=0.013883187 mel_s=0.009553755 wall_s=0.263538137
+worker id=6 pack_s=0.092353698 fft_s=0.150358608 recover_s=0.011733487 mel_s=0.009418067 wall_s=0.264000539
+worker id=12 pack_s=0.092142980 fft_s=0.150924333 recover_s=0.011688226 mel_s=0.009534220 wall_s=0.264424151
+worker id=11 pack_s=0.093677006 fft_s=0.149368974 recover_s=0.011779202 mel_s=0.009643503 wall_s=0.264615520
+pipeline setup_s=0.108952495 workers_s=0.265066831 tail_s=0.002997837 total_s=0.377017318
+AnonHugePages:    382976 kB
+io write_s=0.232938857
+	Command being timed: "/home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/combined/profile /home/zsx/melspec-cpu-pipeline-simd/tmp/data/audio.pcm /tmp/cpu-simd-380-4gPPQh/tmpujy4723q/out.bin --sr 96000 --n_fft 16384 --hop_length 128 --n_mels 256 --f_min 300.0 --f_max 8000.0"
+	User time (seconds): 4.33
+	System time (seconds): 0.35
+	Percent of CPU this job got: 582%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.80
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 789908
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 121779
+	Voluntary context switches: 329
+	Involuntary context switches: 1711
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== narrow_band run=1 diagnostic_wall_s=0.817122296 ==
+io read_s=0.176484505
+setup before_resize_s=0.013344885 output_init_s=0.079885456
+worker id=0 pack_s=0.090279283 fft_s=0.144338496 recover_s=0.011562422 mel_s=0.009482823 wall_s=0.255797301
+worker id=13 pack_s=0.089750931 fft_s=0.147679085 recover_s=0.011504980 mel_s=0.009321133 wall_s=0.258388683
+worker id=4 pack_s=0.091041947 fft_s=0.146816681 recover_s=0.011721917 mel_s=0.009605591 wall_s=0.259326048
+worker id=2 pack_s=0.091148373 fft_s=0.147113526 recover_s=0.011696985 mel_s=0.009456741 wall_s=0.259543232
+worker id=5 pack_s=0.090488984 fft_s=0.148466887 recover_s=0.011650335 mel_s=0.009373983 wall_s=0.260109294
+worker id=1 pack_s=0.091925499 fft_s=0.146980628 recover_s=0.011722592 mel_s=0.009561193 wall_s=0.260318640
+worker id=14 pack_s=0.092184235 fft_s=0.148234870 recover_s=0.011743901 mel_s=0.009516679 wall_s=0.261810897
+worker id=12 pack_s=0.091425664 fft_s=0.149109026 recover_s=0.011697394 mel_s=0.009532200 wall_s=0.261901926
+worker id=15 pack_s=0.092657133 fft_s=0.148083174 recover_s=0.011719172 mel_s=0.009541632 wall_s=0.262136803
+worker id=9 pack_s=0.091396829 fft_s=0.149597740 recover_s=0.011737936 mel_s=0.009514946 wall_s=0.262378416
+worker id=7 pack_s=0.091301482 fft_s=0.149950783 recover_s=0.011764283 mel_s=0.009409229 wall_s=0.262566988
+worker id=6 pack_s=0.091571410 fft_s=0.151272968 recover_s=0.011813952 mel_s=0.009344562 wall_s=0.264129808
+worker id=3 pack_s=0.092020880 fft_s=0.152571049 recover_s=0.011815213 mel_s=0.009433646 wall_s=0.265970334
+worker id=10 pack_s=0.093257794 fft_s=0.151941174 recover_s=0.011785848 mel_s=0.009568823 wall_s=0.266683597
+worker id=11 pack_s=0.091583047 fft_s=0.153824031 recover_s=0.011771623 mel_s=0.009568178 wall_s=0.266883998
+worker id=8 pack_s=0.092922619 fft_s=0.155831373 recover_s=0.011774997 mel_s=0.009592321 wall_s=0.270248813
+pipeline setup_s=0.108939099 workers_s=0.270627164 tail_s=0.003094684 total_s=0.382660836
+AnonHugePages:    382976 kB
+io write_s=0.235262309
+	Command being timed: "/home/zsx/melspec-cpu-pipeline-simd/tmp/pipeline-profile/combined/profile /home/zsx/melspec-cpu-pipeline-simd/tmp/data/audio.pcm /tmp/cpu-simd-380-4gPPQh/tmpujy4723q/out.bin --sr 96000 --n_fft 16384 --hop_length 128 --n_mels 256 --f_min 300.0 --f_max 8000.0"
+	User time (seconds): 4.35
+	System time (seconds): 0.37
+	Percent of CPU this job got: 580%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.81
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 789568
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 121780
+	Voluntary context switches: 265
+	Involuntary context switches: 1706
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.91e-02 |   PASS |    0.788 | 28.535x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.56e-02 |   PASS |    0.451 | 39.722x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.026 | 38.685x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    9.38e-02 |   PASS |    0.935 | 42.368x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.91e-02 |   PASS |    0.696 | 31.178x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.56e-02 |   PASS |    0.461 | 37.846x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    0.962 | 40.578x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    9.38e-02 |   PASS |    0.914 | 42.597x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.91e-02 |   PASS |    0.656 | 31.832x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.56e-02 |   PASS |    0.473 | 35.377x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    0.871 | 42.970x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    9.38e-02 |   PASS |    0.803 | 46.781x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED

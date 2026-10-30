@@ -39,3 +39,8 @@ worker阶段没有对应幅度改善，符合成本模型。PMU `cycles`不可�
 
 本轮接口sanitizer仍在安全修复前，含已知n_fft=1空batch引用警告，**不算sanitizer通过**。
 后续以修复后的严格sanitizer、独立第二轮、官方完整validate与组合实验证实可采用性。
+
+修复后作业364/380：68组合成bit-exact与严格sanitizer的24组接口均PASS；
+作业380官方完整validate为4/4 PASS。三次作业每组各8次AB/BA，HP独立改善约6.0–16.1%，
+96对逐次比较全部更快。其他Linux的THP配置、碎片、内存压力或容器限制仍可能改变结果，
+不把该测量当作无条件平台承诺。

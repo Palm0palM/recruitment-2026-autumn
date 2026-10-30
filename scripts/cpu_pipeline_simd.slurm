@@ -106,6 +106,15 @@ elif [ "$MODE" = final ]; then
         "$PY" -u validate.py "tmp/bin/$variant-b16" --runs 1 | tee "tmp/logs/official-$variant-$SLURM_JOB_ID.txt"
         grep -q 'Result: 4/4 PASSED' "tmp/logs/official-$variant-$SLURM_JOB_ID.txt"
     done
+elif [ "$MODE" = combined-confirm ]; then
+    g++ "${flags[@]}" src/main.cpp tmp/control/melspec.cpp -o tmp/bin/frozen-b16
+    g++ "${flags[@]}" -DMELSPEC_PACK_REUSE=1 -DMELSPEC_OUTPUT_HUGEPAGE=1 \
+        src/main.cpp src/melspec.cpp -o tmp/bin/combined-b16
+    sha256sum tmp/bin/frozen-b16 tmp/bin/combined-b16
+    "$PY" -u scripts/multi_bench.py frozen=tmp/bin/frozen-b16 combined=tmp/bin/combined-b16 --runs 8 \
+        --out "tmp/logs/combined-confirm-$SLURM_JOB_ID.json"
+    "$PY" -u validate.py tmp/bin/combined-b16 --runs 3 | tee "tmp/logs/official-combined-$SLURM_JOB_ID.txt"
+    grep -q 'Result: 4/4 PASSED' "tmp/logs/official-combined-$SLURM_JOB_ID.txt"
 elif [ "$MODE" = diagnose ]; then
     g++ "${flags[@]}" src/main.cpp tmp/control/melspec.cpp -o tmp/bin/frozen-b16
     g++ "${flags[@]}" -DMELSPEC_PACK_REUSE=1 -DMELSPEC_OUTPUT_HUGEPAGE=1 \

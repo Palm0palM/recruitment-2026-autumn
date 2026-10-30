@@ -14,3 +14,7 @@
 后续全部sanitizer作业设置 `UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1`，
 并扩大到24组复用vector/非PCM任意double输入及68组合成CLI测试。
 冻结对照保持原始e448c989，不偷偷给对照打补丁；实验补丁必须包含此安全修复。
+
+作业380：修复后的slab、HP、组合各通过68组独立合成输入对照（组合不要求bit-exact，
+但官方容差与独立librosa均不变），三个配置的24组API检查均在严格ASan/UBSan下通过，
+没有runtime error或sanitizer报告。三个配置还分别完成未修改validate.py的4/4 PASS。

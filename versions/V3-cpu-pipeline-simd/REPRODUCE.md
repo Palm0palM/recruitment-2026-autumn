@@ -95,6 +95,7 @@ sbatch --wait -w hepnode3 --export=ALL,MODE=reuse scripts/cpu_pipeline_simd.slur
 sbatch --wait -w hepnode3 --export=ALL,MODE=reuse-confirm scripts/cpu_pipeline_simd.slurm
 sbatch --wait -w hepnode3 --export=ALL,MODE=hugepage scripts/cpu_pipeline_simd.slurm
 sbatch --wait -w hepnode3 --export=ALL,MODE=final scripts/cpu_pipeline_simd.slurm
+sbatch --wait -w hepnode3 --export=ALL,MODE=combined-confirm scripts/cpu_pipeline_simd.slurm
 ```
 
 脚本1task/16CPU/nomultithread、不写mem，使用节点本地独立scratch。
