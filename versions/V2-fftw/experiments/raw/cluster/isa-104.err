@@ -1,0 +1,5 @@
+In file included from src/melspec.cpp:2:
+include/fftw_support.h:3:10: fatal error: fftw3.h: No such file or directory
+    3 | #include <fftw3.h>
+      |          ^~~~~~~~~
+compilation terminated.

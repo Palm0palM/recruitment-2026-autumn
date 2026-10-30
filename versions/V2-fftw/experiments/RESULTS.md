@@ -78,3 +78,18 @@ tests; A2 plus both float routes passed the additional 54-case numerical suite. 
 A2 executable is **byte-identical** to the pre-round local baseline:
 `97594fa7f89161aae8e41bb086dee0736ec2839cf83f59556947188c0f57720c`.
 Full official validation and cluster timing of the exact integrated float build are still pending.
+
+## Failed ISA scheduling stage: job 104
+
+The AVX2 library built and installed successfully, but the parent Slurm script then used an incorrect
+`work/install-*` path instead of the builder's actual `prefix/*`. Compilation failed before any benchmark
+(`fftw3.h` not found); job FAILED, exit 1, 3:51. This is an orchestration failure, not an ISA performance result.
+The corrected script reuses only a library with recorded matching archive and scalar compiler flags.
+Review additionally tightened BOTH ISA variants to identical scalar flags `-O3 -march=x86-64-v3 -mno-avx512f`;
+only FFTW's enabled AVX-512 codelet units receive their required extra ISA flags. The earlier drafted
+AVX-512 variant's global `-mavx512f` was never built in job 104 and must not be used for a codelet-only claim.
+
+New private prototypes received: padded-row/interleaved batch layouts (B=4/8/16) and float MEASURE/PATIENT
+wisdom with precision-specific envelope checks. Parent reviewed and compiled all six layout variants and
+both combo power variants; each passed 39 valid and 3 rejection cases. Layout/combo local full-output
+screening is a separate pending stage. None is a production default or has a cluster speedup yet.

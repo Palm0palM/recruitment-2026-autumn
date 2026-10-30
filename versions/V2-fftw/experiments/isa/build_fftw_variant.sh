@@ -55,16 +55,14 @@ if [[ -e "$BUILD" || -e "$PREFIX" ]]; then
 fi
 mkdir -p "$BUILD" "$PREFIX"
 
-SIMD=(--enable-sse2 --enable-avx --enable-avx2)
-# Keep all non-ISA knobs and -O3 fixed. x86-64-v3 avoids native AVX-512
-# contamination in the AVX2 build. The AVX-512 build necessarily changes
-# compiler ISA availability too; this is not a pure codelet-only proof.
-CFLAGS_COMMON='-O3 -march=x86-64-v3'
-if [[ "$VARIANT" == avx2 ]]; then
-  CFLAGS="$CFLAGS_COMMON -mno-avx512f"
-else
+SIMD=(--enable-avx --enable-avx2)
+if [[ "$PRECISION" == float ]]; then SIMD+=(--enable-sse); else SIMD+=(--enable-sse2); fi
+# Identical scalar/compiler baseline for BOTH libraries. FFTW appends the
+# required -mavx512f to its enabled AVX-512 codelet compilation units only.
+# Audit the build log before attributing a result to enabled codelets.
+CFLAGS='-O3 -march=x86-64-v3 -mno-avx512f'
+if [[ "$VARIANT" == avx512 ]]; then
   SIMD+=(--enable-avx512)
-  CFLAGS="$CFLAGS_COMMON -mavx512f"
 fi
 PRECISION_FLAG=()
 if [[ "$PRECISION" == float ]]; then

@@ -1,0 +1,33 @@
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+tmp/fftw-lab/wisdom/float/float_wisdom.cpp:131:6: warning: ‘bool melspec_fftwf::{anonymous}::safe_metadata_value(const std::string&)’ defined but not used [-Wunused-function]
+  131 | bool safe_metadata_value(const std::string& value) {
+      |      ^~~~~~~~~~~~~~~~~~~
+tmp/fftw-lab/wisdom/float/float_wisdom.cpp:104:13: warning: ‘std::string melspec_fftwf::{anonymous}::hex64(uint64_t)’ defined but not used [-Wunused-function]
+  104 | std::string hex64(std::uint64_t value) {
+      |             ^~~~~
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+tmp/fftw-lab/wisdom/float/float_wisdom.cpp:131:6: warning: ‘bool melspec_fftwf::{anonymous}::safe_metadata_value(const std::string&)’ defined but not used [-Wunused-function]
+  131 | bool safe_metadata_value(const std::string& value) {
+      |      ^~~~~~~~~~~~~~~~~~~
+tmp/fftw-lab/wisdom/float/float_wisdom.cpp:104:13: warning: ‘std::string melspec_fftwf::{anonymous}::hex64(uint64_t)’ defined but not used [-Wunused-function]
+  104 | std::string hex64(std::uint64_t value) {
+      |             ^~~~~
+output=/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/float-wisdom/r2c-1.wisdom transform=r2c size=1 planner=measure precision=float planning_s=6.83e-06 wisdom_bytes=169
+output=/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/float-wisdom/r2c-2.wisdom transform=r2c size=2 planner=measure precision=float planning_s=6.093e-06 wisdom_bytes=163
+output=/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/float-wisdom/r2c-8.wisdom transform=r2c size=8 planner=measure precision=float planning_s=7.729e-06 wisdom_bytes=163
+output=/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/float-wisdom/r2c-256.wisdom transform=r2c size=256 planner=measure precision=float planning_s=0.0495952 wisdom_bytes=453
+output=/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/float-wisdom/r2c-2048.wisdom transform=r2c size=2048 planner=measure precision=float planning_s=0.145649 wisdom_bytes=543
+output=/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/float-wisdom/r2c-8192.wisdom transform=r2c size=8192 planner=measure precision=float planning_s=0.222733 wisdom_bytes=543
+output=/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/float-wisdom/r2c-16384.wisdom transform=r2c size=16384 planner=measure precision=float planning_s=0.29351 wisdom_bytes=649

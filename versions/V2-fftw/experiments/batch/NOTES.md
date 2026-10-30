@@ -181,3 +181,137 @@ $PY validate.py tmp/fftw-lab/batch/bin/melspec-b8
 8. **硬件覆盖**：线程创建失败会回退到主线程，正确性应保持，但性能解读必须记录实际 worker 数。
 
 待主 Agent 串行验收后才可测量：五档 B 的构建/正确性、plan 与 setup 时间、完整 compute/官方计时、峰值 RSS，以及 pack/FFT/power/Mel 分项。应在同一目标机、相同 FFTW 库和冷进程下与 A2 对照，不能用单帧微基准乘以批大小或 16 worker 推算加速。**当前没有证据断言任一批大小会加速。**
+
+---
+
+## Layout 扩展：`replacement_layout.cpp`（新增，未编译、未运行）
+
+原 `replacement.cpp` 保持不变。主 Agent 已反馈原 unpadded 版本的首轮结果；本节的新布局原型尚未由本 worker 执行，**没有新布局的 PASS、timing、speedup 或 RSS 结果**。
+
+新文件只允许 `MELSPEC_FFTW_BATCH=4/8/16`，并增加显式 `MELSPEC_BATCH_LAYOUT`：
+
+- `0`（默认）：padded-row。
+- `1`：interleaved。
+- 其他值在预处理期报错。
+
+两种布局仍实现相同公开接口、double HTK/Slaney/周期 Hann、最多 16 个外层 worker、同一 V1 帧区间、一个串行创建并由所有 worker 共享的 new-array plan。规划和析构均持 planner mutex；不使用 FFTW 内部线程。每批尾行仍完整零填充，功率/Mel/输出仅访问有效行。
+
+### 1. Padded-row（layout 0）
+
+令
+
+\[
+K_{pad}=4\left\lceil K/4\right\rceil=(K+3)\,\&\,\sim 3.
+\]
+
+地址与 plan 参数为：
+
+- 输入 `input[b*N+i]`：`istride=1,idist=N`，共 `B*N` doubles。
+- FFT 输出 `output[b*Kpad+k]`：`ostride=1,odist=Kpad`，共 `B*Kpad` complexes。
+- 功率 `power[b*K+k]`：不补 padding，共 `B*K` doubles。
+
+`Kpad` 是 4 个 complex 的倍数，所以相邻 FFT 输出行首相差 `4*16=64` bytes；所有行保持 `fftw_malloc` 基址的对齐类别。严格的绝对对齐上界仍由 FFTW allocator 提供，这里不额外伪造 aligned pointer。padding 区域从不参与功率或 Mel。
+
+每 worker scratch：
+
+\[
+S_{row}=8BN+16BK_{pad}+8BK
+      =8B(N+K+2K_{pad})\ \text{bytes}.
+\]
+
+总 scratch 为 `W*S_row`。相对同 B 的 interleaved，额外量为
+`16*B*(Kpad-K)` bytes/worker。例：`N=8192,K=4097,Kpad=4100,W=16,B=16` 时，padded-row 每 worker 约 `2.501099 MiB`、合计约 `40.017578 MiB`；interleaved 分别为约 `2.500366` 和 `40.005859 MiB`。这些仍是公式值，不是实测。
+
+### 2. Interleaved（layout 1）
+
+地址与 plan 参数为：
+
+- 输入 `input[i*B+b]`：`istride=B,idist=1`，共 `B*N` doubles。
+- FFT 输出 `output[k*B+b]`：`ostride=B,odist=1`，共 `B*K` complexes。
+- 功率 `power[k*B+b]`：与频谱交织布局一致，共 `B*K` doubles。
+
+pack 在每个样本 `i` 上连续写 `b`；模平方在每个 bin `k` 上连续读写 `b`，可让编译器跨独立帧 SIMD，而不需要跨 lane 做 Mel 归约。Mel 仍逐帧、逐滤波器、按 `k` 严格递增执行一个 double `acc`，没有改成跨 bin 向量归约或改变加法结合顺序。代价是 Mel 的 power 读取步长为 `B`。
+
+每 worker scratch：
+
+\[
+S_{interleaved}=8BN+16BK+8BK=8B(N+3K)\ \text{bytes},
+\]
+
+总 scratch 为 `W*S_interleaved`；与原 unpadded 数组公式相同。
+
+### 3. 尾批、循环溢出与数学顺序
+
+padded-row 对无效 `b` 的整行 `N` 个输入置零；interleaved 在每个 `i` 上对 `b=valid..B-1` 置零。二者都执行完整 B 行 plan，但功率只写有效帧，padding 和无效功率从不读取。
+
+新文件的批循环使用 `t0 += valid`，而不是原文件的 `t0 += B`。由于 `valid>=1` 且最后一次恰到达 `end`，可修复 `t0+B` 在接近 `INT_MAX` 时的有符号溢出风险。按要求，原文件未回改。
+
+两种布局都没有改变以下逐帧数学操作：
+
+1. `y[start+i]*window[i]`；
+2. R2C 后 `re*re+im*im`；
+3. 每个 `(frame,mel)` 从 `first[m]` 到 `last[m]` 按 k 递增 double 累加；
+4. 写出 `output[m*n_frames+t]`。
+
+不同 plan 布局仍不承诺与 A2 或彼此 bitwise 一致，必须做容差验收。
+
+### 4. 可能改善或变差的原因（仅假设）
+
+**padded-row 可能改善：** 每行频谱连续，行首保持 64-byte 距离，可能减少多行访问时的对齐/缓存集合冲突，并保持类似原实现的逐帧功率和 Mel 连续读取。
+
+**padded-row 可能变差：** FFTW 面对不同 `odist` 可能选择不同 codelet；额外 padding 增加 scratch 和地址跨度，且 plan-many 本身的首轮回退未必能由对齐解决。
+
+**interleaved 可能改善：** 加窗拷贝和模平方均在 b 维连续，可跨帧 SIMD；功率布局无需转置即可供这种访问方式使用。
+
+**interleaved 可能变差：** 对单条 DFT 而言输入/输出 stride 都为 B，可能降低 FFTW 内核效率或改变计划选择；Mel 中 stride-B 的 power 读取也可能抵消 pack/power 的收益。以上都必须通过目标机全流程测量判断，不能从布局名称推断加速。
+
+### 5. 精确构建宏与命令（待主 Agent 串行执行）
+
+```bash
+cd /home/palm/projects/heptagon/melspec-v2-fftw
+mkdir -p tmp/fftw-lab/batch/obj tmp/fftw-lab/batch/bin
+
+g++ -std=c++17 -O3 -march=native -pthread \
+  -DMELSPEC_FFTW_MEASURE=0 -Iinclude \
+  -c src/main.cpp -o tmp/fftw-lab/batch/obj/main-layout.o
+
+for B in 4 8 16; do
+  g++ -std=c++17 -O3 -march=native -pthread \
+    -DMELSPEC_FFTW_MEASURE=0 -DMELSPEC_FFTW_BATCH=${B} \
+    -DMELSPEC_BATCH_LAYOUT=0 -Iinclude \
+    -c tmp/fftw-lab/batch/replacement_layout.cpp \
+    -o tmp/fftw-lab/batch/obj/layout-row-b${B}.o
+  g++ -pthread tmp/fftw-lab/batch/obj/main-layout.o \
+    tmp/fftw-lab/batch/obj/layout-row-b${B}.o -lfftw3 \
+    -o tmp/fftw-lab/batch/bin/melspec-row-b${B}
+
+  g++ -std=c++17 -O3 -march=native -pthread \
+    -DMELSPEC_FFTW_MEASURE=0 -DMELSPEC_FFTW_BATCH=${B} \
+    -DMELSPEC_BATCH_LAYOUT=1 -Iinclude \
+    -c tmp/fftw-lab/batch/replacement_layout.cpp \
+    -o tmp/fftw-lab/batch/obj/layout-inter-b${B}.o
+  g++ -pthread tmp/fftw-lab/batch/obj/main-layout.o \
+    tmp/fftw-lab/batch/obj/layout-inter-b${B}.o -lfftw3 \
+    -o tmp/fftw-lab/batch/bin/melspec-inter-b${B}
+done
+```
+
+候选不得同时链接正式 `src/melspec.cpp` 或原 `replacement.cpp`。仅链接普通 `-lfftw3`，不得添加 FFTW threads/OpenMP 后端。默认是 `FFTW_ESTIMATE`；任何 MEASURE/profile 变体需另名构建并单独解释。
+
+### 6. 新布局正确性矩阵（全部待执行）
+
+| 维度 | 用例 | 检查点 |
+|---|---|---|
+| B/L 全组合 | `B=4,8,16` × `layout=0,1` | 六个独立二进制的编译、链接与完整输出 |
+| 批尾 | 每个 B 的 `F=B-1,B,B+1,2B-1,2B,2B+1` | 无效行零填充、不读 padding、不重复/遗漏帧 |
+| worker 边界 | `W=2,4,8,16`，`F=256W-1,256W,256W+1,256W+B` | V1 分区接缝、每 worker 自己的尾批 |
+| R2C padding | `N=2(K=2,Kpad=4),4(3,4),8(5,8),256(129,132),2048(1025,1028)` | 不同 padding 量和 odist；interleaved 同参数对照 |
+| 输入寻址 | `n_fft=8,hop=3`，随机、零、impulse、Nyquist | interleaved 的 `i*B+b` 与 padded 的 `b*N+i` |
+| 小 FFT | `n_fft=1`，跨 B 和 worker 边界 | 零周期窗分支、两种 power 布局在 K=1 时一致 |
+| 输出语义 | 全向量 shape/stride 检查 | row-major `[n_mels,n_frames]`，double Mel 后由 main 转 float |
+| 安全 | 过短输入、hop 0/-1、非法 N/M/sr | 非零退出，无非法 plan 或越界 |
+| 宏约束 | B=1/2/32、layout=-1/2 的预期编译失败 | 防止误用未实现布局 |
+
+现有 `check_boundaries.py` 的帧数集合是上述通用超集，可传入六个新程序；`fftw_check.py` 继续覆盖随机/极值信号和短输入。多 worker 结论仍需目标机 hardware concurrency 与 profile worker 行数佐证。
+
+通过正确性后才测量六个组合的 plan/setup、pack/FFT/power/Mel、完整官方计时和峰值 RSS，并与同节点 A2 及原 unpadded 候选比较。**当前新增布局未测，不标记 PASS，不宣称加速。**

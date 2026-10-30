@@ -2,7 +2,8 @@
 # REVIEW DRAFT: read-only inspection of supplied artifacts; reports go under LAB.
 # Text matches are triage, NOT a proof of ISA absence. Review full disassembly.
 set -euo pipefail
-LAB="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../.." && pwd)"
+LAB="$ROOT/tmp/fftw-lab/isa"
 if [[ $# -eq 0 ]]; then
   printf 'usage: bash %s ARTIFACT [ARTIFACT ...]\n' "$0" >&2
   exit 2

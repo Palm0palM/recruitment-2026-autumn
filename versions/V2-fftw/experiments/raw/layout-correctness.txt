@@ -1,0 +1,6 @@
+{"program": "tmp/fftw-lab/orchestrator/layout-0-4", "passed_valid": 39, "max_abs_err_vs_v1": 0.0, "rejected_short": 3}
+{"program": "tmp/fftw-lab/orchestrator/layout-0-8", "passed_valid": 39, "max_abs_err_vs_v1": 0.0, "rejected_short": 3}
+{"program": "tmp/fftw-lab/orchestrator/layout-0-16", "passed_valid": 39, "max_abs_err_vs_v1": 0.0, "rejected_short": 3}
+{"program": "tmp/fftw-lab/orchestrator/layout-1-4", "passed_valid": 39, "max_abs_err_vs_v1": 7.087104416904204e-28, "rejected_short": 3}
+{"program": "tmp/fftw-lab/orchestrator/layout-1-8", "passed_valid": 39, "max_abs_err_vs_v1": 7.087104416904204e-28, "rejected_short": 3}
+{"program": "tmp/fftw-lab/orchestrator/layout-1-16", "passed_valid": 39, "max_abs_err_vs_v1": 7.087104416904204e-28, "rejected_short": 3}

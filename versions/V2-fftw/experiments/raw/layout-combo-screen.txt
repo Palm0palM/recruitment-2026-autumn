@@ -1,0 +1,121 @@
+default a2 round=0 elapsed=1.589848 max_abs_err=0.03125 PASS
+default float-fp round=0 elapsed=1.391907 max_abs_err=0.078125 PASS
+default combo-fp round=0 elapsed=2.204908 max_abs_err=0.0546875 PASS
+default combo-dp round=0 elapsed=1.797335 max_abs_err=0.0546875 PASS
+default padded4 round=0 elapsed=1.928717 max_abs_err=0.03125 PASS
+default padded8 round=0 elapsed=1.913507 max_abs_err=0.03125 PASS
+default padded16 round=0 elapsed=1.723242 max_abs_err=0.03125 PASS
+default interleaved4 round=0 elapsed=1.970704 max_abs_err=0.03125 PASS
+default interleaved8 round=0 elapsed=2.551252 max_abs_err=0.03125 PASS
+default interleaved16 round=0 elapsed=3.553789 max_abs_err=0.03125 PASS
+default float-fp round=1 elapsed=1.635861 max_abs_err=0.078125 PASS
+default combo-fp round=1 elapsed=1.068920 max_abs_err=0.0546875 PASS
+default combo-dp round=1 elapsed=0.871927 max_abs_err=0.0546875 PASS
+default padded4 round=1 elapsed=1.183286 max_abs_err=0.03125 PASS
+default padded8 round=1 elapsed=1.792648 max_abs_err=0.03125 PASS
+default padded16 round=1 elapsed=2.317545 max_abs_err=0.03125 PASS
+default interleaved4 round=1 elapsed=2.256830 max_abs_err=0.03125 PASS
+default interleaved8 round=1 elapsed=2.486415 max_abs_err=0.03125 PASS
+default interleaved16 round=1 elapsed=3.485360 max_abs_err=0.03125 PASS
+default a2 round=1 elapsed=1.898579 max_abs_err=0.03125 PASS
+small_mels a2 round=0 elapsed=0.828355 max_abs_err=0.01171875 PASS
+small_mels float-fp round=0 elapsed=1.089735 max_abs_err=0.01953125 PASS
+small_mels combo-fp round=0 elapsed=0.583097 max_abs_err=0.01953125 PASS
+small_mels combo-dp round=0 elapsed=1.118345 max_abs_err=0.01953125 PASS
+small_mels padded4 round=0 elapsed=0.846139 max_abs_err=0.01171875 PASS
+small_mels padded8 round=0 elapsed=0.789813 max_abs_err=0.01171875 PASS
+small_mels padded16 round=0 elapsed=1.586161 max_abs_err=0.01171875 PASS
+small_mels interleaved4 round=0 elapsed=1.130742 max_abs_err=0.01171875 PASS
+small_mels interleaved8 round=0 elapsed=2.099477 max_abs_err=0.01171875 PASS
+small_mels interleaved16 round=0 elapsed=2.220895 max_abs_err=0.01171875 PASS
+small_mels float-fp round=1 elapsed=0.909265 max_abs_err=0.01953125 PASS
+small_mels combo-fp round=1 elapsed=0.550444 max_abs_err=0.01953125 PASS
+small_mels combo-dp round=1 elapsed=1.172443 max_abs_err=0.01953125 PASS
+small_mels padded4 round=1 elapsed=0.771335 max_abs_err=0.01171875 PASS
+small_mels padded8 round=1 elapsed=0.806464 max_abs_err=0.01171875 PASS
+small_mels padded16 round=1 elapsed=1.476820 max_abs_err=0.01171875 PASS
+small_mels interleaved4 round=1 elapsed=1.121684 max_abs_err=0.01171875 PASS
+small_mels interleaved8 round=1 elapsed=2.036503 max_abs_err=0.01171875 PASS
+small_mels interleaved16 round=1 elapsed=2.686645 max_abs_err=0.01171875 PASS
+small_mels a2 round=1 elapsed=0.778088 max_abs_err=0.01171875 PASS
+large_fft a2 round=0 elapsed=2.624670 max_abs_err=0.125 PASS
+large_fft float-fp round=0 elapsed=2.054309 max_abs_err=0.15625 PASS
+large_fft combo-fp round=0 elapsed=1.923982 max_abs_err=0.15625 PASS
+large_fft combo-dp round=0 elapsed=2.046116 max_abs_err=0.15625 PASS
+large_fft padded4 round=0 elapsed=2.762272 max_abs_err=0.125 PASS
+large_fft padded8 round=0 elapsed=3.667925 max_abs_err=0.125 PASS
+large_fft padded16 round=0 elapsed=3.867303 max_abs_err=0.125 PASS
+large_fft interleaved4 round=0 elapsed=4.313618 max_abs_err=0.125 PASS
+large_fft interleaved8 round=0 elapsed=5.550081 max_abs_err=0.125 PASS
+large_fft interleaved16 round=0 elapsed=8.221157 max_abs_err=0.125 PASS
+large_fft float-fp round=1 elapsed=1.721200 max_abs_err=0.15625 PASS
+large_fft combo-fp round=1 elapsed=1.536517 max_abs_err=0.15625 PASS
+large_fft combo-dp round=1 elapsed=1.365256 max_abs_err=0.15625 PASS
+large_fft padded4 round=1 elapsed=2.271490 max_abs_err=0.125 PASS
+large_fft padded8 round=1 elapsed=3.417477 max_abs_err=0.125 PASS
+large_fft padded16 round=1 elapsed=3.818710 max_abs_err=0.125 PASS
+large_fft interleaved4 round=1 elapsed=3.739066 max_abs_err=0.125 PASS
+large_fft interleaved8 round=1 elapsed=5.176530 max_abs_err=0.125 PASS
+large_fft interleaved16 round=1 elapsed=7.965160 max_abs_err=0.125 PASS
+large_fft a2 round=1 elapsed=2.696426 max_abs_err=0.125 PASS
+narrow_band a2 round=0 elapsed=1.705883 max_abs_err=0.0625 PASS
+narrow_band float-fp round=0 elapsed=1.212574 max_abs_err=0.125 PASS
+narrow_band combo-fp round=0 elapsed=1.204515 max_abs_err=0.125 PASS
+narrow_band combo-dp round=0 elapsed=1.474091 max_abs_err=0.125 PASS
+narrow_band padded4 round=0 elapsed=2.732444 max_abs_err=0.0625 PASS
+narrow_band padded8 round=0 elapsed=2.849806 max_abs_err=0.0625 PASS
+narrow_band padded16 round=0 elapsed=2.667861 max_abs_err=0.0625 PASS
+narrow_band interleaved4 round=0 elapsed=2.656156 max_abs_err=0.0625 PASS
+narrow_band interleaved8 round=0 elapsed=4.447819 max_abs_err=0.0625 PASS
+narrow_band interleaved16 round=0 elapsed=7.535368 max_abs_err=0.0625 PASS
+narrow_band float-fp round=1 elapsed=1.294641 max_abs_err=0.125 PASS
+narrow_band combo-fp round=1 elapsed=1.250332 max_abs_err=0.125 PASS
+narrow_band combo-dp round=1 elapsed=1.362386 max_abs_err=0.125 PASS
+narrow_band padded4 round=1 elapsed=2.178343 max_abs_err=0.0625 PASS
+narrow_band padded8 round=1 elapsed=2.619741 max_abs_err=0.0625 PASS
+narrow_band padded16 round=1 elapsed=3.370980 max_abs_err=0.0625 PASS
+narrow_band interleaved4 round=1 elapsed=2.516314 max_abs_err=0.0625 PASS
+narrow_band interleaved8 round=1 elapsed=3.523043 max_abs_err=0.0625 PASS
+narrow_band interleaved16 round=1 elapsed=5.615322 max_abs_err=0.0625 PASS
+narrow_band a2 round=1 elapsed=1.591564 max_abs_err=0.0625 PASS
+case | program | min_s | median_s | vs_v1
+default | a2 | 1.589848 | 1.744213 | None
+default | float-fp | 1.391907 | 1.513884 | None
+default | combo-fp | 1.068920 | 1.636914 | None
+default | combo-dp | 0.871927 | 1.334631 | None
+default | padded4 | 1.183286 | 1.556001 | None
+default | padded8 | 1.792648 | 1.853078 | None
+default | padded16 | 1.723242 | 2.020394 | None
+default | interleaved4 | 1.970704 | 2.113767 | None
+default | interleaved8 | 2.486415 | 2.518833 | None
+default | interleaved16 | 3.485360 | 3.519574 | None
+small_mels | a2 | 0.778088 | 0.803222 | None
+small_mels | float-fp | 0.909265 | 0.999500 | None
+small_mels | combo-fp | 0.550444 | 0.566770 | None
+small_mels | combo-dp | 1.118345 | 1.145394 | None
+small_mels | padded4 | 0.771335 | 0.808737 | None
+small_mels | padded8 | 0.789813 | 0.798138 | None
+small_mels | padded16 | 1.476820 | 1.531491 | None
+small_mels | interleaved4 | 1.121684 | 1.126213 | None
+small_mels | interleaved8 | 2.036503 | 2.067990 | None
+small_mels | interleaved16 | 2.220895 | 2.453770 | None
+large_fft | a2 | 2.624670 | 2.660548 | None
+large_fft | float-fp | 1.721200 | 1.887755 | None
+large_fft | combo-fp | 1.536517 | 1.730249 | None
+large_fft | combo-dp | 1.365256 | 1.705686 | None
+large_fft | padded4 | 2.271490 | 2.516881 | None
+large_fft | padded8 | 3.417477 | 3.542701 | None
+large_fft | padded16 | 3.818710 | 3.843007 | None
+large_fft | interleaved4 | 3.739066 | 4.026342 | None
+large_fft | interleaved8 | 5.176530 | 5.363305 | None
+large_fft | interleaved16 | 7.965160 | 8.093159 | None
+narrow_band | a2 | 1.591564 | 1.648723 | None
+narrow_band | float-fp | 1.212574 | 1.253607 | None
+narrow_band | combo-fp | 1.204515 | 1.227424 | None
+narrow_band | combo-dp | 1.362386 | 1.418238 | None
+narrow_band | padded4 | 2.178343 | 2.455394 | None
+narrow_band | padded8 | 2.619741 | 2.734774 | None
+narrow_band | padded16 | 2.667861 | 3.019421 | None
+narrow_band | interleaved4 | 2.516314 | 2.586235 | None
+narrow_band | interleaved8 | 3.523043 | 3.985431 | None
+narrow_band | interleaved16 | 5.615322 | 6.575345 | None
