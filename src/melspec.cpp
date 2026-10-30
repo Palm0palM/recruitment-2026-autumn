@@ -20,6 +20,10 @@
 #endif
 static_assert(MELSPEC_FRAME_BLOCK > 0, "frame block must be positive");
 
+#ifndef MELSPEC_MOMENTS
+#define MELSPEC_MOMENTS 0
+#endif
+
 // ─────────────────────────────────────────────────────────────────────────────
 // HTK mel scale
 // ─────────────────────────────────────────────────────────────────────────────
@@ -169,6 +173,60 @@ std::vector<CompressedMelFilter> build_compressed_mel_filterbank(
     return filters;
 }
 
+#if MELSPEC_MOMENTS
+struct MomentMelFilter {
+    int first;
+    int last;
+    int center;
+    double a_left;
+    double b_left;
+    double a_right;
+    double b_right;
+};
+
+// Triangles are affine on both sides of the center. Prefix moments evaluate
+// these segments without depending on the FFT backend or its internal layout.
+std::vector<MomentMelFilter> build_moment_mel_filterbank(int sr, int n_fft,
+                                                         int n_mels,
+                                                         double f_min,
+                                                         double f_max) {
+    const int n_bins = n_fft / 2 + 1;
+    auto compressed =
+        build_compressed_mel_filterbank(sr, n_fft, n_mels, f_min, f_max);
+    std::vector<double> fft_freqs(n_bins);
+    for (int k = 0; k < n_bins; ++k)
+        fft_freqs[k] = static_cast<double>(k) * sr / static_cast<double>(n_fft);
+    const double mel_min = hz_to_mel(f_min);
+    const double mel_max = hz_to_mel(f_max);
+    std::vector<double> hz_points(n_mels + 2);
+    for (int i = 0; i <= n_mels + 1; ++i)
+        hz_points[i] =
+            mel_to_hz(mel_min + i * (mel_max - mel_min) / (n_mels + 1));
+
+    const double df = static_cast<double>(sr) / n_fft;
+    std::vector<MomentMelFilter> filters(n_mels);
+    for (int m = 0; m < n_mels; ++m) {
+        const double f_l = hz_points[m];
+        const double f_c = hz_points[m + 1];
+        const double f_r = hz_points[m + 2];
+        const double enorm = 2.0 / (f_r - f_l);
+        int center = static_cast<int>(
+            std::lower_bound(fft_freqs.begin(), fft_freqs.end(), f_c) -
+            fft_freqs.begin());
+        center =
+            std::max(compressed[m].first, std::min(center, compressed[m].last));
+        filters[m] = {compressed[m].first,
+                      compressed[m].last,
+                      center,
+                      enorm * df / (f_c - f_l),
+                      -enorm * f_l / (f_c - f_l),
+                      -enorm * df / (f_r - f_c),
+                      enorm * f_r / (f_r - f_c)};
+    }
+    return filters;
+}
+#endif
+
 }  // namespace
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -197,8 +255,13 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
         window[i] =
             0.5 * (1.0 - std::cos(2.0 * M_PI * i / static_cast<double>(n_fft)));
 
+#if MELSPEC_MOMENTS
+    auto moment_fb =
+        build_moment_mel_filterbank(sr, n_fft, n_mels, f_min, f_max);
+#else
     auto mel_fb =
         build_compressed_mel_filterbank(sr, n_fft, n_mels, f_min, f_max);
+#endif
 
 #if !MELSPEC_FFTW_R2C
     const int half = std::max(1, n_fft / 2);
@@ -234,11 +297,18 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     std::vector<std::vector<double>> power_buffers(
         n_threads,
         std::vector<double>(static_cast<size_t>(MELSPEC_FRAME_BLOCK) * n_bins));
+#if MELSPEC_MOMENTS
+    std::vector<std::vector<double>> moment_buffers(
+        n_threads, std::vector<double>(static_cast<size_t>(2) * (n_bins + 1)));
+#endif
     FFTW_TIME("compute_setup_s", setup_start);
     auto worker = [&](int id) {
         FFTW_COUNTERS(counters);
         auto& fft_out = fft_buffers[id];
         auto& power = power_buffers[id];
+#if MELSPEC_MOMENTS
+        auto& moments = moment_buffers[id];
+#endif
         const int begin = static_cast<long long>(n_frames) * id / n_threads;
         const int end = static_cast<long long>(n_frames) * (id + 1) / n_threads;
         for (int block_begin = begin; block_begin < end;) {
@@ -302,6 +372,32 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
             // Reuse each filter across a small frame block and write adjacent
             // time frames contiguously. Every frame still used one R2C Plan.
             FFTW_START(mel_start);
+#if MELSPEC_MOMENTS
+            for (int b = 0; b < block_frames; ++b) {
+                const double* power_b =
+                    power.data() + static_cast<size_t>(b) * n_bins;
+                double* p = moments.data();
+                double* q = p + n_bins + 1;
+                p[0] = 0.0;
+                q[0] = 0.0;
+                for (int k = 0; k < n_bins; ++k) {
+                    p[k + 1] = p[k] + power_b[k];
+                    q[k + 1] = q[k] + k * power_b[k];
+                }
+                for (int m = 0; m < n_mels; ++m) {
+                    const auto& f = moment_fb[m];
+                    double acc = 0.0;
+                    if (f.first != f.last) {
+                        acc = f.a_left * (q[f.center] - q[f.first]) +
+                              f.b_left * (p[f.center] - p[f.first]) +
+                              f.a_right * (q[f.last] - q[f.center]) +
+                              f.b_right * (p[f.last] - p[f.center]);
+                    }
+                    output[static_cast<size_t>(m) * n_frames + block_begin +
+                           b] = acc;
+                }
+            }
+#else
             for (int m = 0; m < n_mels; ++m) {
                 for (int b = 0; b < block_frames; ++b) {
                     const double* power_b =
@@ -314,6 +410,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                            b] = acc;
                 }
             }
+#endif
             FFTW_ADD(counters, 3, mel_start);
             block_begin += block_frames;
         }

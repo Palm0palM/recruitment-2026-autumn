@@ -1,0 +1,4 @@
+{"case":"zero","max_abs":0,"max_rel":0,"negative":0,"nonfinite":0}
+{"case":"smooth","max_abs":1.4448164886715631e-13,"max_rel":3.8196247967603352e-12,"negative":0,"nonfinite":0}
+{"case":"dynamic_prefix","max_abs":1.8781956871647644e-05,"max_rel":67.674148881869783,"negative":168,"nonfinite":0}
+{"case":"last_bin_impulse","max_abs":0,"max_rel":0,"negative":0,"nonfinite":0}

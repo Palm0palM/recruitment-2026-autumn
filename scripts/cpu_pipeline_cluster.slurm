@@ -35,7 +35,7 @@ trap 'rm -rf -- "$scratch"' EXIT
 export TMPDIR="$scratch"
 if [ "$MODE" = profile ]; then
   sha256sum src/melspec.cpp include/fftw_support.h Makefile scripts/fftw_profile.py
-  "$PY" -u scripts/fftw_profile.py --mode r2c --planner estimate --frame-block "${PROFILE_BLOCK:-1}"
+  "$PY" -u scripts/fftw_profile.py --mode r2c --planner estimate --frame-block "${PROFILE_BLOCK:-1}" --mel-projection "${PROFILE_MEL:-sparse}"
   exit 0
 fi
 # Rebuild the fixed, verified A2 baseline on this exact node; never run V0.

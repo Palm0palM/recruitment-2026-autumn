@@ -1,0 +1,49 @@
+default b1 round=0 elapsed=2.050200 max_abs_err=0.03125 PASS
+default p1 round=0 elapsed=1.297508 max_abs_err=0.03125 PASS
+default p1 round=1 elapsed=1.701568 max_abs_err=0.03125 PASS
+default b1 round=1 elapsed=1.933337 max_abs_err=0.03125 PASS
+default b1 round=2 elapsed=1.431921 max_abs_err=0.03125 PASS
+default p1 round=2 elapsed=1.531396 max_abs_err=0.03125 PASS
+default p1 round=3 elapsed=1.776862 max_abs_err=0.03125 PASS
+default b1 round=3 elapsed=1.747070 max_abs_err=0.03125 PASS
+default b1 round=4 elapsed=1.521303 max_abs_err=0.03125 PASS
+default p1 round=4 elapsed=1.511829 max_abs_err=0.03125 PASS
+small_mels b1 round=0 elapsed=0.714532 max_abs_err=0.01171875 PASS
+small_mels p1 round=0 elapsed=1.246376 max_abs_err=0.01171875 PASS
+small_mels p1 round=1 elapsed=1.937446 max_abs_err=0.01171875 PASS
+small_mels b1 round=1 elapsed=0.766811 max_abs_err=0.01171875 PASS
+small_mels b1 round=2 elapsed=1.372247 max_abs_err=0.01171875 PASS
+small_mels p1 round=2 elapsed=0.971373 max_abs_err=0.01171875 PASS
+small_mels p1 round=3 elapsed=1.649704 max_abs_err=0.01171875 PASS
+small_mels b1 round=3 elapsed=0.798708 max_abs_err=0.01171875 PASS
+small_mels b1 round=4 elapsed=1.077384 max_abs_err=0.01171875 PASS
+small_mels p1 round=4 elapsed=1.138905 max_abs_err=0.01171875 PASS
+large_fft b1 round=0 elapsed=2.841935 max_abs_err=0.125 PASS
+large_fft p1 round=0 elapsed=2.884707 max_abs_err=0.125 PASS
+large_fft p1 round=1 elapsed=2.756464 max_abs_err=0.125 PASS
+large_fft b1 round=1 elapsed=1.996659 max_abs_err=0.125 PASS
+large_fft b1 round=2 elapsed=2.816835 max_abs_err=0.125 PASS
+large_fft p1 round=2 elapsed=2.659478 max_abs_err=0.125 PASS
+large_fft p1 round=3 elapsed=2.895844 max_abs_err=0.125 PASS
+large_fft b1 round=3 elapsed=2.362349 max_abs_err=0.125 PASS
+large_fft b1 round=4 elapsed=2.355220 max_abs_err=0.125 PASS
+large_fft p1 round=4 elapsed=3.075012 max_abs_err=0.125 PASS
+narrow_band b1 round=0 elapsed=3.486715 max_abs_err=0.0625 PASS
+narrow_band p1 round=0 elapsed=3.076668 max_abs_err=0.0625 PASS
+narrow_band p1 round=1 elapsed=3.010603 max_abs_err=0.0625 PASS
+narrow_band b1 round=1 elapsed=2.173647 max_abs_err=0.0625 PASS
+narrow_band b1 round=2 elapsed=2.064469 max_abs_err=0.0625 PASS
+narrow_band p1 round=2 elapsed=2.570551 max_abs_err=0.0625 PASS
+narrow_band p1 round=3 elapsed=3.054635 max_abs_err=0.0625 PASS
+narrow_band b1 round=3 elapsed=2.578396 max_abs_err=0.0625 PASS
+narrow_band b1 round=4 elapsed=2.557915 max_abs_err=0.0625 PASS
+narrow_band p1 round=4 elapsed=4.069433 max_abs_err=0.0625 PASS
+case | program | min_s | median_s | vs_v1
+default | b1 | 1.431921 | 1.747070 | None
+default | p1 | 1.297508 | 1.531396 | None
+small_mels | b1 | 0.714532 | 0.798708 | None
+small_mels | p1 | 0.971373 | 1.246376 | None
+large_fft | b1 | 1.996659 | 2.362349 | None
+large_fft | p1 | 2.659478 | 2.884707 | None
+narrow_band | b1 | 2.064469 | 2.557915 | None
+narrow_band | p1 | 2.570551 | 3.054635 | None

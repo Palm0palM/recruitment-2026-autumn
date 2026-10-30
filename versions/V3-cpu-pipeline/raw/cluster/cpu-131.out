@@ -1,0 +1,154 @@
+job=131 node=hepnode2 mode=bench
+50519dcd0c194c3257d0217b3225227a7ad6b7de
+Cpus_allowed_list:	0-15
+CPU(s):                                  64
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+CPU(s) scaling MHz:                      31%
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+ae64b75affb99495e194d000c81df1beba72ba45b8f9f4e9eb5d3f87855ab2e5  /home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/lib/libfftw3.a
+c82bf45065551f8659748f9c77d8c9dee6783ea524d579e951757ac78a926d05  /home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include/fftw3.h
+#define HAVE_AVX 1
+#define HAVE_AVX2 1
+#define HAVE_AVX512 1
+#define PACKAGE_VERSION "3.3.11"
+g++ -I./include -DMELSPEC_FRAME_BLOCK=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b1/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FRAME_BLOCK=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b1/main.o -c src/main.cpp
+g++  -o tmp/bin/b1 tmp/build/r2c-estimate-b1/main.o tmp/build/r2c-estimate-b1/melspec.o -pthread /home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+g++ -I./include -DMELSPEC_FRAME_BLOCK=2 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b2/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FRAME_BLOCK=2 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b2/melspec.o -c src/melspec.cpp
+g++  -o tmp/bin/b2 tmp/build/r2c-estimate-b2/main.o tmp/build/r2c-estimate-b2/melspec.o -pthread /home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+g++ -I./include -DMELSPEC_FRAME_BLOCK=4 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b4/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FRAME_BLOCK=4 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b4/melspec.o -c src/melspec.cpp
+g++  -o tmp/bin/b4 tmp/build/r2c-estimate-b4/main.o tmp/build/r2c-estimate-b4/melspec.o -pthread /home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+g++ -I./include -DMELSPEC_FRAME_BLOCK=8 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b8/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FRAME_BLOCK=8 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b8/main.o -c src/main.cpp
+g++  -o tmp/bin/b8 tmp/build/r2c-estimate-b8/main.o tmp/build/r2c-estimate-b8/melspec.o -pthread /home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+g++ -I./include -DMELSPEC_FRAME_BLOCK=16 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b16/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FRAME_BLOCK=16 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b16/main.o -c src/main.cpp
+g++  -o tmp/bin/b16 tmp/build/r2c-estimate-b16/main.o tmp/build/r2c-estimate-b16/melspec.o -pthread /home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+5df32529fcb90d6ab76ab19bd53b08634553cb982b09d2ed20c3e49ec2cf8665  src/melspec.cpp
+3bcb8265fb0157fcb8166415c5fe3e6bcf165463e8df976aeb58c861cfe228a1  include/fftw_support.h
+62243f4f6de693d25f7177e2640194ce769ad835f29457873a6ee9b82516f483  Makefile
+b43d32ec26380a411a995ada96ca65fedfee0e920ee0a0d2ccc79aab4ded53b5  tmp/build/a2.cpp
+5c3f586c2e8cd2ca22824d4aaa0fa6267148dce05d8ad44d7cca19635058c8d9  tmp/bin/a2-base
+518d97704ea18152ecc5b49d66717db8bec356099948d973c0168cd3a68544ec  tmp/bin/b1
+4b47d0ea82a9eff9168d5c6a423a0e483218b28f49aa7a7670840120c8adb8f1  tmp/bin/b16
+a963759c5a1978dc170b178d5d9701c1331e6166b6610768e1421c550794986e  tmp/bin/b2
+40bf4aa11b58a46716695da034c51fef66d6fd9aafc1483bb3460545964f328e  tmp/bin/b4
+6095f3fc6d76b44cb90bd8fb07825a8137e3dc863ef81f41b5a192f43dafbff7  tmp/bin/b8
+default a2-base round=0 elapsed=0.997651 max_abs_err=0.03125 PASS
+default b1 round=0 elapsed=0.978876 max_abs_err=0.03125 PASS
+default b2 round=0 elapsed=0.997283 max_abs_err=0.03125 PASS
+default b4 round=0 elapsed=1.000184 max_abs_err=0.03125 PASS
+default b8 round=0 elapsed=0.994628 max_abs_err=0.03125 PASS
+default b16 round=0 elapsed=1.009844 max_abs_err=0.03125 PASS
+default b1 round=1 elapsed=0.987249 max_abs_err=0.03125 PASS
+default b2 round=1 elapsed=1.014852 max_abs_err=0.03125 PASS
+default b4 round=1 elapsed=1.001300 max_abs_err=0.03125 PASS
+default b8 round=1 elapsed=1.003701 max_abs_err=0.03125 PASS
+default b16 round=1 elapsed=1.007012 max_abs_err=0.03125 PASS
+default a2-base round=1 elapsed=1.008236 max_abs_err=0.03125 PASS
+default b2 round=2 elapsed=1.006925 max_abs_err=0.03125 PASS
+default b4 round=2 elapsed=0.998144 max_abs_err=0.03125 PASS
+default b8 round=2 elapsed=0.997991 max_abs_err=0.03125 PASS
+default b16 round=2 elapsed=1.001900 max_abs_err=0.03125 PASS
+default a2-base round=2 elapsed=0.996305 max_abs_err=0.03125 PASS
+default b1 round=2 elapsed=0.986654 max_abs_err=0.03125 PASS
+small_mels a2-base round=0 elapsed=0.683865 max_abs_err=0.01171875 PASS
+small_mels b1 round=0 elapsed=0.654846 max_abs_err=0.01171875 PASS
+small_mels b2 round=0 elapsed=0.658452 max_abs_err=0.01171875 PASS
+small_mels b4 round=0 elapsed=0.663142 max_abs_err=0.01171875 PASS
+small_mels b8 round=0 elapsed=0.672154 max_abs_err=0.01171875 PASS
+small_mels b16 round=0 elapsed=0.683393 max_abs_err=0.01171875 PASS
+small_mels b1 round=1 elapsed=0.665229 max_abs_err=0.01171875 PASS
+small_mels b2 round=1 elapsed=0.660255 max_abs_err=0.01171875 PASS
+small_mels b4 round=1 elapsed=0.661890 max_abs_err=0.01171875 PASS
+small_mels b8 round=1 elapsed=0.669333 max_abs_err=0.01171875 PASS
+small_mels b16 round=1 elapsed=0.668304 max_abs_err=0.01171875 PASS
+small_mels a2-base round=1 elapsed=0.672346 max_abs_err=0.01171875 PASS
+small_mels b2 round=2 elapsed=0.668549 max_abs_err=0.01171875 PASS
+small_mels b4 round=2 elapsed=0.665342 max_abs_err=0.01171875 PASS
+small_mels b8 round=2 elapsed=0.661681 max_abs_err=0.01171875 PASS
+small_mels b16 round=2 elapsed=0.677444 max_abs_err=0.01171875 PASS
+small_mels a2-base round=2 elapsed=0.674159 max_abs_err=0.01171875 PASS
+small_mels b1 round=2 elapsed=0.666982 max_abs_err=0.01171875 PASS
+large_fft a2-base round=0 elapsed=1.361577 max_abs_err=0.125 PASS
+large_fft b1 round=0 elapsed=1.358000 max_abs_err=0.125 PASS
+large_fft b2 round=0 elapsed=1.368796 max_abs_err=0.125 PASS
+large_fft b4 round=0 elapsed=1.365065 max_abs_err=0.125 PASS
+large_fft b8 round=0 elapsed=1.377486 max_abs_err=0.125 PASS
+large_fft b16 round=0 elapsed=1.395328 max_abs_err=0.125 PASS
+large_fft b1 round=1 elapsed=1.397060 max_abs_err=0.125 PASS
+large_fft b2 round=1 elapsed=1.375985 max_abs_err=0.125 PASS
+large_fft b4 round=1 elapsed=1.362557 max_abs_err=0.125 PASS
+large_fft b8 round=1 elapsed=1.369254 max_abs_err=0.125 PASS
+large_fft b16 round=1 elapsed=1.391057 max_abs_err=0.125 PASS
+large_fft a2-base round=1 elapsed=1.387666 max_abs_err=0.125 PASS
+large_fft b2 round=2 elapsed=1.375441 max_abs_err=0.125 PASS
+large_fft b4 round=2 elapsed=1.365184 max_abs_err=0.125 PASS
+large_fft b8 round=2 elapsed=1.375139 max_abs_err=0.125 PASS
+large_fft b16 round=2 elapsed=1.387878 max_abs_err=0.125 PASS
+large_fft a2-base round=2 elapsed=1.369392 max_abs_err=0.125 PASS
+large_fft b1 round=2 elapsed=1.357686 max_abs_err=0.125 PASS
+narrow_band a2-base round=0 elapsed=1.313025 max_abs_err=0.0625 PASS
+narrow_band b1 round=0 elapsed=1.296952 max_abs_err=0.0625 PASS
+narrow_band b2 round=0 elapsed=1.319319 max_abs_err=0.0625 PASS
+narrow_band b4 round=0 elapsed=1.311275 max_abs_err=0.0625 PASS
+narrow_band b8 round=0 elapsed=1.325339 max_abs_err=0.0625 PASS
+narrow_band b16 round=0 elapsed=1.340572 max_abs_err=0.0625 PASS
+narrow_band b1 round=1 elapsed=1.303699 max_abs_err=0.0625 PASS
+narrow_band b2 round=1 elapsed=1.319094 max_abs_err=0.0625 PASS
+narrow_band b4 round=1 elapsed=1.308083 max_abs_err=0.0625 PASS
+narrow_band b8 round=1 elapsed=1.326045 max_abs_err=0.0625 PASS
+narrow_band b16 round=1 elapsed=1.326248 max_abs_err=0.0625 PASS
+narrow_band a2-base round=1 elapsed=1.315782 max_abs_err=0.0625 PASS
+narrow_band b2 round=2 elapsed=1.324233 max_abs_err=0.0625 PASS
+narrow_band b4 round=2 elapsed=1.314986 max_abs_err=0.0625 PASS
+narrow_band b8 round=2 elapsed=1.314330 max_abs_err=0.0625 PASS
+narrow_band b16 round=2 elapsed=1.331077 max_abs_err=0.0625 PASS
+narrow_band a2-base round=2 elapsed=1.321246 max_abs_err=0.0625 PASS
+narrow_band b1 round=2 elapsed=1.303558 max_abs_err=0.0625 PASS
+case | program | min_s | median_s | vs_v1
+default | a2-base | 0.996305 | 0.997651 | None
+default | b1 | 0.978876 | 0.986654 | None
+default | b2 | 0.997283 | 1.006925 | None
+default | b4 | 0.998144 | 1.000184 | None
+default | b8 | 0.994628 | 0.997991 | None
+default | b16 | 1.001900 | 1.007012 | None
+small_mels | a2-base | 0.672346 | 0.674159 | None
+small_mels | b1 | 0.654846 | 0.665229 | None
+small_mels | b2 | 0.658452 | 0.660255 | None
+small_mels | b4 | 0.661890 | 0.663142 | None
+small_mels | b8 | 0.661681 | 0.669333 | None
+small_mels | b16 | 0.668304 | 0.677444 | None
+large_fft | a2-base | 1.361577 | 1.369392 | None
+large_fft | b1 | 1.357686 | 1.358000 | None
+large_fft | b2 | 1.368796 | 1.375441 | None
+large_fft | b4 | 1.362557 | 1.365065 | None
+large_fft | b8 | 1.369254 | 1.375139 | None
+large_fft | b16 | 1.387878 | 1.391057 | None
+narrow_band | a2-base | 1.313025 | 1.315782 | None
+narrow_band | b1 | 1.296952 | 1.303558 | None
+narrow_band | b2 | 1.319094 | 1.319319 | None
+narrow_band | b4 | 1.308083 | 1.311275 | None
+narrow_band | b8 | 1.314330 | 1.325339 | None
+narrow_band | b16 | 1.326248 | 1.331077 | None
+== complete official validate.py, b1, 3 runs ==
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    0.965 | 17.464x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    0.646 | 25.057x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.349 | 24.684x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    1.289 | 25.884x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
