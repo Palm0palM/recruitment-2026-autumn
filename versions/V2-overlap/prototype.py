@@ -43,6 +43,32 @@ def assemble(leaves: np.ndarray) -> np.ndarray:
     return out
 
 
+def assemble_real_half(leaves: np.ndarray) -> np.ndarray:
+    """只执行 r=0..B/2 组 FFT，利用实信号对称恢复全部正频率。
+
+    对 1<=r<B/2：
+      A[(B-r)+m*B] = conj(A[r+(S-m-1)*B])。
+    因此必须保留低频残差组 m>S/2 的输出，不能只截取 m<=S/2。
+    """
+    b, s = leaves.shape
+    n = b * s
+    q = np.arange(s)
+    out = np.empty(n // 2 + 1, dtype=np.complex128)
+    for r in range(b // 2 + 1):
+        z = np.fft.fft(leaves[r] * np.exp(-2j * np.pi * r * q / n))
+        if r == 0:
+            # r=0 同时包含 DC(m=0) 和 Nyquist(m=S/2)。
+            out[::b] = z[:s // 2 + 1]
+        elif r == b // 2:
+            # 自配对组：k=(m+1/2)*B <= N/2，故 m<S/2。
+            out[r::b] = z[:s // 2]
+        else:
+            out[r::b] = z[:s // 2]
+            high_r = b - r
+            out[high_r::b] = np.conj(z[s - 1:s // 2 - 1:-1])
+    return out
+
+
 def hann_from_unwindowed(a: np.ndarray) -> np.ndarray:
     """由实输入的未加窗 rfft 精确得到周期 Hann 加窗后的 rfft。"""
     n = 2 * (len(a) - 1)
@@ -84,16 +110,20 @@ def correctness_tests() -> list[dict]:
         for name, y in signals.items():
             for frame in (0, 1, 7):
                 start = frame * hop
-                a = assemble(initial_leaves(y, start, n, hop))
+                leaves = initial_leaves(y, start, n, hop)
+                a = assemble(leaves)
+                half_a = assemble_real_half(leaves)
                 ref_a = np.fft.fft(y[start:start + n])[:n // 2 + 1]
-                got_h = hann_from_unwindowed(a)
+                got_h = hann_from_unwindowed(half_a)
                 ref_h = direct_hann(y, start, n)
                 ea, eh = scaled_error(a, ref_a), scaled_error(got_h, ref_h)
+                eh_half = scaled_error(half_a, ref_a)
                 # DC/Nyquist 也包含在逐元素比较中；此处单独记录边界。
                 boundary = max(abs(got_h[0] - ref_h[0]), abs(got_h[-1] - ref_h[-1]))
-                passed = ea["max_scaled"] < 1e-10 and eh["max_scaled"] < 1e-10
+                passed = (ea["max_scaled"] < 1e-10 and
+                          eh_half["max_scaled"] < 1e-10 and eh["max_scaled"] < 1e-10)
                 results.append(dict(n_fft=n, signal=name, frame=frame,
-                                    unwindowed=ea, hann=eh,
+                                    unwindowed=ea, half_unwindowed=eh_half, hann=eh,
                                     dc_nyquist_abs=float(boundary), passed=passed))
                 if not passed:
                     raise AssertionError(results[-1])
@@ -104,13 +134,18 @@ def correctness_tests() -> list[dict]:
             y = rng.integers(-32768, 32768, n + extra, dtype=np.int16).astype(float) / 32768
             frame = extra // hop
             start = frame * hop
-            a = assemble(initial_leaves(y, start, n, hop))
+            leaves = initial_leaves(y, start, n, hop)
+            a = assemble(leaves)
+            half_a = assemble_real_half(leaves)
             ref_a = np.fft.fft(y[start:start + n])[:n // 2 + 1]
-            got_h, ref_h = hann_from_unwindowed(a), direct_hann(y, start, n)
+            got_h, ref_h = hann_from_unwindowed(half_a), direct_hann(y, start, n)
             ea, eh = scaled_error(a, ref_a), scaled_error(got_h, ref_h)
-            passed = ea["max_scaled"] < 1e-10 and eh["max_scaled"] < 1e-10
+            eh_half = scaled_error(half_a, ref_a)
+            passed = (ea["max_scaled"] < 1e-10 and
+                      eh_half["max_scaled"] < 1e-10 and eh["max_scaled"] < 1e-10)
             results.append(dict(n_fft=n, signal=f"length_{len(y)}", frame=frame,
-                                input_samples=len(y), unwindowed=ea, hann=eh,
+                                input_samples=len(y), unwindowed=ea,
+                                half_unwindowed=eh_half, hann=eh,
                                 dc_nyquist_abs=float(max(abs(got_h[0] - ref_h[0]),
                                                          abs(got_h[-1] - ref_h[-1]))),
                                 passed=passed))
@@ -144,7 +179,7 @@ def drift_test(n_fft: int, hop: int, frames: int, refresh: int, seed: int = 2026
             ref = np.fft.fft(y[t * hop:t * hop + n_fft])[:n_fft // 2 + 1]
             row = {"frame": t}
             for name, leaves in (("no_refresh", plain), (f"refresh_{refresh}", guarded)):
-                got = assemble(leaves)
+                got = assemble_real_half(leaves)
                 row[name] = scaled_error(got, ref)
             records.append(row)
             print(json.dumps(row), flush=True)

@@ -1,0 +1,110 @@
+[
+  {
+    "n_fft": 8192,
+    "signal": "random",
+    "frames": 1025,
+    "variant": "full",
+    "passed": true,
+    "max_abs_diff": 0.0,
+    "identical": true
+  },
+  {
+    "n_fft": 8192,
+    "signal": "random",
+    "frames": 1025,
+    "variant": "half",
+    "passed": true,
+    "max_abs_diff": 0.0,
+    "identical": true
+  },
+  {
+    "n_fft": 8192,
+    "signal": "random",
+    "frames": 1025,
+    "variant": "half_delta",
+    "passed": true,
+    "max_abs_diff": 0.0,
+    "identical": true
+  },
+  {
+    "n_fft": 8192,
+    "signal": "low_amplitude",
+    "frames": 1025,
+    "variant": "full",
+    "passed": true,
+    "max_abs_diff": 0.0,
+    "identical": true
+  },
+  {
+    "n_fft": 8192,
+    "signal": "low_amplitude",
+    "frames": 1025,
+    "variant": "half",
+    "passed": true,
+    "max_abs_diff": 0.0,
+    "identical": true
+  },
+  {
+    "n_fft": 8192,
+    "signal": "low_amplitude",
+    "frames": 1025,
+    "variant": "half_delta",
+    "passed": true,
+    "max_abs_diff": 0.0,
+    "identical": true
+  },
+  {
+    "n_fft": 16384,
+    "signal": "random",
+    "frames": 1025,
+    "variant": "full",
+    "passed": true,
+    "max_abs_diff": 0.0,
+    "identical": true
+  },
+  {
+    "n_fft": 16384,
+    "signal": "random",
+    "frames": 1025,
+    "variant": "half",
+    "passed": true,
+    "max_abs_diff": 0.0,
+    "identical": true
+  },
+  {
+    "n_fft": 16384,
+    "signal": "random",
+    "frames": 1025,
+    "variant": "half_delta",
+    "passed": true,
+    "max_abs_diff": 0.0,
+    "identical": true
+  },
+  {
+    "n_fft": 16384,
+    "signal": "low_amplitude",
+    "frames": 1025,
+    "variant": "full",
+    "passed": true,
+    "max_abs_diff": 0.0,
+    "identical": true
+  },
+  {
+    "n_fft": 16384,
+    "signal": "low_amplitude",
+    "frames": 1025,
+    "variant": "half",
+    "passed": true,
+    "max_abs_diff": 0.0,
+    "identical": true
+  },
+  {
+    "n_fft": 16384,
+    "signal": "low_amplitude",
+    "frames": 1025,
+    "variant": "half_delta",
+    "passed": true,
+    "max_abs_diff": 0.0,
+    "identical": true
+  }
+]
