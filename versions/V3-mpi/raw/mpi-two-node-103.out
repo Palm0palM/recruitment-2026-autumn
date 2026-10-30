@@ -1,0 +1,15 @@
+job=103 nodes=hepnode[2-3]
+hepnode2
+hepnode3
+== srun-two-node ==
+rank=0 size=2 host=hepnode2 mpi=Open MPI v4.1.6, package: Open MPI root@hepnode1-tmp Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+rank=1 size=2 host=hepnode3 mpi=Open MPI v4.1.6, package: Open MPI root@hepnode1-tmp Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+exit[srun-two-node]=0
+== mpirun-two-node ==
+rank=0 size=2 host=hepnode2 mpi=Open MPI v4.1.6, package: Open MPI root@hepnode1-tmp Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+rank=1 size=2 host=hepnode3 mpi=Open MPI v4.1.6, package: Open MPI root@hepnode1-tmp Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+exit[mpirun-two-node]=0
+== mpirun-two-node-tcp ==
+rank=0 size=2 host=hepnode2 mpi=Open MPI v4.1.6, package: Open MPI root@hepnode1-tmp Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+rank=1 size=2 host=hepnode3 mpi=Open MPI v4.1.6, package: Open MPI root@hepnode1-tmp Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+exit[mpirun-two-node-tcp]=0

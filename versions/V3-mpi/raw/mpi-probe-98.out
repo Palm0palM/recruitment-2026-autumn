@@ -1,0 +1,35 @@
+job=98 node=hepnode3 tasks=2
+slurm-wlm 25.11.2
+MPI plugin types are...
+	none
+	cray_shasta
+	pmi2
+	pmix
+specific pmix plugin versions available: pmix_v5
+Open MPI v4.1.6
+
+http://www.open-mpi.org/community/help/
+g++ -I/cache/toolchain/openmpi-4.1.6/include -L/cache/toolchain/openmpi-4.1.6/lib -L/opt/toolchain/ucx/lib -Wl,-rpath -Wl,/cache/toolchain/openmpi-4.1.6/lib -Wl,-rpath -Wl,/opt/toolchain/ucx/lib -Wl,--enable-new-dtags -lmpi
+wrapper-prefix: prefix=/opt/toolchain/openmpi-4.1.6
+compiler: g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+== compile MPI probe inside allocation ==
+	libmpi.so.40 => /cache/toolchain/openmpi-4.1.6/lib/libmpi.so.40 (0x00007de2154eb000)
+	libopen-rte.so.40 => /cache/toolchain/openmpi-4.1.6/lib/libopen-rte.so.40 (0x00007de215198000)
+	libopen-pal.so.40 => /cache/toolchain/openmpi-4.1.6/lib/libopen-pal.so.40 (0x00007de214ead000)
+== singleton ==
+rank=0 size=1 host=hepnode3 mpi=Open MPI v4.1.6, package: Open MPI root@hepnode1-tmp Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+exit[singleton]=0
+== srun-default ==
+exit[srun-default]=1
+== srun-pmix ==
+rank=0 size=2 host=hepnode3 mpi=Open MPI v4.1.6, package: Open MPI root@hepnode1-tmp Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+rank=1 size=2 host=hepnode3 mpi=Open MPI v4.1.6, package: Open MPI root@hepnode1-tmp Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+exit[srun-pmix]=0
+== mpirun-default ==
+rank=0 size=2 host=hepnode3 mpi=Open MPI v4.1.6, package: Open MPI root@hepnode1-tmp Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+rank=1 size=2 host=hepnode3 mpi=Open MPI v4.1.6, package: Open MPI root@hepnode1-tmp Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+exit[mpirun-default]=0
+== mpirun-tcp ==
+rank=0 size=2 host=hepnode3 mpi=Open MPI v4.1.6, package: Open MPI root@hepnode1-tmp Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+rank=1 size=2 host=hepnode3 mpi=Open MPI v4.1.6, package: Open MPI root@hepnode1-tmp Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+exit[mpirun-tcp]=0
