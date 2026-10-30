@@ -1,0 +1,1 @@
+{"program": "tmp/fftw-lab/orchestrator/precision-1", "passed_valid": 39, "max_abs_err_vs_v1": 0.125, "rejected_short": 3}

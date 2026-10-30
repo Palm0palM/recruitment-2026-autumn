@@ -1,0 +1,146 @@
+[
+  {
+    "case": "default",
+    "program": "a2",
+    "times": [
+      0.8760136189994228
+    ],
+    "max_abs_err": 0.03125,
+    "passed": true,
+    "min_s": 0.8760136189994228,
+    "median_s": 0.8760136189994228,
+    "vs_v1": null
+  },
+  {
+    "case": "default",
+    "program": "float-dp",
+    "times": [
+      0.8018124549998902
+    ],
+    "max_abs_err": 0.078125,
+    "passed": true,
+    "min_s": 0.8018124549998902,
+    "median_s": 0.8018124549998902,
+    "vs_v1": null
+  },
+  {
+    "case": "default",
+    "program": "float-fp",
+    "times": [
+      0.7458073500001774
+    ],
+    "max_abs_err": 0.078125,
+    "passed": true,
+    "min_s": 0.7458073500001774,
+    "median_s": 0.7458073500001774,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "a2",
+    "times": [
+      0.5440048789987486
+    ],
+    "max_abs_err": 0.01171875,
+    "passed": true,
+    "min_s": 0.5440048789987486,
+    "median_s": 0.5440048789987486,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "float-dp",
+    "times": [
+      0.48245481199955975
+    ],
+    "max_abs_err": 0.015625,
+    "passed": true,
+    "min_s": 0.48245481199955975,
+    "median_s": 0.48245481199955975,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "float-fp",
+    "times": [
+      0.4719733109996014
+    ],
+    "max_abs_err": 0.01953125,
+    "passed": true,
+    "min_s": 0.4719733109996014,
+    "median_s": 0.4719733109996014,
+    "vs_v1": null
+  },
+  {
+    "case": "large_fft",
+    "program": "a2",
+    "times": [
+      1.1988218379992759
+    ],
+    "max_abs_err": 0.125,
+    "passed": true,
+    "min_s": 1.1988218379992759,
+    "median_s": 1.1988218379992759,
+    "vs_v1": null
+  },
+  {
+    "case": "large_fft",
+    "program": "float-dp",
+    "times": [
+      1.4330076599999302
+    ],
+    "max_abs_err": 0.15625,
+    "passed": true,
+    "min_s": 1.4330076599999302,
+    "median_s": 1.4330076599999302,
+    "vs_v1": null
+  },
+  {
+    "case": "large_fft",
+    "program": "float-fp",
+    "times": [
+      0.9489001109996025
+    ],
+    "max_abs_err": 0.15625,
+    "passed": true,
+    "min_s": 0.9489001109996025,
+    "median_s": 0.9489001109996025,
+    "vs_v1": null
+  },
+  {
+    "case": "narrow_band",
+    "program": "a2",
+    "times": [
+      1.1314056479986903
+    ],
+    "max_abs_err": 0.0625,
+    "passed": true,
+    "min_s": 1.1314056479986903,
+    "median_s": 1.1314056479986903,
+    "vs_v1": null
+  },
+  {
+    "case": "narrow_band",
+    "program": "float-dp",
+    "times": [
+      0.9183592179997504
+    ],
+    "max_abs_err": 0.125,
+    "passed": true,
+    "min_s": 0.9183592179997504,
+    "median_s": 0.9183592179997504,
+    "vs_v1": null
+  },
+  {
+    "case": "narrow_band",
+    "program": "float-fp",
+    "times": [
+      0.931066136001391
+    ],
+    "max_abs_err": 0.125,
+    "passed": true,
+    "min_s": 0.931066136001391,
+    "median_s": 0.931066136001391,
+    "vs_v1": null
+  }
+]

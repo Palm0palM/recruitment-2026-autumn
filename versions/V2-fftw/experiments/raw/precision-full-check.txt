@@ -1,0 +1,25 @@
+default a2 round=0 elapsed=0.876014 max_abs_err=0.03125 PASS
+default float-dp round=0 elapsed=0.801812 max_abs_err=0.078125 PASS
+default float-fp round=0 elapsed=0.745807 max_abs_err=0.078125 PASS
+small_mels a2 round=0 elapsed=0.544005 max_abs_err=0.01171875 PASS
+small_mels float-dp round=0 elapsed=0.482455 max_abs_err=0.015625 PASS
+small_mels float-fp round=0 elapsed=0.471973 max_abs_err=0.01953125 PASS
+large_fft a2 round=0 elapsed=1.198822 max_abs_err=0.125 PASS
+large_fft float-dp round=0 elapsed=1.433008 max_abs_err=0.15625 PASS
+large_fft float-fp round=0 elapsed=0.948900 max_abs_err=0.15625 PASS
+narrow_band a2 round=0 elapsed=1.131406 max_abs_err=0.0625 PASS
+narrow_band float-dp round=0 elapsed=0.918359 max_abs_err=0.125 PASS
+narrow_band float-fp round=0 elapsed=0.931066 max_abs_err=0.125 PASS
+case | program | min_s | median_s | vs_v1
+default | a2 | 0.876014 | 0.876014 | None
+default | float-dp | 0.801812 | 0.801812 | None
+default | float-fp | 0.745807 | 0.745807 | None
+small_mels | a2 | 0.544005 | 0.544005 | None
+small_mels | float-dp | 0.482455 | 0.482455 | None
+small_mels | float-fp | 0.471973 | 0.471973 | None
+large_fft | a2 | 1.198822 | 1.198822 | None
+large_fft | float-dp | 1.433008 | 1.433008 | None
+large_fft | float-fp | 0.948900 | 0.948900 | None
+narrow_band | a2 | 1.131406 | 1.131406 | None
+narrow_band | float-dp | 0.918359 | 0.918359 | None
+narrow_band | float-fp | 0.931066 | 0.931066 | None

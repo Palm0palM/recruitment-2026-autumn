@@ -1,0 +1,5 @@
+{"program": "/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/batch-1", "cases": 122, "max_abs_err": 0.0, "rejected": 9}
+{"program": "/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/batch-4", "cases": 122, "max_abs_err": 0.0, "rejected": 9}
+{"program": "/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/batch-8", "cases": 122, "max_abs_err": 0.0, "rejected": 9}
+{"program": "/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/batch-16", "cases": 122, "max_abs_err": 0.0, "rejected": 9}
+{"program": "/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/batch-32", "cases": 122, "max_abs_err": 0.0, "rejected": 9}

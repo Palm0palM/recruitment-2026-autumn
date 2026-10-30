@@ -1,0 +1,33 @@
+default a2 round=0 elapsed=0.719250 max_abs_err=0.03125 PASS
+default wisdom round=0 elapsed=0.745878 max_abs_err=0.03125 PASS
+default wisdom round=1 elapsed=0.748671 max_abs_err=0.03125 PASS
+default a2 round=1 elapsed=0.848375 max_abs_err=0.03125 PASS
+default a2 round=2 elapsed=0.809948 max_abs_err=0.03125 PASS
+default wisdom round=2 elapsed=0.717856 max_abs_err=0.03125 PASS
+small_mels a2 round=0 elapsed=0.505201 max_abs_err=0.01171875 PASS
+small_mels wisdom round=0 elapsed=0.468200 max_abs_err=0.01171875 PASS
+small_mels wisdom round=1 elapsed=0.498127 max_abs_err=0.01171875 PASS
+small_mels a2 round=1 elapsed=0.504719 max_abs_err=0.01171875 PASS
+small_mels a2 round=2 elapsed=0.530981 max_abs_err=0.01171875 PASS
+small_mels wisdom round=2 elapsed=0.487893 max_abs_err=0.01171875 PASS
+large_fft a2 round=0 elapsed=1.230270 max_abs_err=0.125 PASS
+large_fft wisdom round=0 elapsed=1.136900 max_abs_err=0.125 PASS
+large_fft wisdom round=1 elapsed=1.144040 max_abs_err=0.125 PASS
+large_fft a2 round=1 elapsed=1.177959 max_abs_err=0.125 PASS
+large_fft a2 round=2 elapsed=1.176125 max_abs_err=0.125 PASS
+large_fft wisdom round=2 elapsed=1.107680 max_abs_err=0.125 PASS
+narrow_band a2 round=0 elapsed=1.116986 max_abs_err=0.0625 PASS
+narrow_band wisdom round=0 elapsed=1.171977 max_abs_err=0.0625 PASS
+narrow_band wisdom round=1 elapsed=1.153060 max_abs_err=0.0625 PASS
+narrow_band a2 round=1 elapsed=1.128593 max_abs_err=0.0625 PASS
+narrow_band a2 round=2 elapsed=1.173227 max_abs_err=0.0625 PASS
+narrow_band wisdom round=2 elapsed=1.149296 max_abs_err=0.0625 PASS
+case | program | min_s | median_s | vs_v1
+default | a2 | 0.719250 | 0.809948 | None
+default | wisdom | 0.717856 | 0.745878 | None
+small_mels | a2 | 0.504719 | 0.505201 | None
+small_mels | wisdom | 0.468200 | 0.487893 | None
+large_fft | a2 | 1.176125 | 1.177959 | None
+large_fft | wisdom | 1.107680 | 1.136900 | None
+narrow_band | a2 | 1.116986 | 1.128593 | None
+narrow_band | wisdom | 1.149296 | 1.153060 | None

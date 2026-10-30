@@ -1,0 +1,7 @@
+output=tmp/fftw-lab/orchestrator/wisdom-measure/r2c-1.wisdom transform=r2c size=1 planner=measure precision=double planning_s=1.3764e-05 wisdom_bytes=167
+output=tmp/fftw-lab/orchestrator/wisdom-measure/r2c-2.wisdom transform=r2c size=2 planner=measure precision=double planning_s=1.2414e-05 wisdom_bytes=161
+output=tmp/fftw-lab/orchestrator/wisdom-measure/r2c-8.wisdom transform=r2c size=8 planner=measure precision=double planning_s=1.411e-05 wisdom_bytes=161
+output=tmp/fftw-lab/orchestrator/wisdom-measure/r2c-256.wisdom transform=r2c size=256 planner=measure precision=double planning_s=0.060278 wisdom_bytes=447
+output=tmp/fftw-lab/orchestrator/wisdom-measure/r2c-2048.wisdom transform=r2c size=2048 planner=measure precision=double planning_s=0.164611 wisdom_bytes=542
+output=tmp/fftw-lab/orchestrator/wisdom-measure/r2c-8192.wisdom transform=r2c size=8192 planner=measure precision=double planning_s=0.271715 wisdom_bytes=641
+output=tmp/fftw-lab/orchestrator/wisdom-measure/r2c-16384.wisdom transform=r2c size=16384 planner=measure precision=double planning_s=0.425205 wisdom_bytes=835

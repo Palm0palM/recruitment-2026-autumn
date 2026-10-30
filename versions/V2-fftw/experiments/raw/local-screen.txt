@@ -1,0 +1,129 @@
+default a2 round=0 elapsed=0.916382 max_abs_err=0.03125 PASS
+default float-dp round=0 elapsed=0.733796 max_abs_err=0.078125 PASS
+default float-fp round=0 elapsed=0.745061 max_abs_err=0.078125 PASS
+default batch-1 round=0 elapsed=0.749340 max_abs_err=0.03125 PASS
+default batch-4 round=0 elapsed=1.022473 max_abs_err=0.03125 PASS
+default batch-8 round=0 elapsed=0.879917 max_abs_err=0.03125 PASS
+default batch-16 round=0 elapsed=1.071755 max_abs_err=0.03125 PASS
+default batch-32 round=0 elapsed=1.812164 max_abs_err=0.03125 PASS
+default float-dp round=1 elapsed=0.751457 max_abs_err=0.078125 PASS
+default float-fp round=1 elapsed=0.852499 max_abs_err=0.078125 PASS
+default batch-1 round=1 elapsed=0.811107 max_abs_err=0.03125 PASS
+default batch-4 round=1 elapsed=0.816709 max_abs_err=0.03125 PASS
+default batch-8 round=1 elapsed=0.837773 max_abs_err=0.03125 PASS
+default batch-16 round=1 elapsed=0.959423 max_abs_err=0.03125 PASS
+default batch-32 round=1 elapsed=1.474074 max_abs_err=0.03125 PASS
+default a2 round=1 elapsed=0.789507 max_abs_err=0.03125 PASS
+default float-fp round=2 elapsed=0.696965 max_abs_err=0.078125 PASS
+default batch-1 round=2 elapsed=0.753685 max_abs_err=0.03125 PASS
+default batch-4 round=2 elapsed=0.797069 max_abs_err=0.03125 PASS
+default batch-8 round=2 elapsed=0.801190 max_abs_err=0.03125 PASS
+default batch-16 round=2 elapsed=0.953141 max_abs_err=0.03125 PASS
+default batch-32 round=2 elapsed=1.382762 max_abs_err=0.03125 PASS
+default a2 round=2 elapsed=0.746481 max_abs_err=0.03125 PASS
+default float-dp round=2 elapsed=0.750433 max_abs_err=0.078125 PASS
+small_mels a2 round=0 elapsed=0.518517 max_abs_err=0.01171875 PASS
+small_mels float-dp round=0 elapsed=0.463855 max_abs_err=0.015625 PASS
+small_mels float-fp round=0 elapsed=0.471109 max_abs_err=0.01953125 PASS
+small_mels batch-1 round=0 elapsed=0.515850 max_abs_err=0.01171875 PASS
+small_mels batch-4 round=0 elapsed=0.503184 max_abs_err=0.01171875 PASS
+small_mels batch-8 round=0 elapsed=0.547390 max_abs_err=0.01171875 PASS
+small_mels batch-16 round=0 elapsed=0.629545 max_abs_err=0.01171875 PASS
+small_mels batch-32 round=0 elapsed=1.073997 max_abs_err=0.01171875 PASS
+small_mels float-dp round=1 elapsed=0.459222 max_abs_err=0.015625 PASS
+small_mels float-fp round=1 elapsed=0.450861 max_abs_err=0.01953125 PASS
+small_mels batch-1 round=1 elapsed=0.500428 max_abs_err=0.01171875 PASS
+small_mels batch-4 round=1 elapsed=0.563047 max_abs_err=0.01171875 PASS
+small_mels batch-8 round=1 elapsed=0.565435 max_abs_err=0.01171875 PASS
+small_mels batch-16 round=1 elapsed=0.656413 max_abs_err=0.01171875 PASS
+small_mels batch-32 round=1 elapsed=1.239964 max_abs_err=0.01171875 PASS
+small_mels a2 round=1 elapsed=0.543896 max_abs_err=0.01171875 PASS
+small_mels float-fp round=2 elapsed=0.513836 max_abs_err=0.01953125 PASS
+small_mels batch-1 round=2 elapsed=0.521482 max_abs_err=0.01171875 PASS
+small_mels batch-4 round=2 elapsed=0.550739 max_abs_err=0.01171875 PASS
+small_mels batch-8 round=2 elapsed=0.567219 max_abs_err=0.01171875 PASS
+small_mels batch-16 round=2 elapsed=0.706934 max_abs_err=0.01171875 PASS
+small_mels batch-32 round=2 elapsed=1.324906 max_abs_err=0.01171875 PASS
+small_mels a2 round=2 elapsed=0.537149 max_abs_err=0.01171875 PASS
+small_mels float-dp round=2 elapsed=0.533222 max_abs_err=0.015625 PASS
+large_fft a2 round=0 elapsed=1.398231 max_abs_err=0.125 PASS
+large_fft float-dp round=0 elapsed=1.116631 max_abs_err=0.15625 PASS
+large_fft float-fp round=0 elapsed=1.013362 max_abs_err=0.15625 PASS
+large_fft batch-1 round=0 elapsed=1.332401 max_abs_err=0.125 PASS
+large_fft batch-4 round=0 elapsed=1.375398 max_abs_err=0.125 PASS
+large_fft batch-8 round=0 elapsed=1.600535 max_abs_err=0.125 PASS
+large_fft batch-16 round=0 elapsed=2.710614 max_abs_err=0.125 PASS
+large_fft batch-32 round=0 elapsed=3.079984 max_abs_err=0.125 PASS
+large_fft float-dp round=1 elapsed=1.061807 max_abs_err=0.15625 PASS
+large_fft float-fp round=1 elapsed=0.987655 max_abs_err=0.15625 PASS
+large_fft batch-1 round=1 elapsed=1.289477 max_abs_err=0.125 PASS
+large_fft batch-4 round=1 elapsed=1.299988 max_abs_err=0.125 PASS
+large_fft batch-8 round=1 elapsed=1.605052 max_abs_err=0.125 PASS
+large_fft batch-16 round=1 elapsed=2.520271 max_abs_err=0.125 PASS
+large_fft batch-32 round=1 elapsed=2.921099 max_abs_err=0.125 PASS
+large_fft a2 round=1 elapsed=1.238359 max_abs_err=0.125 PASS
+large_fft float-fp round=2 elapsed=1.010590 max_abs_err=0.15625 PASS
+large_fft batch-1 round=2 elapsed=1.205489 max_abs_err=0.125 PASS
+large_fft batch-4 round=2 elapsed=1.332874 max_abs_err=0.125 PASS
+large_fft batch-8 round=2 elapsed=1.917170 max_abs_err=0.125 PASS
+large_fft batch-16 round=2 elapsed=2.355667 max_abs_err=0.125 PASS
+large_fft batch-32 round=2 elapsed=3.000095 max_abs_err=0.125 PASS
+large_fft a2 round=2 elapsed=1.165261 max_abs_err=0.125 PASS
+large_fft float-dp round=2 elapsed=0.988954 max_abs_err=0.15625 PASS
+narrow_band a2 round=0 elapsed=1.111591 max_abs_err=0.0625 PASS
+narrow_band float-dp round=0 elapsed=0.938429 max_abs_err=0.125 PASS
+narrow_band float-fp round=0 elapsed=0.939784 max_abs_err=0.125 PASS
+narrow_band batch-1 round=0 elapsed=1.159535 max_abs_err=0.0625 PASS
+narrow_band batch-4 round=0 elapsed=1.257596 max_abs_err=0.0625 PASS
+narrow_band batch-8 round=0 elapsed=1.494694 max_abs_err=0.0625 PASS
+narrow_band batch-16 round=0 elapsed=2.315596 max_abs_err=0.0625 PASS
+narrow_band batch-32 round=0 elapsed=3.018945 max_abs_err=0.0625 PASS
+narrow_band float-dp round=1 elapsed=0.983380 max_abs_err=0.125 PASS
+narrow_band float-fp round=1 elapsed=0.978993 max_abs_err=0.125 PASS
+narrow_band batch-1 round=1 elapsed=1.201377 max_abs_err=0.0625 PASS
+narrow_band batch-4 round=1 elapsed=1.250608 max_abs_err=0.0625 PASS
+narrow_band batch-8 round=1 elapsed=1.430591 max_abs_err=0.0625 PASS
+narrow_band batch-16 round=1 elapsed=2.506480 max_abs_err=0.0625 PASS
+narrow_band batch-32 round=1 elapsed=2.915004 max_abs_err=0.0625 PASS
+narrow_band a2 round=1 elapsed=1.329862 max_abs_err=0.0625 PASS
+narrow_band float-fp round=2 elapsed=1.084330 max_abs_err=0.125 PASS
+narrow_band batch-1 round=2 elapsed=1.338756 max_abs_err=0.0625 PASS
+narrow_band batch-4 round=2 elapsed=1.477388 max_abs_err=0.0625 PASS
+narrow_band batch-8 round=2 elapsed=1.700489 max_abs_err=0.0625 PASS
+narrow_band batch-16 round=2 elapsed=2.820920 max_abs_err=0.0625 PASS
+narrow_band batch-32 round=2 elapsed=2.989012 max_abs_err=0.0625 PASS
+narrow_band a2 round=2 elapsed=1.264243 max_abs_err=0.0625 PASS
+narrow_band float-dp round=2 elapsed=1.024269 max_abs_err=0.125 PASS
+case | program | min_s | median_s | vs_v1
+default | a2 | 0.746481 | 0.789507 | None
+default | float-dp | 0.733796 | 0.750433 | None
+default | float-fp | 0.696965 | 0.745061 | None
+default | batch-1 | 0.749340 | 0.753685 | None
+default | batch-4 | 0.797069 | 0.816709 | None
+default | batch-8 | 0.801190 | 0.837773 | None
+default | batch-16 | 0.953141 | 0.959423 | None
+default | batch-32 | 1.382762 | 1.474074 | None
+small_mels | a2 | 0.518517 | 0.537149 | None
+small_mels | float-dp | 0.459222 | 0.463855 | None
+small_mels | float-fp | 0.450861 | 0.471109 | None
+small_mels | batch-1 | 0.500428 | 0.515850 | None
+small_mels | batch-4 | 0.503184 | 0.550739 | None
+small_mels | batch-8 | 0.547390 | 0.565435 | None
+small_mels | batch-16 | 0.629545 | 0.656413 | None
+small_mels | batch-32 | 1.073997 | 1.239964 | None
+large_fft | a2 | 1.165261 | 1.238359 | None
+large_fft | float-dp | 0.988954 | 1.061807 | None
+large_fft | float-fp | 0.987655 | 1.010590 | None
+large_fft | batch-1 | 1.205489 | 1.289477 | None
+large_fft | batch-4 | 1.299988 | 1.332874 | None
+large_fft | batch-8 | 1.600535 | 1.605052 | None
+large_fft | batch-16 | 2.355667 | 2.520271 | None
+large_fft | batch-32 | 2.921099 | 3.000095 | None
+narrow_band | a2 | 1.111591 | 1.264243 | None
+narrow_band | float-dp | 0.938429 | 0.983380 | None
+narrow_band | float-fp | 0.939784 | 0.978993 | None
+narrow_band | batch-1 | 1.159535 | 1.201377 | None
+narrow_band | batch-4 | 1.250608 | 1.257596 | None
+narrow_band | batch-8 | 1.430591 | 1.494694 | None
+narrow_band | batch-16 | 2.315596 | 2.506480 | None
+narrow_band | batch-32 | 2.915004 | 2.989012 | None

@@ -52,7 +52,12 @@ then ISA research launched without CPU work. Resolved-rule evaluations are in `a
 they are configuration checks, not a claim of OS sandboxing or destructive runtime penetration tests.
 Parent rebuilt the A2 baseline in its own orchestrator directory, SHA-256 unchanged:
 `97594fa7f89161aae8e41bb086dee0736ec2839cf83f59556947188c0f57720c`.
-No new candidate has yet been compiled, verified, benchmarked or integrated in this round. A2 remains best validated.
+All four workers returned prototypes/research without executing shell or CPU work. Parent-only local
+compilation and tests are now recorded in REVIEW.md and raw/: precision/batch passed initial correctness,
+wisdom passed after APIC fingerprint correction, and controlled local screening is underway/completed
+in stages. No candidate has yet entered a new cluster run or production integration. A2 remains the best
+formally cluster-validated version. Actual per-worker models and nonzero reasoning usage are preserved
+in session-verification.json (not just configuration declarations).
 
 Security note: resolved model-list API responses include credentials. An early diagnostic printed such a field;
 the retained tmp file was sanitized, no credentials are added to configuration/Git, and key rotation was recommended.

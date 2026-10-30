@@ -1,0 +1,97 @@
+[
+  {
+    "role": "probe",
+    "session": "ses_e749e9920ffdjN7upUwUV7hLVO",
+    "model": {
+      "id": "moonshotai/kimi-k3.1-pro-highspeed",
+      "providerID": "ppio",
+      "variant": "high"
+    },
+    "agent": "fftw-probe",
+    "tokens": {
+      "input": 310,
+      "output": 652,
+      "reasoning": 741,
+      "cache": {
+        "read": 1024,
+        "write": 7680
+      }
+    }
+  },
+  {
+    "role": "wisdom",
+    "session": "ses_e749dabfcffdQjt9ttwQWC9jYB",
+    "model": {
+      "id": "moonshotai/kimi-k3.1-pro-highspeed",
+      "providerID": "ppio",
+      "variant": "high"
+    },
+    "agent": "fftw-wisdom",
+    "tokens": {
+      "input": 2735,
+      "output": 21940,
+      "reasoning": 17139,
+      "cache": {
+        "read": 1523968,
+        "write": 79870
+      }
+    }
+  },
+  {
+    "role": "batch",
+    "session": "ses_e749d5f8dffebYfSQpPKO9wtiT",
+    "model": {
+      "id": "moonshotai/kimi-k3.1-pro-highspeed",
+      "providerID": "ppio",
+      "variant": "high"
+    },
+    "agent": "fftw-batch",
+    "tokens": {
+      "input": 787,
+      "output": 9201,
+      "reasoning": 10032,
+      "cache": {
+        "read": 113920,
+        "write": 40704
+      }
+    }
+  },
+  {
+    "role": "precision",
+    "session": "ses_e749ccc45ffdmpoPyXiy2S45M5",
+    "model": {
+      "id": "moonshotai/kimi-k3.1-pro-highspeed",
+      "providerID": "ppio",
+      "variant": "high"
+    },
+    "agent": "fftw-precision",
+    "tokens": {
+      "input": 810,
+      "output": 7190,
+      "reasoning": 6285,
+      "cache": {
+        "read": 62464,
+        "write": 26112
+      }
+    }
+  },
+  {
+    "role": "isa",
+    "session": "ses_e749aea9efferIvVtrAJ2Tx5xj",
+    "model": {
+      "id": "moonshotai/kimi-k3.1-pro-highspeed",
+      "providerID": "ppio",
+      "variant": "high"
+    },
+    "agent": "fftw-isa",
+    "tokens": {
+      "input": 950,
+      "output": 10943,
+      "reasoning": 11602,
+      "cache": {
+        "read": 140800,
+        "write": 30464
+      }
+    }
+  }
+]

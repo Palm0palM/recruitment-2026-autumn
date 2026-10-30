@@ -1,0 +1,37 @@
+[
+  {
+    "case": "loaded",
+    "passed": true,
+    "diagnostic": "FFTW wisdom status=loaded transform=r2c size=8192 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE"
+  },
+  {
+    "case": "wrong-library",
+    "passed": true,
+    "diagnostic": "FFTW wisdom status=fallback planner=ESTIMATE reason=library-id-mismatch"
+  },
+  {
+    "case": "missing-id",
+    "passed": true,
+    "diagnostic": "FFTW wisdom status=fallback planner=ESTIMATE reason=library-id-required"
+  },
+  {
+    "case": "wrong-cpu",
+    "passed": true,
+    "diagnostic": "FFTW wisdom status=fallback planner=ESTIMATE reason=cpu-mismatch"
+  },
+  {
+    "case": "wrong-size",
+    "passed": true,
+    "diagnostic": "FFTW wisdom status=fallback planner=ESTIMATE reason=transform-size-mismatch"
+  },
+  {
+    "case": "truncated",
+    "passed": true,
+    "diagnostic": "FFTW wisdom status=fallback planner=ESTIMATE reason=envelope-header-missing"
+  },
+  {
+    "case": "checksum",
+    "passed": true,
+    "diagnostic": "FFTW wisdom status=fallback planner=ESTIMATE reason=payload-checksum-mismatch"
+  }
+]

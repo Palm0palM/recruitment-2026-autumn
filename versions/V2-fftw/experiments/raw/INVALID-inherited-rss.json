@@ -1,0 +1,134 @@
+{
+  "valid_memory_measurement": false,
+  "reason": "posix_spawn/wait4 inherits large parent RSS; do not use these peaks",
+  "rows": [
+    {
+      "case": "default",
+      "program": "a2",
+      "maxrss_kib": 785004,
+      "user_s": 4.718239,
+      "system_s": 0.469041,
+      "passed": true
+    },
+    {
+      "case": "default",
+      "program": "float-dp",
+      "maxrss_kib": 1000464,
+      "user_s": 4.420395,
+      "system_s": 0.37299499999999997,
+      "passed": true
+    },
+    {
+      "case": "default",
+      "program": "float-fp",
+      "maxrss_kib": 1000652,
+      "user_s": 4.368778,
+      "system_s": 0.407699,
+      "passed": true
+    },
+    {
+      "case": "default",
+      "program": "batch-1",
+      "maxrss_kib": 1000652,
+      "user_s": 5.116997,
+      "system_s": 0.367784,
+      "passed": true
+    },
+    {
+      "case": "default",
+      "program": "batch-4",
+      "maxrss_kib": 1000652,
+      "user_s": 5.238511,
+      "system_s": 0.37532,
+      "passed": true
+    },
+    {
+      "case": "default",
+      "program": "batch-8",
+      "maxrss_kib": 1000652,
+      "user_s": 5.492363,
+      "system_s": 0.397709,
+      "passed": true
+    },
+    {
+      "case": "default",
+      "program": "batch-16",
+      "maxrss_kib": 1000652,
+      "user_s": 6.942534,
+      "system_s": 0.449059,
+      "passed": true
+    },
+    {
+      "case": "default",
+      "program": "batch-32",
+      "maxrss_kib": 1000652,
+      "user_s": 12.718611,
+      "system_s": 0.564564,
+      "passed": true
+    },
+    {
+      "case": "large_fft",
+      "program": "a2",
+      "maxrss_kib": 1000652,
+      "user_s": 11.412241999999999,
+      "system_s": 0.41114399999999995,
+      "passed": true
+    },
+    {
+      "case": "large_fft",
+      "program": "float-dp",
+      "maxrss_kib": 1000652,
+      "user_s": 7.881199,
+      "system_s": 0.37851999999999997,
+      "passed": true
+    },
+    {
+      "case": "large_fft",
+      "program": "float-fp",
+      "maxrss_kib": 1000652,
+      "user_s": 8.096452,
+      "system_s": 0.429477,
+      "passed": true
+    },
+    {
+      "case": "large_fft",
+      "program": "batch-1",
+      "maxrss_kib": 1000652,
+      "user_s": 11.228266,
+      "system_s": 0.603154,
+      "passed": true
+    },
+    {
+      "case": "large_fft",
+      "program": "batch-4",
+      "maxrss_kib": 1000652,
+      "user_s": 15.317583,
+      "system_s": 0.56702,
+      "passed": true
+    },
+    {
+      "case": "large_fft",
+      "program": "batch-8",
+      "maxrss_kib": 1000652,
+      "user_s": 18.333709,
+      "system_s": 0.493569,
+      "passed": true
+    },
+    {
+      "case": "large_fft",
+      "program": "batch-16",
+      "maxrss_kib": 1000652,
+      "user_s": 34.227122,
+      "system_s": 0.716166,
+      "passed": true
+    },
+    {
+      "case": "large_fft",
+      "program": "batch-32",
+      "maxrss_kib": 1000652,
+      "user_s": 39.796966,
+      "system_s": 0.7235079999999999,
+      "passed": true
+    }
+  ]
+}

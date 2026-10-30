@@ -1,0 +1,146 @@
+[
+  {
+    "case": "default",
+    "program": "a2",
+    "proc_vmhwm_kib": 785004,
+    "inherited_wait4_maxrss_kib": 785004,
+    "user_s": 4.7806429999999995,
+    "system_s": 0.460211,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "float-dp",
+    "proc_vmhwm_kib": 784476,
+    "inherited_wait4_maxrss_kib": 1000256,
+    "user_s": 4.427302,
+    "system_s": 0.38221299999999997,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "float-fp",
+    "proc_vmhwm_kib": 784476,
+    "inherited_wait4_maxrss_kib": 1000456,
+    "user_s": 4.284685,
+    "system_s": 0.384828,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "batch-1",
+    "proc_vmhwm_kib": 785084,
+    "inherited_wait4_maxrss_kib": 1000464,
+    "user_s": 4.690622,
+    "system_s": 0.378919,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "batch-4",
+    "proc_vmhwm_kib": 782284,
+    "inherited_wait4_maxrss_kib": 1000472,
+    "user_s": 4.930096,
+    "system_s": 0.443468,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "batch-8",
+    "proc_vmhwm_kib": 783676,
+    "inherited_wait4_maxrss_kib": 1000480,
+    "user_s": 5.29187,
+    "system_s": 0.370033,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "batch-16",
+    "proc_vmhwm_kib": 782284,
+    "inherited_wait4_maxrss_kib": 1000480,
+    "user_s": 10.579179,
+    "system_s": 0.459964,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "batch-32",
+    "proc_vmhwm_kib": 783480,
+    "inherited_wait4_maxrss_kib": 1000480,
+    "user_s": 13.893798,
+    "system_s": 0.458607,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "a2",
+    "proc_vmhwm_kib": 791852,
+    "inherited_wait4_maxrss_kib": 1000480,
+    "user_s": 10.799047,
+    "system_s": 0.402622,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "float-dp",
+    "proc_vmhwm_kib": 792684,
+    "inherited_wait4_maxrss_kib": 1000480,
+    "user_s": 7.582461,
+    "system_s": 0.351557,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "float-fp",
+    "proc_vmhwm_kib": 792716,
+    "inherited_wait4_maxrss_kib": 1000480,
+    "user_s": 7.467091,
+    "system_s": 0.359378,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "batch-1",
+    "proc_vmhwm_kib": 792836,
+    "inherited_wait4_maxrss_kib": 1000480,
+    "user_s": 10.807601,
+    "system_s": 0.394962,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "batch-4",
+    "proc_vmhwm_kib": 791684,
+    "inherited_wait4_maxrss_kib": 1001152,
+    "user_s": 13.018624,
+    "system_s": 0.419182,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "batch-8",
+    "proc_vmhwm_kib": 790724,
+    "inherited_wait4_maxrss_kib": 1001172,
+    "user_s": 16.537869,
+    "system_s": 0.427118,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "batch-16",
+    "proc_vmhwm_kib": 791648,
+    "inherited_wait4_maxrss_kib": 1001180,
+    "user_s": 30.174616,
+    "system_s": 0.44815699999999997,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "batch-32",
+    "proc_vmhwm_kib": 790412,
+    "inherited_wait4_maxrss_kib": 1001188,
+    "user_s": 43.632136,
+    "system_s": 0.5683779999999999,
+    "passed": true
+  }
+]
