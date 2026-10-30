@@ -34,13 +34,38 @@
 #ifndef MELSPEC_CUDA_ASYNC_OUTPUT
 #define MELSPEC_CUDA_ASYNC_OUTPUT 0
 #endif
+#ifndef MELSPEC_CUDA_RESIZE_THREAD
+#define MELSPEC_CUDA_RESIZE_THREAD 0
+#endif
 #ifndef MELSPEC_CUDA_STAGING_ROWS
 #define MELSPEC_CUDA_STAGING_ROWS 16
 #endif
 
-#if MELSPEC_CUDA_OVERLAP_INIT
+#if MELSPEC_CUDA_OVERLAP_INIT || MELSPEC_CUDA_RESIZE_THREAD
 #include <exception>
 #include <thread>
+#endif
+#if MELSPEC_CUDA_RESIZE_THREAD
+struct OutputResize {
+    std::exception_ptr error;
+    std::thread thread;
+    OutputResize(std::vector<double>& output, size_t elements) : thread([this, &output, elements] {
+        try {
+            output.resize(elements);
+        } catch (...) {
+            error = std::current_exception();
+        }
+    }) {}
+    ~OutputResize() {
+        if (thread.joinable()) thread.join();
+    }
+    void finish() {
+        if (thread.joinable()) thread.join();
+        if (error) std::rethrow_exception(error);
+    }
+};
+#endif
+#if MELSPEC_CUDA_OVERLAP_INIT
 struct ContextInit {
     std::exception_ptr error;  // initialize before the worker may write it
     std::thread thread;
@@ -90,6 +115,8 @@ static_assert(MELSPEC_CUDA_BATCH > 0, "CUDA_BATCH must be positive");
 static_assert(MELSPEC_CUDA_STAGING_ROWS > 0, "CUDA_STAGING_ROWS must be positive");
 static_assert(!(MELSPEC_CUDA_PINNED && MELSPEC_CUDA_ASYNC_OUTPUT),
               "Use either full pinned output or async chunked output, not both");
+static_assert(!(MELSPEC_CUDA_RESIZE_THREAD && MELSPEC_CUDA_DEFER_RESIZE),
+              "Use either resize thread or deferred resize, not both");
 
 void cuda_check(cudaError_t status, const char* operation) {
     if (status != cudaSuccess)
@@ -290,7 +317,7 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
     double plan_ms = 0, gather_ms = 0, fft_ms = 0, mel_ms = 0, pipeline_sync_ms = 0;
     double d2h_ms = 0, host_convert_ms = 0;
     double y_convert_ms = 0, window_fb_ms = 0, output_resize_ms = 0, staging_alloc_ms = 0;
-    double async_output_total_ms = 0;
+    double async_output_total_ms = 0, resize_wait_ms = 0;
 #endif
     PROFILE_POINT(total_start);
     PROFILE_POINT(phase);
@@ -308,13 +335,15 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
         std::fill(output.begin(), output.end(), 0.0);
         return;
     }
-#if MELSPEC_CUDA_OVERLAP_INIT
-    ContextInit context_init;
-#endif
-#if !MELSPEC_CUDA_DEFER_RESIZE
+#if MELSPEC_CUDA_RESIZE_THREAD
+    OutputResize output_resize(output, output_elements);
+#elif !MELSPEC_CUDA_DEFER_RESIZE
     PROFILE_POINT(phase);
     output.resize(output_elements);
     PROFILE_ADD(output_resize_ms, phase);
+#endif
+#if MELSPEC_CUDA_OVERLAP_INIT
+    ContextInit context_init;
 #endif
 
     PROFILE_POINT(phase);
@@ -437,7 +466,11 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
                    "cudaEventRecord D2H");
     };
     for (int i = 0; i < std::min(2, chunks); ++i) enqueue(i);
-#if MELSPEC_CUDA_DEFER_RESIZE
+#if MELSPEC_CUDA_RESIZE_THREAD
+    PROFILE_POINT(phase);
+    output_resize.finish();
+    PROFILE_ADD(resize_wait_ms, phase);
+#elif MELSPEC_CUDA_DEFER_RESIZE
     PROFILE_POINT(phase);
     output.resize(output_elements);
     PROFILE_ADD(output_resize_ms, phase);
@@ -466,7 +499,11 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
     cuda_check(cudaStreamSynchronize(streams[1].get()), "cudaStreamSynchronize output");
     PROFILE_ADD(async_output_total_ms, async_start);
 #else
-#if MELSPEC_CUDA_DEFER_RESIZE
+#if MELSPEC_CUDA_RESIZE_THREAD
+    PROFILE_POINT(phase);
+    output_resize.finish();
+    PROFILE_ADD(resize_wait_ms, phase);
+#elif MELSPEC_CUDA_DEFER_RESIZE
     PROFILE_POINT(phase);
     output.resize(output_elements);
     PROFILE_ADD(output_resize_ms, phase);
@@ -498,10 +535,11 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
     }
 #endif
 #endif
-    PROFILE_PRINT("cuda_profile precision=%d batch=%d fused=%d defer_resize=%d async_output=%d staging_rows=%d y_convert_ms=%.3f window_fb_ms=%.3f output_resize_ms=%.3f device_alloc_ms=%.3f h2d_ms=%.3f batch_alloc_ms=%.3f plan_ms=%.3f gather_ms=%.3f fft_ms=%.3f mel_ms=%.3f pipeline_sync_ms=%.3f staging_alloc_ms=%.3f d2h_ms=%.3f host_convert_ms=%.3f async_output_total_ms=%.3f compute_total_ms=%.3f\n",
+    PROFILE_PRINT("cuda_profile precision=%d batch=%d fused=%d defer_resize=%d async_output=%d resize_thread=%d staging_rows=%d y_convert_ms=%.3f window_fb_ms=%.3f output_resize_ms=%.3f resize_wait_ms=%.3f device_alloc_ms=%.3f h2d_ms=%.3f batch_alloc_ms=%.3f plan_ms=%.3f gather_ms=%.3f fft_ms=%.3f mel_ms=%.3f pipeline_sync_ms=%.3f staging_alloc_ms=%.3f d2h_ms=%.3f host_convert_ms=%.3f async_output_total_ms=%.3f compute_total_ms=%.3f\n",
                   MELSPEC_CUDA_PRECISION, MELSPEC_CUDA_BATCH, MELSPEC_CUDA_FUSED,
                   MELSPEC_CUDA_DEFER_RESIZE, MELSPEC_CUDA_ASYNC_OUTPUT,
-                  MELSPEC_CUDA_STAGING_ROWS, y_convert_ms, window_fb_ms, output_resize_ms,
+                  MELSPEC_CUDA_RESIZE_THREAD, MELSPEC_CUDA_STAGING_ROWS,
+                  y_convert_ms, window_fb_ms, output_resize_ms, resize_wait_ms,
                   device_alloc_ms, h2d_ms, batch_alloc_ms, plan_ms, gather_ms, fft_ms,
                   mel_ms, pipeline_sync_ms, staging_alloc_ms, d2h_ms, host_convert_ms,
                   async_output_total_ms, profile_elapsed(total_start));

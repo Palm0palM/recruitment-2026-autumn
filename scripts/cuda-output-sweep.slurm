@@ -23,11 +23,12 @@ PY="$HOME/venv/bin/python"
 git rev-parse HEAD
 grep Cpus_allowed_list /proc/self/status
 programs=()
-for spec in stable:0:0:16 defer:1:0:16 async:0:1:16 async_defer:1:1:16 async_r8:1:1:8 async_r32:1:1:32; do
-  IFS=: read -r name defer async rows <<< "$spec"
+for spec in stable:0:0:0:16 resize_thread:0:0:1:16 async:0:1:0:16 async_resize:0:1:1:16; do
+  IFS=: read -r name defer async resize rows <<< "$spec"
   make -B -j4 CUDA=1 CUDA_HOME="$CUDA_HOME" CUDA_ARCH=89 CUDA_PRECISION=32 \
     CUDA_BATCH=512 CUDA_FUSED=1 CUDA_OVERLAP_INIT=1 CUDA_PINNED=0 CUDA_PROFILE=0 \
-    CUDA_DEFER_RESIZE="$defer" CUDA_ASYNC_OUTPUT="$async" CUDA_STAGING_ROWS="$rows" \
+    CUDA_DEFER_RESIZE="$defer" CUDA_ASYNC_OUTPUT="$async" \
+    CUDA_RESIZE_THREAD="$resize" CUDA_STAGING_ROWS="$rows" \
     EXEC="tmp/bin/cuda-$name"
   programs+=("$name=tmp/bin/cuda-$name")
 done

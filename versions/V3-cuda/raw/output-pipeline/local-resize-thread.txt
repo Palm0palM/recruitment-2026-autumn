@@ -1,0 +1,96 @@
+default stable round=0 elapsed=0.972288 max_abs_err=0.09375 PASS
+default resize_thread round=0 elapsed=1.103427 max_abs_err=0.09375 PASS
+default async round=0 elapsed=0.969705 max_abs_err=0.09375 PASS
+default async_resize round=0 elapsed=0.905074 max_abs_err=0.09375 PASS
+default resize_thread round=1 elapsed=1.037865 max_abs_err=0.09375 PASS
+default async round=1 elapsed=0.877615 max_abs_err=0.09375 PASS
+default async_resize round=1 elapsed=0.925939 max_abs_err=0.09375 PASS
+default stable round=1 elapsed=1.112205 max_abs_err=0.09375 PASS
+default async round=2 elapsed=0.949047 max_abs_err=0.09375 PASS
+default async_resize round=2 elapsed=0.998846 max_abs_err=0.09375 PASS
+default stable round=2 elapsed=1.117324 max_abs_err=0.09375 PASS
+default resize_thread round=2 elapsed=1.087291 max_abs_err=0.09375 PASS
+default async_resize round=3 elapsed=0.989174 max_abs_err=0.09375 PASS
+default stable round=3 elapsed=1.114435 max_abs_err=0.09375 PASS
+default resize_thread round=3 elapsed=1.268340 max_abs_err=0.09375 PASS
+default async round=3 elapsed=1.050868 max_abs_err=0.09375 PASS
+default stable round=4 elapsed=0.909111 max_abs_err=0.09375 PASS
+default resize_thread round=4 elapsed=0.946592 max_abs_err=0.09375 PASS
+default async round=4 elapsed=0.890786 max_abs_err=0.09375 PASS
+default async_resize round=4 elapsed=1.000613 max_abs_err=0.09375 PASS
+small_mels stable round=0 elapsed=0.604102 max_abs_err=0.0234375 PASS
+small_mels resize_thread round=0 elapsed=0.638962 max_abs_err=0.0234375 PASS
+small_mels async round=0 elapsed=0.654037 max_abs_err=0.0234375 PASS
+small_mels async_resize round=0 elapsed=0.667640 max_abs_err=0.0234375 PASS
+small_mels resize_thread round=1 elapsed=0.633432 max_abs_err=0.0234375 PASS
+small_mels async round=1 elapsed=0.636658 max_abs_err=0.0234375 PASS
+small_mels async_resize round=1 elapsed=0.668682 max_abs_err=0.0234375 PASS
+small_mels stable round=1 elapsed=0.662077 max_abs_err=0.0234375 PASS
+small_mels async round=2 elapsed=0.643504 max_abs_err=0.0234375 PASS
+small_mels async_resize round=2 elapsed=0.608398 max_abs_err=0.0234375 PASS
+small_mels stable round=2 elapsed=0.574861 max_abs_err=0.0234375 PASS
+small_mels resize_thread round=2 elapsed=0.616299 max_abs_err=0.0234375 PASS
+small_mels async_resize round=3 elapsed=0.637677 max_abs_err=0.0234375 PASS
+small_mels stable round=3 elapsed=0.709376 max_abs_err=0.0234375 PASS
+small_mels resize_thread round=3 elapsed=0.694027 max_abs_err=0.0234375 PASS
+small_mels async round=3 elapsed=0.565501 max_abs_err=0.0234375 PASS
+small_mels stable round=4 elapsed=0.623350 max_abs_err=0.0234375 PASS
+small_mels resize_thread round=4 elapsed=0.610097 max_abs_err=0.0234375 PASS
+small_mels async round=4 elapsed=0.565067 max_abs_err=0.0234375 PASS
+small_mels async_resize round=4 elapsed=0.659831 max_abs_err=0.0234375 PASS
+large_fft stable round=0 elapsed=1.151015 max_abs_err=0.21875 PASS
+large_fft resize_thread round=0 elapsed=1.146515 max_abs_err=0.21875 PASS
+large_fft async round=0 elapsed=0.964430 max_abs_err=0.21875 PASS
+large_fft async_resize round=0 elapsed=1.032760 max_abs_err=0.21875 PASS
+large_fft resize_thread round=1 elapsed=1.515627 max_abs_err=0.21875 PASS
+large_fft async round=1 elapsed=1.072257 max_abs_err=0.21875 PASS
+large_fft async_resize round=1 elapsed=1.006631 max_abs_err=0.21875 PASS
+large_fft stable round=1 elapsed=1.016157 max_abs_err=0.21875 PASS
+large_fft async round=2 elapsed=0.950041 max_abs_err=0.21875 PASS
+large_fft async_resize round=2 elapsed=0.957627 max_abs_err=0.21875 PASS
+large_fft stable round=2 elapsed=1.435477 max_abs_err=0.21875 PASS
+large_fft resize_thread round=2 elapsed=0.974430 max_abs_err=0.21875 PASS
+large_fft async_resize round=3 elapsed=0.853872 max_abs_err=0.21875 PASS
+large_fft stable round=3 elapsed=1.043962 max_abs_err=0.21875 PASS
+large_fft resize_thread round=3 elapsed=1.299177 max_abs_err=0.21875 PASS
+large_fft async round=3 elapsed=0.860388 max_abs_err=0.21875 PASS
+large_fft stable round=4 elapsed=1.073632 max_abs_err=0.21875 PASS
+large_fft resize_thread round=4 elapsed=0.916310 max_abs_err=0.21875 PASS
+large_fft async round=4 elapsed=0.931028 max_abs_err=0.21875 PASS
+large_fft async_resize round=4 elapsed=0.934217 max_abs_err=0.21875 PASS
+narrow_band stable round=0 elapsed=1.018738 max_abs_err=0.15625 PASS
+narrow_band resize_thread round=0 elapsed=1.287710 max_abs_err=0.15625 PASS
+narrow_band async round=0 elapsed=0.968444 max_abs_err=0.15625 PASS
+narrow_band async_resize round=0 elapsed=0.896746 max_abs_err=0.15625 PASS
+narrow_band resize_thread round=1 elapsed=1.029415 max_abs_err=0.15625 PASS
+narrow_band async round=1 elapsed=0.923906 max_abs_err=0.15625 PASS
+narrow_band async_resize round=1 elapsed=0.919197 max_abs_err=0.15625 PASS
+narrow_band stable round=1 elapsed=1.194706 max_abs_err=0.15625 PASS
+narrow_band async round=2 elapsed=1.107758 max_abs_err=0.15625 PASS
+narrow_band async_resize round=2 elapsed=1.044867 max_abs_err=0.15625 PASS
+narrow_band stable round=2 elapsed=2.770874 max_abs_err=0.15625 PASS
+narrow_band resize_thread round=2 elapsed=1.128246 max_abs_err=0.15625 PASS
+narrow_band async_resize round=3 elapsed=1.014528 max_abs_err=0.15625 PASS
+narrow_band stable round=3 elapsed=1.032111 max_abs_err=0.15625 PASS
+narrow_band resize_thread round=3 elapsed=1.100342 max_abs_err=0.15625 PASS
+narrow_band async round=3 elapsed=1.004048 max_abs_err=0.15625 PASS
+narrow_band stable round=4 elapsed=1.017344 max_abs_err=0.15625 PASS
+narrow_band resize_thread round=4 elapsed=1.076185 max_abs_err=0.15625 PASS
+narrow_band async round=4 elapsed=1.001548 max_abs_err=0.15625 PASS
+narrow_band async_resize round=4 elapsed=1.007548 max_abs_err=0.15625 PASS
+default | stable | min=0.909111 | median=1.112205 | vs_a2=None
+default | resize_thread | min=0.946592 | median=1.087291 | vs_a2=None
+default | async | min=0.877615 | median=0.949047 | vs_a2=None
+default | async_resize | min=0.905074 | median=0.989174 | vs_a2=None
+small_mels | stable | min=0.574861 | median=0.623350 | vs_a2=None
+small_mels | resize_thread | min=0.610097 | median=0.633432 | vs_a2=None
+small_mels | async | min=0.565067 | median=0.636658 | vs_a2=None
+small_mels | async_resize | min=0.608398 | median=0.659831 | vs_a2=None
+large_fft | stable | min=1.016157 | median=1.073632 | vs_a2=None
+large_fft | resize_thread | min=0.916310 | median=1.146515 | vs_a2=None
+large_fft | async | min=0.860388 | median=0.950041 | vs_a2=None
+large_fft | async_resize | min=0.853872 | median=0.957627 | vs_a2=None
+narrow_band | stable | min=1.017344 | median=1.032111 | vs_a2=None
+narrow_band | resize_thread | min=1.029415 | median=1.100342 | vs_a2=None
+narrow_band | async | min=0.923906 | median=1.001548 | vs_a2=None
+narrow_band | async_resize | min=0.896746 | median=1.007548 | vs_a2=None
