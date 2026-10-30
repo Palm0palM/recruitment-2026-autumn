@@ -29,8 +29,9 @@ double mel_to_hz(double m) {
 struct FFTPlan {
     std::vector<int> reversed;
     std::vector<std::complex<double>> twiddles;
+    std::vector<std::complex<double>> twiddles3;
 
-    explicit FFTPlan(int n) : reversed(n), twiddles(n) {
+    explicit FFTPlan(int n) : reversed(n), twiddles(n), twiddles3(n) {
         for (int i = 1, j = 0; i < n; ++i) {
             int bit = n >> 1;
             for (; j & bit; bit >>= 1) j ^= bit;
@@ -47,18 +48,41 @@ struct FFTPlan {
                 w *= wlen;
             }
         }
+        for (int len = 4; len <= n; len <<= 1) {
+            for (int j = 0; j < len / 4; ++j)
+                twiddles3[len / 4 + j] =
+                    twiddles[len / 2 + j] * twiddles[len / 2 + 2 * j];
+        }
     }
 
     void apply_permuted(std::vector<std::complex<double>>& a) const {
         const int n = static_cast<int>(a.size());
-        for (int len = 2; len <= n; len <<= 1) {
+        int len = 4;
+        if ((n & (n - 1)) == 0 && (n & 0xaaaaaaaa) != 0) {
+            for (int i = 0; i < n; i += 2) {
+                auto u = a[i];
+                a[i] = u + a[i + 1];
+                a[i + 1] = u - a[i + 1];
+            }
+            len = 8;
+        }
+        for (; len <= n; len <<= 2) {
+            const int quarter = len / 4;
             for (int i = 0; i < n; i += len) {
-                for (int j = 0; j < len / 2; ++j) {
-                    std::complex<double> u = a[i + j];
-                    std::complex<double> v =
-                        a[i + j + len / 2] * twiddles[len / 2 + j];
-                    a[i + j] = u + v;
-                    a[i + j + len / 2] = u - v;
+                for (int j = 0; j < quarter; ++j) {
+                    auto x0 = a[i + j];
+                    auto x1 = a[i + j + quarter] * twiddles[len / 2 + 2 * j];
+                    auto x2 = a[i + j + 2 * quarter] * twiddles[len / 2 + j];
+                    auto x3 = a[i + j + 3 * quarter] * twiddles3[quarter + j];
+                    auto sum01 = x0 + x1;
+                    auto dif01 = x0 - x1;
+                    auto sum23 = x2 + x3;
+                    auto dif23 = x2 - x3;
+                    std::complex<double> rotated(dif23.imag(), -dif23.real());
+                    a[i + j] = sum01 + sum23;
+                    a[i + j + quarter] = dif01 + rotated;
+                    a[i + j + 2 * quarter] = sum01 - sum23;
+                    a[i + j + 3 * quarter] = dif01 - rotated;
                 }
             }
         }
