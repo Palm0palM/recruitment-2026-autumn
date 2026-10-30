@@ -513,8 +513,10 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
     PROFILE_ADD(plan_ms, phase);
 #endif
 #if MELSPEC_CUDA_GPU_INPUT_CONVERT
+    PROFILE_POINT(phase);
     copy_to_device(device_y_input.get(), y.data(),
                    y.size() * sizeof(double));
+    PROFILE_ADD(h2d_ms, phase);
     PROFILE_POINT(phase);
     convert_input_kernel<<<blocks_for(y.size()), 256>>>(
         device_y_input.get(), device_y.get(), y.size());
