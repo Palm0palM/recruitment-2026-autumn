@@ -152,6 +152,66 @@ struct FFTPlan {
                 }
                 continue;
             }
+            if (quarter == 2 && n >= 32) {
+                for (int i = 0; i < n; i += 32) {
+                    alignas(32) double out_re[2][4][4], out_im[2][4][4];
+                    for (int j = 0; j < 2; ++j) {
+                        auto ar = _mm256_setr_pd(re[i + j], re[i + 8 + j],
+                                                 re[i + 16 + j], re[i + 24 + j]);
+                        auto ai = _mm256_setr_pd(im[i + j], im[i + 8 + j],
+                                                 im[i + 16 + j], im[i + 24 + j]);
+                        auto br = _mm256_setr_pd(re[i + 2 + j], re[i + 10 + j],
+                                                 re[i + 18 + j], re[i + 26 + j]);
+                        auto bi = _mm256_setr_pd(im[i + 2 + j], im[i + 10 + j],
+                                                 im[i + 18 + j], im[i + 26 + j]);
+                        auto cr = _mm256_setr_pd(re[i + 4 + j], re[i + 12 + j],
+                                                 re[i + 20 + j], re[i + 28 + j]);
+                        auto ci = _mm256_setr_pd(im[i + 4 + j], im[i + 12 + j],
+                                                 im[i + 20 + j], im[i + 28 + j]);
+                        auto dr = _mm256_setr_pd(re[i + 6 + j], re[i + 14 + j],
+                                                 re[i + 22 + j], re[i + 30 + j]);
+                        auto di = _mm256_setr_pd(im[i + 6 + j], im[i + 14 + j],
+                                                 im[i + 22 + j], im[i + 30 + j]);
+                        auto w1r = _mm256_set1_pd(stage.w1re[j]);
+                        auto w1i = _mm256_set1_pd(stage.w1im[j]);
+                        auto w2r = _mm256_set1_pd(stage.w2re[j]);
+                        auto w2i = _mm256_set1_pd(stage.w2im[j]);
+                        auto w3r = _mm256_set1_pd(stage.w3re[j]);
+                        auto w3i = _mm256_set1_pd(stage.w3im[j]);
+                        auto br2 = _mm256_fmsub_pd(br, w2r, _mm256_mul_pd(bi, w2i));
+                        auto bi2 = _mm256_fmadd_pd(br, w2i, _mm256_mul_pd(bi, w2r));
+                        auto cr1 = _mm256_fmsub_pd(cr, w1r, _mm256_mul_pd(ci, w1i));
+                        auto ci1 = _mm256_fmadd_pd(cr, w1i, _mm256_mul_pd(ci, w1r));
+                        auto dr3 = _mm256_fmsub_pd(dr, w3r, _mm256_mul_pd(di, w3i));
+                        auto di3 = _mm256_fmadd_pd(dr, w3i, _mm256_mul_pd(di, w3r));
+                        auto sum01r = _mm256_add_pd(ar, br2);
+                        auto sum01i = _mm256_add_pd(ai, bi2);
+                        auto dif01r = _mm256_sub_pd(ar, br2);
+                        auto dif01i = _mm256_sub_pd(ai, bi2);
+                        auto sum23r = _mm256_add_pd(cr1, dr3);
+                        auto sum23i = _mm256_add_pd(ci1, di3);
+                        auto dif23r = _mm256_sub_pd(cr1, dr3);
+                        auto dif23i = _mm256_sub_pd(ci1, di3);
+                        _mm256_store_pd(out_re[j][0], _mm256_add_pd(sum01r, sum23r));
+                        _mm256_store_pd(out_im[j][0], _mm256_add_pd(sum01i, sum23i));
+                        _mm256_store_pd(out_re[j][1], _mm256_add_pd(dif01r, dif23i));
+                        _mm256_store_pd(out_im[j][1], _mm256_sub_pd(dif01i, dif23r));
+                        _mm256_store_pd(out_re[j][2], _mm256_sub_pd(sum01r, sum23r));
+                        _mm256_store_pd(out_im[j][2], _mm256_sub_pd(sum01i, sum23i));
+                        _mm256_store_pd(out_re[j][3], _mm256_sub_pd(dif01r, dif23i));
+                        _mm256_store_pd(out_im[j][3], _mm256_add_pd(dif01i, dif23r));
+                    }
+                    for (int block = 0; block < 4; ++block) {
+                        for (int j = 0; j < 2; ++j) {
+                            for (int part = 0; part < 4; ++part) {
+                                re[i + 8 * block + j + 2 * part] = out_re[j][part][block];
+                                im[i + 8 * block + j + 2 * part] = out_im[j][part][block];
+                            }
+                        }
+                    }
+                }
+                continue;
+            }
 #endif
             for (int i = 0; i < n; i += len) {
                 int j = 0;
