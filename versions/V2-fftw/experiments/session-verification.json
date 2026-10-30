@@ -28,12 +28,12 @@
     },
     "agent": "fftw-wisdom",
     "tokens": {
-      "input": 2735,
-      "output": 21940,
-      "reasoning": 17139,
+      "input": 3818,
+      "output": 36486,
+      "reasoning": 21059,
       "cache": {
-        "read": 1523968,
-        "write": 79870
+        "read": 2473472,
+        "write": 198910
       }
     }
   },
@@ -47,12 +47,12 @@
     },
     "agent": "fftw-batch",
     "tokens": {
-      "input": 787,
-      "output": 9201,
-      "reasoning": 10032,
+      "input": 1306,
+      "output": 16349,
+      "reasoning": 14649,
       "cache": {
-        "read": 113920,
-        "write": 40704
+        "read": 377088,
+        "write": 98560
       }
     }
   },
@@ -66,12 +66,12 @@
     },
     "agent": "fftw-precision",
     "tokens": {
-      "input": 810,
-      "output": 7190,
-      "reasoning": 6285,
+      "input": 1256,
+      "output": 13599,
+      "reasoning": 12808,
       "cache": {
-        "read": 62464,
-        "write": 26112
+        "read": 177664,
+        "write": 66048
       }
     }
   },

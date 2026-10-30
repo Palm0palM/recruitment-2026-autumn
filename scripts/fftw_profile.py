@@ -23,10 +23,18 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--mode", choices=("c2c", "r2c"), default="r2c")
     ap.add_argument("--planner", choices=("estimate", "measure"), default="estimate")
+    ap.add_argument("--precision", choices=("double", "float"), default="double")
+    ap.add_argument("--power", choices=("double", "float"), default="float")
+    ap.add_argument("--wisdom", action="store_true")
     ap.add_argument("--cases", nargs="+", default=["default", "small_mels", "large_fft", "narrow_band"])
     ap.add_argument("--build-only", action="store_true")
     args = ap.parse_args()
-    work = ROOT / "tmp/fftw-profile" / f"{args.mode}-{args.planner}"
+    if args.precision == "float" and args.mode != "r2c":
+        ap.error("float requires R2C")
+    if args.wisdom and (args.precision != "float" or args.planner != "estimate"):
+        ap.error("wisdom requires float ESTIMATE (offline rigor is selected by environment)")
+    tag = f"{args.mode}-{args.planner}-{args.precision}-{args.power}-wisdom{int(args.wisdom)}"
+    work = ROOT / "tmp/fftw-profile" / tag
     work.mkdir(parents=True, exist_ok=True)
     driver = '#include <chrono>\n' + (ROOT / "src/main.cpp").read_text()
     for call, name in [("read_pcm(a.input_pcm, y);", "read"),
@@ -37,13 +45,17 @@ def main():
     (work / "main.cpp").write_text(driver)
     binary = work / "melspec-profile"
     cmd = ["g++", "-std=c++17", "-O3", "-march=native", "-pthread", "-g", "-DMELSPEC_PROFILE=1",
-           f"-DMELSPEC_FFTW_R2C={int(args.mode == 'r2c')}", f"-DMELSPEC_FFTW_MEASURE={int(args.planner == 'measure')}",
-           "-I" + str(ROOT / "include"), str(work / "main.cpp"), str(ROOT / "src/melspec.cpp"), "-o", str(binary)]
+            f"-DMELSPEC_FFTW_R2C={int(args.mode == 'r2c')}", f"-DMELSPEC_FFTW_MEASURE={int(args.planner == 'measure')}",
+            f"-DMELSPEC_FFTW_FLOAT={int(args.precision == 'float')}", f"-DMELSPEC_FFTWF_DOUBLE_POWER={int(args.power == 'double')}",
+            "-I" + str(ROOT / "include"), str(work / "main.cpp"), str(ROOT / "src/melspec.cpp"), "-o", str(binary)]
+    if args.wisdom:
+        cmd += ["-DMELSPEC_FFTWF_WISDOM=1", str(ROOT / "src/fftw_float_wisdom.cpp")]
+    library = "fftw3f" if args.precision == "float" else "fftw3"
     if os.environ.get("FFTW_PREFIX"):
         prefix = Path(os.environ["FFTW_PREFIX"])
-        cmd += ["-I" + str(prefix / "include"), str(prefix / "lib/libfftw3.a"), "-lm"]
+        cmd += ["-I" + str(prefix / "include"), str(prefix / f"lib/lib{library}.a"), "-lm"]
     else:
-        cmd += ["-lfftw3"]
+        cmd += [f"-l{library}"]
     print("+ " + " ".join(cmd), flush=True)
     subprocess.run(cmd, check=True)
     if args.build_only:
@@ -56,7 +68,7 @@ def main():
         out = Path(td) / "out.bin"
         for case in selected:
             flags = [s for k, v in case["params"].items() for s in (f"--{k}", str(v))]
-            print(f"== {args.mode}-{args.planner} {case['name']} ==", flush=True)
+            print(f"== {tag} {case['name']} ==", flush=True)
             time_tool = shutil.which("time")
             command = ([time_tool, "-v"] if time_tool else []) + [str(binary), str(data / "audio.pcm"), str(out), *flags]
             start = time.perf_counter()
@@ -66,6 +78,8 @@ def main():
             if not time_tool:
                 print("GNU time unavailable: RSS/user/system statistics NOT collected")
             print(result.stderr, flush=True)
+            if args.wisdom and ("status=loaded" not in result.stderr or "status=fallback" in result.stderr):
+                raise SystemExit("Profile expected loaded wisdom; do not attribute a fallback to the candidate")
             totals = dict.fromkeys(("pack_s", "fft_s", "power_s", "mel_s"), 0.0)
             for line in result.stderr.splitlines():
                 if line.startswith("worker="):
