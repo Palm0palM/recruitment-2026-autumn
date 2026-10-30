@@ -1,0 +1,169 @@
+c20d3e62e53d046039f5a8016c20c988d3ed9ced
+Cpus_allowed_list:	0-3,16-19,32-35,48-51
+/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/bin/nvcc -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_DEFER_RESIZE=0 -DMELSPEC_CUDA_ASYNC_OUTPUT=0 -DMELSPEC_CUDA_RESIZE_THREAD=0 -DMELSPEC_CUDA_STAGING_ROWS=16 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -O3 -arch=sm_89 -Xcompiler -O3,-march=native,-pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a0-t0-r16/melspec_cuda.o -c src/melspec_cuda.cu
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_DEFER_RESIZE=0 -DMELSPEC_CUDA_ASYNC_OUTPUT=0 -DMELSPEC_CUDA_RESIZE_THREAD=0 -DMELSPEC_CUDA_STAGING_ROWS=16 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a0-t0-r16/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_DEFER_RESIZE=0 -DMELSPEC_CUDA_ASYNC_OUTPUT=0 -DMELSPEC_CUDA_RESIZE_THREAD=0 -DMELSPEC_CUDA_STAGING_ROWS=16 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a0-t0-r16/melspec.o -c src/melspec.cpp
+g++  -o tmp/bin/cuda-stable tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a0-t0-r16/main.o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a0-t0-r16/melspec.o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a0-t0-r16/melspec_cuda.o -pthread -L/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -Wl,-rpath,/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -lcufft -lcudart
+/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/bin/nvcc -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_DEFER_RESIZE=0 -DMELSPEC_CUDA_ASYNC_OUTPUT=0 -DMELSPEC_CUDA_RESIZE_THREAD=1 -DMELSPEC_CUDA_STAGING_ROWS=16 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -O3 -arch=sm_89 -Xcompiler -O3,-march=native,-pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a0-t1-r16/melspec_cuda.o -c src/melspec_cuda.cu
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_DEFER_RESIZE=0 -DMELSPEC_CUDA_ASYNC_OUTPUT=0 -DMELSPEC_CUDA_RESIZE_THREAD=1 -DMELSPEC_CUDA_STAGING_ROWS=16 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a0-t1-r16/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_DEFER_RESIZE=0 -DMELSPEC_CUDA_ASYNC_OUTPUT=0 -DMELSPEC_CUDA_RESIZE_THREAD=1 -DMELSPEC_CUDA_STAGING_ROWS=16 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a0-t1-r16/main.o -c src/main.cpp
+g++  -o tmp/bin/cuda-resize_thread tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a0-t1-r16/main.o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a0-t1-r16/melspec.o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a0-t1-r16/melspec_cuda.o -pthread -L/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -Wl,-rpath,/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -lcufft -lcudart
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_DEFER_RESIZE=0 -DMELSPEC_CUDA_ASYNC_OUTPUT=1 -DMELSPEC_CUDA_RESIZE_THREAD=0 -DMELSPEC_CUDA_STAGING_ROWS=16 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a1-t0-r16/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_DEFER_RESIZE=0 -DMELSPEC_CUDA_ASYNC_OUTPUT=1 -DMELSPEC_CUDA_RESIZE_THREAD=0 -DMELSPEC_CUDA_STAGING_ROWS=16 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a1-t0-r16/melspec.o -c src/melspec.cpp
+/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/bin/nvcc -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_DEFER_RESIZE=0 -DMELSPEC_CUDA_ASYNC_OUTPUT=1 -DMELSPEC_CUDA_RESIZE_THREAD=0 -DMELSPEC_CUDA_STAGING_ROWS=16 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -O3 -arch=sm_89 -Xcompiler -O3,-march=native,-pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a1-t0-r16/melspec_cuda.o -c src/melspec_cuda.cu
+g++  -o tmp/bin/cuda-async tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a1-t0-r16/main.o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a1-t0-r16/melspec.o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a1-t0-r16/melspec_cuda.o -pthread -L/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -Wl,-rpath,/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -lcufft -lcudart
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_DEFER_RESIZE=0 -DMELSPEC_CUDA_ASYNC_OUTPUT=1 -DMELSPEC_CUDA_RESIZE_THREAD=1 -DMELSPEC_CUDA_STAGING_ROWS=16 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a1-t1-r16/main.o -c src/main.cpp
+/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/bin/nvcc -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_DEFER_RESIZE=0 -DMELSPEC_CUDA_ASYNC_OUTPUT=1 -DMELSPEC_CUDA_RESIZE_THREAD=1 -DMELSPEC_CUDA_STAGING_ROWS=16 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -O3 -arch=sm_89 -Xcompiler -O3,-march=native,-pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a1-t1-r16/melspec_cuda.o -c src/melspec_cuda.cu
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_DEFER_RESIZE=0 -DMELSPEC_CUDA_ASYNC_OUTPUT=1 -DMELSPEC_CUDA_RESIZE_THREAD=1 -DMELSPEC_CUDA_STAGING_ROWS=16 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a1-t1-r16/melspec.o -c src/melspec.cpp
+g++  -o tmp/bin/cuda-async_resize tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a1-t1-r16/main.o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a1-t1-r16/melspec.o tmp/build/cuda-89-fp32-b512-f1-p0-h0-o1-d0-a1-t1-r16/melspec_cuda.o -pthread -L/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -Wl,-rpath,/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -lcufft -lcudart
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+7c963b180a2cd7f06a0a0c2ad0c3a536c3034c4b65d5c900341f841904c9561d  src/melspec.cpp
+f59dd7951ec0e4d681341ac20f3ffdfdee3dc7e1608b31cb70465e30d01c21cd  src/melspec_cuda.cu
+ae96df25e59816e6162e2cee7101c380d0058c820d1771cea302d0e91de2ea9d  include/melspec.h
+6eb64b3912ed90cbb348a7b65ef4ea9f75b57df4a14fd90c2e57adad26df7c22  include/melspec_cuda.h
+097cbd02234d5032678b1351d0b985ea622ec9b37c6f75500b62e5f14b5ae8c0  Makefile
+48f4e6179f075021d40f31754d5fbe57ae39bf255ace7e0b001cc9cfdc329ba9  tmp/bin/cuda-async
+e760d16d7e9bdb6333f6a94fbfdbd1d39d0f960c0fb253e453919d3c0673b6a5  tmp/bin/cuda-async_defer
+9cfbfbd3b35bd18fef23904b9cb79b1ec41485b0d7093a3937c3af484b34839d  tmp/bin/cuda-async_r32
+fbc875dcb7e7c054e0226dfb4d123d20a1cdecdaa2b05cd2c22dacfb1c58d13b  tmp/bin/cuda-async_r8
+74f2b24defef3dd32b651c06c4e59f199714882a02f3086c92b6d8cff183d23a  tmp/bin/cuda-async_resize
+2546d60cba6e5950578ac76bcdc7e9a970925e8a1c73155d5f2eaf9ca71cde04  tmp/bin/cuda-defer
+a81e5dc2bb83fdef4b0cb86c51a555d48cb7acdaacf38739fd0874a5ffd8343e  tmp/bin/cuda-fp32
+abd4869c918bcb8aac7b5f08d2a6793749a8197721895abae9508705d65fe11f  tmp/bin/cuda-resize_thread
+6d9aff2c37c8036b8733bc0148813f5b2a3399f5d215884be53ef6dfac0abd77  tmp/bin/cuda-stable
+41d6b57a213d3566ef3307e0411e336d65b6ca567924e6646000ace5fa677eae  tmp/bin/fp32-b128-f1-h0
+c2a6c1a290ea032f6dafe14f59b69a2106cf89d45cd0d9f76eea41b4fb6b03a9  tmp/bin/fp32-b128-f1-h0-o0
+22f6527211a40c6370af63e2f0511da333b95a92c656449e85f019e218d0d61e  tmp/bin/fp32-b256-f0-h0
+4b8ef21b8924ce42efe93d863eedc944aa37ade359c11814561fb54f871e9f63  tmp/bin/fp32-b256-f0-h0-o0
+7063a2a2ac22f18a72871e0726d3a42f9de68f10e8c014f1e89b80fa43f980fb  tmp/bin/fp32-b256-f1-h0
+3d62e34569a705fe3307c522f2cad9a10b970626533f308c51cce692366dcb55  tmp/bin/fp32-b256-f1-h0-o0
+5b8f4afb865c95c5fd78fc2648f236ef599cd55bb265a9322ac91f09fad69646  tmp/bin/fp32-b256-f1-h0-o1
+4d85bd5d0f2bc3ef3f606a5547f8cf22d31eb10cfa2fcd8644699abc4e96dbe0  tmp/bin/fp32-b256-f1-h1
+f18488652ae3e564f078c00c30c4ce4258b22925d3207398896b5fa0fe48bdd6  tmp/bin/fp32-b256-f1-h1-o0
+092eadc3be1c3eacd32da8882476403951f0ce0d7ecd2c79a4ff89e7e910b84a  tmp/bin/fp32-b512-f1-h0
+9b96dcd3ac4d62ac3228dad7c415db8d4ce2eb53eaac6622e23693bf99a03beb  tmp/bin/fp32-b512-f1-h0-o0
+7c86da16ae2389249b51f3663e425b6d570f5b62ea6b65c8ad2e6fcb851fd1a7  tmp/bin/fp32-b512-f1-h0-o1
+2c733eba97aa4a162e526e9c660d4898ca4ab429014ddf76442afb9555c0a4ae  tmp/bin/fp32-b512-f1-h1
+fe5f619e6bd1aa64b8aa4ddaed464c44233fd7d10a7e4999ef3a0480ffe5cfac  tmp/bin/fp32-b512-f1-h1-o0
+bb7c2f7854c39729c82b0277dab4cbb458a415b8a9b75b707a3f48568fe30fd2  tmp/bin/fp64-b256-f1-h0
+23e46d32271fea065f406c656f6de41409e24a02ac4cda5967231855e5434594  tmp/bin/fp64-b256-f1-h0-o0
+default a2 round=0 elapsed=1.010329 max_abs_err=0.03125 PASS
+default stable round=0 elapsed=1.145682 max_abs_err=0.09375 PASS
+default resize_thread round=0 elapsed=0.935189 max_abs_err=0.09375 PASS
+default async round=0 elapsed=0.986396 max_abs_err=0.09375 PASS
+default async_resize round=0 elapsed=0.832924 max_abs_err=0.09375 PASS
+default stable round=1 elapsed=1.111586 max_abs_err=0.09375 PASS
+default resize_thread round=1 elapsed=0.926025 max_abs_err=0.09375 PASS
+default async round=1 elapsed=0.968808 max_abs_err=0.09375 PASS
+default async_resize round=1 elapsed=0.817736 max_abs_err=0.09375 PASS
+default a2 round=1 elapsed=1.246142 max_abs_err=0.03125 PASS
+default resize_thread round=2 elapsed=0.940410 max_abs_err=0.09375 PASS
+default async round=2 elapsed=0.981108 max_abs_err=0.09375 PASS
+default async_resize round=2 elapsed=0.796282 max_abs_err=0.09375 PASS
+default a2 round=2 elapsed=1.177820 max_abs_err=0.03125 PASS
+default stable round=2 elapsed=1.124929 max_abs_err=0.09375 PASS
+default async round=3 elapsed=0.985494 max_abs_err=0.09375 PASS
+default async_resize round=3 elapsed=0.801259 max_abs_err=0.09375 PASS
+default a2 round=3 elapsed=1.400719 max_abs_err=0.03125 PASS
+default stable round=3 elapsed=1.115603 max_abs_err=0.09375 PASS
+default resize_thread round=3 elapsed=0.925104 max_abs_err=0.09375 PASS
+default async_resize round=4 elapsed=0.837179 max_abs_err=0.09375 PASS
+default a2 round=4 elapsed=1.422573 max_abs_err=0.03125 PASS
+default stable round=4 elapsed=1.117650 max_abs_err=0.09375 PASS
+default resize_thread round=4 elapsed=0.932842 max_abs_err=0.09375 PASS
+default async round=4 elapsed=0.966318 max_abs_err=0.09375 PASS
+small_mels a2 round=0 elapsed=0.884936 max_abs_err=0.01171875 PASS
+small_mels stable round=0 elapsed=0.639817 max_abs_err=0.0234375 PASS
+small_mels resize_thread round=0 elapsed=0.570049 max_abs_err=0.0234375 PASS
+small_mels async round=0 elapsed=0.605941 max_abs_err=0.0234375 PASS
+small_mels async_resize round=0 elapsed=0.528952 max_abs_err=0.0234375 PASS
+small_mels stable round=1 elapsed=0.612033 max_abs_err=0.0234375 PASS
+small_mels resize_thread round=1 elapsed=0.564219 max_abs_err=0.0234375 PASS
+small_mels async round=1 elapsed=0.595209 max_abs_err=0.0234375 PASS
+small_mels async_resize round=1 elapsed=0.541812 max_abs_err=0.0234375 PASS
+small_mels a2 round=1 elapsed=1.107158 max_abs_err=0.01171875 PASS
+small_mels resize_thread round=2 elapsed=0.577780 max_abs_err=0.0234375 PASS
+small_mels async round=2 elapsed=0.583660 max_abs_err=0.0234375 PASS
+small_mels async_resize round=2 elapsed=0.537807 max_abs_err=0.0234375 PASS
+small_mels a2 round=2 elapsed=1.067741 max_abs_err=0.01171875 PASS
+small_mels stable round=2 elapsed=0.637481 max_abs_err=0.0234375 PASS
+small_mels async round=3 elapsed=0.594692 max_abs_err=0.0234375 PASS
+small_mels async_resize round=3 elapsed=0.543429 max_abs_err=0.0234375 PASS
+small_mels a2 round=3 elapsed=1.156083 max_abs_err=0.01171875 PASS
+small_mels stable round=3 elapsed=0.632297 max_abs_err=0.0234375 PASS
+small_mels resize_thread round=3 elapsed=0.568802 max_abs_err=0.0234375 PASS
+small_mels async_resize round=4 elapsed=0.548950 max_abs_err=0.0234375 PASS
+small_mels a2 round=4 elapsed=1.052916 max_abs_err=0.01171875 PASS
+small_mels stable round=4 elapsed=0.652121 max_abs_err=0.0234375 PASS
+small_mels resize_thread round=4 elapsed=0.578930 max_abs_err=0.0234375 PASS
+small_mels async round=4 elapsed=0.577227 max_abs_err=0.0234375 PASS
+large_fft a2 round=0 elapsed=1.992414 max_abs_err=0.125 PASS
+large_fft stable round=0 elapsed=1.154947 max_abs_err=0.21875 PASS
+large_fft resize_thread round=0 elapsed=0.941974 max_abs_err=0.21875 PASS
+large_fft async round=0 elapsed=0.993027 max_abs_err=0.21875 PASS
+large_fft async_resize round=0 elapsed=0.803015 max_abs_err=0.21875 PASS
+large_fft stable round=1 elapsed=1.123803 max_abs_err=0.21875 PASS
+large_fft resize_thread round=1 elapsed=0.913385 max_abs_err=0.21875 PASS
+large_fft async round=1 elapsed=0.998905 max_abs_err=0.21875 PASS
+large_fft async_resize round=1 elapsed=0.798768 max_abs_err=0.21875 PASS
+large_fft a2 round=1 elapsed=2.079268 max_abs_err=0.125 PASS
+large_fft resize_thread round=2 elapsed=0.955927 max_abs_err=0.21875 PASS
+large_fft async round=2 elapsed=1.007629 max_abs_err=0.21875 PASS
+large_fft async_resize round=2 elapsed=0.808253 max_abs_err=0.21875 PASS
+large_fft a2 round=2 elapsed=1.795758 max_abs_err=0.125 PASS
+large_fft stable round=2 elapsed=1.139500 max_abs_err=0.21875 PASS
+large_fft async round=3 elapsed=1.000442 max_abs_err=0.21875 PASS
+large_fft async_resize round=3 elapsed=0.793332 max_abs_err=0.21875 PASS
+large_fft a2 round=3 elapsed=1.925846 max_abs_err=0.125 PASS
+large_fft stable round=3 elapsed=1.147049 max_abs_err=0.21875 PASS
+large_fft resize_thread round=3 elapsed=0.935596 max_abs_err=0.21875 PASS
+large_fft async_resize round=4 elapsed=0.798540 max_abs_err=0.21875 PASS
+large_fft a2 round=4 elapsed=2.228421 max_abs_err=0.125 PASS
+large_fft stable round=4 elapsed=1.138920 max_abs_err=0.21875 PASS
+large_fft resize_thread round=4 elapsed=0.931266 max_abs_err=0.21875 PASS
+large_fft async round=4 elapsed=1.003743 max_abs_err=0.21875 PASS
+narrow_band a2 round=0 elapsed=1.960718 max_abs_err=0.0625 PASS
+narrow_band stable round=0 elapsed=1.135338 max_abs_err=0.15625 PASS
+narrow_band resize_thread round=0 elapsed=0.945387 max_abs_err=0.15625 PASS
+narrow_band async round=0 elapsed=0.997325 max_abs_err=0.15625 PASS
+narrow_band async_resize round=0 elapsed=0.814371 max_abs_err=0.15625 PASS
+narrow_band stable round=1 elapsed=1.137805 max_abs_err=0.15625 PASS
+narrow_band resize_thread round=1 elapsed=0.922572 max_abs_err=0.15625 PASS
+narrow_band async round=1 elapsed=0.999005 max_abs_err=0.15625 PASS
+narrow_band async_resize round=1 elapsed=0.810010 max_abs_err=0.15625 PASS
+narrow_band a2 round=1 elapsed=2.068967 max_abs_err=0.0625 PASS
+narrow_band resize_thread round=2 elapsed=0.933651 max_abs_err=0.15625 PASS
+narrow_band async round=2 elapsed=0.985941 max_abs_err=0.15625 PASS
+narrow_band async_resize round=2 elapsed=0.796671 max_abs_err=0.15625 PASS
+narrow_band a2 round=2 elapsed=1.979984 max_abs_err=0.0625 PASS
+narrow_band stable round=2 elapsed=1.146778 max_abs_err=0.15625 PASS
+narrow_band async round=3 elapsed=0.995846 max_abs_err=0.15625 PASS
+narrow_band async_resize round=3 elapsed=0.796177 max_abs_err=0.15625 PASS
+narrow_band a2 round=3 elapsed=1.713265 max_abs_err=0.0625 PASS
+narrow_band stable round=3 elapsed=1.138069 max_abs_err=0.15625 PASS
+narrow_band resize_thread round=3 elapsed=0.932684 max_abs_err=0.15625 PASS
+narrow_band async_resize round=4 elapsed=0.799262 max_abs_err=0.15625 PASS
+narrow_band a2 round=4 elapsed=1.770385 max_abs_err=0.0625 PASS
+narrow_band stable round=4 elapsed=1.128663 max_abs_err=0.15625 PASS
+narrow_band resize_thread round=4 elapsed=0.938812 max_abs_err=0.15625 PASS
+narrow_band async round=4 elapsed=0.997707 max_abs_err=0.15625 PASS
+default | a2 | min=1.010329 | median=1.246142 | vs_a2=1.0
+default | stable | min=1.111586 | median=1.117650 | vs_a2=0.9089073204013187
+default | resize_thread | min=0.925104 | median=0.932842 | vs_a2=1.0921236953314764
+default | async | min=0.966318 | median=0.981108 | vs_a2=1.0455440143605113
+default | async_resize | min=0.796282 | median=0.817736 | vs_a2=1.2688080147315823
+small_mels | a2 | min=0.884936 | median=1.067741 | vs_a2=1.0
+small_mels | stable | min=0.612033 | median=0.637481 | vs_a2=1.4458945458597423
+small_mels | resize_thread | min=0.564219 | median=0.570049 | vs_a2=1.5684267069080307
+small_mels | async | min=0.577227 | median=0.594692 | vs_a2=1.533080464174974
+small_mels | async_resize | min=0.528952 | median=0.541812 | vs_a2=1.6729991266808562
+large_fft | a2 | min=1.795758 | median=1.992414 | vs_a2=1.0
+large_fft | stable | min=1.123803 | median=1.139500 | vs_a2=1.597928687146444
+large_fft | resize_thread | min=0.913385 | median=0.935596 | vs_a2=1.9660459445073921
+large_fft | async | min=0.993027 | median=1.000442 | vs_a2=1.808367896138009
+large_fft | async_resize | min=0.793332 | median=0.798768 | vs_a2=2.263563386510625
+narrow_band | a2 | min=1.713265 | median=1.960718 | vs_a2=1.0
+narrow_band | stable | min=1.128663 | median=1.137805 | vs_a2=1.517959449595487
+narrow_band | resize_thread | min=0.922572 | median=0.933651 | vs_a2=1.8570527561927235
+narrow_band | async | min=0.985941 | median=0.997325 | vs_a2=1.7376955232604807
+narrow_band | async_resize | min=0.796177 | median=0.799262 | vs_a2=2.1518646841753837

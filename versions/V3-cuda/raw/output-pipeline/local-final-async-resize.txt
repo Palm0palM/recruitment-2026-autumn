@@ -1,0 +1,32 @@
+default stable round=0 elapsed=2.411097 max_abs_err=0.09375 PASS
+default final round=0 elapsed=1.097331 max_abs_err=0.09375 PASS
+default final round=1 elapsed=1.404181 max_abs_err=0.09375 PASS
+default stable round=1 elapsed=4.310989 max_abs_err=0.09375 PASS
+default stable round=2 elapsed=1.154975 max_abs_err=0.09375 PASS
+default final round=2 elapsed=0.978817 max_abs_err=0.09375 PASS
+small_mels stable round=0 elapsed=0.789938 max_abs_err=0.0234375 PASS
+small_mels final round=0 elapsed=0.686695 max_abs_err=0.0234375 PASS
+small_mels final round=1 elapsed=0.730821 max_abs_err=0.0234375 PASS
+small_mels stable round=1 elapsed=0.683450 max_abs_err=0.0234375 PASS
+small_mels stable round=2 elapsed=0.981859 max_abs_err=0.0234375 PASS
+small_mels final round=2 elapsed=0.779402 max_abs_err=0.0234375 PASS
+large_fft stable round=0 elapsed=1.345613 max_abs_err=0.21875 PASS
+large_fft final round=0 elapsed=1.708938 max_abs_err=0.21875 PASS
+large_fft final round=1 elapsed=1.608102 max_abs_err=0.21875 PASS
+large_fft stable round=1 elapsed=2.606239 max_abs_err=0.21875 PASS
+large_fft stable round=2 elapsed=1.651464 max_abs_err=0.21875 PASS
+large_fft final round=2 elapsed=1.154356 max_abs_err=0.21875 PASS
+narrow_band stable round=0 elapsed=1.348827 max_abs_err=0.15625 PASS
+narrow_band final round=0 elapsed=1.075155 max_abs_err=0.15625 PASS
+narrow_band final round=1 elapsed=1.843921 max_abs_err=0.15625 PASS
+narrow_band stable round=1 elapsed=1.908219 max_abs_err=0.15625 PASS
+narrow_band stable round=2 elapsed=1.745008 max_abs_err=0.15625 PASS
+narrow_band final round=2 elapsed=2.166690 max_abs_err=0.15625 PASS
+default | stable | min=1.154975 | median=2.411097 | vs_a2=None
+default | final | min=0.978817 | median=1.097331 | vs_a2=None
+small_mels | stable | min=0.683450 | median=0.789938 | vs_a2=None
+small_mels | final | min=0.686695 | median=0.730821 | vs_a2=None
+large_fft | stable | min=1.345613 | median=1.651464 | vs_a2=None
+large_fft | final | min=1.154356 | median=1.608102 | vs_a2=None
+narrow_band | stable | min=1.348827 | median=1.745008 | vs_a2=None
+narrow_band | final | min=1.075155 | median=1.843921 | vs_a2=None
