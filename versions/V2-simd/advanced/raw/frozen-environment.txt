@@ -1,0 +1,14 @@
+commit=dc1af4bdd5c98f9a79a466bf061646399dd399cb
+branch=v2/simd
+?? scripts/multi_bench.py
+?? versions/V2-simd/advanced/
+g++ (GCC) 16.2.1 20260810
+Copyright (C) 2026 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+flags=-std=c++17 -Wall -Wextra -O3 -march=native -pthread
+efa296b80e8f79c5989bd7a7da025ed0da191269382cd36f6d200c0534be999f  melspec
+78c968fedcf8d30207af7f19c36dc739275df85a8e733bbb5178535bb60ed552  src/melspec.cpp
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+3b00a2d777a20de397c3a2e407b60f6a21258940470851cbeb82c4c21c64f957  tmp/results/advanced/frozen/v1-melspec.cpp

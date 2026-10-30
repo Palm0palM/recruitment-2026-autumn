@@ -1,0 +1,8 @@
+c7186ea6c4b7eb23ff2fd0d3a6bbb6eef945e8f8bec40557ce3f9fc8c18cc1bf  variants/v1
+27e344c78d55ca4d8c63806228c0a9ae307767d90665af24a6efddbbc431454b  variants/simd
+3b00a2d777a20de397c3a2e407b60f6a21258940470851cbeb82c4c21c64f957  variants/v1-melspec.cpp
+78c968fedcf8d30207af7f19c36dc739275df85a8e733bbb5178535bb60ed552  variants/simd-melspec.cpp
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
