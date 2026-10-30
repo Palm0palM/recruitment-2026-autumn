@@ -10,6 +10,10 @@
 #include <thread>
 #include <vector>
 
+#if defined(__AVX2__) && defined(__FMA__)
+#include <immintrin.h>
+#endif
+
 // ─────────────────────────────────────────────────────────────────────────────
 // HTK mel scale
 // ─────────────────────────────────────────────────────────────────────────────
@@ -26,19 +30,32 @@ double mel_to_hz(double m) {
 // Cooley-Tukey iterative FFT (in-place, complex input/output)
 // ─────────────────────────────────────────────────────────────────────────────
 
+struct ComplexBuffer {
+    std::vector<double> re, im;
+    explicit ComplexBuffer(int n) : re(n), im(n) {}
+};
+
+struct Radix4Stage {
+    int len;
+    std::vector<double> w1re, w1im, w2re, w2im, w3re, w3im;
+    explicit Radix4Stage(int n)
+        : len(n), w1re(n / 4), w1im(n / 4), w2re(n / 4), w2im(n / 4),
+          w3re(n / 4), w3im(n / 4) {}
+};
+
 struct FFTPlan {
     std::vector<int> reversed;
-    std::vector<std::complex<double>> twiddles;
-    std::vector<std::complex<double>> twiddles3;
+    std::vector<Radix4Stage> stages;
+    bool initial_radix2;
 
-    explicit FFTPlan(int n) : reversed(n), twiddles(n), twiddles3(n) {
+    explicit FFTPlan(int n) : reversed(n), initial_radix2((n & 0xaaaaaaaa) != 0) {
         for (int i = 1, j = 0; i < n; ++i) {
             int bit = n >> 1;
             for (; j & bit; bit >>= 1) j ^= bit;
             j ^= bit;
             reversed[i] = j;
         }
-        // Store each stage's factors, using the original recurrence.
+        std::vector<std::complex<double>> twiddles(n);
         for (int len = 2; len <= n; len <<= 1) {
             double ang = -2.0 * M_PI / static_cast<double>(len);
             std::complex<double> wlen(std::cos(ang), std::sin(ang));
@@ -48,41 +65,107 @@ struct FFTPlan {
                 w *= wlen;
             }
         }
-        for (int len = 4; len <= n; len <<= 1) {
-            for (int j = 0; j < len / 4; ++j)
-                twiddles3[len / 4 + j] =
-                    twiddles[len / 2 + j] * twiddles[len / 2 + 2 * j];
+        int len = initial_radix2 ? 8 : 4;
+        for (; len <= n; len <<= 2) {
+            Radix4Stage stage(len);
+            for (int j = 0; j < len / 4; ++j) {
+                auto w1 = twiddles[len / 2 + j];
+                auto w2 = twiddles[len / 2 + 2 * j];
+                auto w3 = w1 * w2;
+                stage.w1re[j] = w1.real();
+                stage.w1im[j] = w1.imag();
+                stage.w2re[j] = w2.real();
+                stage.w2im[j] = w2.imag();
+                stage.w3re[j] = w3.real();
+                stage.w3im[j] = w3.imag();
+            }
+            stages.push_back(std::move(stage));
         }
     }
 
-    void apply_permuted(std::vector<std::complex<double>>& a) const {
-        const int n = static_cast<int>(a.size());
-        int len = 4;
-        if ((n & (n - 1)) == 0 && (n & 0xaaaaaaaa) != 0) {
+    void apply_permuted(ComplexBuffer& a) const {
+        const int n = static_cast<int>(a.re.size());
+        double* re = a.re.data();
+        double* im = a.im.data();
+        if (initial_radix2) {
             for (int i = 0; i < n; i += 2) {
-                auto u = a[i];
-                a[i] = u + a[i + 1];
-                a[i + 1] = u - a[i + 1];
+                double rr = re[i], ri = im[i];
+                re[i] = rr + re[i + 1];
+                im[i] = ri + im[i + 1];
+                re[i + 1] = rr - re[i + 1];
+                im[i + 1] = ri - im[i + 1];
             }
-            len = 8;
         }
-        for (; len <= n; len <<= 2) {
+        for (const auto& stage : stages) {
+            const int len = stage.len;
             const int quarter = len / 4;
             for (int i = 0; i < n; i += len) {
-                for (int j = 0; j < quarter; ++j) {
-                    auto x0 = a[i + j];
-                    auto x1 = a[i + j + quarter] * twiddles[len / 2 + 2 * j];
-                    auto x2 = a[i + j + 2 * quarter] * twiddles[len / 2 + j];
-                    auto x3 = a[i + j + 3 * quarter] * twiddles3[quarter + j];
-                    auto sum01 = x0 + x1;
-                    auto dif01 = x0 - x1;
-                    auto sum23 = x2 + x3;
-                    auto dif23 = x2 - x3;
-                    std::complex<double> rotated(dif23.imag(), -dif23.real());
-                    a[i + j] = sum01 + sum23;
-                    a[i + j + quarter] = dif01 + rotated;
-                    a[i + j + 2 * quarter] = sum01 - sum23;
-                    a[i + j + 3 * quarter] = dif01 - rotated;
+                int j = 0;
+#if defined(__AVX2__) && defined(__FMA__)
+                for (; j + 3 < quarter; j += 4) {
+                    const int p = i + j;
+                    auto ar = _mm256_loadu_pd(re + p);
+                    auto ai = _mm256_loadu_pd(im + p);
+                    auto br = _mm256_loadu_pd(re + p + quarter);
+                    auto bi = _mm256_loadu_pd(im + p + quarter);
+                    auto cr = _mm256_loadu_pd(re + p + 2 * quarter);
+                    auto ci = _mm256_loadu_pd(im + p + 2 * quarter);
+                    auto dr = _mm256_loadu_pd(re + p + 3 * quarter);
+                    auto di = _mm256_loadu_pd(im + p + 3 * quarter);
+                    auto w1r = _mm256_loadu_pd(stage.w1re.data() + j);
+                    auto w1i = _mm256_loadu_pd(stage.w1im.data() + j);
+                    auto w2r = _mm256_loadu_pd(stage.w2re.data() + j);
+                    auto w2i = _mm256_loadu_pd(stage.w2im.data() + j);
+                    auto w3r = _mm256_loadu_pd(stage.w3re.data() + j);
+                    auto w3i = _mm256_loadu_pd(stage.w3im.data() + j);
+                    auto br2 = _mm256_fmsub_pd(br, w2r, _mm256_mul_pd(bi, w2i));
+                    auto bi2 = _mm256_fmadd_pd(br, w2i, _mm256_mul_pd(bi, w2r));
+                    auto cr1 = _mm256_fmsub_pd(cr, w1r, _mm256_mul_pd(ci, w1i));
+                    auto ci1 = _mm256_fmadd_pd(cr, w1i, _mm256_mul_pd(ci, w1r));
+                    auto dr3 = _mm256_fmsub_pd(dr, w3r, _mm256_mul_pd(di, w3i));
+                    auto di3 = _mm256_fmadd_pd(dr, w3i, _mm256_mul_pd(di, w3r));
+                    auto sum01r = _mm256_add_pd(ar, br2);
+                    auto sum01i = _mm256_add_pd(ai, bi2);
+                    auto dif01r = _mm256_sub_pd(ar, br2);
+                    auto dif01i = _mm256_sub_pd(ai, bi2);
+                    auto sum23r = _mm256_add_pd(cr1, dr3);
+                    auto sum23i = _mm256_add_pd(ci1, di3);
+                    auto dif23r = _mm256_sub_pd(cr1, dr3);
+                    auto dif23i = _mm256_sub_pd(ci1, di3);
+                    _mm256_storeu_pd(re + p, _mm256_add_pd(sum01r, sum23r));
+                    _mm256_storeu_pd(im + p, _mm256_add_pd(sum01i, sum23i));
+                    _mm256_storeu_pd(re + p + quarter, _mm256_add_pd(dif01r, dif23i));
+                    _mm256_storeu_pd(im + p + quarter, _mm256_sub_pd(dif01i, dif23r));
+                    _mm256_storeu_pd(re + p + 2 * quarter, _mm256_sub_pd(sum01r, sum23r));
+                    _mm256_storeu_pd(im + p + 2 * quarter, _mm256_sub_pd(sum01i, sum23i));
+                    _mm256_storeu_pd(re + p + 3 * quarter, _mm256_sub_pd(dif01r, dif23i));
+                    _mm256_storeu_pd(im + p + 3 * quarter, _mm256_add_pd(dif01i, dif23r));
+                }
+#endif
+                for (; j < quarter; ++j) {
+                    const int p = i + j;
+                    double ar = re[p], ai = im[p];
+                    double br = re[p + quarter], bi = im[p + quarter];
+                    double cr = re[p + 2 * quarter], ci = im[p + 2 * quarter];
+                    double dr = re[p + 3 * quarter], di = im[p + 3 * quarter];
+                    double br2 = br * stage.w2re[j] - bi * stage.w2im[j];
+                    double bi2 = br * stage.w2im[j] + bi * stage.w2re[j];
+                    double cr1 = cr * stage.w1re[j] - ci * stage.w1im[j];
+                    double ci1 = cr * stage.w1im[j] + ci * stage.w1re[j];
+                    double dr3 = dr * stage.w3re[j] - di * stage.w3im[j];
+                    double di3 = dr * stage.w3im[j] + di * stage.w3re[j];
+                    double sum01r = ar + br2, sum01i = ai + bi2;
+                    double dif01r = ar - br2, dif01i = ai - bi2;
+                    double sum23r = cr1 + dr3, sum23i = ci1 + di3;
+                    double dif23r = cr1 - dr3, dif23i = ci1 - di3;
+                    re[p] = sum01r + sum23r;
+                    im[p] = sum01i + sum23i;
+                    re[p + quarter] = dif01r + dif23i;
+                    im[p + quarter] = dif01i - dif23r;
+                    re[p + 2 * quarter] = sum01r - sum23r;
+                    im[p + 2 * quarter] = sum01i - sum23i;
+                    re[p + 3 * quarter] = dif01r - dif23i;
+                    im[p + 3 * quarter] = dif01i + dif23r;
                 }
             }
         }
@@ -94,12 +177,14 @@ void compute_rfft(const std::vector<double>& frame,
                   std::vector<std::complex<double>>& out) {
     const int n = static_cast<int>(frame.size());
     FFTPlan plan(n);
-    std::vector<std::complex<double>> a(n);
-    for (int i = 0; i < n; ++i) a[plan.reversed[i]] = {frame[i], 0.0};
+    ComplexBuffer a(n);
+    for (int i = 0; i < n; ++i) {
+        a.re[plan.reversed[i]] = frame[i];
+        a.im[plan.reversed[i]] = 0.0;
+    }
     plan.apply_permuted(a);
-    // Keep only DC + positive frequencies (n/2+1 bins)
     out.resize(n / 2 + 1);
-    for (int k = 0; k <= n / 2; ++k) out[k] = a[k];
+    for (int k = 0; k <= n / 2; ++k) out[k] = {a.re[k], a.im[k]};
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -187,8 +272,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
         static_cast<int>(std::max(1u, std::thread::hardware_concurrency())),
         std::max(1, n_frames / 256)});
     // Allocate scratch before launching threads, so workers cannot throw.
-    std::vector<std::vector<std::complex<double>>> fft_buffers(
-        n_threads, std::vector<std::complex<double>>(half));
+    std::vector<ComplexBuffer> fft_buffers(n_threads, ComplexBuffer(half));
     std::vector<std::vector<double>> power_buffers(
         n_threads, std::vector<double>(n_bins));
     auto worker = [&](int id) {
@@ -204,18 +288,20 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                 power[0] = sample * sample;
             } else {
                 // Fuse bit reversal with windowing and even/odd packing.
-                for (int i = 0; i < half; ++i)
-                    fft_out[plan.reversed[i]] = {y[start + 2 * i] * window[2 * i],
-                                                 y[start + 2 * i + 1] * window[2 * i + 1]};
+                for (int i = 0; i < half; ++i) {
+                    fft_out.re[plan.reversed[i]] = y[start + 2 * i] * window[2 * i];
+                    fft_out.im[plan.reversed[i]] =
+                        y[start + 2 * i + 1] * window[2 * i + 1];
+                }
                 plan.apply_permuted(fft_out);
 
-                double dc = fft_out[0].real() + fft_out[0].imag();
-                double nyquist = fft_out[0].real() - fft_out[0].imag();
+                double dc = fft_out.re[0] + fft_out.im[0];
+                double nyquist = fft_out.re[0] - fft_out.im[0];
                 power[0] = dc * dc;
                 power[half] = nyquist * nyquist;
                 for (int k = 1; k < half; ++k) {
-                    auto a = fft_out[k];
-                    auto b = std::conj(fft_out[half - k]);
+                    std::complex<double> a(fft_out.re[k], fft_out.im[k]);
+                    std::complex<double> b(fft_out.re[half - k], -fft_out.im[half - k]);
                     auto x = 0.5 * (a + b) + recovery[k] * (a - b);
                     power[k] = std::norm(x);
                 }
