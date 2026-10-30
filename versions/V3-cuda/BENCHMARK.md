@@ -26,4 +26,37 @@
 但 CPU 绑核/作业环境会影响结果，最终选择以同作业 A2/GPU 交错 sweep 为准，而不是只引用上述旧数字。
 
 重复官方作业 195 已取消，没有重复计时。后续 fused/separate、batch 与 pinned 的 sweep
-将保留全部逐次 wall time 和官方 expected 校验，不只保留获胜的最小值。
+保留全部逐次 wall time 和官方 expected 校验，不只保留获胜的最小值。
+
+## 初始化重叠正式候选（作业 215，hepnode2）
+
+代码 `c4df954db14acae4266d09f1828c9bb6e479708d`，FP32、batch256、fused、pageable、
+`CUDA_OVERLAP_INIT=1`。提前 `cudaFree(0)` 与 host 准备重叠，复审修正已包含。
+官方四组再次全部 PASS：default **1.012 s**、small_mels **0.573 s**、large_fft **1.013 s**、
+narrow_band **1.015 s**；相对同次官方 librosa 分别为 13.514× / 23.118× / 28.350× / 28.247×。
+候选二进制 SHA-256：`0f4407a7b7130e643063396552a1acfe523f80a71fac32cc89fb570e062413b1`。
+
+相比首次 194 的 1.183 / 0.660 / 1.183 / 1.173 秒，初始化重叠显著改善了所有用例，
+特别是 default。原始官方输出与源码/二进制哈希见 `raw/cuda-215.out`、`raw/official-215.txt`。
+
+## 同作业 A2 / CUDA sweep（作业 201、220）
+
+两次 sweep 都在 hepnode2，A2 与 CUDA 以轮换顺序运行，每次完整输出都对 expected 校验。
+220 的九种变体为 batch128/256/512、fused/separate、FP64、pinned 与初始化重叠，各三次。
+
+以 220 的三次最小进程时间计算，代表性结果：
+
+| 用例 | A2 min（s） | 未重叠 GPU min（s） | 初始化重叠 GPU min（s） | 重叠 vs A2 |
+|---|---:|---:|---:|---:|
+| default | 1.007871 | 1.144456（b256） | **0.989239（b512）** | **1.019×** |
+| small_mels | 0.805170 | 0.656839（b256） | **0.563742（b512）** | **1.428×** |
+| large_fft | 1.803441 | 1.170345（b256） | **1.030107（b256）** | **1.751×** |
+| narrow_band | 1.683831 | 1.173513（separate/b256） | **1.033304（b256）** | **1.630×** |
+
+batch512 的 default/small_mels 略优，batch256 的 large/narrow 略优，差距约 1% 量级，
+不把微小区间夸大成普遍规律。综合候选先用 batch256 完成官方 215，再以 batch512 正式复核。
+FP64 较慢；pinned 在部分 default/large 有小幅收益但在 small_mels 等场景不稳定，不设默认。
+fused/separate 差异较小，保留 fused 以避免功率矩阵及其显存流量。
+
+原始逐次结果：`raw/sweep-201.out`、`raw/sweep-201.json`、`raw/sweep-220.out`、`raw/sweep-220.json`。
+这些数字来自 `cuda_bench.py`，与官方 validate 的 harness 有小幅口径差异，不与官方最小值混算。

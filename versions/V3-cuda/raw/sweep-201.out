@@ -1,0 +1,173 @@
+f2dccee009572b412b61619f98600523853e1125
+Cpus_allowed_list:	0-3,16-19,32-35,48-51
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=128 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b128-f1-p0-h0/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=128 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b128-f1-p0-h0/melspec.o -c src/melspec.cpp
+/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/bin/nvcc -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=128 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -O3 -arch=sm_89 -Xcompiler -O3,-march=native,-pthread -MMD -MP -o tmp/build/cuda-89-fp32-b128-f1-p0-h0/melspec_cuda.o -c src/melspec_cuda.cu
+g++  -o tmp/bin/fp32-b128-f1-h0 tmp/build/cuda-89-fp32-b128-f1-p0-h0/main.o tmp/build/cuda-89-fp32-b128-f1-p0-h0/melspec.o tmp/build/cuda-89-fp32-b128-f1-p0-h0/melspec_cuda.o -pthread -L/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -Wl,-rpath,/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -lcufft -lcudart
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=256 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b256-f1-p0-h0/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=256 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b256-f1-p0-h0/melspec.o -c src/melspec.cpp
+/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/bin/nvcc -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=256 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -O3 -arch=sm_89 -Xcompiler -O3,-march=native,-pthread -MMD -MP -o tmp/build/cuda-89-fp32-b256-f1-p0-h0/melspec_cuda.o -c src/melspec_cuda.cu
+g++  -o tmp/bin/fp32-b256-f1-h0 tmp/build/cuda-89-fp32-b256-f1-p0-h0/main.o tmp/build/cuda-89-fp32-b256-f1-p0-h0/melspec.o tmp/build/cuda-89-fp32-b256-f1-p0-h0/melspec_cuda.o -pthread -L/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -Wl,-rpath,/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -lcufft -lcudart
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0/melspec.o -c src/melspec.cpp
+/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/bin/nvcc -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -O3 -arch=sm_89 -Xcompiler -O3,-march=native,-pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0/melspec_cuda.o -c src/melspec_cuda.cu
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h0/main.o -c src/main.cpp
+g++  -o tmp/bin/fp32-b512-f1-h0 tmp/build/cuda-89-fp32-b512-f1-p0-h0/main.o tmp/build/cuda-89-fp32-b512-f1-p0-h0/melspec.o tmp/build/cuda-89-fp32-b512-f1-p0-h0/melspec_cuda.o -pthread -L/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -Wl,-rpath,/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -lcufft -lcudart
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=256 -DMELSPEC_CUDA_FUSED=0 -DMELSPEC_CUDA_PINNED=0 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b256-f0-p0-h0/main.o -c src/main.cpp
+/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/bin/nvcc -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=256 -DMELSPEC_CUDA_FUSED=0 -DMELSPEC_CUDA_PINNED=0 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -O3 -arch=sm_89 -Xcompiler -O3,-march=native,-pthread -MMD -MP -o tmp/build/cuda-89-fp32-b256-f0-p0-h0/melspec_cuda.o -c src/melspec_cuda.cu
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=256 -DMELSPEC_CUDA_FUSED=0 -DMELSPEC_CUDA_PINNED=0 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b256-f0-p0-h0/melspec.o -c src/melspec.cpp
+g++  -o tmp/bin/fp32-b256-f0-h0 tmp/build/cuda-89-fp32-b256-f0-p0-h0/main.o tmp/build/cuda-89-fp32-b256-f0-p0-h0/melspec.o tmp/build/cuda-89-fp32-b256-f0-p0-h0/melspec_cuda.o -pthread -L/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -Wl,-rpath,/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -lcufft -lcudart
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=64 -DMELSPEC_CUDA_BATCH=256 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp64-b256-f1-p0-h0/main.o -c src/main.cpp
+/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/bin/nvcc -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=64 -DMELSPEC_CUDA_BATCH=256 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -O3 -arch=sm_89 -Xcompiler -O3,-march=native,-pthread -MMD -MP -o tmp/build/cuda-89-fp64-b256-f1-p0-h0/melspec_cuda.o -c src/melspec_cuda.cu
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=64 -DMELSPEC_CUDA_BATCH=256 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp64-b256-f1-p0-h0/melspec.o -c src/melspec.cpp
+g++  -o tmp/bin/fp64-b256-f1-h0 tmp/build/cuda-89-fp64-b256-f1-p0-h0/main.o tmp/build/cuda-89-fp64-b256-f1-p0-h0/melspec.o tmp/build/cuda-89-fp64-b256-f1-p0-h0/melspec_cuda.o -pthread -L/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -Wl,-rpath,/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -lcufft -lcudart
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=256 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=1 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b256-f1-p0-h1/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=256 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=1 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b256-f1-p0-h1/melspec.o -c src/melspec.cpp
+/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/bin/nvcc -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=256 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=1 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -O3 -arch=sm_89 -Xcompiler -O3,-march=native,-pthread -MMD -MP -o tmp/build/cuda-89-fp32-b256-f1-p0-h1/melspec_cuda.o -c src/melspec_cuda.cu
+g++  -o tmp/bin/fp32-b256-f1-h1 tmp/build/cuda-89-fp32-b256-f1-p0-h1/main.o tmp/build/cuda-89-fp32-b256-f1-p0-h1/melspec.o tmp/build/cuda-89-fp32-b256-f1-p0-h1/melspec_cuda.o -pthread -L/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -Wl,-rpath,/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -lcufft -lcudart
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=1 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h1/melspec.o -c src/melspec.cpp
+/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/bin/nvcc -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=1 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -O3 -arch=sm_89 -Xcompiler -O3,-march=native,-pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h1/melspec_cuda.o -c src/melspec_cuda.cu
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=1 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p0-h1/main.o -c src/main.cpp
+g++  -o tmp/bin/fp32-b512-f1-h1 tmp/build/cuda-89-fp32-b512-f1-p0-h1/main.o tmp/build/cuda-89-fp32-b512-f1-p0-h1/melspec.o tmp/build/cuda-89-fp32-b512-f1-p0-h1/melspec_cuda.o -pthread -L/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -Wl,-rpath,/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -lcufft -lcudart
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+7c963b180a2cd7f06a0a0c2ad0c3a536c3034c4b65d5c900341f841904c9561d  src/melspec.cpp
+d217f374404cbc99e95b6b08b5ad340f6e5c2236d61cfcde6bcca72be4cadf27  src/melspec_cuda.cu
+ae96df25e59816e6162e2cee7101c380d0058c820d1771cea302d0e91de2ea9d  include/melspec.h
+6eb64b3912ed90cbb348a7b65ef4ea9f75b57df4a14fd90c2e57adad26df7c22  include/melspec_cuda.h
+875e22c7857c044615b19d38c77dd16bf9829b9295c17f54eefe85150df3ed8b  Makefile
+5dbfb09740adb7f3f5b4375433e92914e0b314365d29ca4e6932424c44f42135  tmp/bin/cuda-fp32
+41d6b57a213d3566ef3307e0411e336d65b6ca567924e6646000ace5fa677eae  tmp/bin/fp32-b128-f1-h0
+22f6527211a40c6370af63e2f0511da333b95a92c656449e85f019e218d0d61e  tmp/bin/fp32-b256-f0-h0
+7063a2a2ac22f18a72871e0726d3a42f9de68f10e8c014f1e89b80fa43f980fb  tmp/bin/fp32-b256-f1-h0
+4d85bd5d0f2bc3ef3f606a5547f8cf22d31eb10cfa2fcd8644699abc4e96dbe0  tmp/bin/fp32-b256-f1-h1
+092eadc3be1c3eacd32da8882476403951f0ce0d7ecd2c79a4ff89e7e910b84a  tmp/bin/fp32-b512-f1-h0
+2c733eba97aa4a162e526e9c660d4898ca4ab429014ddf76442afb9555c0a4ae  tmp/bin/fp32-b512-f1-h1
+bb7c2f7854c39729c82b0277dab4cbb458a415b8a9b75b707a3f48568fe30fd2  tmp/bin/fp64-b256-f1-h0
+e2c8f188b2b715847d69c32e7b654ff00d19c5fd0dd7ad65f2fffd24066ec5a3  /home/zsx/melspec-v3-cuda-agent/baseline-a2/tmp/bin/a2-estimate
+default a2 round=0 elapsed=1.012572 max_abs_err=0.03125 PASS
+default fp32-b128-f1-h0 round=0 elapsed=1.209086 max_abs_err=0.09375 PASS
+default fp32-b256-f1-h0 round=0 elapsed=1.164062 max_abs_err=0.09375 PASS
+default fp32-b512-f1-h0 round=0 elapsed=1.160020 max_abs_err=0.09375 PASS
+default fp32-b256-f0-h0 round=0 elapsed=1.156559 max_abs_err=0.09375 PASS
+default fp64-b256-f1-h0 round=0 elapsed=1.241339 max_abs_err=0.03125 PASS
+default fp32-b256-f1-h1 round=0 elapsed=1.130349 max_abs_err=0.09375 PASS
+default fp32-b512-f1-h1 round=0 elapsed=1.146987 max_abs_err=0.09375 PASS
+default fp32-b128-f1-h0 round=1 elapsed=1.173721 max_abs_err=0.09375 PASS
+default fp32-b256-f1-h0 round=1 elapsed=1.145021 max_abs_err=0.09375 PASS
+default fp32-b512-f1-h0 round=1 elapsed=1.170865 max_abs_err=0.09375 PASS
+default fp32-b256-f0-h0 round=1 elapsed=1.166195 max_abs_err=0.09375 PASS
+default fp64-b256-f1-h0 round=1 elapsed=1.213028 max_abs_err=0.03125 PASS
+default fp32-b256-f1-h1 round=1 elapsed=1.127981 max_abs_err=0.09375 PASS
+default fp32-b512-f1-h1 round=1 elapsed=1.144304 max_abs_err=0.09375 PASS
+default a2 round=1 elapsed=1.334558 max_abs_err=0.03125 PASS
+default fp32-b256-f1-h0 round=2 elapsed=1.163629 max_abs_err=0.09375 PASS
+default fp32-b512-f1-h0 round=2 elapsed=1.150276 max_abs_err=0.09375 PASS
+default fp32-b256-f0-h0 round=2 elapsed=1.170714 max_abs_err=0.09375 PASS
+default fp64-b256-f1-h0 round=2 elapsed=1.208404 max_abs_err=0.03125 PASS
+default fp32-b256-f1-h1 round=2 elapsed=1.131023 max_abs_err=0.09375 PASS
+default fp32-b512-f1-h1 round=2 elapsed=1.145973 max_abs_err=0.09375 PASS
+default a2 round=2 elapsed=1.245790 max_abs_err=0.03125 PASS
+default fp32-b128-f1-h0 round=2 elapsed=1.197014 max_abs_err=0.09375 PASS
+small_mels a2 round=0 elapsed=0.904401 max_abs_err=0.01171875 PASS
+small_mels fp32-b128-f1-h0 round=0 elapsed=0.692244 max_abs_err=0.0234375 PASS
+small_mels fp32-b256-f1-h0 round=0 elapsed=0.670084 max_abs_err=0.0234375 PASS
+small_mels fp32-b512-f1-h0 round=0 elapsed=0.663267 max_abs_err=0.0234375 PASS
+small_mels fp32-b256-f0-h0 round=0 elapsed=0.671580 max_abs_err=0.0234375 PASS
+small_mels fp64-b256-f1-h0 round=0 elapsed=0.865122 max_abs_err=0.01171875 PASS
+small_mels fp32-b256-f1-h1 round=0 elapsed=0.686447 max_abs_err=0.0234375 PASS
+small_mels fp32-b512-f1-h1 round=0 elapsed=0.685826 max_abs_err=0.0234375 PASS
+small_mels fp32-b128-f1-h0 round=1 elapsed=0.684531 max_abs_err=0.0234375 PASS
+small_mels fp32-b256-f1-h0 round=1 elapsed=0.669511 max_abs_err=0.0234375 PASS
+small_mels fp32-b512-f1-h0 round=1 elapsed=0.671308 max_abs_err=0.0234375 PASS
+small_mels fp32-b256-f0-h0 round=1 elapsed=0.676707 max_abs_err=0.0234375 PASS
+small_mels fp64-b256-f1-h0 round=1 elapsed=0.825233 max_abs_err=0.01171875 PASS
+small_mels fp32-b256-f1-h1 round=1 elapsed=0.677131 max_abs_err=0.0234375 PASS
+small_mels fp32-b512-f1-h1 round=1 elapsed=0.667967 max_abs_err=0.0234375 PASS
+small_mels a2 round=1 elapsed=0.965752 max_abs_err=0.01171875 PASS
+small_mels fp32-b256-f1-h0 round=2 elapsed=0.701333 max_abs_err=0.0234375 PASS
+small_mels fp32-b512-f1-h0 round=2 elapsed=0.669153 max_abs_err=0.0234375 PASS
+small_mels fp32-b256-f0-h0 round=2 elapsed=0.669304 max_abs_err=0.0234375 PASS
+small_mels fp64-b256-f1-h0 round=2 elapsed=0.816375 max_abs_err=0.01171875 PASS
+small_mels fp32-b256-f1-h1 round=2 elapsed=0.671797 max_abs_err=0.0234375 PASS
+small_mels fp32-b512-f1-h1 round=2 elapsed=0.674565 max_abs_err=0.0234375 PASS
+small_mels a2 round=2 elapsed=1.028581 max_abs_err=0.01171875 PASS
+small_mels fp32-b128-f1-h0 round=2 elapsed=0.709077 max_abs_err=0.0234375 PASS
+large_fft a2 round=0 elapsed=1.735877 max_abs_err=0.125 PASS
+large_fft fp32-b128-f1-h0 round=0 elapsed=1.232377 max_abs_err=0.21875 PASS
+large_fft fp32-b256-f1-h0 round=0 elapsed=1.186784 max_abs_err=0.21875 PASS
+large_fft fp32-b512-f1-h0 round=0 elapsed=1.201782 max_abs_err=0.21875 PASS
+large_fft fp32-b256-f0-h0 round=0 elapsed=1.189769 max_abs_err=0.21875 PASS
+large_fft fp64-b256-f1-h0 round=0 elapsed=1.389987 max_abs_err=0.125 PASS
+large_fft fp32-b256-f1-h1 round=0 elapsed=1.178735 max_abs_err=0.21875 PASS
+large_fft fp32-b512-f1-h1 round=0 elapsed=1.175057 max_abs_err=0.21875 PASS
+large_fft fp32-b128-f1-h0 round=1 elapsed=1.179742 max_abs_err=0.21875 PASS
+large_fft fp32-b256-f1-h0 round=1 elapsed=1.181765 max_abs_err=0.21875 PASS
+large_fft fp32-b512-f1-h0 round=1 elapsed=1.205480 max_abs_err=0.21875 PASS
+large_fft fp32-b256-f0-h0 round=1 elapsed=1.183963 max_abs_err=0.21875 PASS
+large_fft fp64-b256-f1-h0 round=1 elapsed=1.408826 max_abs_err=0.125 PASS
+large_fft fp32-b256-f1-h1 round=1 elapsed=1.170033 max_abs_err=0.21875 PASS
+large_fft fp32-b512-f1-h1 round=1 elapsed=1.177185 max_abs_err=0.21875 PASS
+large_fft a2 round=1 elapsed=1.912399 max_abs_err=0.125 PASS
+large_fft fp32-b256-f1-h0 round=2 elapsed=1.196716 max_abs_err=0.21875 PASS
+large_fft fp32-b512-f1-h0 round=2 elapsed=1.184821 max_abs_err=0.21875 PASS
+large_fft fp32-b256-f0-h0 round=2 elapsed=1.182343 max_abs_err=0.21875 PASS
+large_fft fp64-b256-f1-h0 round=2 elapsed=1.379762 max_abs_err=0.125 PASS
+large_fft fp32-b256-f1-h1 round=2 elapsed=1.155174 max_abs_err=0.21875 PASS
+large_fft fp32-b512-f1-h1 round=2 elapsed=1.202656 max_abs_err=0.21875 PASS
+large_fft a2 round=2 elapsed=1.784703 max_abs_err=0.125 PASS
+large_fft fp32-b128-f1-h0 round=2 elapsed=1.255712 max_abs_err=0.21875 PASS
+narrow_band a2 round=0 elapsed=1.678323 max_abs_err=0.0625 PASS
+narrow_band fp32-b128-f1-h0 round=0 elapsed=1.219375 max_abs_err=0.15625 PASS
+narrow_band fp32-b256-f1-h0 round=0 elapsed=1.181574 max_abs_err=0.15625 PASS
+narrow_band fp32-b512-f1-h0 round=0 elapsed=1.190763 max_abs_err=0.15625 PASS
+narrow_band fp32-b256-f0-h0 round=0 elapsed=1.178609 max_abs_err=0.15625 PASS
+narrow_band fp64-b256-f1-h0 round=0 elapsed=1.374282 max_abs_err=0.0625 PASS
+narrow_band fp32-b256-f1-h1 round=0 elapsed=1.161865 max_abs_err=0.15625 PASS
+narrow_band fp32-b512-f1-h1 round=0 elapsed=1.175898 max_abs_err=0.15625 PASS
+narrow_band fp32-b128-f1-h0 round=1 elapsed=1.180636 max_abs_err=0.15625 PASS
+narrow_band fp32-b256-f1-h0 round=1 elapsed=1.176067 max_abs_err=0.15625 PASS
+narrow_band fp32-b512-f1-h0 round=1 elapsed=1.178494 max_abs_err=0.15625 PASS
+narrow_band fp32-b256-f0-h0 round=1 elapsed=1.169032 max_abs_err=0.15625 PASS
+narrow_band fp64-b256-f1-h0 round=1 elapsed=1.375274 max_abs_err=0.0625 PASS
+narrow_band fp32-b256-f1-h1 round=1 elapsed=1.167682 max_abs_err=0.15625 PASS
+narrow_band fp32-b512-f1-h1 round=1 elapsed=1.174533 max_abs_err=0.15625 PASS
+narrow_band a2 round=1 elapsed=1.633720 max_abs_err=0.0625 PASS
+narrow_band fp32-b256-f1-h0 round=2 elapsed=1.191798 max_abs_err=0.15625 PASS
+narrow_band fp32-b512-f1-h0 round=2 elapsed=1.190227 max_abs_err=0.15625 PASS
+narrow_band fp32-b256-f0-h0 round=2 elapsed=1.189328 max_abs_err=0.15625 PASS
+narrow_band fp64-b256-f1-h0 round=2 elapsed=1.360882 max_abs_err=0.0625 PASS
+narrow_band fp32-b256-f1-h1 round=2 elapsed=1.168180 max_abs_err=0.15625 PASS
+narrow_band fp32-b512-f1-h1 round=2 elapsed=1.174857 max_abs_err=0.15625 PASS
+narrow_band a2 round=2 elapsed=1.752221 max_abs_err=0.0625 PASS
+narrow_band fp32-b128-f1-h0 round=2 elapsed=1.223070 max_abs_err=0.15625 PASS
+default | a2 | min=1.012572 | median=1.245790 | vs_a2=1.0
+default | fp32-b128-f1-h0 | min=1.173721 | median=1.197014 | vs_a2=0.8627021543729592
+default | fp32-b256-f1-h0 | min=1.145021 | median=1.163629 | vs_a2=0.8843259279909205
+default | fp32-b512-f1-h0 | min=1.150276 | median=1.160020 | vs_a2=0.880285968294271
+default | fp32-b256-f0-h0 | min=1.156559 | median=1.166195 | vs_a2=0.8755036333543192
+default | fp64-b256-f1-h0 | min=1.208404 | median=1.213028 | vs_a2=0.8379413113908141
+default | fp32-b256-f1-h1 | min=1.127981 | median=1.130349 | vs_a2=0.8976849610619457
+default | fp32-b512-f1-h1 | min=1.144304 | median=1.145973 | vs_a2=0.8848800767436178
+small_mels | a2 | min=0.904401 | median=0.965752 | vs_a2=1.0
+small_mels | fp32-b128-f1-h0 | min=0.684531 | median=0.692244 | vs_a2=1.3211980626114268
+small_mels | fp32-b256-f1-h0 | min=0.669511 | median=0.670084 | vs_a2=1.350838326909308
+small_mels | fp32-b512-f1-h0 | min=0.663267 | median=0.669153 | vs_a2=1.3635549901016462
+small_mels | fp32-b256-f0-h0 | min=0.669304 | median=0.671580 | vs_a2=1.3512562427249164
+small_mels | fp64-b256-f1-h0 | min=0.816375 | median=0.825233 | vs_a2=1.1078261339098632
+small_mels | fp32-b256-f1-h1 | min=0.671797 | median=0.677131 | vs_a2=1.346242239066401
+small_mels | fp32-b512-f1-h1 | min=0.667967 | median=0.674565 | vs_a2=1.3539615037989459
+large_fft | a2 | min=1.735877 | median=1.784703 | vs_a2=1.0
+large_fft | fp32-b128-f1-h0 | min=1.179742 | median=1.232377 | vs_a2=1.4714043176302727
+large_fft | fp32-b256-f1-h0 | min=1.181765 | median=1.186784 | vs_a2=1.4688844447484528
+large_fft | fp32-b512-f1-h0 | min=1.184821 | median=1.201782 | vs_a2=1.465096246921672
+large_fft | fp32-b256-f0-h0 | min=1.182343 | median=1.183963 | vs_a2=1.4681674579287929
+large_fft | fp64-b256-f1-h0 | min=1.379762 | median=1.389987 | vs_a2=1.2580983463068067
+large_fft | fp32-b256-f1-h1 | min=1.155174 | median=1.170033 | vs_a2=1.502697765797604
+large_fft | fp32-b512-f1-h1 | min=1.175057 | median=1.177185 | vs_a2=1.4772698789923568
+narrow_band | a2 | min=1.633720 | median=1.678323 | vs_a2=1.0
+narrow_band | fp32-b128-f1-h0 | min=1.180636 | median=1.219375 | vs_a2=1.3837627344247374
+narrow_band | fp32-b256-f1-h0 | min=1.176067 | median=1.181574 | vs_a2=1.3891384348291125
+narrow_band | fp32-b512-f1-h0 | min=1.178494 | median=1.190227 | vs_a2=1.3862781153658263
+narrow_band | fp32-b256-f0-h0 | min=1.169032 | median=1.178609 | vs_a2=1.3974975373474037
+narrow_band | fp64-b256-f1-h0 | min=1.360882 | median=1.374282 | vs_a2=1.2004859953622276
+narrow_band | fp32-b256-f1-h1 | min=1.161865 | median=1.167682 | vs_a2=1.406118698622429
+narrow_band | fp32-b512-f1-h1 | min=1.174533 | median=1.174857 | vs_a2=1.3909529005154153

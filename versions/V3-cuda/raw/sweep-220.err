@@ -1,0 +1,224 @@
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+src/melspec_cuda.cu(104): warning #177-D: function "<unnamed>::FftTraits<double>::execute" was declared but never referenced
+      static cufftResult execute(cufftHandle plan, double* input, Complex* output) {
+                         ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+src/melspec_cuda.cu(103): warning #177-D: member "<unnamed>::FftTraits<double>::type" was declared but never referenced
+      static constexpr cufftType type = CUFFT_D2Z;
+                                 ^
+
+src/melspec_cuda.cu(113): warning #177-D: function "<unnamed>::squared_norm(const cufftDoubleComplex &)" was declared but never referenced
+  __attribute__((device)) __inline__ __attribute__((always_inline)) double squared_norm(const cufftDoubleComplex& z) {
+                                                                           ^
+
+src/melspec_cuda.cu(232): warning #177-D: function "<unnamed>::CufftPlan::workspace" was declared but never referenced
+      size_t workspace() const {
+             ^
+
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+src/melspec_cuda.cu(104): warning #177-D: function "<unnamed>::FftTraits<double>::execute" was declared but never referenced
+      static cufftResult execute(cufftHandle plan, double* input, Complex* output) {
+                         ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+src/melspec_cuda.cu(103): warning #177-D: member "<unnamed>::FftTraits<double>::type" was declared but never referenced
+      static constexpr cufftType type = CUFFT_D2Z;
+                                 ^
+
+src/melspec_cuda.cu(113): warning #177-D: function "<unnamed>::squared_norm(const cufftDoubleComplex &)" was declared but never referenced
+  __attribute__((device)) __inline__ __attribute__((always_inline)) double squared_norm(const cufftDoubleComplex& z) {
+                                                                           ^
+
+src/melspec_cuda.cu(232): warning #177-D: function "<unnamed>::CufftPlan::workspace" was declared but never referenced
+      size_t workspace() const {
+             ^
+
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+src/melspec_cuda.cu(104): warning #177-D: function "<unnamed>::FftTraits<double>::execute" was declared but never referenced
+      static cufftResult execute(cufftHandle plan, double* input, Complex* output) {
+                         ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+src/melspec_cuda.cu(103): warning #177-D: member "<unnamed>::FftTraits<double>::type" was declared but never referenced
+      static constexpr cufftType type = CUFFT_D2Z;
+                                 ^
+
+src/melspec_cuda.cu(113): warning #177-D: function "<unnamed>::squared_norm(const cufftDoubleComplex &)" was declared but never referenced
+  __attribute__((device)) __inline__ __attribute__((always_inline)) double squared_norm(const cufftDoubleComplex& z) {
+                                                                           ^
+
+src/melspec_cuda.cu(232): warning #177-D: function "<unnamed>::CufftPlan::workspace" was declared but never referenced
+      size_t workspace() const {
+             ^
+
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+src/melspec_cuda.cu(104): warning #177-D: function "<unnamed>::FftTraits<double>::execute" was declared but never referenced
+      static cufftResult execute(cufftHandle plan, double* input, Complex* output) {
+                         ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+src/melspec_cuda.cu(103): warning #177-D: member "<unnamed>::FftTraits<double>::type" was declared but never referenced
+      static constexpr cufftType type = CUFFT_D2Z;
+                                 ^
+
+src/melspec_cuda.cu(113): warning #177-D: function "<unnamed>::squared_norm(const cufftDoubleComplex &)" was declared but never referenced
+  __attribute__((device)) __inline__ __attribute__((always_inline)) double squared_norm(const cufftDoubleComplex& z) {
+                                                                           ^
+
+src/melspec_cuda.cu(232): warning #177-D: function "<unnamed>::CufftPlan::workspace" was declared but never referenced
+      size_t workspace() const {
+             ^
+
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+src/melspec_cuda.cu(97): warning #177-D: function "<unnamed>::FftTraits<float>::execute" was declared but never referenced
+      static cufftResult execute(cufftHandle plan, float* input, Complex* output) {
+                         ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+src/melspec_cuda.cu(96): warning #177-D: member "<unnamed>::FftTraits<float>::type" was declared but never referenced
+      static constexpr cufftType type = CUFFT_R2C;
+                                 ^
+
+src/melspec_cuda.cu(110): warning #177-D: function "<unnamed>::squared_norm(const cufftComplex &)" was declared but never referenced
+  __attribute__((device)) __inline__ __attribute__((always_inline)) float squared_norm(const cufftComplex& z) {
+                                                                          ^
+
+src/melspec_cuda.cu(232): warning #177-D: function "<unnamed>::CufftPlan::workspace" was declared but never referenced
+      size_t workspace() const {
+             ^
+
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+src/melspec_cuda.cu(104): warning #177-D: function "<unnamed>::FftTraits<double>::execute" was declared but never referenced
+      static cufftResult execute(cufftHandle plan, double* input, Complex* output) {
+                         ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+src/melspec_cuda.cu(103): warning #177-D: member "<unnamed>::FftTraits<double>::type" was declared but never referenced
+      static constexpr cufftType type = CUFFT_D2Z;
+                                 ^
+
+src/melspec_cuda.cu(113): warning #177-D: function "<unnamed>::squared_norm(const cufftDoubleComplex &)" was declared but never referenced
+  __attribute__((device)) __inline__ __attribute__((always_inline)) double squared_norm(const cufftDoubleComplex& z) {
+                                                                           ^
+
+src/melspec_cuda.cu(232): warning #177-D: function "<unnamed>::CufftPlan::workspace" was declared but never referenced
+      size_t workspace() const {
+             ^
+
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+src/melspec_cuda.cu(104): warning #177-D: function "<unnamed>::FftTraits<double>::execute" was declared but never referenced
+      static cufftResult execute(cufftHandle plan, double* input, Complex* output) {
+                         ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+src/melspec_cuda.cu(103): warning #177-D: member "<unnamed>::FftTraits<double>::type" was declared but never referenced
+      static constexpr cufftType type = CUFFT_D2Z;
+                                 ^
+
+src/melspec_cuda.cu(113): warning #177-D: function "<unnamed>::squared_norm(const cufftDoubleComplex &)" was declared but never referenced
+  __attribute__((device)) __inline__ __attribute__((always_inline)) double squared_norm(const cufftDoubleComplex& z) {
+                                                                           ^
+
+src/melspec_cuda.cu(232): warning #177-D: function "<unnamed>::CufftPlan::workspace" was declared but never referenced
+      size_t workspace() const {
+             ^
+
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+src/melspec_cuda.cu(104): warning #177-D: function "<unnamed>::FftTraits<double>::execute" was declared but never referenced
+      static cufftResult execute(cufftHandle plan, double* input, Complex* output) {
+                         ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+src/melspec_cuda.cu(103): warning #177-D: member "<unnamed>::FftTraits<double>::type" was declared but never referenced
+      static constexpr cufftType type = CUFFT_D2Z;
+                                 ^
+
+src/melspec_cuda.cu(113): warning #177-D: function "<unnamed>::squared_norm(const cufftDoubleComplex &)" was declared but never referenced
+  __attribute__((device)) __inline__ __attribute__((always_inline)) double squared_norm(const cufftDoubleComplex& z) {
+                                                                           ^
+
+src/melspec_cuda.cu(232): warning #177-D: function "<unnamed>::CufftPlan::workspace" was declared but never referenced
+      size_t workspace() const {
+             ^
+
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+src/melspec_cuda.cu(104): warning #177-D: function "<unnamed>::FftTraits<double>::execute" was declared but never referenced
+      static cufftResult execute(cufftHandle plan, double* input, Complex* output) {
+                         ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+src/melspec_cuda.cu(103): warning #177-D: member "<unnamed>::FftTraits<double>::type" was declared but never referenced
+      static constexpr cufftType type = CUFFT_D2Z;
+                                 ^
+
+src/melspec_cuda.cu(113): warning #177-D: function "<unnamed>::squared_norm(const cufftDoubleComplex &)" was declared but never referenced
+  __attribute__((device)) __inline__ __attribute__((always_inline)) double squared_norm(const cufftDoubleComplex& z) {
+                                                                           ^
+
+src/melspec_cuda.cu(232): warning #177-D: function "<unnamed>::CufftPlan::workspace" was declared but never referenced
+      size_t workspace() const {
+             ^
