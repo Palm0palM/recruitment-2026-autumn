@@ -29,9 +29,14 @@ export OMP_PROC_BIND=close
 export OMP_PLACES=cores
 
 PY="${PY:-python3}"
-echo "== 正确性 + 计时（官方 validate.py） =="
-"$PY" validate.py "$VARIANT" --runs "${RUNS:-3}" | tee "logs/validate-${SLURM_JOB_ID}.txt"
+CASE="${CASE:-all}"
+RUNS="${RUNS:-3}"
 
-echo "== 自建 bench（分阶段/单例对照用） =="
-"$PY" scripts/bench.py "$VARIANT" --case all --runs "${RUNS:-3}" \
-      --out "logs/bench-${SLURM_JOB_ID}.md" || true
+if [ "$CASE" = "all" ]; then
+  echo "== 正确性 + 计时（官方 validate.py，四组全跑） =="
+  "$PY" validate.py "$VARIANT" --runs "$RUNS" | tee "logs/validate-${SLURM_JOB_ID}.txt"
+else
+  echo "== 单组用例 ${CASE}：正确性 + 计时（参数组取自 validate.py 的 TEST_CASES） =="
+  "$PY" scripts/bench.py "$VARIANT" --case "$CASE" --runs "$RUNS" \
+        --out "logs/bench-${SLURM_JOB_ID}.md" | tee "logs/validate-${SLURM_JOB_ID}.txt"
+fi

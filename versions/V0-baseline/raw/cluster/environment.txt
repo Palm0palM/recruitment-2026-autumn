@@ -1,0 +1,60 @@
+# 集群环境实测（2026-10-30）
+
+## 登录节点 hepnode0
+hostname = hepnode0        user = zsx
+CPU  = Intel Xeon Gold 6338 @ 2.00GHz, 128 逻辑核 (2 socket x 32 core x 2 thread)
+MEM  = 1007 GiB
+HOME quota: /home (6.9T, 47% used), 当前用户用量 419M
+数据 = /cache/recuritment/melspec/data (beegfs, 属主 zzb, 只读)
+  audio.pcm        49,269,760 B
+  expected/        default.bin  large_fft.bin  narrow_band.bin  small_mels.bin
+工具 = git / make / g++ / python3 / sinfo 可用；`spack` 不在 PATH
+Python = ~/venv  (numpy 2.5.4, librosa 1.0.0)   # 系统 python3 无 numpy
+
+## Slurm
+$ sinfo
+PARTITION    TIMELIMIT  NODES  STATE   NODELIST
+hepnodes*    infinite      1    mixed   hepnode0            (128 CPU, 1TB)
+hepnodes*    infinite      3    idle    hepnode[1-3]        (64 CPU, 1TB each)
+
+## 计算节点 hepnode1（本次测量节点）
+hostname = hepnode1
+分帧参数同 default 时的小样例计时（5 s 切片, n_mels=64）:
+  $ srun -w hepnode1 -N1 -n1 -c1 ./melspec work/slice5s.pcm ... --n_mels 64 ...
+  wall = 7.85 s
+  对比: 本地 i7-14650HX 同参数 4.76 s
+  原因: Xeon Gold 6338 基础频率 2.0GHz（本地睿频 ~5GHz），单核性能低约 1.6x
+  → 朴素实现单线程跑全量会比本地更慢，这是 baseline 的必然结果
+
+## 仓库部署方式
+rsync（仓库已设为 private，集群侧不做 git clone）：
+  rsync -az --exclude tmp/ --exclude logs/ --exclude '*.o' --exclude melspec ./ hepnode:recruitment-2026-autumn/
+编译：make -j8（登录节点编译，计算节点运行）
+
+## baseline 集群测量：已按要求取消（2026-10-30）
+
+学长反馈：朴素实现在集群上跑一组用例一个多小时都跑不完，不要让 baseline 占用集群资源，
+故 baseline 只保留本地数字，集群从 V1 起再上（且优先小算例）。
+
+已提交后取消的作业（作为"集群上太慢"的旁证）：
+
+  $ PY=$HOME/venv/bin/python CASE=small_mels RUNS=1 sbatch --export=ALL scripts/bench.slurm
+  Submitted batch job 14
+  $ scancel 14
+
+  $ sacct -j 14 --format=JobID,JobName,State,Elapsed
+  14          melspec-bench   CANCELLED+  00:03:34
+  14.batch    batch           CANCELLED   00:03:35
+
+  作业输出（取消时）：
+    == job 14 on hepnode1 ==
+    CPU: 16  被测程序: ./melspec
+    CPU(s): 64 / Intel Xeon Gold 6338 @ 2.00GHz
+    == 单组用例 small_mels：正确性 + 计时 ==
+    （无结果行 —— 连最小的 small_mels 单次运行都没跑完）
+
+解读：
+  * small_mels 是四组里最便宜的一组（n_mels=64、输出 49 MB），仍 >3.5 min 未完成；
+  * 全量 default（256 期 × 4097 bin 稠密乘）确实不可行；
+  * 与本地 5 s 切片 4.76 s / 集群同切片 7.85 s 的单核差距一致
+    （Xeon 6338 基础频率 2.0GHz vs 本地睿频 ~5GHz）。

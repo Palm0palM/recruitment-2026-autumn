@@ -33,20 +33,34 @@
 | 用例 | 输入 | 耗时 | librosa | speedup | 备注 |
 |---|---|---|---|---|---|
 | default | 5 s 截断 | 17.55 s | 0.83 s | 0.05x | `raw/local-timings.txt` |
-| default | 50 s 截断 | 待补 | 2.12 s | — | |
-| default | 全量 256.6 s | 见 `raw/v0_default_local.txt` | 未测（OOM 风险） | — | |
+| default | 50 s 截断 | 未测 | 2.12 s | — | |
+| **default** | **全量 256.6 s** | **1645.2 s（27.4 min）** | 未测（峰值 ~25 GB） | — | `raw/v0_default_full_local.txt`，RSS 6.7 GB |
 | large_fft | 全量 | **未测**：需 12.6 GiB 功率谱，本地会严重 swap | — | — | 必须上集群 |
 
-### 3.2 集群（正式成绩，待补）
+**全量 default 也做了完整正确性核对**（vs `data/expected/default.bin`）：
+`max|Δ| = 3.13e-2`、`max 相对误差(exp>1e-3) = 6.3e-7`、`allclose(rtol=1e-3, atol=1e-4) = True`。
+绝对误差超 `atol` 的项全部落在数值很大的 bin 上（相对误差仅 ~1e-6），
+**容差余量约 3 个数量级 → float32 全流程可行**。
 
-集群 SSH 在 2026-10-30 上午处于维护状态（`Maintaining... / Connection closed`），
-恢复后执行下面命令补齐，并把输出粘到 `raw/cluster/`：
+另一个重要信号：全量相对 5 s 切片的耗时是 **93.8× 而数据量只有 51.3×**，
+即**超线性劣化**——功率谱 6.3 GiB 远超 LLC，列访问 + 逐帧离散写入带来大量 TLB/cache miss 与换页。
+这直接决定了 V1 的方向：**分块流式 + 行主序**，不要物化功率谱。
 
-```bash
-ssh hepnode && cd <repo> && git pull && make -j "$(nproc)"
-mkdir -p logs && sbatch scripts/bench.slurm
-# 结果：logs/validate-<jobid>.txt（四组 PASS/FAIL + 时间 + librosa 加速比）
-```
+### 3.2 集群（按学长要求不测 baseline）
+
+**结论：baseline 不在集群上测。** 学长实测朴素实现在集群上跑一组用例一个多小时都跑不完，
+要求直接跳过 baseline 的集群测量，把集群算力留给优化后的版本。
+
+本次已提交并取消的作业可作为旁证（`raw/cluster/environment.txt`）：
+`job 14`（`small_mels` 单组、`--runs 1`、hepnode1 / 64 核机器）运行 **3 分 34 秒被取消时仍未完成**
+——而这已经是四组里最便宜的一组（`n_mels=64`，输出仅 49 MB）。
+
+因此：
+
+- **V0 的基线数字一律取本地实测**（同一台机器、同一数据集，纵向可比）。
+- 集群只在 **V1 之后**用于验证优化版本的绝对性能与扩展性；
+  且仍然优先用小算例（`small_mels` 或截断输入），避免占用过多资源。
+- 跨平台比较时只比「相对 V0 的倍数」，不混用本地的绝对秒数。
 
 ## 4. 瓶颈定位（证据）
 

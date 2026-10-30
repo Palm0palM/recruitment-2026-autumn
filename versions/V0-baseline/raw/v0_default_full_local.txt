@@ -1,0 +1,23 @@
+case=default
+cmd=../melspec data/audio.pcm out.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels 256 --f_min 0 --f_max 22050
+wall_s=1645.245
+
+# 环境: 本地 WSL, i7-14650HX (24T), 15 GiB RAM + 4 GiB swap, g++ 16.2.1
+# 输入: data/audio.pcm (49,269,760 B = 24,634,880 samples, 256.6 s @ 96kHz)
+# 输出: 256 x 192397 float32 = 197 MB
+# 进程 RSS 峰值 ~6.7 GB (power_spec = 4097 x 192397 x 8 B = 6.3 GiB)
+
+# 正确性（输出 vs data/expected/default.bin，官方容差 rtol=1e-3 atol=1e-4）
+elements = 49,253,632  (shape 256 x 192397，与官方 shape 一致)
+max abs err      = 3.1250e-02
+max rel err (exp>1e-3) = 6.258e-07, 99.99 分位 = 3.945e-07
+np.allclose(rtol=1e-3, atol=1e-4) = True
+value range      = 3.38e-11 .. 1.46e05
+# 解读: 绝对误差超 atol 的项全部落在数值很大的 bin 上（相对误差仅 ~1e-6），
+#       说明参考实现与本题实现的一致性非常好，容差余量约 3 个数量级
+#       -> float32 全流程（相对误差量级 1e-6 ~ 1e-5）在容差上完全可行。
+
+# 与 5 s 切片对比（17.55 s）：
+#   数据量 51.3x，耗时 93.8x —— 明显超线性，原因是功率谱 6.3 GiB 超出 LLC，
+#   Mel 投影的列访问 + 逐帧写 power_spec[k][t] 带来大量 TLB/cache miss 与换页。
+#   这是 V1 必须做"分块流式 + 行主序"的直接证据。
