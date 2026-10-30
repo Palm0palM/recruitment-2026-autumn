@@ -42,3 +42,37 @@ default/narrow 回退，large_fft 基本持平，small_mels 明显回退。初�
 本地五次 median（stable → fusion，秒）：default 1.070→1.126、small_mels 0.791→0.822、
 large_fft 1.739→1.686、narrow_band 1.761→1.673。大 FFT/窄带有趋势，default/小帧组回退，待集群判定。
 原始结果：`raw/fusion-*`。
+
+### D2 集群结果：采用融合
+
+作业 244（hepnode2）交错 median（stable → fusion）：default 0.978→0.982 s（噪声内），
+small_mels 0.661→0.649 s（约 1.7%）、large_fft 1.357→1.343 s（约 1.1%）、
+narrow_band 1.308→1.274 s（约 2.7%）。官方 fusion 四组全 PASS：
+`0.958 / 0.638 / 1.316 / 1.261 s`。三组稳定收益、default 无明显回退，且 39 组输出与稳定版完全相同，
+因此将 `FUSE_POWER_MEL=1` 设为默认，并再做最终复测。原始结果见 `raw/cluster/*244*`。
+
+D1 的 output-overlap 在作业 248 也完成官方四组 PASS，但因性能无稳定收益仍不采用。
+
+## D3：Mel 向量化审查（不新增实现）
+
+S1 已把每行权重压成连续 storage；GCC 16.2 对原稀疏内层和融合内层都报告
+`loop vectorized using 32 byte vectors and unroll factor 4`，尾循环也使用 16-byte vectors。
+说明当前通用构建已经利用 AVX2，不存在“完全未向量化”的问题。
+再引入手工 FMA、多个部分和或重新排序会改变数值路径，并增加维护成本；
+在已有自动向量化且 Mel 只占少量端到端时间的情况下，不为局部指标增加独立 SIMD 实现。
+
+## D4：输入加窗与数据局部性审查（不新增实现）
+
+- Hann pack 已被编译器用 32-byte vectors 自动向量化；每帧仍必须执行窗口乘法并写 FFTW 对齐输入。
+- hop=128 的重叠 PCM 在顺序帧间有自然缓存复用，额外跨帧缓存只会增加内存和管理工作。
+- 不修改 FFTW 内核/Plan 就不能省略“加窗后的连续输入”这一步；不能把未加窗 PCM 直接交给原 R2C Plan。
+- protected `read_pcm` 的 int16 缓冲、double 归一化和生命周期不可改，本轮不通过预加载/替换 main 绕过。
+
+因此没有满足约束且有明确收益假设的新实现，停止该方向，不重复已被否决的普通 Frame Block。
+
+## D5：可消除成本与固定成本复核
+
+- 可测试并已闭环：压缩 Mel 构造、output 初始化重叠、power/Mel 融合。
+- 受保护 main 固定：PCM 读取/归一化、double 输出读取、float32 分配/转换/写出。
+- output 初始化可合法并行但集群无稳定收益；不能用 UB 跳过。
+- 后续只接受端到端稳定改善，不再用单一 worker/Mel 指标替代成绩。

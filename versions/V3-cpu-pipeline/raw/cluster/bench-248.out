@@ -1,0 +1,41 @@
+python: /home/zsx/venv/bin/python   CPU: nproc=16   cpuset: Cpus_allowed_list:	0-15
+== job 248 on hepnode2 ==
+节点: hepnode2
+CPU: 16  被测程序: tmp/bin/output-overlap
+CPU(s):                                  64
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+CPU(s) scaling MHz:                      31%
+               total        used        free      shared  buff/cache   available
+Mem:             503          13         264           3         231         489
+== 编译（计算节点原生指令集） ==
+g++ -I./include -DMELSPEC_FRAME_BLOCK=1 -DMELSPEC_MAX_THREADS=16 -DMELSPEC_OUTPUT_OVERLAP=0 -DMELSPEC_FUSE_POWER_MEL=0 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b1-sparse-t16-ow0-f0/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FRAME_BLOCK=1 -DMELSPEC_MAX_THREADS=16 -DMELSPEC_OUTPUT_OVERLAP=0 -DMELSPEC_FUSE_POWER_MEL=0 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b1-sparse-t16-ow0-f0/melspec.o -c src/melspec.cpp
+g++  -o melspec tmp/build/r2c-estimate-b1-sparse-t16-ow0-f0/main.o tmp/build/r2c-estimate-b1-sparse-t16-ow0-f0/melspec.o -pthread /home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+b465b0cc0c7847f4dc96a05f3121de2cda24f2b8cf01cbc4b25d758ef20b0d9b  src/melspec.cpp
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+ae96df25e59816e6162e2cee7101c380d0058c820d1771cea302d0e91de2ea9d  include/melspec.h
+ee18296021d6efe3644950e47c7922dce072846e7fe44d47b6d3645e950ac7ce  validate.py
+2df9f11bb8fbe509174985fc49cefed5c77197f196f7861d6c423fb8c0e944c2  Makefile
+62ef217c1ee23e144cd6cc40976eced88ed3b4d0ff83aff03215462832b366c8  tmp/bin/output-overlap
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]
+numpy 2.5.4 librosa 1.0.0
+== 正确性 + 计时（官方 validate.py，四组全跑） ==
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    0.982 | 13.468x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    0.645 | 20.209x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.352 | 20.869x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    1.292 | 21.807x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
