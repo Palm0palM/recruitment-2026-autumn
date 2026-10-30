@@ -1,0 +1,48 @@
+default serial round=0 elapsed=1.152816 max_abs_err=0.09375 PASS
+default overlap round=0 elapsed=0.919688 max_abs_err=0.09375 PASS
+default overlap round=1 elapsed=0.858389 max_abs_err=0.09375 PASS
+default serial round=1 elapsed=1.244838 max_abs_err=0.09375 PASS
+default serial round=2 elapsed=1.063860 max_abs_err=0.09375 PASS
+default overlap round=2 elapsed=0.954263 max_abs_err=0.09375 PASS
+default overlap round=3 elapsed=0.855932 max_abs_err=0.09375 PASS
+default serial round=3 elapsed=0.933158 max_abs_err=0.09375 PASS
+default serial round=4 elapsed=1.147844 max_abs_err=0.09375 PASS
+default overlap round=4 elapsed=0.911339 max_abs_err=0.09375 PASS
+small_mels serial round=0 elapsed=0.528434 max_abs_err=0.0234375 PASS
+small_mels overlap round=0 elapsed=0.473170 max_abs_err=0.0234375 PASS
+small_mels overlap round=1 elapsed=0.532408 max_abs_err=0.0234375 PASS
+small_mels serial round=1 elapsed=0.547082 max_abs_err=0.0234375 PASS
+small_mels serial round=2 elapsed=0.585073 max_abs_err=0.0234375 PASS
+small_mels overlap round=2 elapsed=0.455434 max_abs_err=0.0234375 PASS
+small_mels overlap round=3 elapsed=0.489396 max_abs_err=0.0234375 PASS
+small_mels serial round=3 elapsed=0.608514 max_abs_err=0.0234375 PASS
+small_mels serial round=4 elapsed=0.514368 max_abs_err=0.0234375 PASS
+small_mels overlap round=4 elapsed=0.584171 max_abs_err=0.0234375 PASS
+large_fft serial round=0 elapsed=1.035960 max_abs_err=0.21875 PASS
+large_fft overlap round=0 elapsed=0.807451 max_abs_err=0.21875 PASS
+large_fft overlap round=1 elapsed=0.985624 max_abs_err=0.21875 PASS
+large_fft serial round=1 elapsed=1.356828 max_abs_err=0.21875 PASS
+large_fft serial round=2 elapsed=1.132299 max_abs_err=0.21875 PASS
+large_fft overlap round=2 elapsed=0.869203 max_abs_err=0.21875 PASS
+large_fft overlap round=3 elapsed=1.010959 max_abs_err=0.21875 PASS
+large_fft serial round=3 elapsed=1.174759 max_abs_err=0.21875 PASS
+large_fft serial round=4 elapsed=1.450735 max_abs_err=0.21875 PASS
+large_fft overlap round=4 elapsed=1.219753 max_abs_err=0.21875 PASS
+narrow_band serial round=0 elapsed=1.082863 max_abs_err=0.15625 PASS
+narrow_band overlap round=0 elapsed=0.997215 max_abs_err=0.15625 PASS
+narrow_band overlap round=1 elapsed=0.895955 max_abs_err=0.15625 PASS
+narrow_band serial round=1 elapsed=1.021809 max_abs_err=0.15625 PASS
+narrow_band serial round=2 elapsed=1.043326 max_abs_err=0.15625 PASS
+narrow_band overlap round=2 elapsed=0.916403 max_abs_err=0.15625 PASS
+narrow_band overlap round=3 elapsed=0.850404 max_abs_err=0.15625 PASS
+narrow_band serial round=3 elapsed=1.269552 max_abs_err=0.15625 PASS
+narrow_band serial round=4 elapsed=1.042663 max_abs_err=0.15625 PASS
+narrow_band overlap round=4 elapsed=0.873877 max_abs_err=0.15625 PASS
+default | serial | min=0.933158 | median=1.147844 | vs_a2=None
+default | overlap | min=0.855932 | median=0.911339 | vs_a2=None
+small_mels | serial | min=0.514368 | median=0.547082 | vs_a2=None
+small_mels | overlap | min=0.455434 | median=0.489396 | vs_a2=None
+large_fft | serial | min=1.035960 | median=1.174759 | vs_a2=None
+large_fft | overlap | min=0.807451 | median=0.985624 | vs_a2=None
+narrow_band | serial | min=1.021809 | median=1.043326 | vs_a2=None
+narrow_band | overlap | min=0.850404 | median=0.895955 | vs_a2=None

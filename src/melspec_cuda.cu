@@ -24,6 +24,35 @@
 #ifndef MELSPEC_CUDA_PINNED
 #define MELSPEC_CUDA_PINNED 0
 #endif
+#ifndef MELSPEC_CUDA_OVERLAP_INIT
+#define MELSPEC_CUDA_OVERLAP_INIT 0
+#endif
+
+#if MELSPEC_CUDA_OVERLAP_INIT
+#include <exception>
+#include <thread>
+struct ContextInit {
+    std::thread thread;
+    std::exception_ptr error;
+    ContextInit() : thread([this] {
+        try {
+            const cudaError_t status = cudaFree(nullptr);
+            if (status != cudaSuccess)
+                throw std::runtime_error(std::string("CUDA context initialization: ") +
+                                         cudaGetErrorString(status));
+        } catch (...) {
+            error = std::current_exception();
+        }
+    }) {}
+    ~ContextInit() {
+        if (thread.joinable()) thread.join();
+    }
+    void finish() {
+        if (thread.joinable()) thread.join();
+        if (error) std::rethrow_exception(error);
+    }
+};
+#endif
 
 #ifdef MELSPEC_CUDA_PROFILE
 #include <chrono>
@@ -229,11 +258,15 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
         throw std::runtime_error("Invalid parameters or audio too short for n_fft");
     const int n_frames = 1 + (n_samples - n_fft) / hop_length;
     const int n_bins = n_fft / 2 + 1;
-    output.resize(static_cast<size_t>(n_mels) * n_frames);
     if (n_fft == 1) {
+        output.resize(static_cast<size_t>(n_mels) * n_frames);
         std::fill(output.begin(), output.end(), 0.0);
         return;
     }
+#if MELSPEC_CUDA_OVERLAP_INIT
+    ContextInit context_init;
+#endif
+    output.resize(static_cast<size_t>(n_mels) * n_frames);
 
 #if MELSPEC_CUDA_PINNED
     PinnedBuffer<Real> host_y(y.size());
@@ -255,6 +288,9 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
         while (last[m] > first[m] && mel_fb[m][last[m] - 1] == 0.0) --last[m];
     }
     PROFILE_ADD(host_setup_ms, phase);
+#if MELSPEC_CUDA_OVERLAP_INIT
+    context_init.finish();
+#endif
 
     DeviceBuffer<Real> device_y(y.size());
     DeviceBuffer<Real> device_window(window.size());
