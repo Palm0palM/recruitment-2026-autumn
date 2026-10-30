@@ -82,3 +82,37 @@ fused/separate 差异较小，保留 fused 以避免功率矩阵及其显存流�
 同作业 220 中，初始化重叠 batch512 对 A2 的 default/small_mels 约 1.019×/1.428×，
 batch256 对 large/narrow 约 1.751×/1.630×；最终选择简单的 batch512 候选，
 其大 FFT 与 batch256 的差异约 1%，以官方 226 的完整验证为准。
+
+## 最终异步输出候选（作业 276）
+
+算法/默认构建 commit `3e11194688b4b581b8ca527c5d292dbee451b0f1`：
+FP32、batch512、fused Mel、context 初始化重叠、**pinned 双缓冲异步 D2H + CPU 转换流水**、
+**output.resize 独立线程**、staging 16 行。完整官方 `validate.py --runs 3`，四组 PASS：
+
+| 用例 | 最终 GPU（秒） | 同次官方 librosa / GPU | max_abs_err |
+|---|---:|---:|---:|
+| default | **0.782** | 17.819× | 0.09375 |
+| small_mels | **0.536** | 25.668× | 0.0234375 |
+| large_fft | **0.800** | 37.071× | 0.21875 |
+| narrow_band | **0.800** | 36.870× | 0.15625 |
+
+正式二进制 SHA-256：`5ea45f327e91514cec1d7c028467bc72f784e23378bfd66dce82c45f554bf952`。
+
+### 与当前最快 CPU（FFTW float + float power + PATIENT wisdom）比较
+
+FFTW 最新正式中位/验收：0.826 / 0.491 / 1.024 / 0.976 秒。
+最终 GPU 与它的时间比（GPU/FFTW）：
+
+| 用例 | GPU 相对 FFTW |
+|---|---:|
+| default | 快约 **5.3%** |
+| small_mels | 慢约 **9.2%** |
+| large_fft | 快约 **21.9%** |
+| narrow_band | 快约 **18.0%** |
+
+四组几何平均 GPU 约快 **1.11×**。这是不同作业/节点配置的正式数据比较，仍不是严格同作业 A/B；
+但大 FFT 领先幅度明显，small_mels 的滞后也稳定存在。
+在 GPU 路线内部，最终候选相对此前的 stable 1.011/0.567/1.038/1.031 全面改善。
+
+性能目标“优先争取 large_fft、narrow_band 稳定领先”已达成，default 也略有领先；
+不宣称小规模全面胜出。最终 Hybrid 可继续把 small_mels 分派给 CPU。

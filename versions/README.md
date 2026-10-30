@@ -41,7 +41,7 @@ versions/
 |---|---|---|---|---|
 | V0-baseline | 原始朴素实现（逐帧 `complex<double>` FFT + 稠密 Mel 乘） | **1645.2**（27.4 min） | 本地 | 完成（集群按学长要求不跑 baseline） |
 | [V1-legacy-port](V1-legacy-port/README.md) | 旧解答迁移：FFT 缓存、半长实数 FFT、稀疏逐帧 Mel、16 线程 | **1.537** | hepnode3 / 16 CPU | 全量 4/4 PASS，vs librosa 12.416×；profile 完成 |
-| [V3-cuda](V3-cuda/README.md) | cuFFT R2C + 全 GPU 加窗/模平方/稀疏 Mel，FP32、batch512、初始化重叠 | **1.011** | hepnode2 / L40 + 16 CPU | 默认构建全量 4/4 PASS，vs librosa 13.172×；A2 对照与 profile 完成 |
+| [V3-cuda](V3-cuda/README.md) | cuFFT R2C + 全 GPU Mel、FP32 batch512、异步 pinned 输出流水 | **0.782** | hepnode2 / L40 + 16 CPU | 4/4 PASS，vs librosa 17.819×；四组几何平均快于 FFTW PATIENT |
 
 > 口径提醒：
 > * 本地 15 GiB 内存机器上 default 全量会因功率谱 6.3 GiB 产生换页；集群节点 1 TB 内存没有这个问题，

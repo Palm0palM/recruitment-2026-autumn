@@ -84,3 +84,52 @@ default/large/narrow 的常驻分配已降到约 0.4–0.45 ms，small_mels 本�
 **V3 后续瓶颈已明确转为 host 准备、D2H/staging、host 转换和 main 固定读写。**
 继续投入 cuFFT 微内核或多流 FFT 的预期收益远小于这些固定成本；如果再做 V4，
 应优先验证合法的输出/传输流水和主机端初始化，而不是单纯追求更高理论 GPU 算力。
+
+## 异步输出最终候选（作业 277）
+
+与官方 276 同源码、同默认；`CUDA_PROFILE=1` 独立构建，四组输出全部 PASS。
+`resize_wait` 是 join 后残余等待，不包含已与 host 准备并行的时间；`d2h_ms` 是 event 等待，
+由于预取，通常已被其他 CPU 工作隐藏。`async_output_total_ms` 包含 staging 分配、输出 resize
+（若在异步块内）、传输与 CPU 转换，但部分工作重叠，不能与各子项直接相加。
+
+| 阶段（ms） | default | small_mels | large_fft | narrow_band |
+|---|---:|---:|---:|---:|
+| y double→float | 50.8 | 48.3 | 49.8 | 49.4 |
+| 窗口/滤波器 | 8.9 | 2.3 | 18.4 | 18.2 |
+| output.resize 等待 | **0.001** | **0.001** | **0.001** | **0.001** |
+| CUDA context/常驻分配 | 109.5 | 96.8 | 84.3 | 82.3 |
+| 静态 H2D | 9.6 | 8.8 | 10.1 | 11.8 |
+| batch 分配 + plan | 3.4 | 3.1 | 3.7 | 3.6 |
+| gather | 6.9 | 7.0 | 11.7 | 11.8 |
+| cuFFT | 7.5 | 7.4 | 24.5 | 24.9 |
+| power + Mel | 10.4 | 5.1 | 11.2 | 10.4 |
+| pinned staging 分配 | 10.2 | 10.2 | 10.2 | 10.2 |
+| D2H event 等待 | 0.5 | 0.5 | 0.5 | 0.5 |
+| CPU float→double | 48.8 | 12.0 | 48.3 | 48.9 |
+| 异步输出总区间 | 59.7 | 22.7 | 59.2 | 59.8 |
+| **compute 总 wall** | **266.9** | **201.8** | **273.1** | **272.4** |
+| 诊断全进程 wall（秒） | 0.823 | 0.571 | 0.807 | 0.831 |
+
+output.resize 的串行等待已从约 160–260 ms 降到约 **1 µs** 残余；D2H 传输与 CPU 转换重叠后，
+异步输出总区间约 60 ms（small_mels 约23 ms），而此前单次 D2H 126 ms + 转换 48 ms。
+正式 276 的进程总时间低于诊断 wall，是因为诊断每阶段同步、输出校验和日志产生额外开销。
+
+### 剩余瓶颈与是否继续
+
+1. **CUDA context/常驻 buffer 分配仍约 82–110 ms**，是 compute 内最大的单项。
+   当前只用 `cudaFree(0)` 提前创建 context，真正的 `cudaMalloc` 和 plan 仍在 host 准备之后。
+   下一步可将 device buffer 分配与 plan 构建整体移入后台初始化线程，与 host 准备重叠；
+   这是有明确上限的独立实验。
+2. **y double→float 约 49 ms、输出 float→double 约 48 ms**。可用独立线程或并行转换，
+   但会与输出 resize/设备分配争内存带宽，必须在集群 A/B，不能凭局部 microbench 决定。
+3. **main 固定的 PCM 读取与 float32 写盘约 0.18 + 0.22 s**（历史 V2 profile），不可修改。
+   当前 0.78–0.80 s 已接近这部分固定成本 + 约 0.2 s 主机/GPU 工作的量级。
+4. cuFFT/Gather/Mel 合计只有约 **25–47 ms**，继续优化 GPU kernel 的端到端上限很低。
+5. CUDA Graph 最多只能影响 kernel launch 区间（本 profile 中 gather+FFT+Mel 的量级），
+   在 host 固定成本占主导时预计收益数毫秒，暂不值得引入生命周期复杂度。
+   GPU 端 double 输出会把 D2H 字节数翻倍，仅省掉约49 ms CPU 转换，按当前约60 ms 异步输出区间
+   也没有收益证据，不采用。
+
+**结论：本轮达到 large/narrow 稳定领先，四组几何平均也超过 FFTW PATIENT。**
+若继续，最值得做的是“设备分配/计划后台化”，然后是多线程主机类型转换；收益空间已从数百毫秒
+缩小到约几十毫秒，属于有界收尾优化，不再是必须项。

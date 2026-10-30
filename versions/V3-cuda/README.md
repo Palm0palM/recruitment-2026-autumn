@@ -1,11 +1,14 @@
 # V3 CUDA 公共实验上下文
 
-当前候选：FP32 cuFFT R2C、batch512、全 GPU 加窗/模平方/稀疏 Mel、初始化重叠。
-G1–G3 与 G4 实验均已完成；FP32/FP64 均通过本地 74 项合成测试与四组官方音频检查。
-最终默认构建在 hepnode2/L40 的作业 238 中四组全 PASS，时间为 1.011 / 0.567 / 1.038 / 1.031 秒；
+当前候选：FP32 cuFFT R2C、batch512、全 GPU 加窗/模平方/稀疏 Mel、初始化重叠、
+pinned 双缓冲异步 D2H/CPU 转换流水、output.resize 独立线程。G1–G4 与主机输出流水均已完成；
+FP32/FP64 通过本地 74 项合成测试，异步 FP32 路径与官方四组全量均 PASS。
+最终默认构建在 hepnode2/L40 作业 276 四组全 PASS：**0.782 / 0.536 / 0.800 / 0.800 秒**。
 详见 [BENCHMARK.md](BENCHMARK.md)。
-环境、设计、profile 和复现分别见 [ENVIRONMENT.md](ENVIRONMENT.md)、[IMPLEMENTATION.md](IMPLEMENTATION.md)、
-[PROFILE.md](PROFILE.md)、[REPRODUCE.md](REPRODUCE.md)。本地 GPU 时间不作为集群成绩。
+环境、设计、profile、输出流水和复现分别见 [ENVIRONMENT.md](ENVIRONMENT.md)、
+[IMPLEMENTATION.md](IMPLEMENTATION.md)、[PROFILE.md](PROFILE.md)、
+[OUTPUT_PIPELINE.md](OUTPUT_PIPELINE.md)、[REPRODUCE.md](REPRODUCE.md)。
+本地 GPU 时间不作为集群成绩。
 
 所有正式改动必须留在 `v3/cuda` 与本 worktree。
 
