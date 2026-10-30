@@ -6,6 +6,7 @@
 #include <cmath>
 #include <complex>
 #include <cstring>
+#include <future>
 #include <stdexcept>
 #include <system_error>
 #include <thread>
@@ -28,6 +29,10 @@ static_assert(MELSPEC_FRAME_BLOCK > 0, "frame block must be positive");
 #define MELSPEC_MAX_THREADS 16
 #endif
 static_assert(MELSPEC_MAX_THREADS > 0, "thread count must be positive");
+
+#ifndef MELSPEC_OUTPUT_OVERLAP
+#define MELSPEC_OUTPUT_OVERLAP 0
+#endif
 
 // ─────────────────────────────────────────────────────────────────────────────
 // HTK mel scale
@@ -279,9 +284,26 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
         recovery[k] = {0.5 * std::sin(ang), -0.5 * std::cos(ang)};
     }
 #endif
-    FFTW_START(output_resize_start);
-    output.resize(static_cast<size_t>(n_mels) * n_frames);
-    FFTW_TIME("output_resize_s", output_resize_start);
+    auto initialize_output = [&] {
+        FFTW_START(output_resize_start);
+        output.resize(static_cast<size_t>(n_mels) * n_frames);
+        FFTW_TIME("output_resize_s", output_resize_start);
+    };
+#if MELSPEC_OUTPUT_OVERLAP
+    std::shared_future<void> output_ready;
+    try {
+        output_ready =
+            std::async(std::launch::async, initialize_output).share();
+    } catch (const std::system_error&) {
+        // Resource-limited fallback retains the original serial initialization.
+        initialize_output();
+        std::promise<void> ready;
+        ready.set_value();
+        output_ready = ready.get_future().share();
+    }
+#else
+    initialize_output();
+#endif
 
     // Keep short inputs single-threaded, and use at most the judge's 16 cores.
     const int n_threads = std::min(
@@ -382,6 +404,18 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
 
             // Reuse each filter across a small frame block and write adjacent
             // time frames contiguously. Every frame still used one R2C Plan.
+#if MELSPEC_OUTPUT_OVERLAP
+            if (block_begin == begin) {
+                // No worker touches output before initialization has completed.
+                // A failed initialization skips output writes; main rethrows.
+                output_ready.wait();
+                try {
+                    output_ready.get();
+                } catch (const std::exception&) {
+                    return;
+                }
+            }
+#endif
             FFTW_START(mel_start);
 #if MELSPEC_MOMENTS
             for (int b = 0; b < block_frames; ++b) {
@@ -440,4 +474,8 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     worker(0);
     for (int id = launched; id < n_threads; ++id) worker(id);
     for (auto& thread : threads) thread.join();
+#if MELSPEC_OUTPUT_OVERLAP
+    // Propagate allocation failure only after every worker has stopped.
+    output_ready.get();
+#endif
 }

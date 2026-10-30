@@ -25,12 +25,13 @@ def main():
     ap.add_argument("--planner", choices=("estimate", "measure"), default="estimate")
     ap.add_argument("--frame-block", type=int, default=1)
     ap.add_argument("--mel-projection", choices=("sparse", "moments"), default="sparse")
+    ap.add_argument("--output-overlap", type=int, choices=(0, 1), default=0)
     ap.add_argument("--cases", nargs="+", default=["default", "small_mels", "large_fft", "narrow_band"])
     ap.add_argument("--build-only", action="store_true")
     args = ap.parse_args()
     if args.frame_block < 1:
         ap.error("--frame-block must be positive")
-    work = ROOT / "tmp/fftw-profile" / f"{args.mode}-{args.planner}-b{args.frame_block}-{args.mel_projection}"
+    work = ROOT / "tmp/fftw-profile" / f"{args.mode}-{args.planner}-b{args.frame_block}-{args.mel_projection}-ow{args.output_overlap}"
     work.mkdir(parents=True, exist_ok=True)
     driver = '#include <chrono>\n' + (ROOT / "src/main.cpp").read_text()
     for call, name in [("read_pcm(a.input_pcm, y);", "read"),
@@ -44,6 +45,7 @@ def main():
            f"-DMELSPEC_FFTW_R2C={int(args.mode == 'r2c')}", f"-DMELSPEC_FFTW_MEASURE={int(args.planner == 'measure')}",
            f"-DMELSPEC_FRAME_BLOCK={args.frame_block}",
            f"-DMELSPEC_MOMENTS={int(args.mel_projection == 'moments')}",
+           f"-DMELSPEC_OUTPUT_OVERLAP={args.output_overlap}",
            "-I" + str(ROOT / "include"), str(work / "main.cpp"), str(ROOT / "src/melspec.cpp"), "-o", str(binary)]
     if os.environ.get("FFTW_PREFIX"):
         prefix = Path(os.environ["FFTW_PREFIX"])
