@@ -20,11 +20,21 @@ CUDA_RESIZE_THREAD ?= 1
 CUDA_STAGING_ROWS ?= 16
 
 HIP_ARCH ?= gfx1201
+HIP_PRECISION ?= 32
+HIP_BATCH ?= 512
+HIP_FUSED ?= 1
+HIP_PINNED ?= 0
+HIP_OVERLAP_INIT ?= 1
+HIP_DEFER_RESIZE ?= 0
+HIP_ASYNC_OUTPUT ?= 1
+HIP_RESIZE_THREAD ?= 1
+HIP_STAGING_ROWS ?= 16
+HIP_PROFILE ?= 0
 HIP_PREFIX ?= $(if $(ROCM_PREFIX),$(ROCM_PREFIX)/usr,$(CURDIR)/tmp/amd-gpu/root/usr)
 HIPCC ?= $(HIP_PREFIX)/bin/hipcc
 HIP_DEVICE_LIB_PATH ?= $(HIP_PREFIX)/lib/llvm-21/lib/clang/21/amdgcn/bitcode
 HIP_LIBDIR = $(HIP_PREFIX)/lib/x86_64-linux-gnu
-HIP_BUILD = tmp/build/hip-$(HIP_ARCH)
+HIP_BUILD = tmp/build/hip-$(HIP_ARCH)-fp$(HIP_PRECISION)-b$(HIP_BATCH)-f$(HIP_FUSED)-p$(HIP_PROFILE)-h$(HIP_PINNED)-o$(HIP_OVERLAP_INIT)-d$(HIP_DEFER_RESIZE)-a$(HIP_ASYNC_OUTPUT)-t$(HIP_RESIZE_THREAD)-r$(HIP_STAGING_ROWS)
 
 SRCS = $(wildcard src/*.cpp)
 INCS = $(wildcard include/*.h)
@@ -61,6 +71,18 @@ endif
 ifeq ($(HIP),1)
 BUILD = $(HIP_BUILD)
 CPPFLAGS += -DMELSPEC_HIP=1 -I$(HIP_PREFIX)/include -I$(HIP_PREFIX)/include/hipfft
+CPPFLAGS += -DMELSPEC_HIP_PRECISION=$(HIP_PRECISION) -DMELSPEC_HIP_BATCH=$(HIP_BATCH)
+CPPFLAGS += -DMELSPEC_HIP_FUSED=$(HIP_FUSED) -DMELSPEC_HIP_PINNED=$(HIP_PINNED)
+CPPFLAGS += -DMELSPEC_HIP_OVERLAP_INIT=$(HIP_OVERLAP_INIT)
+CPPFLAGS += -DMELSPEC_HIP_DEFER_RESIZE=$(HIP_DEFER_RESIZE)
+CPPFLAGS += -DMELSPEC_HIP_ASYNC_OUTPUT=$(HIP_ASYNC_OUTPUT)
+CPPFLAGS += -DMELSPEC_HIP_RESIZE_THREAD=$(HIP_RESIZE_THREAD)
+CPPFLAGS += -DMELSPEC_HIP_STAGING_ROWS=$(HIP_STAGING_ROWS)
+ifeq ($(HIP_PROFILE),1)
+CPPFLAGS += -DMELSPEC_HIP_PROFILE=1
+else ifneq ($(HIP_PROFILE),0)
+$(error HIP_PROFILE must be 0 or 1)
+endif
 OBJS += $(BUILD)/melspec_hip.o
 HIPFLAGS = -std=c++17 -O3 --offload-arch=$(HIP_ARCH) \
   --rocm-path=$(HIP_PREFIX) --rocm-device-lib-path=$(HIP_DEVICE_LIB_PATH) \
@@ -97,6 +119,17 @@ endif
 ifneq ($(filter 32 64,$(CUDA_PRECISION)),)
 else
 $(error CUDA_PRECISION must be 32 or 64)
+endif
+ifneq ($(filter 32 64,$(HIP_PRECISION)),)
+else
+$(error HIP_PRECISION must be 32 or 64)
+endif
+ifneq ($(filter-out 0 1,$(HIP_FUSED) $(HIP_PINNED) $(HIP_OVERLAP_INIT) $(HIP_DEFER_RESIZE) $(HIP_ASYNC_OUTPUT) $(HIP_RESIZE_THREAD) $(HIP_PROFILE)),)
+$(error HIP booleans must be 0 or 1)
+endif
+ifeq ($(shell test "$(HIP_BATCH)" -gt 0 && test "$(HIP_STAGING_ROWS)" -gt 0 && echo yes),yes)
+else
+$(error HIP_BATCH and HIP_STAGING_ROWS must be positive)
 endif
 
 .PHONY: all clean test format hip-probe FORCE

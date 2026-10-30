@@ -1,0 +1,38 @@
+host=hepnode0 job=346 mode=bench
+Cpus_allowed_list:	0-15,64-79
+  Name:                    Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+  Marketing Name:          Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+  Vendor Name:             CPU
+  Name:                    Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+  Marketing Name:          Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+  Vendor Name:             CPU
+  Name:                    gfx1201
+  Marketing Name:          AMD Radeon AI PRO R9700
+  Vendor Name:             AMD
+      Name:                    amdgcn-amd-amdhsa--gfx1201
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+55803861929f0b0e9c99eafb72623a1bfa94ab8ec95072f13ef745b41e5b0dbd  src/melspec.cpp
+85ce2a852b3622be4d3854a9e5417de405aeed6af38f1f4e96146ea195c01f4f  src/melspec_hip.cu
+ae96df25e59816e6162e2cee7101c380d0058c820d1771cea302d0e91de2ea9d  include/melspec.h
+ac3184831e82e7e252d41ee6e5de4ca9e3c00bca0d24b56ff466546c44e75953  include/melspec_hip.h
+3c2329c6ea5bb7a7268a2ee4f9a392393e3e73eba8365b1b6db63b6b4a0b4c99  Makefile
+g++ -I./include -DMELSPEC_HIP=1 -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include/hipfft -DMELSPEC_HIP_PRECISION=32 -DMELSPEC_HIP_BATCH=512 -DMELSPEC_HIP_FUSED=1 -DMELSPEC_HIP_PINNED=0 -DMELSPEC_HIP_OVERLAP_INIT=1 -DMELSPEC_HIP_DEFER_RESIZE=0 -DMELSPEC_HIP_ASYNC_OUTPUT=1 -DMELSPEC_HIP_RESIZE_THREAD=1 -DMELSPEC_HIP_STAGING_ROWS=16 -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/hip-gfx1201-fp32-b512-f1-p0-h0-o1-d0-a1-t1-r16/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_HIP=1 -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include/hipfft -DMELSPEC_HIP_PRECISION=32 -DMELSPEC_HIP_BATCH=512 -DMELSPEC_HIP_FUSED=1 -DMELSPEC_HIP_PINNED=0 -DMELSPEC_HIP_OVERLAP_INIT=1 -DMELSPEC_HIP_DEFER_RESIZE=0 -DMELSPEC_HIP_ASYNC_OUTPUT=1 -DMELSPEC_HIP_RESIZE_THREAD=1 -DMELSPEC_HIP_STAGING_ROWS=16 -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/hip-gfx1201-fp32-b512-f1-p0-h0-o1-d0-a1-t1-r16/melspec.o -c src/melspec.cpp
+/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/bin/hipcc -I./include -DMELSPEC_HIP=1 -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include/hipfft -DMELSPEC_HIP_PRECISION=32 -DMELSPEC_HIP_BATCH=512 -DMELSPEC_HIP_FUSED=1 -DMELSPEC_HIP_PINNED=0 -DMELSPEC_HIP_OVERLAP_INIT=1 -DMELSPEC_HIP_DEFER_RESIZE=0 -DMELSPEC_HIP_ASYNC_OUTPUT=1 -DMELSPEC_HIP_RESIZE_THREAD=1 -DMELSPEC_HIP_STAGING_ROWS=16 -std=c++17 -O3 --offload-arch=gfx1201 --rocm-path=/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr --rocm-device-lib-path=/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/lib/llvm-21/lib/clang/21/amdgcn/bitcode -march=native -pthread -MMD -MP -o tmp/build/hip-gfx1201-fp32-b512-f1-p0-h0-o1-d0-a1-t1-r16/melspec_hip.o -c src/melspec_hip.cu
+g++  -o tmp/bin/melspec-hip tmp/build/hip-gfx1201-fp32-b512-f1-p0-h0-o1-d0-a1-t1-r16/main.o tmp/build/hip-gfx1201-fp32-b512-f1-p0-h0-o1-d0-a1-t1-r16/melspec.o tmp/build/hip-gfx1201-fp32-b512-f1-p0-h0-o1-d0-a1-t1-r16/melspec_hip.o -pthread -L/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/lib/x86_64-linux-gnu -Wl,-rpath,/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/lib/x86_64-linux-gnu -lamdhip64 -lhipfft -lrocfft
+9cd11c47862d4f64cac1dc3d1e2f9f32897482f3bb72672f24ac707332a798f1  tmp/bin/melspec-hip
+== official validate.py --runs 3 ==
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    5.47e-02 |   PASS |    0.904 | 14.811x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.95e-02 |   PASS |    0.663 | 19.922x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.56e-01 |   PASS |    0.988 | 25.875x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    1.56e-01 |   PASS |    0.991 | 25.825x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED

@@ -1,0 +1,8 @@
+default: PASS shape=(256, 1437) max_abs_err=0.0002746582
+small_mels: PASS shape=(64, 1437) max_abs_err=9.1552734e-05
+large_fft: PASS shape=(256, 1373) max_abs_err=0.00061035156
+narrow_band: PASS shape=(256, 1373) max_abs_err=0.00061035156
+cli_defaults: PASS shape=(128, 372) max_abs_err=2.6702881e-05
+fft_1: PASS shape=(4, 1500) max_abs_err=0
+fft_2: PASS shape=(4, 1500) max_abs_err=3.2311743e-27
+fft_8: PASS shape=(4, 1500) max_abs_err=8.7311491e-11

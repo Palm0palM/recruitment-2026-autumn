@@ -77,7 +77,7 @@ cd /home/palm/projects/heptagon/melspec-v3-amd   # 或远端同一项目目录
 bash scripts/setup_amd_rocm.sh
 source tmp/amd-gpu/env.sh
 
-# 生产 HIP 入口（当前是 scaffold，尚未实现正式 pipeline）
+# 生产 HIP 入口（G2 已实现完整 Melspec 流水线）
 make -B -j4 HIP=1 EXEC=tmp/bin/melspec-hip
 
 # 官方 V1 CPU 对照
@@ -96,8 +96,8 @@ make -B hip-probe
   本地 8 项 CPU smoke PASS。
 - HIP 编译参数：`--offload-arch=gfx1201 --rocm-path=$ROCM_PATH
   --rocm-device-lib-path=$HIP_DEVICE_LIB_PATH`，host 侧 `-O3 -march=native -pthread`。
-- `src/melspec_hip.cu` 目前只完成 runtime 探测脚手架并明确抛错，**没有伪装成可用实现**。
-  `HIP=1` 构建可验证编译/链接，但不能通过正式 melspec 验证；完整移植是下一任务。
+- G2 已将 `src/melspec_hip.cu` 替换为完整 HIP Melspec 后端，并通过官方四组；
+  初始性能、实现细节与限制见 [G2-MELSPEC.md](G2-MELSPEC.md)。
 - 初始 `-Xcompiler -O3,-march=native,-pthread` 被 hipcc 当成了非法整数值，调整为 clang 直接参数后成功。
 
 ## 6. 实机验证证据
@@ -114,9 +114,9 @@ hipFFT R2C: PASS
 
 ## 7. 待解决问题
 
-1. 将冻结 CUDA 流水线移植到 `src/melspec_hip.cu`：gather/Hann、hipFFT batched R2C/D2Z、
-   fused power+Mel、Warp 内归约、FP32/FP64 和官方四组全部必须重新验证。
-2. 重新测 hipFFT 的 plan/batch/workspace 曲线；不能直接沿用 cuFFT 的 batch512 结论。
+1. G2 已完成 gather/Hann、hipFFT batched R2C/D2Z、fused power+Mel、Warp 内归约和官方四组；
+   FP32 为主，FP64 仍需专门回归。
+2. G1 已测 hipFFT batch/workspace；16384 点更优 batch 是 256，8192 点是 512，待 G3 端到端采用。
 3. 重新验证 HIP pinned/async D2H、stream/event 和 resize/context 初始化重叠；
    CUDA 的 `cudaFree(0)` 行为不能假设与 HIP 一致。
 4. 评估 gfx1201 的 FP32/FP64 性能与精度；R9700 32 GB 显存足够当前全量布局，但仍按分块设计。
