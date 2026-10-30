@@ -63,6 +63,26 @@ rsync -av hepnode:recruitment-2026-autumn-v1/tmp/logs/ tmp/logs/v1-cluster/
 **各线程阶段耗时之和不是进程 wall time**；插桩会引入开销，不作为性能成绩。
 源码结构变化后插桩定位会报错，需同步维护 `profile.py`，不能静默沿用。
 
+## 本地 perf 与火焰图
+
+```bash
+git clone --depth 1 https://github.com/brendangregg/FlameGraph.git tmp/tools/FlameGraph
+source scripts/env.sh
+$PY scripts/perf_local.py --cases default large_fft --out tmp/perf-v1-new
+```
+
+输出目录必须尚不存在，以免覆盖上次证据。脚本以 `-O3 -march=native -pthread -g` 单独构建，
+不关闭内联、不修改源码或正式二进制；全量输入，保留 V1 的 16 个线程。
+`perf stat -r 3` 后用 `task-clock:u / 499 Hz / DWARF 16 KiB` 抓栈，包含子线程，
+通过 `perf script --inline` 和 Brendan Gregg FlameGraph 生成 SVG。每组输出会对全量 expected 校验。
+
+- WSL 实测 PMU 的 cycles/instructions/cache 事件不支持，不能报告 IPC/cache miss；
+  `task-clock:u` 火焰图表示**用户态 CPU 样本分布**，不是 wall time 或 off-CPU 等待。
+- DWARF 抓栈使用 `-m 128`（512 KiB ring/CPU），避免超过普通用户的锁页额度；
+  原始 `perf.data`、栈文本、输出二进制只留 `tmp/`。
+- 图中横轴不是时间线；全图合并了各线程，点击可放大，Search 可查 `FFTPlan::apply`。
+- 当前 V1 的本地报告与展示用 SVG 见 `versions/V1-legacy-port/local-perf/`。
+
 ## 环境信息
 
 集群完整复核见 `versions/_cluster/recheck-2026-10-30.md`。
