@@ -1,0 +1,16 @@
+JobID|JobName|State|ExitCode|Elapsed|AllocCPUS|NodeList
+93|fftw-lab|COMPLETED|0:0|00:10:02|16|hepnode2
+93.batch|batch|COMPLETED|0:0|00:10:02|16|hepnode2
+93.extern|extern|COMPLETED|0:0|00:10:02|16|hepnode2
+104|fftw-lab-isa|FAILED|1:0|00:03:51|16|hepnode2
+104.batch|batch|FAILED|1:0|00:03:51|16|hepnode2
+104.extern|extern|COMPLETED|0:0|00:03:52|16|hepnode2
+119|fftw-lab-isa|FAILED|2:0|00:01:56|16|hepnode2
+119.batch|batch|FAILED|2:0|00:01:56|16|hepnode2
+119.extern|extern|COMPLETED|0:0|00:01:56|16|hepnode2
+126|fftw-lab-isa|COMPLETED|0:0|00:09:06|16|hepnode2
+126.batch|batch|COMPLETED|0:0|00:09:06|16|hepnode2
+126.extern|extern|COMPLETED|0:0|00:09:06|16|hepnode2
+151|fftw-lab-final|TIMEOUT|0:0|00:30:29|16|hepnode2
+151.batch|batch|CANCELLED|0:15|00:30:30|16|hepnode2
+151.extern|extern|COMPLETED|0:0|00:30:30|16|hepnode2

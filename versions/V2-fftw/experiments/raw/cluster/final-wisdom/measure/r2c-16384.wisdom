@@ -1,0 +1,24 @@
+MELSPEC_FFTW_WISDOM_V1
+fftw_version=fftw-3.3.11-sse2-avx-avx2-avx2_128-avx512
+fftw_cc=gcc -O3 -march=native
+precision=float
+library_id=15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a
+cpu=x86;leaf0=1b,756e6547,6c65746e,49656e69;leaf1=606a6,800800,7ffefbf7,bfebfbff;leaf7.0=2,f3bfb7ef,40417f5e,bc040412;ext1=0,0,121,2c100800;xcr0=2e7
+transform=r2c
+size=16384
+placement=out-of-place
+input_alignment=0
+output_alignment=0
+planner=measure
+payload_bytes=755
+payload_fnv1a64=1427d6fa2b9b8c29
+
+(fftw-3.3.11 fftwf_wisdom #x204abe3b #x3918542a #x294b7c4a #xf4ad0cff
+  (fftwf_codelet_r2cf_2 2 #x11bdd #x11bdd #x0 #x8e209cc3 #xb73fb8af #xf6fd0764 #x38ad5ed5)
+  (fftwf_codelet_hc2cfdftv_2_avx2_128 0 #x11bdd #x11bdd #x0 #xf457cfc7 #xf42117a4 #x48772d54 #x772e7810)
+  (fftwf_codelet_n1fv_32_avx2 0 #x11bdd #x11bdd #x0 #xea294cb6 #x67ec5472 #xf523d9e6 #x4fea7ced)
+  (fftwf_dft_vrank_geq1_register 0 #x11bdd #x11bdd #x0 #x697b20b6 #x6432f0af #xb6a1bcf0 #x310827eb)
+  (fftwf_codelet_r2cfII_2 2 #x11bdd #x11bdd #x0 #xa7551595 #x98cafec7 #xc5d2991d #xa7a13b88)
+  (fftwf_codelet_t1fv_64_avx512 0 #x11bdd #x11bdd #x0 #x84b4edf1 #xe2d8b4a4 #x8c99cc19 #x1d18fc7d)
+  (fftwf_codelet_t3fv_4_avx512 0 #x11bdd #x11bdd #x0 #x5d434298 #x88e29877 #xadad8a78 #x52119eab)
+)

@@ -1,0 +1,204 @@
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+src/fftw_float_wisdom.cpp:132:6: warning: ‘bool melspec_fftwf::{anonymous}::safe_metadata_value(const std::string&)’ defined but not used [-Wunused-function]
+  132 | bool safe_metadata_value(const std::string& value) {
+      |      ^~~~~~~~~~~~~~~~~~~
+src/fftw_float_wisdom.cpp:105:13: warning: ‘std::string melspec_fftwf::{anonymous}::hex64(uint64_t)’ defined but not used [-Wunused-function]
+  105 | std::string hex64(std::uint64_t value) {
+      |             ^~~~~
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+src/fftw_float_wisdom.cpp:132:6: warning: ‘bool melspec_fftwf::{anonymous}::safe_metadata_value(const std::string&)’ defined but not used [-Wunused-function]
+  132 | bool safe_metadata_value(const std::string& value) {
+      |      ^~~~~~~~~~~~~~~~~~~
+src/fftw_float_wisdom.cpp:105:13: warning: ‘std::string melspec_fftwf::{anonymous}::hex64(uint64_t)’ defined but not used [-Wunused-function]
+  105 | std::string hex64(std::uint64_t value) {
+      |             ^~~~~
+FFTWf wisdom status=loaded transform=r2c size=1 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=1 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=1 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=1 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=1 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=1 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=256 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=256 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=256 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=256 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=256 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=256 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2048 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2048 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2048 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2048 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2048 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2048 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=1 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=1 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=1 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=1 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=1 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=1 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=256 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=256 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=256 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=256 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=256 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=256 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2048 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2048 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2048 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2048 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2048 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=2048 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+[2026-10-30T16:56:35.005] error: *** JOB 151 ON hepnode2 CANCELLED AT 2026-10-30T16:56:35 DUE TO TIME LIMIT ***

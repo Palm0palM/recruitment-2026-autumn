@@ -1,0 +1,18 @@
+{
+  "measure-float": {
+    "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+    "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/measure"
+  },
+  "measure-double": {
+    "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+    "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/measure"
+  },
+  "patient-float": {
+    "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+    "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/patient"
+  },
+  "patient-double": {
+    "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+    "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/patient"
+  }
+}

@@ -16,3 +16,9 @@
   defines __AVX512F__, while plain -march=x86-64-v3 defines __AVX2__ but NOT __AVX512F__.
   Retry uses a fresh tmp/fftw-lab/isa/v3/ directory, preserving the failed build and both logs. Disassembly
   triage plus actual selected plans remain required; macro checks alone are not an ISA-absence proof.
+- Cluster 151: all 180 release comparisons, numerical/envelope gates and the first four complete official
+  validators passed. The 30-minute allocation expired during the fifth official run because official
+  validation also measures the slow reference. This is a scheduling timeout, NOT a candidate correctness
+  failure; partial fifth-run output is not counted as PASS. Preserve the exact binaries/wisdom and release
+  score JSON, then run the last two official validators, memory measurements and diagnostics in a separate
+  serial allocation. Do not regenerate wisdom or cherry-pick new planning outcomes during completion.

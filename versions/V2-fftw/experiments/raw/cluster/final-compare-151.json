@@ -1,0 +1,698 @@
+[
+  {
+    "case": "default",
+    "program": "a2",
+    "times": [
+      0.9836349239922129,
+      1.0068152080057189,
+      1.0047333909897134,
+      1.0131915289675817,
+      1.0017642629682086
+    ],
+    "max_abs_err": 0.03125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.9836349239922129,
+    "median_s": 1.0047333909897134,
+    "vs_v1": null
+  },
+  {
+    "case": "default",
+    "program": "float-fp",
+    "times": [
+      0.8941346650244668,
+      0.8941867829998955,
+      0.8968908019596711,
+      0.9002342490130104,
+      0.893210499023553
+    ],
+    "max_abs_err": 0.0546875,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.893210499023553,
+    "median_s": 0.8941867829998955,
+    "vs_v1": null
+  },
+  {
+    "case": "default",
+    "program": "float-dp",
+    "times": [
+      0.8980560869676992,
+      0.9054448499809951,
+      0.898369426955469,
+      0.9001237269840203,
+      0.8970136319985613
+    ],
+    "max_abs_err": 0.046875,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.8970136319985613,
+    "median_s": 0.898369426955469,
+    "vs_v1": null
+  },
+  {
+    "case": "default",
+    "program": "measure-float",
+    "times": [
+      0.819864506018348,
+      0.8222641960019246,
+      0.8182641069870442,
+      0.8310157639789395,
+      0.8359028000268154
+    ],
+    "max_abs_err": 0.0546875,
+    "passed": true,
+    "environment_overrides": {
+      "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/measure"
+    },
+    "wisdom_loaded_runs": 5,
+    "min_s": 0.8182641069870442,
+    "median_s": 0.8222641960019246,
+    "vs_v1": null
+  },
+  {
+    "case": "default",
+    "program": "measure-double",
+    "times": [
+      0.8480072349775583,
+      0.8369795870385133,
+      0.8222891069599427,
+      0.8353861010400578,
+      0.8315974290017039
+    ],
+    "max_abs_err": 0.0546875,
+    "passed": true,
+    "environment_overrides": {
+      "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/measure"
+    },
+    "wisdom_loaded_runs": 5,
+    "min_s": 0.8222891069599427,
+    "median_s": 0.8353861010400578,
+    "vs_v1": null
+  },
+  {
+    "case": "default",
+    "program": "patient-float",
+    "times": [
+      0.8261947669670917,
+      0.8257926509832032,
+      0.8261217179824598,
+      0.8250388710293919,
+      0.8314604639890604
+    ],
+    "max_abs_err": 0.0546875,
+    "passed": true,
+    "environment_overrides": {
+      "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/patient"
+    },
+    "wisdom_loaded_runs": 5,
+    "min_s": 0.8250388710293919,
+    "median_s": 0.8261217179824598,
+    "vs_v1": null
+  },
+  {
+    "case": "default",
+    "program": "patient-double",
+    "times": [
+      0.8188788009574637,
+      0.8347223199671134,
+      0.8277145480387844,
+      0.8321199439815246,
+      0.834957764018327
+    ],
+    "max_abs_err": 0.0546875,
+    "passed": true,
+    "environment_overrides": {
+      "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/patient"
+    },
+    "wisdom_loaded_runs": 5,
+    "min_s": 0.8188788009574637,
+    "median_s": 0.8321199439815246,
+    "vs_v1": null
+  },
+  {
+    "case": "default",
+    "program": "padded4",
+    "times": [
+      1.0079583190381527,
+      1.020277231989894,
+      1.0093251040088944,
+      1.005897588969674,
+      1.0092596809845418
+    ],
+    "max_abs_err": 0.03125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.005897588969674,
+    "median_s": 1.0092596809845418,
+    "vs_v1": null
+  },
+  {
+    "case": "default",
+    "program": "interleaved4",
+    "times": [
+      1.216198345005978,
+      1.215864497993607,
+      1.2185288650216535,
+      1.2216129709850065,
+      1.2152250930084847
+    ],
+    "max_abs_err": 0.03125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.2152250930084847,
+    "median_s": 1.216198345005978,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "a2",
+    "times": [
+      0.659136755974032,
+      0.6670220700325444,
+      0.6718690010020509,
+      0.6665914469631389,
+      0.6855075139901601
+    ],
+    "max_abs_err": 0.01171875,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.659136755974032,
+    "median_s": 0.6670220700325444,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "float-fp",
+    "times": [
+      0.5599908119766042,
+      0.5547289159731008,
+      0.5632038309704512,
+      0.5611110930331051,
+      0.5572637889999896
+    ],
+    "max_abs_err": 0.01953125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.5547289159731008,
+    "median_s": 0.5599908119766042,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "float-dp",
+    "times": [
+      0.5649137769942172,
+      0.5592116710031405,
+      0.5637965030036867,
+      0.5643084309995174,
+      0.5678062029764988
+    ],
+    "max_abs_err": 0.015625,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.5592116710031405,
+    "median_s": 0.5643084309995174,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "measure-float",
+    "times": [
+      0.49159859103383496,
+      0.5711444439948536,
+      0.49097027495736256,
+      0.4916015319759026,
+      0.4932151230168529
+    ],
+    "max_abs_err": 0.015625,
+    "passed": true,
+    "environment_overrides": {
+      "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/measure"
+    },
+    "wisdom_loaded_runs": 5,
+    "min_s": 0.49097027495736256,
+    "median_s": 0.4916015319759026,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "measure-double",
+    "times": [
+      0.496234271035064,
+      0.5012137679732405,
+      0.4981735880137421,
+      0.5005712669808418,
+      0.49244168802397326
+    ],
+    "max_abs_err": 0.015625,
+    "passed": true,
+    "environment_overrides": {
+      "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/measure"
+    },
+    "wisdom_loaded_runs": 5,
+    "min_s": 0.49244168802397326,
+    "median_s": 0.4981735880137421,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "patient-float",
+    "times": [
+      0.4863537260098383,
+      0.49663320602849126,
+      0.48940281401155517,
+      0.4912707510520704,
+      0.5306643049698323
+    ],
+    "max_abs_err": 0.01953125,
+    "passed": true,
+    "environment_overrides": {
+      "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/patient"
+    },
+    "wisdom_loaded_runs": 5,
+    "min_s": 0.4863537260098383,
+    "median_s": 0.4912707510520704,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "patient-double",
+    "times": [
+      0.4981899950071238,
+      0.5416791850002483,
+      0.4976974559831433,
+      0.495083222980611,
+      0.4902046550414525
+    ],
+    "max_abs_err": 0.015625,
+    "passed": true,
+    "environment_overrides": {
+      "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/patient"
+    },
+    "wisdom_loaded_runs": 5,
+    "min_s": 0.4902046550414525,
+    "median_s": 0.4976974559831433,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "padded4",
+    "times": [
+      0.6600285680033267,
+      0.6757199080311693,
+      0.6656647190102376,
+      0.6729214860242791,
+      0.6647414990002289
+    ],
+    "max_abs_err": 0.01171875,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.6600285680033267,
+    "median_s": 0.6656647190102376,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "interleaved4",
+    "times": [
+      0.8731180839822628,
+      0.8837487679556943,
+      0.8738183359964751,
+      0.9193757490138523,
+      0.8765758459921926
+    ],
+    "max_abs_err": 0.01171875,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.8731180839822628,
+    "median_s": 0.8765758459921926,
+    "vs_v1": null
+  },
+  {
+    "case": "large_fft",
+    "program": "a2",
+    "times": [
+      1.3536420550080948,
+      1.361691811005585,
+      1.3696745510096662,
+      1.3751381849870086,
+      1.3737088600173593
+    ],
+    "max_abs_err": 0.125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.3536420550080948,
+    "median_s": 1.3696745510096662,
+    "vs_v1": null
+  },
+  {
+    "case": "large_fft",
+    "program": "float-fp",
+    "times": [
+      1.1962892130250111,
+      1.1913039670325816,
+      1.197987744002603,
+      1.1958971149870194,
+      1.1907186320167966
+    ],
+    "max_abs_err": 0.15625,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.1907186320167966,
+    "median_s": 1.1958971149870194,
+    "vs_v1": null
+  },
+  {
+    "case": "large_fft",
+    "program": "float-dp",
+    "times": [
+      1.205122031038627,
+      1.1988432049984112,
+      1.2047933830181137,
+      1.2160779009573162,
+      1.2034560030442663
+    ],
+    "max_abs_err": 0.1875,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.1988432049984112,
+    "median_s": 1.2047933830181137,
+    "vs_v1": null
+  },
+  {
+    "case": "large_fft",
+    "program": "measure-float",
+    "times": [
+      1.0758568400051445,
+      1.0809071049443446,
+      1.079143741982989,
+      1.0754581629880704,
+      1.0806701770052314
+    ],
+    "max_abs_err": 0.125,
+    "passed": true,
+    "environment_overrides": {
+      "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/measure"
+    },
+    "wisdom_loaded_runs": 5,
+    "min_s": 1.0754581629880704,
+    "median_s": 1.079143741982989,
+    "vs_v1": null
+  },
+  {
+    "case": "large_fft",
+    "program": "measure-double",
+    "times": [
+      1.0936817870242521,
+      1.080249899008777,
+      1.0968959429883398,
+      1.0975718930130824,
+      1.0872694599675015
+    ],
+    "max_abs_err": 0.125,
+    "passed": true,
+    "environment_overrides": {
+      "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/measure"
+    },
+    "wisdom_loaded_runs": 5,
+    "min_s": 1.080249899008777,
+    "median_s": 1.0936817870242521,
+    "vs_v1": null
+  },
+  {
+    "case": "large_fft",
+    "program": "patient-float",
+    "times": [
+      1.014524330967106,
+      1.0237269339850172,
+      1.023743783007376,
+      1.0356621880200692,
+      1.0220752950408496
+    ],
+    "max_abs_err": 0.15625,
+    "passed": true,
+    "environment_overrides": {
+      "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/patient"
+    },
+    "wisdom_loaded_runs": 5,
+    "min_s": 1.014524330967106,
+    "median_s": 1.0237269339850172,
+    "vs_v1": null
+  },
+  {
+    "case": "large_fft",
+    "program": "patient-double",
+    "times": [
+      1.0298693460063078,
+      1.0315286869881675,
+      1.0359429069794714,
+      1.0380788519978523,
+      1.0369401620118879
+    ],
+    "max_abs_err": 0.1875,
+    "passed": true,
+    "environment_overrides": {
+      "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/patient"
+    },
+    "wisdom_loaded_runs": 5,
+    "min_s": 1.0298693460063078,
+    "median_s": 1.0359429069794714,
+    "vs_v1": null
+  },
+  {
+    "case": "large_fft",
+    "program": "padded4",
+    "times": [
+      1.4584499229677022,
+      1.4520182159612887,
+      1.4609051900333725,
+      1.4571808149921708,
+      1.460099353978876
+    ],
+    "max_abs_err": 0.125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.4520182159612887,
+    "median_s": 1.4584499229677022,
+    "vs_v1": null
+  },
+  {
+    "case": "large_fft",
+    "program": "interleaved4",
+    "times": [
+      2.1925019799964502,
+      2.1716115610324778,
+      2.1648719120421447,
+      2.190935844031628,
+      2.170560033991933
+    ],
+    "max_abs_err": 0.125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 2.1648719120421447,
+    "median_s": 2.1716115610324778,
+    "vs_v1": null
+  },
+  {
+    "case": "narrow_band",
+    "program": "a2",
+    "times": [
+      1.295378138020169,
+      1.3151627740007825,
+      1.3115814980119467,
+      1.3202578509808518,
+      1.307285449001938
+    ],
+    "max_abs_err": 0.0625,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.295378138020169,
+    "median_s": 1.3115814980119467,
+    "vs_v1": null
+  },
+  {
+    "case": "narrow_band",
+    "program": "float-fp",
+    "times": [
+      1.139019105990883,
+      1.1456723570008762,
+      1.1366868360200897,
+      1.1403555509750731,
+      1.1393478260142729
+    ],
+    "max_abs_err": 0.125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.1366868360200897,
+    "median_s": 1.1393478260142729,
+    "vs_v1": null
+  },
+  {
+    "case": "narrow_band",
+    "program": "float-dp",
+    "times": [
+      1.1529280999675393,
+      1.1549166940385476,
+      1.162294842011761,
+      1.1584262489923276,
+      1.1550937969586812
+    ],
+    "max_abs_err": 0.125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.1529280999675393,
+    "median_s": 1.1550937969586812,
+    "vs_v1": null
+  },
+  {
+    "case": "narrow_band",
+    "program": "measure-float",
+    "times": [
+      1.0254095959826373,
+      1.03652379399864,
+      1.0322368540219031,
+      1.0297570420079865,
+      1.0204224579501897
+    ],
+    "max_abs_err": 0.15625,
+    "passed": true,
+    "environment_overrides": {
+      "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/measure"
+    },
+    "wisdom_loaded_runs": 5,
+    "min_s": 1.0204224579501897,
+    "median_s": 1.0297570420079865,
+    "vs_v1": null
+  },
+  {
+    "case": "narrow_band",
+    "program": "measure-double",
+    "times": [
+      1.0317727659712546,
+      1.040169738989789,
+      1.029631634010002,
+      1.0343259400106035,
+      1.0359984560054727
+    ],
+    "max_abs_err": 0.15625,
+    "passed": true,
+    "environment_overrides": {
+      "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/measure"
+    },
+    "wisdom_loaded_runs": 5,
+    "min_s": 1.029631634010002,
+    "median_s": 1.0343259400106035,
+    "vs_v1": null
+  },
+  {
+    "case": "narrow_band",
+    "program": "patient-float",
+    "times": [
+      0.9682794960099272,
+      0.9763925300212577,
+      0.9620405070018023,
+      0.9798595620086417,
+      0.9783841109601781
+    ],
+    "max_abs_err": 0.15625,
+    "passed": true,
+    "environment_overrides": {
+      "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/patient"
+    },
+    "wisdom_loaded_runs": 5,
+    "min_s": 0.9620405070018023,
+    "median_s": 0.9763925300212577,
+    "vs_v1": null
+  },
+  {
+    "case": "narrow_band",
+    "program": "patient-double",
+    "times": [
+      0.9793153979699127,
+      0.9825724639813416,
+      0.9836889950092882,
+      0.9846662509953603,
+      0.9811753999674693
+    ],
+    "max_abs_err": 0.15625,
+    "passed": true,
+    "environment_overrides": {
+      "MELSPEC_FFTWF_LIBRARY_ID": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/final/patient"
+    },
+    "wisdom_loaded_runs": 5,
+    "min_s": 0.9793153979699127,
+    "median_s": 0.9825724639813416,
+    "vs_v1": null
+  },
+  {
+    "case": "narrow_band",
+    "program": "padded4",
+    "times": [
+      1.4238136200001463,
+      1.4043014729977585,
+      1.392821154964622,
+      1.3913723889854737,
+      1.401968068035785
+    ],
+    "max_abs_err": 0.0625,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.3913723889854737,
+    "median_s": 1.401968068035785,
+    "vs_v1": null
+  },
+  {
+    "case": "narrow_band",
+    "program": "interleaved4",
+    "times": [
+      2.099927963980008,
+      2.1476665399968624,
+      2.0886929529951885,
+      2.1095168910105713,
+      2.094388857949525
+    ],
+    "max_abs_err": 0.0625,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 2.0886929529951885,
+    "median_s": 2.099927963980008,
+    "vs_v1": null
+  }
+]

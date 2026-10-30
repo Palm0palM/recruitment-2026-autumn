@@ -1,0 +1,384 @@
+job=151 node=hepnode2
+d8234a51f37dbe89a222f8101f73deae1f63f4c0
+Cpus_allowed_list:	0-15
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+g++ -I./include -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-double-float-wisdom0/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-double-float-wisdom0/melspec.o -c src/melspec.cpp
+g++  -o tmp/fftw-lab/final/a2 tmp/build/r2c-estimate-double-float-wisdom0/main.o tmp/build/r2c-estimate-double-float-wisdom0/melspec.o -pthread /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+g++ -I./include -DMELSPEC_FFTW_FLOAT=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-float-float-wisdom0/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FFTW_FLOAT=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-float-float-wisdom0/melspec.o -c src/melspec.cpp
+g++  -o tmp/fftw-lab/final/float-float tmp/build/r2c-estimate-float-float-wisdom0/main.o tmp/build/r2c-estimate-float-float-wisdom0/melspec.o -pthread /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/lib/libfftw3f.a -lm
+g++ -I./include -DMELSPEC_FFTWF_WISDOM=1 -DMELSPEC_FFTW_FLOAT=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-float-float-wisdom1/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FFTWF_WISDOM=1 -DMELSPEC_FFTW_FLOAT=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-float-float-wisdom1/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FFTWF_WISDOM=1 -DMELSPEC_FFTW_FLOAT=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-float-float-wisdom1/fftw_float_wisdom.o -c src/fftw_float_wisdom.cpp
+g++  -o tmp/fftw-lab/final/combo-float tmp/build/r2c-estimate-float-float-wisdom1/main.o tmp/build/r2c-estimate-float-float-wisdom1/melspec.o tmp/build/r2c-estimate-float-float-wisdom1/fftw_float_wisdom.o -pthread /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/lib/libfftw3f.a -lm
+g++ -I./include -DMELSPEC_FFTW_FLOAT=1 -DMELSPEC_FFTWF_DOUBLE_POWER=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-float-double-wisdom0/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FFTW_FLOAT=1 -DMELSPEC_FFTWF_DOUBLE_POWER=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-float-double-wisdom0/main.o -c src/main.cpp
+g++  -o tmp/fftw-lab/final/float-double tmp/build/r2c-estimate-float-double-wisdom0/main.o tmp/build/r2c-estimate-float-double-wisdom0/melspec.o -pthread /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/lib/libfftw3f.a -lm
+g++ -I./include -DMELSPEC_FFTWF_WISDOM=1 -DMELSPEC_FFTW_FLOAT=1 -DMELSPEC_FFTWF_DOUBLE_POWER=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-float-double-wisdom1/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FFTWF_WISDOM=1 -DMELSPEC_FFTW_FLOAT=1 -DMELSPEC_FFTWF_DOUBLE_POWER=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-float-double-wisdom1/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FFTWF_WISDOM=1 -DMELSPEC_FFTW_FLOAT=1 -DMELSPEC_FFTWF_DOUBLE_POWER=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-float-double-wisdom1/fftw_float_wisdom.o -c src/fftw_float_wisdom.cpp
+g++  -o tmp/fftw-lab/final/combo-double tmp/build/r2c-estimate-float-double-wisdom1/main.o tmp/build/r2c-estimate-float-double-wisdom1/melspec.o tmp/build/r2c-estimate-float-double-wisdom1/fftw_float_wisdom.o -pthread /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/lib/libfftw3f.a -lm
+g++ -I./include -DMELSPEC_FFTW_FLOAT=1 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -DMELSPEC_FFTWF_WISDOM_GENERATOR=1 \
+	src/fftw_float_wisdom.cpp scripts/fftw_float_wisdom_generate.cpp \
+	-o tmp/bin/fftwf-wisdom-generate -pthread /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/lib/libfftw3f.a -lm
+output=tmp/fftw-lab/final/measure/r2c-1.wisdom transform=r2c size=1 planner=measure precision=float planning_s=1.0159e-05 wisdom_bytes=169
+output=tmp/fftw-lab/final/measure/r2c-2.wisdom transform=r2c size=2 planner=measure precision=float planning_s=0.000276992 wisdom_bytes=163
+output=tmp/fftw-lab/final/measure/r2c-8.wisdom transform=r2c size=8 planner=measure precision=float planning_s=1.7598e-05 wisdom_bytes=163
+output=tmp/fftw-lab/final/measure/r2c-256.wisdom transform=r2c size=256 planner=measure precision=float planning_s=0.0812812 wisdom_bytes=556
+output=tmp/fftw-lab/final/measure/r2c-2048.wisdom transform=r2c size=2048 planner=measure precision=float planning_s=0.234759 wisdom_bytes=557
+output=tmp/fftw-lab/final/measure/r2c-8192.wisdom transform=r2c size=8192 planner=measure precision=float planning_s=0.379044 wisdom_bytes=557
+output=tmp/fftw-lab/final/measure/r2c-16384.wisdom transform=r2c size=16384 planner=measure precision=float planning_s=0.530984 wisdom_bytes=755
+output=tmp/fftw-lab/final/measure/r2c-32768.wisdom transform=r2c size=32768 planner=measure precision=float planning_s=0.79003 wisdom_bytes=755
+output=tmp/fftw-lab/final/measure/r2c-65536.wisdom transform=r2c size=65536 planner=measure precision=float planning_s=1.21784 wisdom_bytes=755
+output=tmp/fftw-lab/final/patient/r2c-1.wisdom transform=r2c size=1 planner=patient precision=float planning_s=8.545e-06 wisdom_bytes=169
+output=tmp/fftw-lab/final/patient/r2c-2.wisdom transform=r2c size=2 planner=patient precision=float planning_s=1.3732e-05 wisdom_bytes=163
+output=tmp/fftw-lab/final/patient/r2c-8.wisdom transform=r2c size=8 planner=patient precision=float planning_s=1.7052e-05 wisdom_bytes=163
+output=tmp/fftw-lab/final/patient/r2c-256.wisdom transform=r2c size=256 planner=patient precision=float planning_s=0.18339 wisdom_bytes=556
+output=tmp/fftw-lab/final/patient/r2c-2048.wisdom transform=r2c size=2048 planner=patient precision=float planning_s=1.03596 wisdom_bytes=556
+output=tmp/fftw-lab/final/patient/r2c-8192.wisdom transform=r2c size=8192 planner=patient precision=float planning_s=2.29483 wisdom_bytes=754
+output=tmp/fftw-lab/final/patient/r2c-16384.wisdom transform=r2c size=16384 planner=patient precision=float planning_s=3.62824 wisdom_bytes=754
+output=tmp/fftw-lab/final/patient/r2c-32768.wisdom transform=r2c size=32768 planner=patient precision=float planning_s=6.30926 wisdom_bytes=754
+output=tmp/fftw-lab/final/patient/r2c-65536.wisdom transform=r2c size=65536 planner=patient precision=float planning_s=11.8858 wisdom_bytes=953
+c487eddeb264013f9f051af9fb15ce66d60fc6d15d32ff7eb31501f593554ef5  /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/lib/libfftw3.a
+15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a  /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/lib/libfftw3f.a
+f1ab166c877e3921ed1a1d330a69ca542e243cd69eaef9184443662e7eb88e64  tmp/fftw-lab/final/a2
+4828faa19950886fb06e8afd9d960d56bcf35f6e1ec2100b3ffa8dd585332d27  tmp/fftw-lab/final/float-double
+63b254228d78af57f36a3bcad2e004793174a873111813907944c93cc971d4b6  tmp/fftw-lab/final/float-float
+7122f2416b98d9d510b713a9bc32897feb1fbf0e2ae8e042218dc50bec83fbba  tmp/fftw-lab/final/combo-double
+a9d994473813cdc44b5588a8510007c5b2ee73072ba235221b880440c030030c  tmp/fftw-lab/final/combo-float
+8b909363bab8a18ed5cc46d35a8070c974da25b2f235a2030dfb2c068a88d025  tmp/fftw-lab/final/layout-0
+dc1956b267f18a0e123155d9d118f21bd0ae4a87da0727bf2d4a8f53e6abb78a  tmp/fftw-lab/final/layout-1
+{"program": "tmp/fftw-lab/final/float-float", "passed_valid": 39, "max_abs_err_vs_v1": 0.125, "rejected_short": 3}
+{"program": "tmp/fftw-lab/final/float-double", "passed_valid": 39, "max_abs_err_vs_v1": 0.125, "rejected_short": 3}
+{"program": "tmp/fftw-lab/final/layout-0", "passed_valid": 39, "max_abs_err_vs_v1": 0.0, "rejected_short": 3}
+{"program": "tmp/fftw-lab/final/layout-1", "passed_valid": 39, "max_abs_err_vs_v1": 9.005430789870999e-28, "rejected_short": 3}
+{"program": "tmp/fftw-lab/final/combo-float", "passed_valid": 39, "max_abs_err_vs_v1": 0.125, "rejected_short": 3}
+{"program": "tmp/fftw-lab/final/combo-double", "passed_valid": 39, "max_abs_err_vs_v1": 0.125, "rejected_short": 3}
+{"case": "loaded", "passed": true, "expected_diagnostic": "status=loaded", "stderr": "FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE", "exit_code": 0}
+{"case": "fftw_version", "passed": true, "expected_diagnostic": "fftw-version-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=fftw-version-mismatch", "exit_code": 0}
+{"case": "fftw_cc", "passed": true, "expected_diagnostic": "fftw-build-flags-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=fftw-build-flags-mismatch", "exit_code": 0}
+{"case": "precision", "passed": true, "expected_diagnostic": "precision-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=precision-mismatch", "exit_code": 0}
+{"case": "cpu", "passed": true, "expected_diagnostic": "cpu-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=cpu-mismatch", "exit_code": 0}
+{"case": "size", "passed": true, "expected_diagnostic": "transform-size-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=transform-size-mismatch", "exit_code": 0}
+{"case": "transform", "passed": true, "expected_diagnostic": "transform-layout-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=transform-layout-mismatch", "exit_code": 0}
+{"case": "placement", "passed": true, "expected_diagnostic": "placement-layout-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=placement-layout-mismatch", "exit_code": 0}
+{"case": "planner", "passed": true, "expected_diagnostic": "generator-planner-invalid", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=generator-planner-invalid", "exit_code": 0}
+{"case": "input_alignment", "passed": true, "expected_diagnostic": "alignment-layout-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=alignment-layout-mismatch", "exit_code": 0}
+{"case": "output_alignment", "passed": true, "expected_diagnostic": "alignment-layout-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=alignment-layout-mismatch", "exit_code": 0}
+{"case": "payload_bytes", "passed": true, "expected_diagnostic": "payload-length-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=payload-length-mismatch", "exit_code": 0}
+{"case": "payload_fnv1a64", "passed": true, "expected_diagnostic": "payload-checksum-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=payload-checksum-mismatch", "exit_code": 0}
+{"case": "missing-file", "passed": true, "expected_diagnostic": "file-missing-or-unreadable", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=file-missing-or-unreadable", "exit_code": 0}
+{"case": "missing-library-id", "passed": true, "expected_diagnostic": "library-id-required", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=library-id-required", "exit_code": 0}
+{"case": "wrong-library-id", "passed": true, "expected_diagnostic": "library-id-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=library-id-mismatch", "exit_code": 0}
+{"case": "truncated", "passed": true, "expected_diagnostic": "envelope-header-missing", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=envelope-header-missing", "exit_code": 0}
+{"case": "invalid-fftw-payload", "passed": true, "expected_diagnostic": "fftw-import-rejected-payload", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=fftw-import-rejected-payload", "exit_code": 0}
+{"case": "import-without-applicable-plan", "passed": true, "expected_diagnostic": "no-applicable-imported-plan", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=no-applicable-imported-plan", "exit_code": 0}
+{"program": "tmp/fftw-lab/final/combo-float", "passed_valid": 39, "max_abs_err_vs_v1": 0.125, "rejected_short": 3}
+{"program": "tmp/fftw-lab/final/combo-double", "passed_valid": 39, "max_abs_err_vs_v1": 0.125, "rejected_short": 3}
+{"case": "loaded", "passed": true, "expected_diagnostic": "status=loaded", "stderr": "FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE", "exit_code": 0}
+{"case": "fftw_version", "passed": true, "expected_diagnostic": "fftw-version-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=fftw-version-mismatch", "exit_code": 0}
+{"case": "fftw_cc", "passed": true, "expected_diagnostic": "fftw-build-flags-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=fftw-build-flags-mismatch", "exit_code": 0}
+{"case": "precision", "passed": true, "expected_diagnostic": "precision-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=precision-mismatch", "exit_code": 0}
+{"case": "cpu", "passed": true, "expected_diagnostic": "cpu-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=cpu-mismatch", "exit_code": 0}
+{"case": "size", "passed": true, "expected_diagnostic": "transform-size-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=transform-size-mismatch", "exit_code": 0}
+{"case": "transform", "passed": true, "expected_diagnostic": "transform-layout-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=transform-layout-mismatch", "exit_code": 0}
+{"case": "placement", "passed": true, "expected_diagnostic": "placement-layout-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=placement-layout-mismatch", "exit_code": 0}
+{"case": "planner", "passed": true, "expected_diagnostic": "generator-planner-invalid", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=generator-planner-invalid", "exit_code": 0}
+{"case": "input_alignment", "passed": true, "expected_diagnostic": "alignment-layout-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=alignment-layout-mismatch", "exit_code": 0}
+{"case": "output_alignment", "passed": true, "expected_diagnostic": "alignment-layout-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=alignment-layout-mismatch", "exit_code": 0}
+{"case": "payload_bytes", "passed": true, "expected_diagnostic": "payload-length-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=payload-length-mismatch", "exit_code": 0}
+{"case": "payload_fnv1a64", "passed": true, "expected_diagnostic": "payload-checksum-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=payload-checksum-mismatch", "exit_code": 0}
+{"case": "missing-file", "passed": true, "expected_diagnostic": "file-missing-or-unreadable", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=file-missing-or-unreadable", "exit_code": 0}
+{"case": "missing-library-id", "passed": true, "expected_diagnostic": "library-id-required", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=library-id-required", "exit_code": 0}
+{"case": "wrong-library-id", "passed": true, "expected_diagnostic": "library-id-mismatch", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=library-id-mismatch", "exit_code": 0}
+{"case": "truncated", "passed": true, "expected_diagnostic": "envelope-header-missing", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=envelope-header-missing", "exit_code": 0}
+{"case": "invalid-fftw-payload", "passed": true, "expected_diagnostic": "fftw-import-rejected-payload", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=fftw-import-rejected-payload", "exit_code": 0}
+{"case": "import-without-applicable-plan", "passed": true, "expected_diagnostic": "no-applicable-imported-plan", "stderr": "FFTWf wisdom status=fallback planner=ESTIMATE precision=float reason=no-applicable-imported-plan", "exit_code": 0}
+default a2 round=0 elapsed=0.983635 max_abs_err=0.03125 PASS
+default float-fp round=0 elapsed=0.894135 max_abs_err=0.0546875 PASS
+default float-dp round=0 elapsed=0.898056 max_abs_err=0.046875 PASS
+default measure-float round=0 elapsed=0.819865 max_abs_err=0.0546875 PASS
+default measure-double round=0 elapsed=0.848007 max_abs_err=0.0546875 PASS
+default patient-float round=0 elapsed=0.826195 max_abs_err=0.0546875 PASS
+default patient-double round=0 elapsed=0.818879 max_abs_err=0.0546875 PASS
+default padded4 round=0 elapsed=1.007958 max_abs_err=0.03125 PASS
+default interleaved4 round=0 elapsed=1.216198 max_abs_err=0.03125 PASS
+default float-fp round=1 elapsed=0.894187 max_abs_err=0.0546875 PASS
+default float-dp round=1 elapsed=0.905445 max_abs_err=0.046875 PASS
+default measure-float round=1 elapsed=0.822264 max_abs_err=0.0546875 PASS
+default measure-double round=1 elapsed=0.836980 max_abs_err=0.0546875 PASS
+default patient-float round=1 elapsed=0.825793 max_abs_err=0.0546875 PASS
+default patient-double round=1 elapsed=0.834722 max_abs_err=0.0546875 PASS
+default padded4 round=1 elapsed=1.020277 max_abs_err=0.03125 PASS
+default interleaved4 round=1 elapsed=1.215864 max_abs_err=0.03125 PASS
+default a2 round=1 elapsed=1.006815 max_abs_err=0.03125 PASS
+default float-dp round=2 elapsed=0.898369 max_abs_err=0.046875 PASS
+default measure-float round=2 elapsed=0.818264 max_abs_err=0.0546875 PASS
+default measure-double round=2 elapsed=0.822289 max_abs_err=0.0546875 PASS
+default patient-float round=2 elapsed=0.826122 max_abs_err=0.0546875 PASS
+default patient-double round=2 elapsed=0.827715 max_abs_err=0.0546875 PASS
+default padded4 round=2 elapsed=1.009325 max_abs_err=0.03125 PASS
+default interleaved4 round=2 elapsed=1.218529 max_abs_err=0.03125 PASS
+default a2 round=2 elapsed=1.004733 max_abs_err=0.03125 PASS
+default float-fp round=2 elapsed=0.896891 max_abs_err=0.0546875 PASS
+default measure-float round=3 elapsed=0.831016 max_abs_err=0.0546875 PASS
+default measure-double round=3 elapsed=0.835386 max_abs_err=0.0546875 PASS
+default patient-float round=3 elapsed=0.825039 max_abs_err=0.0546875 PASS
+default patient-double round=3 elapsed=0.832120 max_abs_err=0.0546875 PASS
+default padded4 round=3 elapsed=1.005898 max_abs_err=0.03125 PASS
+default interleaved4 round=3 elapsed=1.221613 max_abs_err=0.03125 PASS
+default a2 round=3 elapsed=1.013192 max_abs_err=0.03125 PASS
+default float-fp round=3 elapsed=0.900234 max_abs_err=0.0546875 PASS
+default float-dp round=3 elapsed=0.900124 max_abs_err=0.046875 PASS
+default measure-double round=4 elapsed=0.831597 max_abs_err=0.0546875 PASS
+default patient-float round=4 elapsed=0.831460 max_abs_err=0.0546875 PASS
+default patient-double round=4 elapsed=0.834958 max_abs_err=0.0546875 PASS
+default padded4 round=4 elapsed=1.009260 max_abs_err=0.03125 PASS
+default interleaved4 round=4 elapsed=1.215225 max_abs_err=0.03125 PASS
+default a2 round=4 elapsed=1.001764 max_abs_err=0.03125 PASS
+default float-fp round=4 elapsed=0.893210 max_abs_err=0.0546875 PASS
+default float-dp round=4 elapsed=0.897014 max_abs_err=0.046875 PASS
+default measure-float round=4 elapsed=0.835903 max_abs_err=0.0546875 PASS
+small_mels a2 round=0 elapsed=0.659137 max_abs_err=0.01171875 PASS
+small_mels float-fp round=0 elapsed=0.559991 max_abs_err=0.01953125 PASS
+small_mels float-dp round=0 elapsed=0.564914 max_abs_err=0.015625 PASS
+small_mels measure-float round=0 elapsed=0.491599 max_abs_err=0.015625 PASS
+small_mels measure-double round=0 elapsed=0.496234 max_abs_err=0.015625 PASS
+small_mels patient-float round=0 elapsed=0.486354 max_abs_err=0.01953125 PASS
+small_mels patient-double round=0 elapsed=0.498190 max_abs_err=0.015625 PASS
+small_mels padded4 round=0 elapsed=0.660029 max_abs_err=0.01171875 PASS
+small_mels interleaved4 round=0 elapsed=0.873118 max_abs_err=0.01171875 PASS
+small_mels float-fp round=1 elapsed=0.554729 max_abs_err=0.01953125 PASS
+small_mels float-dp round=1 elapsed=0.559212 max_abs_err=0.015625 PASS
+small_mels measure-float round=1 elapsed=0.571144 max_abs_err=0.015625 PASS
+small_mels measure-double round=1 elapsed=0.501214 max_abs_err=0.015625 PASS
+small_mels patient-float round=1 elapsed=0.496633 max_abs_err=0.01953125 PASS
+small_mels patient-double round=1 elapsed=0.541679 max_abs_err=0.015625 PASS
+small_mels padded4 round=1 elapsed=0.675720 max_abs_err=0.01171875 PASS
+small_mels interleaved4 round=1 elapsed=0.883749 max_abs_err=0.01171875 PASS
+small_mels a2 round=1 elapsed=0.667022 max_abs_err=0.01171875 PASS
+small_mels float-dp round=2 elapsed=0.563797 max_abs_err=0.015625 PASS
+small_mels measure-float round=2 elapsed=0.490970 max_abs_err=0.015625 PASS
+small_mels measure-double round=2 elapsed=0.498174 max_abs_err=0.015625 PASS
+small_mels patient-float round=2 elapsed=0.489403 max_abs_err=0.01953125 PASS
+small_mels patient-double round=2 elapsed=0.497697 max_abs_err=0.015625 PASS
+small_mels padded4 round=2 elapsed=0.665665 max_abs_err=0.01171875 PASS
+small_mels interleaved4 round=2 elapsed=0.873818 max_abs_err=0.01171875 PASS
+small_mels a2 round=2 elapsed=0.671869 max_abs_err=0.01171875 PASS
+small_mels float-fp round=2 elapsed=0.563204 max_abs_err=0.01953125 PASS
+small_mels measure-float round=3 elapsed=0.491602 max_abs_err=0.015625 PASS
+small_mels measure-double round=3 elapsed=0.500571 max_abs_err=0.015625 PASS
+small_mels patient-float round=3 elapsed=0.491271 max_abs_err=0.01953125 PASS
+small_mels patient-double round=3 elapsed=0.495083 max_abs_err=0.015625 PASS
+small_mels padded4 round=3 elapsed=0.672921 max_abs_err=0.01171875 PASS
+small_mels interleaved4 round=3 elapsed=0.919376 max_abs_err=0.01171875 PASS
+small_mels a2 round=3 elapsed=0.666591 max_abs_err=0.01171875 PASS
+small_mels float-fp round=3 elapsed=0.561111 max_abs_err=0.01953125 PASS
+small_mels float-dp round=3 elapsed=0.564308 max_abs_err=0.015625 PASS
+small_mels measure-double round=4 elapsed=0.492442 max_abs_err=0.015625 PASS
+small_mels patient-float round=4 elapsed=0.530664 max_abs_err=0.01953125 PASS
+small_mels patient-double round=4 elapsed=0.490205 max_abs_err=0.015625 PASS
+small_mels padded4 round=4 elapsed=0.664741 max_abs_err=0.01171875 PASS
+small_mels interleaved4 round=4 elapsed=0.876576 max_abs_err=0.01171875 PASS
+small_mels a2 round=4 elapsed=0.685508 max_abs_err=0.01171875 PASS
+small_mels float-fp round=4 elapsed=0.557264 max_abs_err=0.01953125 PASS
+small_mels float-dp round=4 elapsed=0.567806 max_abs_err=0.015625 PASS
+small_mels measure-float round=4 elapsed=0.493215 max_abs_err=0.015625 PASS
+large_fft a2 round=0 elapsed=1.353642 max_abs_err=0.125 PASS
+large_fft float-fp round=0 elapsed=1.196289 max_abs_err=0.15625 PASS
+large_fft float-dp round=0 elapsed=1.205122 max_abs_err=0.1875 PASS
+large_fft measure-float round=0 elapsed=1.075857 max_abs_err=0.125 PASS
+large_fft measure-double round=0 elapsed=1.093682 max_abs_err=0.125 PASS
+large_fft patient-float round=0 elapsed=1.014524 max_abs_err=0.15625 PASS
+large_fft patient-double round=0 elapsed=1.029869 max_abs_err=0.1875 PASS
+large_fft padded4 round=0 elapsed=1.458450 max_abs_err=0.125 PASS
+large_fft interleaved4 round=0 elapsed=2.192502 max_abs_err=0.125 PASS
+large_fft float-fp round=1 elapsed=1.191304 max_abs_err=0.15625 PASS
+large_fft float-dp round=1 elapsed=1.198843 max_abs_err=0.1875 PASS
+large_fft measure-float round=1 elapsed=1.080907 max_abs_err=0.125 PASS
+large_fft measure-double round=1 elapsed=1.080250 max_abs_err=0.125 PASS
+large_fft patient-float round=1 elapsed=1.023727 max_abs_err=0.15625 PASS
+large_fft patient-double round=1 elapsed=1.031529 max_abs_err=0.1875 PASS
+large_fft padded4 round=1 elapsed=1.452018 max_abs_err=0.125 PASS
+large_fft interleaved4 round=1 elapsed=2.171612 max_abs_err=0.125 PASS
+large_fft a2 round=1 elapsed=1.361692 max_abs_err=0.125 PASS
+large_fft float-dp round=2 elapsed=1.204793 max_abs_err=0.1875 PASS
+large_fft measure-float round=2 elapsed=1.079144 max_abs_err=0.125 PASS
+large_fft measure-double round=2 elapsed=1.096896 max_abs_err=0.125 PASS
+large_fft patient-float round=2 elapsed=1.023744 max_abs_err=0.15625 PASS
+large_fft patient-double round=2 elapsed=1.035943 max_abs_err=0.1875 PASS
+large_fft padded4 round=2 elapsed=1.460905 max_abs_err=0.125 PASS
+large_fft interleaved4 round=2 elapsed=2.164872 max_abs_err=0.125 PASS
+large_fft a2 round=2 elapsed=1.369675 max_abs_err=0.125 PASS
+large_fft float-fp round=2 elapsed=1.197988 max_abs_err=0.15625 PASS
+large_fft measure-float round=3 elapsed=1.075458 max_abs_err=0.125 PASS
+large_fft measure-double round=3 elapsed=1.097572 max_abs_err=0.125 PASS
+large_fft patient-float round=3 elapsed=1.035662 max_abs_err=0.15625 PASS
+large_fft patient-double round=3 elapsed=1.038079 max_abs_err=0.1875 PASS
+large_fft padded4 round=3 elapsed=1.457181 max_abs_err=0.125 PASS
+large_fft interleaved4 round=3 elapsed=2.190936 max_abs_err=0.125 PASS
+large_fft a2 round=3 elapsed=1.375138 max_abs_err=0.125 PASS
+large_fft float-fp round=3 elapsed=1.195897 max_abs_err=0.15625 PASS
+large_fft float-dp round=3 elapsed=1.216078 max_abs_err=0.1875 PASS
+large_fft measure-double round=4 elapsed=1.087269 max_abs_err=0.125 PASS
+large_fft patient-float round=4 elapsed=1.022075 max_abs_err=0.15625 PASS
+large_fft patient-double round=4 elapsed=1.036940 max_abs_err=0.1875 PASS
+large_fft padded4 round=4 elapsed=1.460099 max_abs_err=0.125 PASS
+large_fft interleaved4 round=4 elapsed=2.170560 max_abs_err=0.125 PASS
+large_fft a2 round=4 elapsed=1.373709 max_abs_err=0.125 PASS
+large_fft float-fp round=4 elapsed=1.190719 max_abs_err=0.15625 PASS
+large_fft float-dp round=4 elapsed=1.203456 max_abs_err=0.1875 PASS
+large_fft measure-float round=4 elapsed=1.080670 max_abs_err=0.125 PASS
+narrow_band a2 round=0 elapsed=1.295378 max_abs_err=0.0625 PASS
+narrow_band float-fp round=0 elapsed=1.139019 max_abs_err=0.125 PASS
+narrow_band float-dp round=0 elapsed=1.152928 max_abs_err=0.125 PASS
+narrow_band measure-float round=0 elapsed=1.025410 max_abs_err=0.15625 PASS
+narrow_band measure-double round=0 elapsed=1.031773 max_abs_err=0.15625 PASS
+narrow_band patient-float round=0 elapsed=0.968279 max_abs_err=0.15625 PASS
+narrow_band patient-double round=0 elapsed=0.979315 max_abs_err=0.15625 PASS
+narrow_band padded4 round=0 elapsed=1.423814 max_abs_err=0.0625 PASS
+narrow_band interleaved4 round=0 elapsed=2.099928 max_abs_err=0.0625 PASS
+narrow_band float-fp round=1 elapsed=1.145672 max_abs_err=0.125 PASS
+narrow_band float-dp round=1 elapsed=1.154917 max_abs_err=0.125 PASS
+narrow_band measure-float round=1 elapsed=1.036524 max_abs_err=0.15625 PASS
+narrow_band measure-double round=1 elapsed=1.040170 max_abs_err=0.15625 PASS
+narrow_band patient-float round=1 elapsed=0.976393 max_abs_err=0.15625 PASS
+narrow_band patient-double round=1 elapsed=0.982572 max_abs_err=0.15625 PASS
+narrow_band padded4 round=1 elapsed=1.404301 max_abs_err=0.0625 PASS
+narrow_band interleaved4 round=1 elapsed=2.147667 max_abs_err=0.0625 PASS
+narrow_band a2 round=1 elapsed=1.315163 max_abs_err=0.0625 PASS
+narrow_band float-dp round=2 elapsed=1.162295 max_abs_err=0.125 PASS
+narrow_band measure-float round=2 elapsed=1.032237 max_abs_err=0.15625 PASS
+narrow_band measure-double round=2 elapsed=1.029632 max_abs_err=0.15625 PASS
+narrow_band patient-float round=2 elapsed=0.962041 max_abs_err=0.15625 PASS
+narrow_band patient-double round=2 elapsed=0.983689 max_abs_err=0.15625 PASS
+narrow_band padded4 round=2 elapsed=1.392821 max_abs_err=0.0625 PASS
+narrow_band interleaved4 round=2 elapsed=2.088693 max_abs_err=0.0625 PASS
+narrow_band a2 round=2 elapsed=1.311581 max_abs_err=0.0625 PASS
+narrow_band float-fp round=2 elapsed=1.136687 max_abs_err=0.125 PASS
+narrow_band measure-float round=3 elapsed=1.029757 max_abs_err=0.15625 PASS
+narrow_band measure-double round=3 elapsed=1.034326 max_abs_err=0.15625 PASS
+narrow_band patient-float round=3 elapsed=0.979860 max_abs_err=0.15625 PASS
+narrow_band patient-double round=3 elapsed=0.984666 max_abs_err=0.15625 PASS
+narrow_band padded4 round=3 elapsed=1.391372 max_abs_err=0.0625 PASS
+narrow_band interleaved4 round=3 elapsed=2.109517 max_abs_err=0.0625 PASS
+narrow_band a2 round=3 elapsed=1.320258 max_abs_err=0.0625 PASS
+narrow_band float-fp round=3 elapsed=1.140356 max_abs_err=0.125 PASS
+narrow_band float-dp round=3 elapsed=1.158426 max_abs_err=0.125 PASS
+narrow_band measure-double round=4 elapsed=1.035998 max_abs_err=0.15625 PASS
+narrow_band patient-float round=4 elapsed=0.978384 max_abs_err=0.15625 PASS
+narrow_band patient-double round=4 elapsed=0.981175 max_abs_err=0.15625 PASS
+narrow_band padded4 round=4 elapsed=1.401968 max_abs_err=0.0625 PASS
+narrow_band interleaved4 round=4 elapsed=2.094389 max_abs_err=0.0625 PASS
+narrow_band a2 round=4 elapsed=1.307285 max_abs_err=0.0625 PASS
+narrow_band float-fp round=4 elapsed=1.139348 max_abs_err=0.125 PASS
+narrow_band float-dp round=4 elapsed=1.155094 max_abs_err=0.125 PASS
+narrow_band measure-float round=4 elapsed=1.020422 max_abs_err=0.15625 PASS
+case | program | min_s | median_s | vs_v1
+default | a2 | 0.983635 | 1.004733 | None
+default | float-fp | 0.893210 | 0.894187 | None
+default | float-dp | 0.897014 | 0.898369 | None
+default | measure-float | 0.818264 | 0.822264 | None
+default | measure-double | 0.822289 | 0.835386 | None
+default | patient-float | 0.825039 | 0.826122 | None
+default | patient-double | 0.818879 | 0.832120 | None
+default | padded4 | 1.005898 | 1.009260 | None
+default | interleaved4 | 1.215225 | 1.216198 | None
+small_mels | a2 | 0.659137 | 0.667022 | None
+small_mels | float-fp | 0.554729 | 0.559991 | None
+small_mels | float-dp | 0.559212 | 0.564308 | None
+small_mels | measure-float | 0.490970 | 0.491602 | None
+small_mels | measure-double | 0.492442 | 0.498174 | None
+small_mels | patient-float | 0.486354 | 0.491271 | None
+small_mels | patient-double | 0.490205 | 0.497697 | None
+small_mels | padded4 | 0.660029 | 0.665665 | None
+small_mels | interleaved4 | 0.873118 | 0.876576 | None
+large_fft | a2 | 1.353642 | 1.369675 | None
+large_fft | float-fp | 1.190719 | 1.195897 | None
+large_fft | float-dp | 1.198843 | 1.204793 | None
+large_fft | measure-float | 1.075458 | 1.079144 | None
+large_fft | measure-double | 1.080250 | 1.093682 | None
+large_fft | patient-float | 1.014524 | 1.023727 | None
+large_fft | patient-double | 1.029869 | 1.035943 | None
+large_fft | padded4 | 1.452018 | 1.458450 | None
+large_fft | interleaved4 | 2.164872 | 2.171612 | None
+narrow_band | a2 | 1.295378 | 1.311581 | None
+narrow_band | float-fp | 1.136687 | 1.139348 | None
+narrow_band | float-dp | 1.152928 | 1.155094 | None
+narrow_band | measure-float | 1.020422 | 1.029757 | None
+narrow_band | measure-double | 1.029632 | 1.034326 | None
+narrow_band | patient-float | 0.962041 | 0.976393 | None
+narrow_band | patient-double | 0.979315 | 0.982572 | None
+narrow_band | padded4 | 1.391372 | 1.401968 | None
+narrow_band | interleaved4 | 2.088693 | 2.099928 | None
+OFFICIAL candidate=float-fp
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    5.47e-02 |   PASS |    0.880 | 19.396x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.95e-02 |   PASS |    0.560 | 28.948x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.56e-01 |   PASS |    1.183 | 27.337x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    1.25e-01 |   PASS |    1.123 | 29.269x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+
+
+OFFICIAL candidate=float-dp
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    4.69e-02 |   PASS |    0.885 | 17.932x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.56e-02 |   PASS |    0.555 | 27.767x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.88e-01 |   PASS |    1.186 | 27.489x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    1.25e-01 |   PASS |    1.140 | 28.673x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+
+
+OFFICIAL candidate=measure-float
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    5.47e-02 |   PASS |    0.814 | 19.732x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.56e-02 |   PASS |    0.482 | 32.292x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.066 | 31.186x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    1.56e-01 |   PASS |    1.014 | 33.372x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+
+
+OFFICIAL candidate=measure-double
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    5.47e-02 |   PASS |    0.815 | 20.428x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.56e-02 |   PASS |    0.490 | 32.296x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.072 | 30.583x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    1.56e-01 |   PASS |    1.024 | 32.215x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED

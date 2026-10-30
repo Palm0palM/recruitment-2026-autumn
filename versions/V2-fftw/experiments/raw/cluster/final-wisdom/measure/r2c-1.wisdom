@@ -1,0 +1,18 @@
+MELSPEC_FFTW_WISDOM_V1
+fftw_version=fftw-3.3.11-sse2-avx-avx2-avx2_128-avx512
+fftw_cc=gcc -O3 -march=native
+precision=float
+library_id=15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a
+cpu=x86;leaf0=1b,756e6547,6c65746e,49656e69;leaf1=606a6,800800,7ffefbf7,bfebfbff;leaf7.0=2,f3bfb7ef,40417f5e,bc040412;ext1=0,0,121,2c100800;xcr0=2e7
+transform=r2c
+size=1
+placement=out-of-place
+input_alignment=0
+output_alignment=0
+planner=measure
+payload_bytes=169
+payload_fnv1a64=d34726f0ce6001d2
+
+(fftw-3.3.11 fftwf_wisdom #x204abe3b #x3918542a #x294b7c4a #xf4ad0cff
+  (fftwf_rdft2_rank0_register 0 #x11bdd #x11bdd #x0 #x7a05812c #x88801558 #xbaa363d1 #xcaf1d431)
+)

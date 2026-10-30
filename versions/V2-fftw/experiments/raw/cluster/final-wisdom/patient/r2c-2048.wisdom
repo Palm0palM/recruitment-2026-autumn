@@ -1,0 +1,22 @@
+MELSPEC_FFTW_WISDOM_V1
+fftw_version=fftw-3.3.11-sse2-avx-avx2-avx2_128-avx512
+fftw_cc=gcc -O3 -march=native
+precision=float
+library_id=15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a
+cpu=x86;leaf0=1b,756e6547,6c65746e,49656e69;leaf1=606a6,800800,7ffefbf7,bfebfbff;leaf7.0=2,f3bfb7ef,40417f5e,bc040412;ext1=0,0,121,2c100800;xcr0=2e7
+transform=r2c
+size=2048
+placement=out-of-place
+input_alignment=0
+output_alignment=0
+planner=patient
+payload_bytes=556
+payload_fnv1a64=b40917a820414158
+
+(fftw-3.3.11 fftwf_wisdom #x204abe3b #x3918542a #x294b7c4a #xf4ad0cff
+  (fftwf_codelet_n2fv_16_avx 0 #x11048 #x11048 #x0 #xf246dd1d #x433be1dd #x669fbc87 #xe433ec82)
+  (fftwf_codelet_r2cfII_2 2 #x11048 #x11048 #x0 #xf4706e13 #x6e8bbca0 #x9c704b36 #x8e8181fc)
+  (fftwf_codelet_hc2cfdftv_2_avx2_128 0 #x11048 #x11048 #x0 #xc447d79d #x3bb36c12 #x2e7c8386 #xc241521c)
+  (fftwf_codelet_r2cf_2 2 #x11048 #x11048 #x0 #xc4589152 #x2c904887 #x3df0c9d3 #x054d1070)
+  (fftwf_codelet_t1fv_64_avx512 0 #x11048 #x11048 #x0 #xc6ca45ce #xf08c5f4a #x61a53ade #xe5e374c8)
+)
