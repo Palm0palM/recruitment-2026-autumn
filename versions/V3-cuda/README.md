@@ -1,8 +1,11 @@
 # V3 CUDA 公共实验上下文
 
-当前进展：GPU 环境、私有工具链和 G1–G3 候选已实现；FP32/FP64 均通过本地 74 项合成测试与四组官方音频检查。
-详见 [ENVIRONMENT.md](ENVIRONMENT.md)、[IMPLEMENTATION.md](IMPLEMENTATION.md)。
-集群正式结果和最终候选以本目录后续 Benchmark/Profile 记录为准，不把本地 GPU 时间当作集群成绩。
+当前候选：FP32 cuFFT R2C、batch512、全 GPU 加窗/模平方/稀疏 Mel、初始化重叠。
+G1–G3 与 G4 实验均已完成；FP32/FP64 均通过本地 74 项合成测试与四组官方音频检查。
+正式 226 在 hepnode2/L40 上四组全 PASS，时间为 1.016 / 0.578 / 1.035 / 1.040 秒；
+最终默认构建另以 238 复核，见 [BENCHMARK.md](BENCHMARK.md)。
+环境、设计、profile 和复现分别见 [ENVIRONMENT.md](ENVIRONMENT.md)、[IMPLEMENTATION.md](IMPLEMENTATION.md)、
+[PROFILE.md](PROFILE.md)、[REPRODUCE.md](REPRODUCE.md)。本地 GPU 时间不作为集群成绩。
 
 所有正式改动必须留在 `v3/cuda` 与本 worktree。
 
