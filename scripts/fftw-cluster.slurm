@@ -33,6 +33,12 @@ if [ "${MODE:-bench}" = build ]; then exit 0; fi
 scratch=$(mktemp -d "/tmp/fftw-agent-a-${SLURM_JOB_ID}-XXXXXX")
 trap 'rm -rf -- "$scratch"' EXIT
 export TMPDIR="$scratch"
+if [ "${MODE:-bench}" = plans ]; then
+  g++ -std=c++17 -O3 -march=native -I"$FFTW_PREFIX/include" scripts/fftw_plan_probe.cpp \
+    "$FFTW_PREFIX/lib/libfftw3.a" -lm -o tmp/bin/plan-probe
+  tmp/bin/plan-probe
+  exit 0
+fi
 if [ "${MODE:-bench}" = profile ]; then
   sha256sum src/melspec.cpp include/fftw_support.h scripts/fftw_profile.py
   "$PY" -u scripts/fftw_profile.py --mode r2c --planner estimate

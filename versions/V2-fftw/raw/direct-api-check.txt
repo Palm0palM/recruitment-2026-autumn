@@ -1,0 +1,32 @@
+r2c=0 measure=0
+compute_rfft n=1 PASS
+compute_rfft n=2 PASS
+compute_rfft n=4 PASS
+compute_rfft n=8 PASS
+compute_rfft n=32 PASS
+compute_rfft n=128 PASS
+compute_rfft empty input rejected PASS
+r2c=0 measure=1
+compute_rfft n=1 PASS
+compute_rfft n=2 PASS
+compute_rfft n=4 PASS
+compute_rfft n=8 PASS
+compute_rfft n=32 PASS
+compute_rfft n=128 PASS
+compute_rfft empty input rejected PASS
+r2c=1 measure=0
+compute_rfft n=1 PASS
+compute_rfft n=2 PASS
+compute_rfft n=4 PASS
+compute_rfft n=8 PASS
+compute_rfft n=32 PASS
+compute_rfft n=128 PASS
+compute_rfft empty input rejected PASS
+r2c=1 measure=1
+compute_rfft n=1 PASS
+compute_rfft n=2 PASS
+compute_rfft n=4 PASS
+compute_rfft n=8 PASS
+compute_rfft n=32 PASS
+compute_rfft n=128 PASS
+compute_rfft empty input rejected PASS
