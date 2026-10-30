@@ -1,5 +1,13 @@
 # V2 Agent A — FFTW 路线（实验记录）
 
+> **第二轮 Kimi 专项实验**：已集成可选 float FFT 与安全 Wisdom 导入，默认仍保留 double A2。
+> 集群五次重复对照中，float + PATIENT Wisdom 的四组中位数相对 A2 为
+> **1.216× / 1.358× / 1.338× / 1.343×**，几何平均 **1.313×**。
+> 这不是本地结果；完整数据、官方验收状态与失败记录见 [experiments/RESULTS.md](experiments/RESULTS.md)。
+> PATIENT 最佳组合已在作业 **209** 完成官方 **4/4 PASS**，补测耗时 **3:35**；本轮已收尾。
+> 原理见 [DESIGN.md](experiments/DESIGN.md)，构建及 Wisdom 准备见 [REPRODUCE.md](experiments/REPRODUCE.md)。
+> 下文保留第一轮 all-double A2 的历史交付记录，不把两轮数据混算。
+
 - Worktree：`melspec-v2-fftw`；分支 `v2/fftw`。
 - 严格共同 BASE：`15f90558b4ab83ad0e6500e84aa807a942564229`。
 - 不修改 `src/main.cpp`、`validate.py`、`data`；double、周期 Hann、HTK/Slaney、稀疏 Mel 和 V1 线程划分不变。

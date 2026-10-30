@@ -22,3 +22,7 @@
   failure; partial fifth-run output is not counted as PASS. Preserve the exact binaries/wisdom and release
   score JSON, then run the last two official validators, memory measurements and diagnostics in a separate
   serial allocation. Do not regenerate wisdom or cherry-pick new planning outcomes during completion.
+- Pending completion job 203 was cancelled at the user's stop request before receiving any node (0 allocated
+  CPUs, elapsed 0). Following renewed authorization, job 209 used --runs 1 for each of the last two complete
+  official validators, retained existing five-repeat release scores, omitted profiling, and finished all
+  validation/memory work in 3:35. This closes the timeout without changing the measured candidate.

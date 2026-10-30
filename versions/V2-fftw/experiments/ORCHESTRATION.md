@@ -47,16 +47,18 @@ archived here only after review; raw binaries, PCM, caches and perf.data stay un
 4. Only passing candidates reach same-node Slurm comparison (1 task, 16 CPU, nomultithread, no mem).
 5. Integrate individually, run complete official validator, then test combinations. Independent gains do not multiply.
 
-Current status: configuration and live read-only probe verified; three prototype-authoring jobs launched,
+Configuration and live read-only probe verified; three prototype-authoring jobs launched,
 then ISA research launched without CPU work. Resolved-rule evaluations are in `agent-verification.json`;
 they are configuration checks, not a claim of OS sandboxing or destructive runtime penetration tests.
 Parent rebuilt the A2 baseline in its own orchestrator directory, SHA-256 unchanged:
 `97594fa7f89161aae8e41bb086dee0736ec2839cf83f59556947188c0f57720c`.
 All four workers returned prototypes/research without executing shell or CPU work. Parent-only local
-compilation and tests are now recorded in REVIEW.md and raw/: precision/batch passed initial correctness,
-wisdom passed after APIC fingerprint correction, and controlled local screening is underway/completed
-in stages. No candidate has yet entered a new cluster run or production integration. A2 remains the best
-formally cluster-validated version. Actual per-worker models and nonzero reasoning usage are preserved
+compilation and tests are recorded in REVIEW.md and raw/. All four experiments reached cluster evaluation;
+opt-in precision and safe float wisdom are integrated, while batch and AVX2-only changes were rejected.
+Job 151 completed all 180 release comparisons; job 209 completed its last two official validators (both 4/4)
+and all memory checks in 3:35, without re-running the matrix. The user explicitly bounded closeout to validation/records,
+not more experiments or profiling. This round is complete; no more jobs are scheduled. See RESULTS.md. Nine native calls reused
+the five listed child sessions; every specialist has finished. Actual per-worker models and reasoning usage are preserved
 in session-verification.json (not just configuration declarations).
 
 Security note: resolved model-list API responses include credentials. An early diagnostic printed such a field;

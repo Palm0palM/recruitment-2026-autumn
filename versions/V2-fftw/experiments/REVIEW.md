@@ -1,6 +1,8 @@
-# Orchestrator review / current acceptance status
+# Orchestrator review / initial acceptance snapshot
 
-No production kernel has been changed in this round. A2 ESTIMATE remains the last cluster-validated baseline.
+This records the initial review stages, before production integration. Final acceptance and the completed
+cluster results supersede these interim statuses; see `RESULTS.md`. At this initial stage, no production
+kernel had been changed and A2 ESTIMATE was the last cluster-validated baseline.
 
 ## Precision
 

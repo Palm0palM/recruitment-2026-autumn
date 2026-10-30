@@ -82,6 +82,11 @@ size, fixed single-transform out-of-place R2C layout and alignment class. Librar
 the actual linked archive; it is not automatic runtime attestation. FNV protects accidental corruption,
 not malicious input. Non-x86 CPU identity is intentionally coarse; regenerate/revalidate on another target.
 Single-transform wisdom must NOT be presumed applicable to batch/interleaved layouts or another precision.
+The exact measured PATIENT files are retained as text in
+`versions/V2-fftw/experiments/raw/cluster/final-wisdom/patient/`; its sibling SHA-256 manifest covers both
+rigors. On the original matching target/library, that directory can be used directly instead of regenerating
+and potentially selecting a different plan. A different CPU/library must regenerate and revalidate, never
+edit fingerprints to force the archived files through.
 
 Reported wisdom process timings include process startup, file import and planning, compute, read/write;
 they EXCLUDE separate offline generation. If deployment must generate wisdom inside every timed process,
@@ -99,8 +104,10 @@ Submit ONLY after the preceding benchmark job ends, in this experiment's isolate
 ```sh
 sbatch --wait -w hepnode2 scripts/fftw-lab-cluster.slurm  # initial dependencies/independent candidates
 sbatch --wait -w hepnode2 scripts/fftw-lab-isa.slurm      # controlled ISA + original batch
-sbatch --wait -w hepnode2 scripts/fftw-lab-final.slurm    # exact integrated variants + revised layouts
-# After final scoring has completed, diagnostic only:
+sbatch --time=01:00:00 --wait -w hepnode2 scripts/fftw-lab-final.slurm # full matrix + six slow-reference validators
+# If the multi-validator job times out after scoring, short validation/memory closeout:
+FINAL_JOB=<completed-job-id> sbatch --wait -w hepnode2 scripts/fftw-lab-complete.slurm
+# Optional FUTURE diagnostic, not run in this round's user-bounded closeout:
 FINAL_JOB=<completed-job-id> sbatch --wait -w hepnode2 scripts/fftw-lab-profile.slurm
 ```
 
@@ -109,7 +116,11 @@ benchmark jobs. ISA retry preserves failed prefixes and uses a new `tmp/fftw-lab
 actual plans, compiler commands, hashes, raw repeats, official output and rejected attempts are retained.
 The final harness gives each candidate its own direct-exec environment (no timing-distorting wrapper),
 and refuses to score a wisdom-labelled candidate unless it reports successful import without fallback.
-The separate profile job selects the float finalist from uninstrumented release medians, then builds a
+The short closeout uses --runs 1 for complete four-case official correctness; the score comparison remains
+the existing five-repeat release data. It does not rebuild binaries, regenerate wisdom or run profiling.
+The full-matrix script's historical 30-minute default caused job 151's timeout; the explicit 60-minute
+override above avoids repeating that scheduling mistake when reproducing all six validators from scratch.
+The optional separate profile job selects the float finalist from uninstrumented release medians, then builds a
 distinct instrumented executable and generated read-only-main wrapper. Profile numbers never rank candidates;
 worker-stage percentages are summed worker wall counters, not percentages of whole-process wall time.
 

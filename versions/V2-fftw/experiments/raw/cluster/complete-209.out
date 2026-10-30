@@ -1,0 +1,77 @@
+a44f6ebd9bc892a2cc8625301e54a31ce83d3922
+Cpus_allowed_list:	0-15
+f1ab166c877e3921ed1a1d330a69ca542e243cd69eaef9184443662e7eb88e64  tmp/fftw-lab/final/a2
+4828faa19950886fb06e8afd9d960d56bcf35f6e1ec2100b3ffa8dd585332d27  tmp/fftw-lab/final/float-double
+63b254228d78af57f36a3bcad2e004793174a873111813907944c93cc971d4b6  tmp/fftw-lab/final/float-float
+7122f2416b98d9d510b713a9bc32897feb1fbf0e2ae8e042218dc50bec83fbba  tmp/fftw-lab/final/combo-double
+a9d994473813cdc44b5588a8510007c5b2ee73072ba235221b880440c030030c  tmp/fftw-lab/final/combo-float
+1f28d8e1526b0c8be68db4a450b0bc863f167a1a708b0f7dbb93223fa76ad78b  tmp/fftw-lab/final/measure/r2c-16384.wisdom
+bc7e4bd260c88e0077e873a9103a4efabddfe8edfd539ec1be6f0a9fbe339478  tmp/fftw-lab/final/measure/r2c-1.wisdom
+dafb766baba4ab60e9facf32224b8f64fae818a29ae569dd74532f3e95396348  tmp/fftw-lab/final/measure/r2c-2048.wisdom
+2ccb3ed77f993964a63ac3c2f9dabfec9de46e8d29dacf5ed2271da11438b51e  tmp/fftw-lab/final/measure/r2c-256.wisdom
+78f6dabe5dcfaa89ea45e6ae8c0a701a9199b52ae85cf8f99856f61cca6ea8c7  tmp/fftw-lab/final/measure/r2c-2.wisdom
+0adc5b215018d76932a0b24d0c116e0fac82f2e13c9904138316ed3ebc2c05b3  tmp/fftw-lab/final/measure/r2c-32768.wisdom
+be6676cd2309d900d296fc87f368d0785d9f1690b2c010ae7591f31257539965  tmp/fftw-lab/final/measure/r2c-65536.wisdom
+ceb905807f789f96955f12a4f30a0c0a927cb4b2fb36070c36910074e4a82ece  tmp/fftw-lab/final/measure/r2c-8192.wisdom
+a1afb5d6ebade3ca5855e4c55ad80f03ebc652449f9f6a340c5183389bfca59a  tmp/fftw-lab/final/measure/r2c-8.wisdom
+82dafed5e3e3915b1985fe01fd2472ca33b59c2227ca8e14d79f3fb71fc80cc2  tmp/fftw-lab/final/patient/r2c-16384.wisdom
+cd92e16757eccad457143810c51203b8a65a2cf620ed7dd97516183fe41a5a8e  tmp/fftw-lab/final/patient/r2c-1.wisdom
+5d51ac259c3b91e5e21a61ea7f427ea4e12ddc8b6cd048b1ac29b400de6014db  tmp/fftw-lab/final/patient/r2c-2048.wisdom
+d5aa1d965187cc883239ca39a9c64eada8322f43aa110e15fb10b31b3ed25146  tmp/fftw-lab/final/patient/r2c-256.wisdom
+95e3ea8d52e2c29c4e2df8cac703a0f14b6bc8a7a050d4428c682dd4aff21c9c  tmp/fftw-lab/final/patient/r2c-2.wisdom
+f2ab35e39a7dc2b5d4d9087ed78ecff912d107db4c29d6da7c04cb7f30c70d68  tmp/fftw-lab/final/patient/r2c-32768.wisdom
+18e9486b248daf5d2c35cba33bd28f9585d3599b6d44e935ed312706a3b7f1e0  tmp/fftw-lab/final/patient/r2c-65536.wisdom
+dedf4e8f151618a9a0f8fd98e44b8c60d3fce395697ab6fa2e72ebc0c10e3adf  tmp/fftw-lab/final/patient/r2c-8192.wisdom
+a11542085314f4f7ca19b912c4bd89a3aff573b23023ac68618ab3f089f0900a  tmp/fftw-lab/final/patient/r2c-8.wisdom
+OFFICIAL candidate=patient-float
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    5.47e-02 |   PASS |    0.828 | 18.641x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.95e-02 |   PASS |    0.492 | 26.546x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.56e-01 |   PASS |    1.020 | 27.827x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    1.56e-01 |   PASS |    0.976 | 28.994x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+
+
+OFFICIAL candidate=patient-double
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    5.47e-02 |   PASS |    0.830 | 17.486x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.56e-02 |   PASS |    0.490 | 28.077x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.88e-01 |   PASS |    1.026 | 28.988x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    1.56e-01 |   PASS |    0.971 | 30.538x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+
+
+{"case": "default", "program": "a2", "proc_vmhwm_kib": 788060, "inherited_wait4_maxrss_kib": 784996, "user_s": 5.590111, "system_s": 0.47265599999999997, "passed": true}
+{"case": "default", "program": "float-fp", "proc_vmhwm_kib": 787560, "inherited_wait4_maxrss_kib": 992968, "user_s": 3.996512, "system_s": 0.47358599999999995, "passed": true}
+{"case": "default", "program": "float-dp", "proc_vmhwm_kib": 787600, "inherited_wait4_maxrss_kib": 993504, "user_s": 4.083447, "system_s": 0.489813, "passed": true}
+{"case": "default", "program": "measure-float", "proc_vmhwm_kib": 787640, "inherited_wait4_maxrss_kib": 993512, "user_s": 2.9382349999999997, "system_s": 0.472394, "passed": true}
+{"case": "default", "program": "measure-double", "proc_vmhwm_kib": 787596, "inherited_wait4_maxrss_kib": 993536, "user_s": 3.025783, "system_s": 0.477965, "passed": true}
+{"case": "default", "program": "patient-float", "proc_vmhwm_kib": 787508, "inherited_wait4_maxrss_kib": 993536, "user_s": 2.918511, "system_s": 0.469921, "passed": true}
+{"case": "default", "program": "patient-double", "proc_vmhwm_kib": 787544, "inherited_wait4_maxrss_kib": 993536, "user_s": 3.02987, "system_s": 0.491816, "passed": true}
+{"case": "default", "program": "padded4", "proc_vmhwm_kib": 786292, "inherited_wait4_maxrss_kib": 993540, "user_s": 5.676736, "system_s": 0.503178, "passed": true}
+{"case": "default", "program": "interleaved4", "proc_vmhwm_kib": 786136, "inherited_wait4_maxrss_kib": 993540, "user_s": 9.061705, "system_s": 0.48949699999999996, "passed": true}
+{"case": "large_fft", "program": "a2", "proc_vmhwm_kib": 794244, "inherited_wait4_maxrss_kib": 993540, "user_s": 11.342824, "system_s": 0.49933099999999997, "passed": true}
+{"case": "large_fft", "program": "float-fp", "proc_vmhwm_kib": 796632, "inherited_wait4_maxrss_kib": 993540, "user_s": 8.590051, "system_s": 0.510873, "passed": true}
+{"case": "large_fft", "program": "float-dp", "proc_vmhwm_kib": 796308, "inherited_wait4_maxrss_kib": 993540, "user_s": 8.8045, "system_s": 0.49052599999999996, "passed": true}
+{"case": "large_fft", "program": "measure-float", "proc_vmhwm_kib": 796604, "inherited_wait4_maxrss_kib": 993540, "user_s": 6.718866, "system_s": 0.505313, "passed": true}
+{"case": "large_fft", "program": "measure-double", "proc_vmhwm_kib": 796612, "inherited_wait4_maxrss_kib": 993540, "user_s": 6.91664, "system_s": 0.485764, "passed": true}
+{"case": "large_fft", "program": "patient-float", "proc_vmhwm_kib": 796680, "inherited_wait4_maxrss_kib": 993540, "user_s": 5.903136, "system_s": 0.491844, "passed": true}
+{"case": "large_fft", "program": "patient-double", "proc_vmhwm_kib": 796688, "inherited_wait4_maxrss_kib": 993540, "user_s": 6.094184, "system_s": 0.478464, "passed": true}
+{"case": "large_fft", "program": "padded4", "proc_vmhwm_kib": 794336, "inherited_wait4_maxrss_kib": 993540, "user_s": 12.716002, "system_s": 0.5312479999999999, "passed": true}
+{"case": "large_fft", "program": "interleaved4", "proc_vmhwm_kib": 794508, "inherited_wait4_maxrss_kib": 993540, "user_s": 23.80499, "system_s": 0.556462, "passed": true}

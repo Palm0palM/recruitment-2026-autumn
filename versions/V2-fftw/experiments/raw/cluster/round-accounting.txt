@@ -14,3 +14,7 @@ JobID|JobName|State|ExitCode|Elapsed|AllocCPUS|NodeList
 151|fftw-lab-final|TIMEOUT|0:0|00:30:29|16|hepnode2
 151.batch|batch|CANCELLED|0:15|00:30:30|16|hepnode2
 151.extern|extern|COMPLETED|0:0|00:30:30|16|hepnode2
+203|fftw-lab-complete|CANCELLED by 10045|0:0|00:00:00|0|None assigned
+209|fftw-lab-complete|COMPLETED|0:0|00:03:35|16|hepnode2
+209.batch|batch|COMPLETED|0:0|00:03:35|16|hepnode2
+209.extern|extern|COMPLETED|0:0|00:03:35|16|hepnode2

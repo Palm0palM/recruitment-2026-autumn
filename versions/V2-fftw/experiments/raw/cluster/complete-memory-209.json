@@ -1,0 +1,164 @@
+[
+  {
+    "case": "default",
+    "program": "a2",
+    "proc_vmhwm_kib": 788060,
+    "inherited_wait4_maxrss_kib": 784996,
+    "user_s": 5.590111,
+    "system_s": 0.47265599999999997,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "float-fp",
+    "proc_vmhwm_kib": 787560,
+    "inherited_wait4_maxrss_kib": 992968,
+    "user_s": 3.996512,
+    "system_s": 0.47358599999999995,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "float-dp",
+    "proc_vmhwm_kib": 787600,
+    "inherited_wait4_maxrss_kib": 993504,
+    "user_s": 4.083447,
+    "system_s": 0.489813,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "measure-float",
+    "proc_vmhwm_kib": 787640,
+    "inherited_wait4_maxrss_kib": 993512,
+    "user_s": 2.9382349999999997,
+    "system_s": 0.472394,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "measure-double",
+    "proc_vmhwm_kib": 787596,
+    "inherited_wait4_maxrss_kib": 993536,
+    "user_s": 3.025783,
+    "system_s": 0.477965,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "patient-float",
+    "proc_vmhwm_kib": 787508,
+    "inherited_wait4_maxrss_kib": 993536,
+    "user_s": 2.918511,
+    "system_s": 0.469921,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "patient-double",
+    "proc_vmhwm_kib": 787544,
+    "inherited_wait4_maxrss_kib": 993536,
+    "user_s": 3.02987,
+    "system_s": 0.491816,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "padded4",
+    "proc_vmhwm_kib": 786292,
+    "inherited_wait4_maxrss_kib": 993540,
+    "user_s": 5.676736,
+    "system_s": 0.503178,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "interleaved4",
+    "proc_vmhwm_kib": 786136,
+    "inherited_wait4_maxrss_kib": 993540,
+    "user_s": 9.061705,
+    "system_s": 0.48949699999999996,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "a2",
+    "proc_vmhwm_kib": 794244,
+    "inherited_wait4_maxrss_kib": 993540,
+    "user_s": 11.342824,
+    "system_s": 0.49933099999999997,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "float-fp",
+    "proc_vmhwm_kib": 796632,
+    "inherited_wait4_maxrss_kib": 993540,
+    "user_s": 8.590051,
+    "system_s": 0.510873,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "float-dp",
+    "proc_vmhwm_kib": 796308,
+    "inherited_wait4_maxrss_kib": 993540,
+    "user_s": 8.8045,
+    "system_s": 0.49052599999999996,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "measure-float",
+    "proc_vmhwm_kib": 796604,
+    "inherited_wait4_maxrss_kib": 993540,
+    "user_s": 6.718866,
+    "system_s": 0.505313,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "measure-double",
+    "proc_vmhwm_kib": 796612,
+    "inherited_wait4_maxrss_kib": 993540,
+    "user_s": 6.91664,
+    "system_s": 0.485764,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "patient-float",
+    "proc_vmhwm_kib": 796680,
+    "inherited_wait4_maxrss_kib": 993540,
+    "user_s": 5.903136,
+    "system_s": 0.491844,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "patient-double",
+    "proc_vmhwm_kib": 796688,
+    "inherited_wait4_maxrss_kib": 993540,
+    "user_s": 6.094184,
+    "system_s": 0.478464,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "padded4",
+    "proc_vmhwm_kib": 794336,
+    "inherited_wait4_maxrss_kib": 993540,
+    "user_s": 12.716002,
+    "system_s": 0.5312479999999999,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "interleaved4",
+    "proc_vmhwm_kib": 794508,
+    "inherited_wait4_maxrss_kib": 993540,
+    "user_s": 23.80499,
+    "system_s": 0.556462,
+    "passed": true
+  }
+]

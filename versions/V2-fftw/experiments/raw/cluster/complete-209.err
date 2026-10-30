@@ -1,0 +1,8 @@
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=8192 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE
+FFTWf wisdom status=loaded transform=r2c size=16384 precision=float generated_with=patient runtime=WISDOM_ONLY|ESTIMATE

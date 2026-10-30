@@ -1,5 +1,9 @@
 # A2 FFTW 后的新瓶颈与 V3 建议
 
+> 第二轮 float/Wisdom 的未插桩 Release 结果在 [experiments/RESULTS.md](experiments/RESULTS.md)。
+> 为按用户要求快速收尾，没有运行该组合的新 profile；本页所有阶段占比仍只代表原 double A2，
+> **不能直接套用到 float + PATIENT Wisdom**。诊断工具已支持该路线，但不将未采集数据写成结论。
+
 正式候选：`b4552f3962751b5a02d2aa56798907c5a1c29afc`，R2C + ESTIMATE + double。
 主报告：[README.md](README.md)；复现：[REPRODUCE.md](REPRODUCE.md)。
 正式计时没有启用插桩；本页的阶段时间/采样时间不作为新成绩。

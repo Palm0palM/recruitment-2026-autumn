@@ -1,0 +1,9 @@
+{
+  "Makefile": "569f79fb70b33b249093e05e141bf4baac4747ba43977c86af3e84b9dda32430",
+  "include/fftw_float_wisdom.h": "85a0ce8fa8022ed9dc45cadf6105aed0202ceb74b19155eac3cd26064b381461",
+  "include/fftw_support.h": "813b069281a054d6ee0c0a920ae54b828d6b221580c6b66faed638b4e9c4d91f",
+  "include/melspec.h": "ae96df25e59816e6162e2cee7101c380d0058c820d1771cea302d0e91de2ea9d",
+  "src/fftw_float_wisdom.cpp": "232483ba1eac8690886d84bdd107686e7945521c5357e977e837fb88cabf81aa",
+  "src/main.cpp": "097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b",
+  "src/melspec.cpp": "2f8f8db0e117426a393b280f4a4fc5712bdd720c92256a7db3ed7026f62d3282"
+}
