@@ -5,6 +5,8 @@ LDLIBS = -pthread
 FFTW_PREFIX ?=
 FFTW_PLAN ?= estimate
 FFT_MODE ?= r2c
+FRAME_BLOCK ?= 1
+CPPFLAGS += -DMELSPEC_FRAME_BLOCK=$(FRAME_BLOCK)
 ifeq ($(FFT_MODE),r2c)
 CPPFLAGS += -DMELSPEC_FFTW_R2C=1
 else ifeq ($(FFT_MODE),c2c)
@@ -27,7 +29,7 @@ endif
 
 SRCS = $(wildcard src/*.cpp)
 INCS = $(wildcard include/*.h)
-BUILD = tmp/build/$(FFT_MODE)-$(FFTW_PLAN)
+BUILD = tmp/build/$(FFT_MODE)-$(FFTW_PLAN)-b$(FRAME_BLOCK)
 OBJS = $(patsubst src/%.cpp,$(BUILD)/%.o,$(SRCS))
 EXEC = melspec
 

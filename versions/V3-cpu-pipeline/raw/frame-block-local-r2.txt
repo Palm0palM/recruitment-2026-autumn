@@ -1,0 +1,121 @@
+default b1 round=0 elapsed=1.082909 max_abs_err=0.03125 PASS
+default b2 round=0 elapsed=1.002933 max_abs_err=0.03125 PASS
+default b4 round=0 elapsed=0.734917 max_abs_err=0.03125 PASS
+default b8 round=0 elapsed=0.811282 max_abs_err=0.03125 PASS
+default b16 round=0 elapsed=1.042555 max_abs_err=0.03125 PASS
+default b2 round=1 elapsed=0.834910 max_abs_err=0.03125 PASS
+default b4 round=1 elapsed=1.072788 max_abs_err=0.03125 PASS
+default b8 round=1 elapsed=1.009814 max_abs_err=0.03125 PASS
+default b16 round=1 elapsed=1.163627 max_abs_err=0.03125 PASS
+default b1 round=1 elapsed=0.979722 max_abs_err=0.03125 PASS
+default b4 round=2 elapsed=1.038197 max_abs_err=0.03125 PASS
+default b8 round=2 elapsed=1.163241 max_abs_err=0.03125 PASS
+default b16 round=2 elapsed=0.944941 max_abs_err=0.03125 PASS
+default b1 round=2 elapsed=0.968897 max_abs_err=0.03125 PASS
+default b2 round=2 elapsed=0.952199 max_abs_err=0.03125 PASS
+default b8 round=3 elapsed=0.918083 max_abs_err=0.03125 PASS
+default b16 round=3 elapsed=0.971116 max_abs_err=0.03125 PASS
+default b1 round=3 elapsed=1.032380 max_abs_err=0.03125 PASS
+default b2 round=3 elapsed=1.002761 max_abs_err=0.03125 PASS
+default b4 round=3 elapsed=0.959281 max_abs_err=0.03125 PASS
+default b16 round=4 elapsed=0.971972 max_abs_err=0.03125 PASS
+default b1 round=4 elapsed=1.169082 max_abs_err=0.03125 PASS
+default b2 round=4 elapsed=0.960933 max_abs_err=0.03125 PASS
+default b4 round=4 elapsed=0.948019 max_abs_err=0.03125 PASS
+default b8 round=4 elapsed=0.868952 max_abs_err=0.03125 PASS
+small_mels b1 round=0 elapsed=0.676383 max_abs_err=0.01171875 PASS
+small_mels b2 round=0 elapsed=0.631971 max_abs_err=0.01171875 PASS
+small_mels b4 round=0 elapsed=0.656031 max_abs_err=0.01171875 PASS
+small_mels b8 round=0 elapsed=0.654068 max_abs_err=0.01171875 PASS
+small_mels b16 round=0 elapsed=0.638445 max_abs_err=0.01171875 PASS
+small_mels b2 round=1 elapsed=0.658879 max_abs_err=0.01171875 PASS
+small_mels b4 round=1 elapsed=0.625323 max_abs_err=0.01171875 PASS
+small_mels b8 round=1 elapsed=0.637130 max_abs_err=0.01171875 PASS
+small_mels b16 round=1 elapsed=0.660370 max_abs_err=0.01171875 PASS
+small_mels b1 round=1 elapsed=0.653296 max_abs_err=0.01171875 PASS
+small_mels b4 round=2 elapsed=0.629692 max_abs_err=0.01171875 PASS
+small_mels b8 round=2 elapsed=0.658309 max_abs_err=0.01171875 PASS
+small_mels b16 round=2 elapsed=0.646246 max_abs_err=0.01171875 PASS
+small_mels b1 round=2 elapsed=0.654739 max_abs_err=0.01171875 PASS
+small_mels b2 round=2 elapsed=0.634568 max_abs_err=0.01171875 PASS
+small_mels b8 round=3 elapsed=0.643129 max_abs_err=0.01171875 PASS
+small_mels b16 round=3 elapsed=0.663285 max_abs_err=0.01171875 PASS
+small_mels b1 round=3 elapsed=1.977373 max_abs_err=0.01171875 PASS
+small_mels b2 round=3 elapsed=0.487018 max_abs_err=0.01171875 PASS
+small_mels b4 round=3 elapsed=0.593028 max_abs_err=0.01171875 PASS
+small_mels b16 round=4 elapsed=0.747780 max_abs_err=0.01171875 PASS
+small_mels b1 round=4 elapsed=1.031675 max_abs_err=0.01171875 PASS
+small_mels b2 round=4 elapsed=0.739851 max_abs_err=0.01171875 PASS
+small_mels b4 round=4 elapsed=1.018462 max_abs_err=0.01171875 PASS
+small_mels b8 round=4 elapsed=0.724557 max_abs_err=0.01171875 PASS
+large_fft b1 round=0 elapsed=2.041572 max_abs_err=0.125 PASS
+large_fft b2 round=0 elapsed=1.890768 max_abs_err=0.125 PASS
+large_fft b4 round=0 elapsed=2.084784 max_abs_err=0.125 PASS
+large_fft b8 round=0 elapsed=2.154256 max_abs_err=0.125 PASS
+large_fft b16 round=0 elapsed=2.202691 max_abs_err=0.125 PASS
+large_fft b2 round=1 elapsed=2.199370 max_abs_err=0.125 PASS
+large_fft b4 round=1 elapsed=2.508068 max_abs_err=0.125 PASS
+large_fft b8 round=1 elapsed=3.413547 max_abs_err=0.125 PASS
+large_fft b16 round=1 elapsed=1.924379 max_abs_err=0.125 PASS
+large_fft b1 round=1 elapsed=1.834889 max_abs_err=0.125 PASS
+large_fft b4 round=2 elapsed=1.799394 max_abs_err=0.125 PASS
+large_fft b8 round=2 elapsed=2.019118 max_abs_err=0.125 PASS
+large_fft b16 round=2 elapsed=2.494409 max_abs_err=0.125 PASS
+large_fft b1 round=2 elapsed=2.397592 max_abs_err=0.125 PASS
+large_fft b2 round=2 elapsed=2.515245 max_abs_err=0.125 PASS
+large_fft b8 round=3 elapsed=3.317527 max_abs_err=0.125 PASS
+large_fft b16 round=3 elapsed=2.181952 max_abs_err=0.125 PASS
+large_fft b1 round=3 elapsed=2.171632 max_abs_err=0.125 PASS
+large_fft b2 round=3 elapsed=2.124947 max_abs_err=0.125 PASS
+large_fft b4 round=3 elapsed=2.576772 max_abs_err=0.125 PASS
+large_fft b16 round=4 elapsed=2.696594 max_abs_err=0.125 PASS
+large_fft b1 round=4 elapsed=2.617268 max_abs_err=0.125 PASS
+large_fft b2 round=4 elapsed=2.126397 max_abs_err=0.125 PASS
+large_fft b4 round=4 elapsed=2.518254 max_abs_err=0.125 PASS
+large_fft b8 round=4 elapsed=2.711790 max_abs_err=0.125 PASS
+narrow_band b1 round=0 elapsed=2.849547 max_abs_err=0.0625 PASS
+narrow_band b2 round=0 elapsed=2.616633 max_abs_err=0.0625 PASS
+narrow_band b4 round=0 elapsed=2.171470 max_abs_err=0.0625 PASS
+narrow_band b8 round=0 elapsed=2.191830 max_abs_err=0.0625 PASS
+narrow_band b16 round=0 elapsed=2.145785 max_abs_err=0.0625 PASS
+narrow_band b2 round=1 elapsed=2.680659 max_abs_err=0.0625 PASS
+narrow_band b4 round=1 elapsed=3.494351 max_abs_err=0.0625 PASS
+narrow_band b8 round=1 elapsed=3.612397 max_abs_err=0.0625 PASS
+narrow_band b16 round=1 elapsed=3.044538 max_abs_err=0.0625 PASS
+narrow_band b1 round=1 elapsed=1.978762 max_abs_err=0.0625 PASS
+narrow_band b4 round=2 elapsed=3.482100 max_abs_err=0.0625 PASS
+narrow_band b8 round=2 elapsed=4.157836 max_abs_err=0.0625 PASS
+narrow_band b16 round=2 elapsed=2.403781 max_abs_err=0.0625 PASS
+narrow_band b1 round=2 elapsed=2.121251 max_abs_err=0.0625 PASS
+narrow_band b2 round=2 elapsed=2.311898 max_abs_err=0.0625 PASS
+narrow_band b8 round=3 elapsed=1.911100 max_abs_err=0.0625 PASS
+narrow_band b16 round=3 elapsed=2.065251 max_abs_err=0.0625 PASS
+narrow_band b1 round=3 elapsed=2.446450 max_abs_err=0.0625 PASS
+narrow_band b2 round=3 elapsed=3.589491 max_abs_err=0.0625 PASS
+narrow_band b4 round=3 elapsed=2.844501 max_abs_err=0.0625 PASS
+narrow_band b16 round=4 elapsed=1.848382 max_abs_err=0.0625 PASS
+narrow_band b1 round=4 elapsed=3.217904 max_abs_err=0.0625 PASS
+narrow_band b2 round=4 elapsed=3.509702 max_abs_err=0.0625 PASS
+narrow_band b4 round=4 elapsed=3.242169 max_abs_err=0.0625 PASS
+narrow_band b8 round=4 elapsed=2.712573 max_abs_err=0.0625 PASS
+case | program | min_s | median_s | vs_v1
+default | b1 | 0.968897 | 1.032380 | None
+default | b2 | 0.834910 | 0.960933 | None
+default | b4 | 0.734917 | 0.959281 | None
+default | b8 | 0.811282 | 0.918083 | None
+default | b16 | 0.944941 | 0.971972 | None
+small_mels | b1 | 0.653296 | 0.676383 | None
+small_mels | b2 | 0.487018 | 0.634568 | None
+small_mels | b4 | 0.593028 | 0.629692 | None
+small_mels | b8 | 0.637130 | 0.654068 | None
+small_mels | b16 | 0.638445 | 0.660370 | None
+large_fft | b1 | 1.834889 | 2.171632 | None
+large_fft | b2 | 1.890768 | 2.126397 | None
+large_fft | b4 | 1.799394 | 2.508068 | None
+large_fft | b8 | 2.019118 | 2.711790 | None
+large_fft | b16 | 1.924379 | 2.202691 | None
+narrow_band | b1 | 1.978762 | 2.446450 | None
+narrow_band | b2 | 2.311898 | 2.680659 | None
+narrow_band | b4 | 2.171470 | 3.242169 | None
+narrow_band | b8 | 1.911100 | 2.712573 | None
+narrow_band | b16 | 1.848382 | 2.145785 | None

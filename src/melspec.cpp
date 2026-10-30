@@ -15,6 +15,11 @@
 #define MELSPEC_FFTW_R2C 1
 #endif
 
+#ifndef MELSPEC_FRAME_BLOCK
+#define MELSPEC_FRAME_BLOCK 1
+#endif
+static_assert(MELSPEC_FRAME_BLOCK > 0, "frame block must be positive");
+
 // ─────────────────────────────────────────────────────────────────────────────
 // HTK mel scale
 // ─────────────────────────────────────────────────────────────────────────────
@@ -226,8 +231,9 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     for (int id = 0; id < n_threads; ++id) fft_buffers.emplace_back(half);
     Plan plan(half, fft_buffers[0].get());
 #endif
-    std::vector<std::vector<double>> power_buffers(n_threads,
-                                                   std::vector<double>(n_bins));
+    std::vector<std::vector<double>> power_buffers(
+        n_threads,
+        std::vector<double>(static_cast<size_t>(MELSPEC_FRAME_BLOCK) * n_bins));
     FFTW_TIME("compute_setup_s", setup_start);
     auto worker = [&](int id) {
         FFTW_COUNTERS(counters);
@@ -235,64 +241,81 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
         auto& power = power_buffers[id];
         const int begin = static_cast<long long>(n_frames) * id / n_threads;
         const int end = static_cast<long long>(n_frames) * (id + 1) / n_threads;
-        for (int t = begin; t < end; ++t) {
-            int start = t * hop_length;
+        for (int block_begin = begin; block_begin < end;) {
+            const int block_frames =
+                std::min(MELSPEC_FRAME_BLOCK, end - block_begin);
+            for (int b = 0; b < block_frames; ++b) {
+                const int t = block_begin + b;
+                const int start = t * hop_length;
+                double* power_b =
+                    power.data() + static_cast<size_t>(b) * n_bins;
 
-            if (n_fft == 1) {
-                double sample = y[start] * window[0];
-                power[0] = sample * sample;
-            } else {
+                if (n_fft == 1) {
+                    double sample = y[start] * window[0];
+                    power_b[0] = sample * sample;
+                } else {
 #if MELSPEC_FFTW_R2C
-                auto& input = input_buffers[id];
-                FFTW_START(pack_start);
-                for (int i = 0; i < n_fft; ++i)
-                    input[i] = y[start + i] * window[i];
-                FFTW_ADD(counters, 0, pack_start);
-                FFTW_START(fft_start);
-                plan.apply(input.get(), fft_out.get());
-                FFTW_ADD(counters, 1, fft_start);
-                FFTW_START(power_start);
-                for (int k = 0; k < n_bins; ++k)
-                    power[k] = fft_out[k][0] * fft_out[k][0] +
-                               fft_out[k][1] * fft_out[k][1];
-                FFTW_ADD(counters, 2, power_start);
+                    auto& input = input_buffers[id];
+                    FFTW_START(pack_start);
+                    for (int i = 0; i < n_fft; ++i)
+                        input[i] = y[start + i] * window[i];
+                    FFTW_ADD(counters, 0, pack_start);
+                    FFTW_START(fft_start);
+                    plan.apply(input.get(), fft_out.get());
+                    FFTW_ADD(counters, 1, fft_start);
+                    FFTW_START(power_start);
+                    for (int k = 0; k < n_bins; ++k)
+                        power_b[k] = fft_out[k][0] * fft_out[k][0] +
+                                     fft_out[k][1] * fft_out[k][1];
+                    FFTW_ADD(counters, 2, power_start);
 #else
-                // Pack even/odd real samples into a half-length complex FFT.
-                FFTW_START(pack_start);
-                for (int i = 0; i < half; ++i) {
-                    fft_out[i][0] = y[start + 2 * i] * window[2 * i];
-                    fft_out[i][1] = y[start + 2 * i + 1] * window[2 * i + 1];
-                }
-                FFTW_ADD(counters, 0, pack_start);
-                FFTW_START(fft_start);
-                plan.apply(fft_out.get());
-                FFTW_ADD(counters, 1, fft_start);
+                    // Pack even/odd real samples into a half-length complex
+                    // FFT.
+                    FFTW_START(pack_start);
+                    for (int i = 0; i < half; ++i) {
+                        fft_out[i][0] = y[start + 2 * i] * window[2 * i];
+                        fft_out[i][1] =
+                            y[start + 2 * i + 1] * window[2 * i + 1];
+                    }
+                    FFTW_ADD(counters, 0, pack_start);
+                    FFTW_START(fft_start);
+                    plan.apply(fft_out.get());
+                    FFTW_ADD(counters, 1, fft_start);
 
-                FFTW_START(power_start);
-                double dc = fft_out[0][0] + fft_out[0][1];
-                double nyquist = fft_out[0][0] - fft_out[0][1];
-                power[0] = dc * dc;
-                power[half] = nyquist * nyquist;
-                for (int k = 1; k < half; ++k) {
-                    std::complex<double> a(fft_out[k][0], fft_out[k][1]);
-                    std::complex<double> b(fft_out[half - k][0],
-                                           -fft_out[half - k][1]);
-                    auto x = 0.5 * (a + b) + recovery[k] * (a - b);
-                    power[k] = std::norm(x);
-                }
-                FFTW_ADD(counters, 2, power_start);
+                    FFTW_START(power_start);
+                    double dc = fft_out[0][0] + fft_out[0][1];
+                    double nyquist = fft_out[0][0] - fft_out[0][1];
+                    power_b[0] = dc * dc;
+                    power_b[half] = nyquist * nyquist;
+                    for (int k = 1; k < half; ++k) {
+                        std::complex<double> a(fft_out[k][0], fft_out[k][1]);
+                        std::complex<double> b(fft_out[half - k][0],
+                                               -fft_out[half - k][1]);
+                        auto x = 0.5 * (a + b) + recovery[k] * (a - b);
+                        power_b[k] = std::norm(x);
+                    }
+                    FFTW_ADD(counters, 2, power_start);
 #endif
+                }
             }
 
-            // Apply filters immediately, while this frame's power is in cache.
+            // Reuse each filter across a small frame block and write adjacent
+            // time frames contiguously. Every frame still used one R2C Plan.
             FFTW_START(mel_start);
             for (int m = 0; m < n_mels; ++m) {
-                double acc = 0.0;
-                for (int k = mel_fb[m].first; k < mel_fb[m].last; ++k)
-                    acc += mel_fb[m].weights[k - mel_fb[m].first] * power[k];
-                output[static_cast<size_t>(m) * n_frames + t] = acc;
+                for (int b = 0; b < block_frames; ++b) {
+                    const double* power_b =
+                        power.data() + static_cast<size_t>(b) * n_bins;
+                    double acc = 0.0;
+                    for (int k = mel_fb[m].first; k < mel_fb[m].last; ++k)
+                        acc +=
+                            mel_fb[m].weights[k - mel_fb[m].first] * power_b[k];
+                    output[static_cast<size_t>(m) * n_frames + block_begin +
+                           b] = acc;
+                }
             }
             FFTW_ADD(counters, 3, mel_start);
+            block_begin += block_frames;
         }
         FFTW_PRINT(counters, id);
     };
