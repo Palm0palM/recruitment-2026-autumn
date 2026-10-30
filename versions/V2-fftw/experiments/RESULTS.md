@@ -1,6 +1,7 @@
 # Kimi worker round — results in progress
 
-Production remains A2 double ESTIMATE until a separately validated integration.
+Default production build remains A2 double ESTIMATE. An explicit float build option is being integrated
+and separately revalidated; its prototype's earlier PASS must not be mislabelled as an integration PASS.
 Worker model/call evidence: `ORCHESTRATION.md`, `agent-verification.json`, `session-verification.json`.
 Initial prototypes/local review: `REVIEW.md`. Do not confuse local screens with cluster conclusions.
 
@@ -56,3 +57,24 @@ of N=65536 strong+quiet multitone. This is evidence from tested inputs, not a pr
 - Revised padded/interleaved batch layout prototypes and float+wisdom combination, each tested independently.
 - Production integration only after review and another full official validation/benchmark of that exact build.
 - No push/merge performed in this round. Regressions and invalid measurement attempts are retained.
+
+## Integration stage 1 — opt-in precision
+
+Parent adapted the reviewed precision prototype into the existing shared buffer/plan abstraction:
+
+```sh
+make -B FFT_PRECISION=double FFT_MODE=r2c EXEC=tmp/bin/a2
+make -B FFT_PRECISION=float FFT_POWER=float FFTW_PREFIX=/path/to/float-prefix EXEC=tmp/bin/float-fp
+make -B FFT_PRECISION=float FFT_POWER=double FFTW_PREFIX=/path/to/float-prefix EXEC=tmp/bin/float-dp
+```
+
+Only FFT input/output and optional power use float. Hann, Mel weights, Mel accumulation and API output
+remain double. Float is R2C-only; A1 C2C double remains buildable. Default precision is explicitly double,
+and object paths include precision/power to avoid cross-variant object reuse. Use `-B` when changing libraries.
+This is an approximate numeric option, NOT preservation of the all-double arithmetic contract.
+
+Parent built all four routes (A1/A2 double, float-power/double-power). Each passed 39 valid and 3 rejection
+tests; A2 plus both float routes passed the additional 54-case numerical suite. The integrated local default
+A2 executable is **byte-identical** to the pre-round local baseline:
+`97594fa7f89161aae8e41bb086dee0736ec2839cf83f59556947188c0f57720c`.
+Full official validation and cluster timing of the exact integrated float build are still pending.

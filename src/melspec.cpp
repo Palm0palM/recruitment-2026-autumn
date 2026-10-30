@@ -15,6 +15,10 @@
 #define MELSPEC_FFTW_R2C 1
 #endif
 
+#if MELSPEC_FFTW_FLOAT && !MELSPEC_FFTW_R2C
+#error "The float experiment supports only native R2C"
+#endif
+
 // ─────────────────────────────────────────────────────────────────────────────
 // HTK mel scale
 // ─────────────────────────────────────────────────────────────────────────────
@@ -33,6 +37,19 @@ double mel_to_hz(double m) {
 
 using melspec_fftw::Buffer;
 using melspec_fftw::Plan;
+using melspec_fftw::Real;
+using melspec_fftw::Complex;
+
+static inline double spectrum_power(const Complex& value) {
+#if MELSPEC_FFTW_FLOAT && defined(MELSPEC_FFTWF_DOUBLE_POWER) && MELSPEC_FFTWF_DOUBLE_POWER
+    const double re = value[0], im = value[1];
+    return re * re + im * im;
+#else
+    // For float FFTs the named Real result rounds power before double Mel.
+    const Real result = value[0] * value[0] + value[1] * value[1];
+    return result;
+#endif
+}
 
 // Real FFT: input n real values → output n/2+1 complex values.
 void compute_rfft(const std::vector<double>& frame,
@@ -41,14 +58,14 @@ void compute_rfft(const std::vector<double>& frame,
     if (n < 1 || (n & (n - 1)) != 0)
         throw std::runtime_error("FFT length must be a positive power of two");
 #if MELSPEC_FFTW_R2C
-    Buffer<double> input(n);
-    Buffer<fftw_complex> a(n / 2 + 1);
+    Buffer<Real> input(n);
+    Buffer<Complex> a(n / 2 + 1);
     Plan plan(n, input.get(), a.get());
     for (int i = 0; i < n; ++i) input[i] = frame[i];
     plan.apply(input.get(), a.get());
 #else
     // Public helper in A1 uses full C2C; the hot path below uses half C2C.
-    Buffer<fftw_complex> a(n);
+    Buffer<Complex> a(n);
     Plan plan(n, a.get());
     // MEASURE may overwrite arrays: initialize only AFTER plan creation.
     for (int i = 0; i < n; ++i) {
@@ -153,10 +170,10 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
         static_cast<int>(std::max(1u, std::thread::hardware_concurrency())),
         std::max(1, n_frames / 256)});
     // Allocate scratch before launching threads, so workers cannot throw.
-    std::vector<Buffer<fftw_complex>> fft_buffers;
+    std::vector<Buffer<Complex>> fft_buffers;
     fft_buffers.reserve(n_threads);
 #if MELSPEC_FFTW_R2C
-    std::vector<Buffer<double>> input_buffers;
+    std::vector<Buffer<Real>> input_buffers;
     input_buffers.reserve(n_threads);
     for (int id = 0; id < n_threads; ++id) {
         input_buffers.emplace_back(n_fft);
@@ -194,8 +211,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                 FFTW_ADD(counters, 1, fft_start);
                 FFTW_START(power_start);
                 for (int k = 0; k < n_bins; ++k)
-                    power[k] = fft_out[k][0] * fft_out[k][0] +
-                               fft_out[k][1] * fft_out[k][1];
+                    power[k] = spectrum_power(fft_out[k]);
                 FFTW_ADD(counters, 2, power_start);
 #else
                 // Pack even/odd real samples into a half-length complex FFT.

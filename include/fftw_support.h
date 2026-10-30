@@ -7,6 +7,10 @@
 #include <new>
 #include <stdexcept>
 
+#ifndef MELSPEC_FFTW_FLOAT
+#define MELSPEC_FFTW_FLOAT 0
+#endif
+
 #ifdef MELSPEC_PROFILE
 #include <array>
 #include <chrono>
@@ -31,9 +35,17 @@ inline double elapsed(Clock::time_point t) {
 #define FFTW_PRINT(name, id)
 #endif
 
-// Link ONLY libfftw3, not its OpenMP/pthreads execution backends. The outer
+// Link ONLY libfftw3 (or libfftw3f), not its execution threading backends. The outer
 // std::threads are the sole level of parallelism (16 workers, as in V1).
 namespace melspec_fftw {
+
+#if MELSPEC_FFTW_FLOAT
+using Real = float;
+using Complex = fftwf_complex;
+#else
+using Real = double;
+using Complex = fftw_complex;
+#endif
 
 inline std::mutex& planner_mutex() {
     static std::mutex mutex;
@@ -41,7 +53,13 @@ inline std::mutex& planner_mutex() {
 }
 
 struct Free {
-    void operator()(void* p) const { fftw_free(p); }
+    void operator()(void* p) const {
+#if MELSPEC_FFTW_FLOAT
+        fftwf_free(p);
+#else
+        fftw_free(p);
+#endif
+    }
 };
 
 template <class T> class Buffer {
@@ -49,7 +67,13 @@ template <class T> class Buffer {
 
 public:
     explicit Buffer(size_t n)
-        : data_(static_cast<T*>(fftw_malloc(n * sizeof(T)))) {
+        : data_(static_cast<T*>(
+#if MELSPEC_FFTW_FLOAT
+              fftwf_malloc(n * sizeof(T))
+#else
+              fftw_malloc(n * sizeof(T))
+#endif
+          )) {
         if (!data_) throw std::bad_alloc();
     }
     T* get() const { return data_.get(); }
@@ -67,6 +91,29 @@ inline unsigned planner_flags() {
 // Planner/destructor calls are serialized, never called from worker threads.
 // new-array execute is thread-safe on a shared plan when each worker has its
 // own fftw_malloc buffers, identical sizes, alignment and in/out placement.
+#if MELSPEC_FFTW_FLOAT
+class Plan {
+    fftwf_plan plan_;
+
+public:
+    Plan(int n, float* input, fftwf_complex* output) {
+        std::lock_guard<std::mutex> lock(planner_mutex());
+        FFTW_START(plan_start);
+        plan_ = fftwf_plan_dft_r2c_1d(n, input, output, planner_flags());
+        if (!plan_) throw std::runtime_error("FFTW float R2C plan creation failed");
+        FFTW_TIME("r2c_plan_s", plan_start);
+    }
+    Plan(const Plan&) = delete;
+    Plan& operator=(const Plan&) = delete;
+    ~Plan() {
+        std::lock_guard<std::mutex> lock(planner_mutex());
+        fftwf_destroy_plan(plan_);
+    }
+    void apply(float* input, fftwf_complex* output) const {
+        fftwf_execute_dft_r2c(plan_, input, output);
+    }
+};
+#else
 class Plan {
     fftw_plan plan_;
 
@@ -98,5 +145,6 @@ public:
         fftw_execute_dft_r2c(plan_, input, output);
     }
 };
+#endif
 
 }  // namespace melspec_fftw

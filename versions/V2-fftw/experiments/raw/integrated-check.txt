@@ -1,0 +1,4 @@
+{"program": "tmp/fftw-lab/orchestrator/integrated-float-float", "passed_valid": 39, "max_abs_err_vs_v1": 0.125, "rejected_short": 3}
+{"program": "tmp/fftw-lab/orchestrator/integrated-float-double", "passed_valid": 39, "max_abs_err_vs_v1": 0.125, "rejected_short": 3}
+{"program": "tmp/fftw-lab/orchestrator/integrated-double", "passed_valid": 39, "max_abs_err_vs_v1": 0.0, "rejected_short": 3}
+{"program": "tmp/fftw-lab/orchestrator/integrated-c2c", "passed_valid": 39, "max_abs_err_vs_v1": 2.2330774445111067e-27, "rejected_short": 3}
