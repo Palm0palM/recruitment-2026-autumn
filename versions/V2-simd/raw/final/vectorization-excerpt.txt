@@ -1,0 +1,61 @@
+GCC -fopt-info-vec-all excerpt; manual intrinsics require objdump confirmation
+src/melspec.cpp:33:31: missed: statement clobbers memory: _3 = log10 (_2);
+src/melspec.cpp:37:29: missed: statement clobbers memory: _2 = pow (1.0e+1, _1);
+src/melspec.cpp:110:34: missed: couldn't vectorize loop
+src/melspec.cpp:110:34: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+src/melspec.cpp:115:35: missed: couldn't vectorize loop
+src/melspec.cpp:156:35: missed: couldn't vectorize loop
+src/melspec.cpp:159:49: missed: not vectorized: no vectype for stmt: _46 = *_45;
+src/melspec.cpp:158:39: missed: couldn't vectorize loop
+src/melspec.cpp:159:49: missed: not vectorized: no vectype for stmt: _46 = *_45;
+src/melspec.cpp:216:31: missed: couldn't vectorize loop
+src/melspec.cpp:216:31: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+src/melspec.cpp:259:26: missed: couldn't vectorize loop
+src/melspec.cpp:261:28: missed: not vectorized: no vectype for stmt: ar_312 = *_226;
+src/melspec.cpp:219:30: missed: couldn't vectorize loop
+src/melspec.cpp:102:31: optimized: loop vectorized using 32 byte vectors and unroll factor 4
+src/melspec.cpp:102:31: optimized:  loop versioned for vectorization because of possible aliasing
+src/melspec.cpp:102:31: optimized: epilogue loop vectorized using 16 byte vectors and unroll factor 2
+src/melspec.cpp:227:54: missed: not vectorized: vectorization is not profitable.
+src/melspec.cpp:227:54: missed: not vectorized: vectorization is not profitable.
+src/melspec.cpp:319:14: optimized: loop vectorized using 16 byte vectors and unroll factor 2
+src/melspec.cpp:319:14: optimized:  loop versioned for vectorization because of possible aliasing
+src/melspec.cpp:299:18: missed: couldn't vectorize loop
+src/melspec.cpp:299:18: missed: not vectorized: latch block not empty.
+src/melspec.cpp:438:31: missed: couldn't vectorize loop
+src/melspec.cpp:438:31: missed: not vectorized: unsupported control flow in loop.
+src/melspec.cpp:456:31: missed: couldn't vectorize loop
+src/melspec.cpp:456:31: missed: not vectorized: unsupported control flow in loop.
+src/melspec.cpp:458:42: optimized: loop vectorized using 32 byte vectors and unroll factor 4
+src/melspec.cpp:458:42: optimized: epilogue loop vectorized using 16 byte vectors and unroll factor 2
+src/melspec.cpp:438:31: missed: couldn't vectorize loop
+src/melspec.cpp:438:31: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+src/melspec.cpp:456:31: missed: couldn't vectorize loop
+src/melspec.cpp:456:31: missed: not vectorized: unsupported control flow in loop.
+src/melspec.cpp:458:42: optimized: loop vectorized using 32 byte vectors and unroll factor 4
+src/melspec.cpp:458:42: optimized: epilogue loop vectorized using 16 byte vectors and unroll factor 2
+src/melspec.cpp:446:35: missed: couldn't vectorize loop
+src/melspec.cpp:447:69: missed: not vectorized: no vectype for stmt: _56 = *_55;
+src/melspec.cpp:451:36: missed: statement clobbers memory: FFTPlan::apply_permuted (pretmp_309, _10);
+src/melspec.cpp:452:30: missed: statement clobbers memory: recover_power (_10, _92, _91, _14);
+src/melspec.cpp:341:23: optimized: loop vectorized using 32 byte vectors and unroll factor 4
+src/melspec.cpp:341:23: optimized:  loop versioned for vectorization because of possible aliasing
+src/melspec.cpp:341:23: optimized: epilogue loop vectorized using 16 byte vectors and unroll factor 2
+src/melspec.cpp:335:23: missed: couldn't vectorize loop
+src/melspec.cpp:336:32: missed: not vectorized: no vectype for stmt: _2 = *_51;
+src/melspec.cpp:80:20: missed: couldn't vectorize loop
+src/melspec.cpp:80:20: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+src/melspec.cpp:82:31: missed: couldn't vectorize loop
+src/melspec.cpp:82:31: missed: not vectorized: unsupported control flow in loop.
+src/melspec.cpp:70:31: missed: couldn't vectorize loop
+src/melspec.cpp:70:31: missed: not vectorized: unsupported control flow in loop.
+src/melspec.cpp:74:31: missed: couldn't vectorize loop
+src/melspec.cpp:74:31: missed: not vectorized: unsupported control flow in loop.
+src/melspec.cpp:63:34: missed: couldn't vectorize loop
+src/melspec.cpp:63:34: missed: not vectorized: unsupported control flow in loop.
+src/melspec.cpp:65:22: missed: couldn't vectorize loop
+src/melspec.cpp:65:42: missed: not vectorized: unsupported use in stmt.
+src/melspec.cpp:330:6: missed: splitting region at control altering definition _197 = operator new (_196);
+src/melspec.cpp:79:34: missed: splitting region at dominance boundary bb108
+src/melspec.cpp:75:39: missed: not vectorized: vectorization is not profitable.
+src/melspec.cpp:75:39: missed: not vectorized: vectorization is not profitable.

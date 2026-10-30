@@ -1,0 +1,23 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 3K of event 'task-clock:u'
+# Event count (approx.): 7993987912
+#
+# Overhead       Samples  Symbol                                                                                                                                                                                                                                                             Shared Object     IPC   [IPC Coverage]
+# ........  ............  .................................................................................................................................................................................................................................................................  ................  ....................
+#
+    53.47%          2133  [.] std::thread::_State_impl<std::thread::_Invoker<std::tuple<compute_melspectrogram(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)::{lambda(int)#1}, int> > >::_M_run()  melspec           -      -
+    32.87%          1311  [.] FFTPlan::apply_permuted(ComplexBuffer&) const                                                                                                                                                                                                                  melspec           -      -
+     9.43%           376  [.] recover_power(ComplexBuffer const&, std::vector<double, std::allocator<double> > const&, std::vector<double, std::allocator<double> > const&, std::vector<double, std::allocator<double> >&)                                                                   melspec           -      -
+     3.46%           138  [.] compute_melspectrogram(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)                                                                                                 melspec           -      -
+     0.30%            12  [.] write_output(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::vector<double, std::allocator<double> > const&, int, int)                                                                                            melspec           -      -
+     0.20%             8  [.] read_pcm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::vector<double, std::allocator<double> >&)                                                                                                                melspec           -      -
+     0.18%             7  [.] 0x0000000000176ede                                                                                                                                                                                                                                             libc.so.6         -      -
+
+
+#
+# (Tip: To record every process run by a user: perf record -u <user>)
+#

@@ -1,0 +1,14 @@
+melspec;[libc.so.6];[libc.so.6];[libstdc++.so.6.0.36];std::thread::_State_impl<std::thread::_Invoker<std::tuple<compute_melspectrogram 4590
+melspec;[libc.so.6];[libc.so.6];[libstdc++.so.6.0.36];std::thread::_State_impl<std::thread::_Invoker<std::tuple<compute_melspectrogram;FFTPlan::apply_permuted 3581
+melspec;[libc.so.6];[libc.so.6];[libstdc++.so.6.0.36];std::thread::_State_impl<std::thread::_Invoker<std::tuple<compute_melspectrogram;recover_power 685
+melspec;_start;__libc_start_main;[libc.so.6];main;compute_melspectrogram 288
+melspec;_start;__libc_start_main;[libc.so.6];main;compute_melspectrogram;FFTPlan::apply_permuted 253
+melspec;_start;__libc_start_main;[libc.so.6];main;compute_melspectrogram;build_mel_filterbank 1
+melspec;_start;__libc_start_main;[libc.so.6];main;compute_melspectrogram;build_mel_filterbank;[libc.so.6] 1
+melspec;_start;__libc_start_main;[libc.so.6];main;compute_melspectrogram;recover_power 52
+melspec;_start;__libc_start_main;[libc.so.6];main;compute_melspectrogram;std::vector<double, std::allocator<double> >::_M_default_append;[libc.so.6] 7
+melspec;_start;__libc_start_main;[libc.so.6];main;read_pcm 7
+melspec;_start;__libc_start_main;[libc.so.6];main;read_pcm;[libc.so.6] 1
+melspec;_start;__libc_start_main;[libc.so.6];main;read_pcm;std::vector<double, std::allocator<double> >::_M_default_append;[libc.so.6] 5
+melspec;_start;__libc_start_main;[libc.so.6];main;write_output 13
+melspec;_start;__libc_start_main;[libc.so.6];main;write_output;[libc.so.6] 4

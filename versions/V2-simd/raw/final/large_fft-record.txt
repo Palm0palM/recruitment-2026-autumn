@@ -1,0 +1,2 @@
+[ perf record: Woken up 394 times to write data ]
+[ perf record: Captured and wrote 150.374 MB tmp/results/final/perf/large_fft.data ]
