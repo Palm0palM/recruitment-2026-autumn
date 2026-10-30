@@ -5,6 +5,52 @@
 - 不修改 `src/main.cpp`、`validate.py`、`data`；double、周期 Hann、HTK/Slaney、稀疏 Mel 和 V1 线程划分不变。
 - AI：OpenCode / GPT-6.1 Sol；实现、测试、测量与报告均在本分支。
 
+## 交付状态：A2 ESTIMATE 已通过集群正式验证
+
+- 正式候选代码 commit：`b4552f3962751b5a02d2aa56798907c5a1c29afc`。
+- A1 首次实现 commit：`a7a0752`；A2 首次实现 commit：`6c9f87a`；均独立保留，没有合并 master。
+- 候选参数：`FFT_MODE=r2c FFTW_PLAN=estimate`，保持 double 和外层 16 个 worker。
+- 远端独立目录：`/home/zsx/melspec-v2-fftw-agent-a`，没有覆盖 V1 或其他实验。
+- 作业 56 构建依赖（3:13），58 benchmark + 官方验证（7:06），59 单独 profile（0:10），
+  全部 `COMPLETED / 0:0`，依次执行；节点 hepnode2，cpuset `0-15`，Xeon Gold 6338。
+- **完整官方 validate.py：四组 4/4 PASS**；同作业内五版本交错对照的所有 60 次完整输出也均 PASS。
+
+### 官方计时（每组 3 次取最小）
+
+| 用例 | A2 ESTIMATE 全进程（s） | vs 同次官方 librosa | max_abs_err | 状态 |
+|---|---:|---:|---:|---|
+| default | **0.985** | 15.472× | 0.03125 | PASS |
+| small_mels | **0.650** | 22.859× | 0.01171875 | PASS |
+| large_fft | **1.356** | 22.783× | 0.125 | PASS |
+| narrow_band | **1.300** | 23.900× | 0.0625 | PASS |
+
+### 相对 V1 的公平对照（同作业、同输入/编译器/线程/输出位置，三次取最小）
+
+| 用例 | 新编译 BASE/V1 | A1 EST | A1 MEASURE | A2 EST | A2 MEASURE | A2 EST vs V1 |
+|---|---:|---:|---:|---:|---:|---:|
+| default | 1.539891 | 1.104407 | 1.591448 | **1.003307** | 1.372112 | **1.535×** |
+| small_mels | 1.209326 | 0.758823 | 1.262902 | **0.662364** | 1.036879 | **1.826×** |
+| large_fft | 2.655534 | 1.596253 | 2.260757 | **1.365753** | 1.903017 | **1.944×** |
+| narrow_band | 2.597472 | 1.544488 | 2.217947 | **1.310244** | 1.844392 | **1.982×** |
+
+这张表来自 `fftw_bench.py`，不是上张官方表；两种 harness 的进程计时有约 1–2% 差异，
+不将不同 harness 的最小值混算，不与旧 hepnode3/V1 或本地秒数混算。
+原始每次 wall time、median、误差见 `raw/cluster/compare-58.json` 与 `fftw-58.out`。
+A2 EST 的 median 同样优于 V1/A1；不是仅靠某一个异常最小值获胜。
+
+### 构建身份
+
+- 编译器：GCC/G++ 15.2.0，应用 `-std=c++17 -O3 -march=native -pthread`，无 fast-math。
+- FFTW 3.3.11：double static、SSE2/AVX/AVX2/AVX-512 codelets，threads/omp/mpi 均关闭；
+  启用某类 codelet 不代表每个 plan 都选择该指令集。
+- 库 SHA-256：`c487eddeb264013f9f051af9fb15ce66d60fc6d15d32ff7eb31501f593554ef5`。
+- 候选可执行文件 SHA-256：`f1ab166c877e3921ed1a1d330a69ca542e243cd69eaef9184443662e7eb88e64`。
+- 算法文件 SHA-256：`b43d32ec26380a411a995ada96ca65fedfee0e920ee0a0d2ccc79aab4ded53b5`；
+  头文件/Makefile/其他二进制哈希也在原始日志中。
+- 未借用其他环境的 BLAS/FFTW .so；静态 FFTW 链接行、构建配置与源码校验均已记录。
+
+新瓶颈和 V3 建议见 [PROFILE.md](PROFILE.md)。下面保留设计与本地实验过程。
+
 ## A1：半长 C2C
 
 只将手写 FFT 换成 `fftw_plan_dft_1d(n_fft/2)`；保留奇偶打包、共轭恢复与稀疏 Mel。
@@ -53,7 +99,7 @@ A1 独立代码提交 `a7a0752`；A2 增量提交后仍可通过 `FFT_MODE=c2c` 
 本地 A2 两种 planner 各 8 项 smoke 全 PASS。进一步将 A1/A2 × 两种 planner 与独立编译的 BASE/V1
 比较：各 39 组随机/零值/满幅正负/冲激/Nyquist/精确帧边界合法输入均 PASS，另各 3 组短输入安全拒绝。
 最大输出差为 `3.0517578125e-05`，容差仍为题目 `rtol=1e-3, atol=1e-4`。
-后续补充 ESTIMATE/MEASURE 对照、正式集群四组验证与新瓶颈分析。失败实验同样保留。
+ESTIMATE/MEASURE 对照、正式集群验证均已完成；失败实验同样保留。
 
 ## 首轮本地全量对照（有效阶段）
 

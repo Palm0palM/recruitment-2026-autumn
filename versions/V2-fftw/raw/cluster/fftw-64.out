@@ -1,0 +1,100 @@
+job=64 node=hepnode2 mode=plans
+9e32c97ab9f5c7c3e8c84567c15b49154874f715
+Cpus_allowed_list:	0-15
+CPU(s):                                  64
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+CPU(s) scaling MHz:                      32%
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+c487eddeb264013f9f051af9fb15ce66d60fc6d15d32ff7eb31501f593554ef5  /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/lib/libfftw3.a
+c82bf45065551f8659748f9c77d8c9dee6783ea524d579e951757ac78a926d05  /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/include/fftw3.h
+#define HAVE_AVX 1
+#define HAVE_AVX2 1
+#define HAVE_AVX512 1
+#define PACKAGE_VERSION "3.3.11"
+version=fftw-3.3.11-sse2-avx-avx2-avx2_128-avx512 compiler=gcc -O3 -march=native
+kind=half-c2c n_fft=8192 planner=estimate plan_s=0.000155238 alignment_in=0 alignment_out=0
+(dft-ct-dit/32
+  (dftw-direct-32/32 "t3fv_32_avx512")
+  (dft-buffered-128-x32/32-6
+    (dft-direct-128-x32 "n1fv_128_avx512")
+    (dft-r2hc-1
+      (rdft-rank0-iter-ci/256-x32))
+    (dft-nop)))
+single_thread_copy_execute_us=21.070617800 repeats=5000
+kind=half-c2c n_fft=8192 planner=measure plan_s=0.558106221 alignment_in=0 alignment_out=0
+(dft-ct-dit/64
+  (dftw-direct-64/1008 "t2fv_64_avx512")
+  (dft-buffered-64-x64/64-6
+    (dft-direct-64-x64 "n2fv_64_avx")
+    (dft-r2hc-1
+      (rdft-rank0-iter-ci/128-x64))
+    (dft-nop)))
+single_thread_copy_execute_us=15.385895600 repeats=5000
+kind=r2c n_fft=8192 planner=estimate plan_s=0.001641517 alignment_in=0 alignment_out=0
+(rdft2-ct-dit/2
+  (hc2c-direct-2/4/1 "hc2cfdftv_2_avx2"
+    (rdft2-r2hc-direct-2 "r2cf_2")
+    (rdft2-r2hc01-direct-2 "r2cfII_2"))
+  (dft-ct-dit/32
+    (dftw-direct-32/32 "t3fv_32_avx512")
+    (dft-direct-128-x32 "n1fv_128_avx512")))
+single_thread_copy_execute_us=22.332729600 repeats=5000
+kind=r2c n_fft=8192 planner=measure plan_s=0.453452959 alignment_in=0 alignment_out=0
+(rdft2-ct-dit/2
+  (hc2c-direct-2/4/1 "hc2cfdftv_2_avx2"
+    (rdft2-r2hc-direct-2 "r2cf_2")
+    (rdft2-r2hc01-direct-2 "r2cfII_2"))
+  (dft-ct-dit/64
+    (dftw-direct-64/1008 "t2fv_64_avx512")
+    (dft-direct-64-x64 "n2fv_64_avx")))
+single_thread_copy_execute_us=16.223475200 repeats=5000
+kind=half-c2c n_fft=16384 planner=estimate plan_s=0.000189888 alignment_in=0 alignment_out=0
+(dft-ct-dit/32
+  (dftw-direct-32/32 "t3fv_32_avx512")
+  (dft-buffered-256-x32/32-6
+    (dft-vrank>=1-x32/1
+      (dft-ct-dit/16
+        (dftw-direct-16/32 "t3fv_16_avx512")
+        (dft-direct-16-x16 "n1fv_16_avx512")))
+    (dft-r2hc-1
+      (rdft-rank0-iter-ci/512-x32))
+    (dft-nop)))
+single_thread_copy_execute_us=46.523071000 repeats=5000
+kind=half-c2c n_fft=16384 planner=measure plan_s=0.823334424 alignment_in=0 alignment_out=0
+(dft-buffered-8192/1-0
+  (dft-ct-dit/8
+    (dftw-direct-8/112 "t2fv_8_avx512")
+    (dft-vrank>=1-x8/1
+      (dft-ct-dit/64
+        (dftw-direct-64/1008 "t2fv_64_avx512")
+        (dft-direct-16-x64 "n1fv_16_avx2"))))
+  (dft-r2hc-1
+    (rdft-rank0-memcpy/16384))
+  (dft-nop))
+single_thread_copy_execute_us=32.670024000 repeats=5000
+kind=r2c n_fft=16384 planner=estimate plan_s=0.001924671 alignment_in=0 alignment_out=0
+(rdft2-ct-dit/4
+  (hc2c-direct-4/12/1 "hc2cfdftv_4_avx2"
+    (rdft2-r2hc-direct-4 "r2cf_4")
+    (rdft2-r2hc01-direct-4 "r2cfII_4"))
+  (dft-vrank>=1-x2/1
+    (dft-ct-dit/32
+      (dftw-direct-32/32 "t3fv_32_avx512")
+      (dft-direct-128-x32 "n1fv_128_avx512"))))
+single_thread_copy_execute_us=46.126432600 repeats=5000
+kind=r2c n_fft=16384 planner=measure plan_s=0.664688067 alignment_in=0 alignment_out=0
+(rdft2-ct-dit/2
+  (hc2c-direct-2/4/1 "hc2cfdftv_2_avx2"
+    (rdft2-r2hc-direct-2 "r2cf_2")
+    (rdft2-r2hc01-direct-2 "r2cfII_2"))
+  (dft-ct-dit/8
+    (dftw-direct-8/24 "t3fv_8_avx512")
+    (dft-vrank>=1-x8/1
+      (dft-ct-dit/64
+        (dftw-direct-64/1008 "t2fv_64_avx512")
+        (dft-direct-16-x64 "n1fv_16_avx")))))
+single_thread_copy_execute_us=34.414682000 repeats=5000

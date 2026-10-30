@@ -1,0 +1,148 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 5K of event 'task-clock:u'
+# Event count (approx.): 25899494250
+#
+# Overhead       Samples  Command       Shared Object       Symbol
+# ........  ............  ............  ..................  .................................................................................................................................................................................................................................................................
+#
+    25.77%          1328  melspec-perf  melspec-perf        [.] std::thread::_State_impl<std::thread::_Invoker<std::tuple<compute_melspectrogram(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)::{lambda(int)#1}, int> > >::_M_run()
+     1.94%           100  melspec-perf  melspec-perf        [.] compute_melspectrogram(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)
+     0.50%            26  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c5274
+     0.47%            24  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018ef22
+     0.45%            23  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018ef1b
+     0.41%            21  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018ef84
+     0.41%            21  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ee079
+     0.33%            17  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f07f
+     0.33%            17  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f097
+     0.29%            15  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018ef16
+     0.29%            15  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018ef3a
+     0.29%            15  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f06b
+     0.29%            15  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c528f
+     0.29%            15  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001edfc6
+     0.27%            14  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018ef55
+     0.27%            14  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f7d0
+     0.27%            14  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c54a8
+     0.27%            14  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001edd92
+     0.25%            13  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018ef0b
+     0.25%            13  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018ef33
+     0.25%            13  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018ef66
+     0.25%            13  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018ef9f
+     0.25%            13  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001eea0a
+     0.23%            12  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018ef6d
+     0.23%            12  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c5266
+     0.23%            12  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c569a
+     0.23%            12  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ee610
+     0.21%            11  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018ef4e
+     0.21%            11  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018ef7d
+     0.21%            11  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f078
+     0.21%            11  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c56b7
+     0.19%            10  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018efb5
+     0.19%            10  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f111
+     0.19%            10  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f1f8
+     0.19%            10  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f2b0
+     0.19%            10  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018fab3
+     0.19%            10  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c5241
+     0.19%            10  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ede1c
+     0.19%            10  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001edf50
+     0.19%            10  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ee064
+     0.19%            10  melspec-perf  melspec-perf        [.] write_output(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::vector<double, std::allocator<double> > const&, int, int)
+     0.17%             9  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018efbc
+     0.17%             9  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f064
+     0.17%             9  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f0e1
+     0.17%             9  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c51f5
+     0.17%             9  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ed70b
+     0.17%             9  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ed7d5
+     0.17%             9  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ede3e
+     0.17%             9  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001edef1
+     0.17%             9  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ee080
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f00f
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f0b2
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f0da
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f22b
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f565
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c52f0
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c55a6
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c55be
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c5700
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c588a
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ed836
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ed879
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ed95d
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ed9f8
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ed9ff
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001eda6e
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001edaad
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001eddfd
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ede4d
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ee504
+     0.16%             8  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ee50b
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018ef98
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f0c3
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f0fd
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f1f1
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f210
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c5239
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c525d
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c5549
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c55d2
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c589e
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ed704
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ed77a
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ed91f
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001edb07
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001edd5f
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001edec1
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001edf01
+     0.14%             7  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001eecad
+     0.12%             6  melspec-perf  libc.so.6           [.] 0x0000000000176ede
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000001a135
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f090
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f0ca
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f1e1
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f23c
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f243
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f253
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f25a
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f276
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f343
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f362
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f53b
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f548
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x000000000018f90a
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c5202
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c5319
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c5357
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c5448
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c5464
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c5488
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c548c
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c54b2
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c5594
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c56ea
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001c5729
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ed809
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ed8d4
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ed911
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ed964
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001edd48
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001edda0
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001edda7
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001eddb3
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ede37
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ede89
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001edea2
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001edee0
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001edf42
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ee088
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ee1cd
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ee287
+     0.12%             6  melspec-perf  libfftw3.so.3.7.11  [.] 0x00000000001ee4d4
+
+
+#
+# (Tip: Save output of perf stat using: perf stat record <target workload>)
+#

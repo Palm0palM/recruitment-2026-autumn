@@ -1,0 +1,24 @@
+JobID|JobName|State|ExitCode|Elapsed|AllocCPUS|NodeList|MaxRSS
+56|melspec-fftw|COMPLETED|0:0|00:03:13|16|hepnode2|
+56.batch|batch|COMPLETED|0:0|00:03:13|16|hepnode2|
+56.extern|extern|COMPLETED|0:0|00:03:13|16|hepnode2|
+58|melspec-fftw|COMPLETED|0:0|00:07:06|16|hepnode2|
+58.batch|batch|COMPLETED|0:0|00:07:06|16|hepnode2|
+58.extern|extern|COMPLETED|0:0|00:07:06|16|hepnode2|
+59|melspec-fftw|COMPLETED|0:0|00:00:10|16|hepnode2|
+59.batch|batch|COMPLETED|0:0|00:00:10|16|hepnode2|
+59.extern|extern|COMPLETED|0:0|00:00:10|16|hepnode2|
+64|melspec-fftw|COMPLETED|0:0|00:00:06|16|hepnode2|
+64.batch|batch|COMPLETED|0:0|00:00:06|16|hepnode2|
+64.extern|extern|COMPLETED|0:0|00:00:06|16|hepnode2|
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+ee18296021d6efe3644950e47c7922dce072846e7fe44d47b6d3645e950ac7ce  validate.py
+80bbb8f2ff3876bdd1ee6af2742c04558d4cdc605d0f42b5ef92f5fc71516efa  data/audio.pcm
+	linux-vdso.so.1 (0x00007f915da92000)
+	libstdc++.so.6 => /usr/lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007f915d4bf000)
+	libm.so.6 => /usr/lib/x86_64-linux-gnu/libm.so.6 (0x00007f915d399000)
+	libgcc_s.so.1 => /usr/lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f915d36b000)
+	libc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x00007f915d14a000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f915da94000)
+3.14.4 (main, Apr  8 2026, 04:02:31) [GCC 15.2.0]
+2.5.4 1.0.0

@@ -1,0 +1,17 @@
+job=56 node=hepnode2 mode=build
+2080f65e545bea00e2b0c9bfb715d70364a7713f
+Cpus_allowed_list:	0-15
+CPU(s):                                  64
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+CPU(s) scaling MHz:                      30%
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+c487eddeb264013f9f051af9fb15ce66d60fc6d15d32ff7eb31501f593554ef5  /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/lib/libfftw3.a
+c82bf45065551f8659748f9c77d8c9dee6783ea524d579e951757ac78a926d05  /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/include/fftw3.h
+#define HAVE_AVX 1
+#define HAVE_AVX2 1
+#define HAVE_AVX512 1
+#define PACKAGE_VERSION "3.3.11"

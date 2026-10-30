@@ -1,0 +1,134 @@
+job=58 node=hepnode2 mode=bench
+b4552f3962751b5a02d2aa56798907c5a1c29afc
+Cpus_allowed_list:	0-15
+CPU(s):                                  64
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+CPU(s) scaling MHz:                      29%
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+c487eddeb264013f9f051af9fb15ce66d60fc6d15d32ff7eb31501f593554ef5  /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/lib/libfftw3.a
+c82bf45065551f8659748f9c77d8c9dee6783ea524d579e951757ac78a926d05  /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/include/fftw3.h
+#define HAVE_AVX 1
+#define HAVE_AVX2 1
+#define HAVE_AVX512 1
+#define PACKAGE_VERSION "3.3.11"
+g++ -I./include -DMELSPEC_FFTW_R2C=0 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/c2c-estimate/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FFTW_R2C=0 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/c2c-estimate/main.o -c src/main.cpp
+g++  -o tmp/bin/c2c-estimate tmp/build/c2c-estimate/main.o tmp/build/c2c-estimate/melspec.o -pthread /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+g++ -I./include -DMELSPEC_FFTW_R2C=0 -DMELSPEC_FFTW_MEASURE=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/c2c-measure/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FFTW_R2C=0 -DMELSPEC_FFTW_MEASURE=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/c2c-measure/melspec.o -c src/melspec.cpp
+g++  -o tmp/bin/c2c-measure tmp/build/c2c-measure/main.o tmp/build/c2c-measure/melspec.o -pthread /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+g++ -I./include -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate/main.o -c src/main.cpp
+g++  -o tmp/bin/r2c-estimate tmp/build/r2c-estimate/main.o tmp/build/r2c-estimate/melspec.o -pthread /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+g++ -I./include -DMELSPEC_FFTW_R2C=1 -DMELSPEC_FFTW_MEASURE=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-measure/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FFTW_R2C=1 -DMELSPEC_FFTW_MEASURE=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-measure/melspec.o -c src/melspec.cpp
+g++  -o tmp/bin/r2c-measure tmp/build/r2c-measure/main.o tmp/build/r2c-measure/melspec.o -pthread /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+b43d32ec26380a411a995ada96ca65fedfee0e920ee0a0d2ccc79aab4ded53b5  src/melspec.cpp
+3bcb8265fb0157fcb8166415c5fe3e6bcf165463e8df976aeb58c861cfe228a1  include/fftw_support.h
+9436ff16d35056e92e580041e08883e75b0f2130a9a0aa8bcf3ca3bcbf83728d  Makefile
+3b00a2d777a20de397c3a2e407b60f6a21258940470851cbeb82c4c21c64f957  tmp/build/v1.cpp
+0837a842c04df77f3b8f2f706323124e6c9af0be8de8778ca803408307f30627  tmp/bin/c2c-estimate
+89378e968f08cec7514cf8a2d012e347193836c15eb44c750476246bfcdfa3ab  tmp/bin/c2c-measure
+f1ab166c877e3921ed1a1d330a69ca542e243cd69eaef9184443662e7eb88e64  tmp/bin/r2c-estimate
+df85b3820aea6319462220010199f343230076579f80671d29862b4d63605ce3  tmp/bin/r2c-measure
+ca753e4d97029f71e1ec5e73b2546b7601e081ac98c61163528f1f6e6ac382ee  tmp/bin/v1
+default v1 round=0 elapsed=1.539891 max_abs_err=0.03125 PASS
+default a1-estimate round=0 elapsed=1.107470 max_abs_err=0.03125 PASS
+default a1-measure round=0 elapsed=1.598758 max_abs_err=0.03125 PASS
+default a2-estimate round=0 elapsed=1.012004 max_abs_err=0.03125 PASS
+default a2-measure round=0 elapsed=1.372112 max_abs_err=0.03125 PASS
+default a1-estimate round=1 elapsed=1.163067 max_abs_err=0.03125 PASS
+default a1-measure round=1 elapsed=1.613405 max_abs_err=0.03125 PASS
+default a2-estimate round=1 elapsed=1.003307 max_abs_err=0.03125 PASS
+default a2-measure round=1 elapsed=1.377158 max_abs_err=0.03125 PASS
+default v1 round=1 elapsed=1.548449 max_abs_err=0.03125 PASS
+default a1-measure round=2 elapsed=1.591448 max_abs_err=0.03125 PASS
+default a2-estimate round=2 elapsed=1.004379 max_abs_err=0.03125 PASS
+default a2-measure round=2 elapsed=1.380583 max_abs_err=0.03125 PASS
+default v1 round=2 elapsed=1.558477 max_abs_err=0.03125 PASS
+default a1-estimate round=2 elapsed=1.104407 max_abs_err=0.03125 PASS
+small_mels v1 round=0 elapsed=1.209326 max_abs_err=0.01171875 PASS
+small_mels a1-estimate round=0 elapsed=0.772666 max_abs_err=0.01171875 PASS
+small_mels a1-measure round=0 elapsed=1.304969 max_abs_err=0.01171875 PASS
+small_mels a2-estimate round=0 elapsed=0.662364 max_abs_err=0.01171875 PASS
+small_mels a2-measure round=0 elapsed=1.044482 max_abs_err=0.01171875 PASS
+small_mels a1-estimate round=1 elapsed=0.758823 max_abs_err=0.01171875 PASS
+small_mels a1-measure round=1 elapsed=1.269705 max_abs_err=0.01171875 PASS
+small_mels a2-estimate round=1 elapsed=0.662401 max_abs_err=0.01171875 PASS
+small_mels a2-measure round=1 elapsed=1.040166 max_abs_err=0.01171875 PASS
+small_mels v1 round=1 elapsed=1.211356 max_abs_err=0.01171875 PASS
+small_mels a1-measure round=2 elapsed=1.262902 max_abs_err=0.01171875 PASS
+small_mels a2-estimate round=2 elapsed=0.664290 max_abs_err=0.01171875 PASS
+small_mels a2-measure round=2 elapsed=1.036879 max_abs_err=0.01171875 PASS
+small_mels v1 round=2 elapsed=1.213195 max_abs_err=0.01171875 PASS
+small_mels a1-estimate round=2 elapsed=0.880688 max_abs_err=0.01171875 PASS
+large_fft v1 round=0 elapsed=2.655534 max_abs_err=0.125 PASS
+large_fft a1-estimate round=0 elapsed=1.596253 max_abs_err=0.125 PASS
+large_fft a1-measure round=0 elapsed=2.410561 max_abs_err=0.125 PASS
+large_fft a2-estimate round=0 elapsed=1.365753 max_abs_err=0.125 PASS
+large_fft a2-measure round=0 elapsed=1.903017 max_abs_err=0.125 PASS
+large_fft a1-estimate round=1 elapsed=1.661960 max_abs_err=0.125 PASS
+large_fft a1-measure round=1 elapsed=2.313796 max_abs_err=0.125 PASS
+large_fft a2-estimate round=1 elapsed=1.379003 max_abs_err=0.125 PASS
+large_fft a2-measure round=1 elapsed=1.908030 max_abs_err=0.125 PASS
+large_fft v1 round=1 elapsed=2.657026 max_abs_err=0.125 PASS
+large_fft a1-measure round=2 elapsed=2.260757 max_abs_err=0.125 PASS
+large_fft a2-estimate round=2 elapsed=1.372720 max_abs_err=0.125 PASS
+large_fft a2-measure round=2 elapsed=1.915886 max_abs_err=0.125 PASS
+large_fft v1 round=2 elapsed=2.660516 max_abs_err=0.125 PASS
+large_fft a1-estimate round=2 elapsed=1.609489 max_abs_err=0.125 PASS
+narrow_band v1 round=0 elapsed=2.597472 max_abs_err=0.0625 PASS
+narrow_band a1-estimate round=0 elapsed=1.549651 max_abs_err=0.0625 PASS
+narrow_band a1-measure round=0 elapsed=2.229179 max_abs_err=0.0625 PASS
+narrow_band a2-estimate round=0 elapsed=1.315564 max_abs_err=0.0625 PASS
+narrow_band a2-measure round=0 elapsed=1.848545 max_abs_err=0.0625 PASS
+narrow_band a1-estimate round=1 elapsed=1.544488 max_abs_err=0.0625 PASS
+narrow_band a1-measure round=1 elapsed=2.217947 max_abs_err=0.0625 PASS
+narrow_band a2-estimate round=1 elapsed=1.310244 max_abs_err=0.0625 PASS
+narrow_band a2-measure round=1 elapsed=1.844392 max_abs_err=0.0625 PASS
+narrow_band v1 round=1 elapsed=2.605728 max_abs_err=0.0625 PASS
+narrow_band a1-measure round=2 elapsed=2.304115 max_abs_err=0.0625 PASS
+narrow_band a2-estimate round=2 elapsed=1.316723 max_abs_err=0.0625 PASS
+narrow_band a2-measure round=2 elapsed=1.859448 max_abs_err=0.0625 PASS
+narrow_band v1 round=2 elapsed=2.609623 max_abs_err=0.0625 PASS
+narrow_band a1-estimate round=2 elapsed=1.675968 max_abs_err=0.0625 PASS
+case | program | min_s | median_s | vs_v1
+default | v1 | 1.539891 | 1.548449 | 1.0
+default | a1-estimate | 1.104407 | 1.107470 | 1.3943141712999685
+default | a1-measure | 1.591448 | 1.598758 | 0.9676032480382647
+default | a2-estimate | 1.003307 | 1.004379 | 1.5348156253172673
+default | a2-measure | 1.372112 | 1.377158 | 1.1222778617572742
+small_mels | v1 | 1.209326 | 1.211356 | 1.0
+small_mels | a1-estimate | 0.758823 | 0.772666 | 1.593686566835192
+small_mels | a1-measure | 1.262902 | 1.269705 | 0.9575771687100768
+small_mels | a2-estimate | 0.662364 | 0.662401 | 1.8257744245712078
+small_mels | a2-measure | 1.036879 | 1.040166 | 1.1663141899009721
+large_fft | v1 | 2.655534 | 2.657026 | 1.0
+large_fft | a1-estimate | 1.596253 | 1.609489 | 1.6636050824966337
+large_fft | a1-measure | 2.260757 | 2.313796 | 1.1746217477599132
+large_fft | a2-estimate | 1.365753 | 1.372720 | 1.9443739594321343
+large_fft | a2-measure | 1.903017 | 1.908030 | 1.3954336624255863
+narrow_band | v1 | 2.597472 | 2.605728 | 1.0
+narrow_band | a1-estimate | 1.544488 | 1.549651 | 1.6817690916235055
+narrow_band | a1-measure | 2.217947 | 2.229179 | 1.171115101270985
+narrow_band | a2-estimate | 1.310244 | 1.315564 | 1.9824328581628656
+narrow_band | a2-measure | 1.844392 | 1.848545 | 1.4083081759458298
+== complete official validate.py, A2 ESTIMATE, 3 runs ==
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    0.985 | 15.472x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    0.650 | 22.859x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.356 | 22.783x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    1.300 | 23.900x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
