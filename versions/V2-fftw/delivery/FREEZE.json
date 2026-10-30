@@ -1,0 +1,76 @@
+{
+  "freeze": "float R2C + float power + PATIENT wisdom",
+  "production_commit": "d8234a51f37dbe89a222f8101f73deae1f63f4c0",
+  "delivery_commit_note": "production source/include/Makefile are unchanged after production_commit; reports and delivery records only follow",
+  "source_sha256": {
+    "Makefile": "569f79fb70b33b249093e05e141bf4baac4747ba43977c86af3e84b9dda32430",
+    "include/fftw_float_wisdom.h": "85a0ce8fa8022ed9dc45cadf6105aed0202ceb74b19155eac3cd26064b381461",
+    "include/fftw_support.h": "813b069281a054d6ee0c0a920ae54b828d6b221580c6b66faed638b4e9c4d91f",
+    "include/melspec.h": "ae96df25e59816e6162e2cee7101c380d0058c820d1771cea302d0e91de2ea9d",
+    "src/fftw_float_wisdom.cpp": "232483ba1eac8690886d84bdd107686e7945521c5357e977e837fb88cabf81aa",
+    "src/main.cpp": "097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b",
+    "src/melspec.cpp": "2f8f8db0e117426a393b280f4a4fc5712bdd720c92256a7db3ed7026f62d3282"
+  },
+  "fftw": {
+    "version": "3.3.11",
+    "archive_sha256": "5630c24cdeb33b131612f7eb4b1a9934234754f9f388ff8617458d0be6f239a1",
+    "double_static_lib_sha256": "c487eddeb264013f9f051af9fb15ce66d60fc6d15d32ff7eb31501f593554ef5",
+    "float_static_lib_sha256": "15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a",
+    "configure": [
+      "--enable-float (float only)",
+      "--enable-static",
+      "--disable-shared",
+      "--disable-fortran",
+      "--disable-threads",
+      "--disable-openmp",
+      "--disable-mpi",
+      "--enable-sse",
+      "--enable-avx",
+      "--enable-avx2",
+      "--enable-avx512"
+    ],
+    "cflags": "-O3 -march=native"
+  },
+  "candidate": {
+    "binary_sha256": "a9d994473813cdc44b5588a8510007c5b2ee73072ba235221b880440c030030c",
+    "build": "make -B FFT_PRECISION=float FFT_POWER=float FFTW_WISDOM=1 FFTW_PREFIX=<float-prefix>",
+    "runtime_env": [
+      "MELSPEC_FFTWF_LIBRARY_ID",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY"
+    ],
+    "wisdom_rigor": "patient"
+  },
+  "wisdom_sha256": {
+    "measure/r2c-1.wisdom": "bc7e4bd260c88e0077e873a9103a4efabddfe8edfd539ec1be6f0a9fbe339478",
+    "measure/r2c-16384.wisdom": "1f28d8e1526b0c8be68db4a450b0bc863f167a1a708b0f7dbb93223fa76ad78b",
+    "measure/r2c-2.wisdom": "78f6dabe5dcfaa89ea45e6ae8c0a701a9199b52ae85cf8f99856f61cca6ea8c7",
+    "measure/r2c-2048.wisdom": "dafb766baba4ab60e9facf32224b8f64fae818a29ae569dd74532f3e95396348",
+    "measure/r2c-256.wisdom": "2ccb3ed77f993964a63ac3c2f9dabfec9de46e8d29dacf5ed2271da11438b51e",
+    "measure/r2c-32768.wisdom": "0adc5b215018d76932a0b24d0c116e0fac82f2e13c9904138316ed3ebc2c05b3",
+    "measure/r2c-65536.wisdom": "be6676cd2309d900d296fc87f368d0785d9f1690b2c010ae7591f31257539965",
+    "measure/r2c-8.wisdom": "a1afb5d6ebade3ca5855e4c55ad80f03ebc652449f9f6a340c5183389bfca59a",
+    "measure/r2c-8192.wisdom": "ceb905807f789f96955f12a4f30a0c0a927cb4b2fb36070c36910074e4a82ece",
+    "patient/r2c-1.wisdom": "cd92e16757eccad457143810c51203b8a65a2cf620ed7dd97516183fe41a5a8e",
+    "patient/r2c-16384.wisdom": "82dafed5e3e3915b1985fe01fd2472ca33b59c2227ca8e14d79f3fb71fc80cc2",
+    "patient/r2c-2.wisdom": "95e3ea8d52e2c29c4e2df8cac703a0f14b6bc8a7a050d4428c682dd4aff21c9c",
+    "patient/r2c-2048.wisdom": "5d51ac259c3b91e5e21a61ea7f427ea4e12ddc8b6cd048b1ac29b400de6014db",
+    "patient/r2c-256.wisdom": "d5aa1d965187cc883239ca39a9c64eada8322f43aa110e15fb10b31b3ed25146",
+    "patient/r2c-32768.wisdom": "f2ab35e39a7dc2b5d4d9087ed78ecff912d107db4c29d6da7c04cb7f30c70d68",
+    "patient/r2c-65536.wisdom": "18e9486b248daf5d2c35cba33bd28f9585d3599b6d44e935ed312706a3b7f1e0",
+    "patient/r2c-8.wisdom": "a11542085314f4f7ca19b912c4bd89a3aff573b23023ac68618ab3f089f0900a",
+    "patient/r2c-8192.wisdom": "dedf4e8f151618a9a0f8fd98e44b8c60d3fce395697ab6fa2e72ebc0c10e3adf"
+  },
+  "wisdom_paths": {
+    "patient_8192": "versions/V2-fftw/experiments/raw/cluster/final-wisdom/patient/r2c-8192.wisdom",
+    "patient_16384": "versions/V2-fftw/experiments/raw/cluster/final-wisdom/patient/r2c-16384.wisdom"
+  },
+  "validation": {
+    "release_comparison_job": 151,
+    "official_closeout_job": 209,
+    "official_result": "4/4 PASSED (default, small_mels, large_fft, narrow_band)",
+    "sampled_vmhwm_kib": {
+      "default": 787508,
+      "large_fft": 796680
+    }
+  }
+}

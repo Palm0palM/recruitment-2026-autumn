@@ -18,6 +18,8 @@ import numpy as np
 from bench import ROOT, find_data_dir, load_official_cases
 from profile import replace_once
 
+PHASE_KEYS = {"read_s", "compute_s", "write_s", "compute_setup_s", "r2c_plan_s", "c2c_plan_s"}
+
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
@@ -28,7 +30,11 @@ def main():
     ap.add_argument("--wisdom", action="store_true")
     ap.add_argument("--cases", nargs="+", default=["default", "small_mels", "large_fft", "narrow_band"])
     ap.add_argument("--build-only", action="store_true")
+    ap.add_argument("--repeat", type=int, default=1, help="Repeat each case; report every run")
+    ap.add_argument("--out-json", type=Path, help="Structured per-run phase/worker results")
     args = ap.parse_args()
+    if args.repeat < 1:
+        ap.error("--repeat must be positive")
     if args.precision == "float" and args.mode != "r2c":
         ap.error("float requires R2C")
     if args.wisdom and (args.precision != "float" or args.planner != "estimate"):
@@ -64,36 +70,53 @@ def main():
     selected = [c for c in load_official_cases() if c["name"] in args.cases]
     if len(selected) != len(args.cases):
         ap.error("unknown case")
+    records = []
     with tempfile.TemporaryDirectory(dir=os.environ.get("TMPDIR", str(work))) as td:
         out = Path(td) / "out.bin"
-        for case in selected:
-            flags = [s for k, v in case["params"].items() for s in (f"--{k}", str(v))]
-            print(f"== {tag} {case['name']} ==", flush=True)
-            time_tool = shutil.which("time")
-            command = ([time_tool, "-v"] if time_tool else []) + [str(binary), str(data / "audio.pcm"), str(out), *flags]
-            start = time.perf_counter()
-            result = subprocess.run(command,
-                                    check=True, capture_output=True, text=True)
-            print(f"diagnostic_process_wall_s={time.perf_counter() - start:.6f}")
-            if not time_tool:
-                print("GNU time unavailable: RSS/user/system statistics NOT collected")
-            print(result.stderr, flush=True)
-            if args.wisdom and ("status=loaded" not in result.stderr or "status=fallback" in result.stderr):
-                raise SystemExit("Profile expected loaded wisdom; do not attribute a fallback to the candidate")
-            totals = dict.fromkeys(("pack_s", "fft_s", "power_s", "mel_s"), 0.0)
-            for line in result.stderr.splitlines():
-                if line.startswith("worker="):
-                    row = dict(pair.split("=") for pair in line.split())
-                    for k in totals:
-                        totals[k] += float(row[k])
-            total = sum(totals.values())
-            print(json.dumps(dict(case=case["name"], thread_wall_sums=totals,
-                                  percentages={k: 100 * v / total for k, v in totals.items()})), flush=True)
-            got = np.fromfile(out, dtype="<f4")
-            ref = np.fromfile(data / Path(case["expected"]).relative_to("data"), dtype="<f4")
-            if got.shape != ref.shape or not np.allclose(got, ref, rtol=1e-3, atol=1e-4):
-                raise SystemExit("Profile output FAIL")
-            print("Profile output PASS", flush=True)
+        for repeat in range(args.repeat):
+            for case in selected:
+                flags = [s for k, v in case["params"].items() for s in (f"--{k}", str(v))]
+                print(f"== {tag} {case['name']} run={repeat} ==", flush=True)
+                time_tool = shutil.which("time")
+                command = ([time_tool, "-v"] if time_tool else []) + [str(binary), str(data / "audio.pcm"), str(out), *flags]
+                start = time.perf_counter()
+                result = subprocess.run(command, check=True, capture_output=True, text=True)
+                process_wall = time.perf_counter() - start
+                print(f"diagnostic_process_wall_s={process_wall:.6f}")
+                if not time_tool:
+                    print("GNU time unavailable: RSS/user/system statistics NOT collected")
+                print(result.stderr, flush=True)
+                if args.wisdom and ("status=loaded" not in result.stderr or "status=fallback" in result.stderr):
+                    raise SystemExit("Profile expected loaded wisdom; do not attribute a fallback to the candidate")
+                totals = dict.fromkeys(("pack_s", "fft_s", "power_s", "mel_s"), 0.0)
+                for line in result.stderr.splitlines():
+                    if line.startswith("worker="):
+                        row = dict(pair.split("=") for pair in line.split())
+                        for k in totals:
+                            totals[k] += float(row[k])
+                total = sum(totals.values())
+                print(json.dumps(dict(case=case["name"], thread_wall_sums=totals,
+                                      percentages={k: 100 * v / total for k, v in totals.items()})), flush=True)
+                phases = {}
+                for line in result.stderr.splitlines():
+                    key, sep, value = line.partition("=")
+                    if sep and key in PHASE_KEYS:
+                        phases[key] = float(value)
+                got = np.fromfile(out, dtype="<f4")
+                ref = np.fromfile(data / Path(case["expected"]).relative_to("data"), dtype="<f4")
+                if got.shape != ref.shape or not np.allclose(got, ref, rtol=1e-3, atol=1e-4):
+                    raise SystemExit("Profile output FAIL")
+                print("Profile output PASS", flush=True)
+                records.append(dict(
+                    repeat=repeat, case=case["name"], process_wall_s=process_wall,
+                    phases=phases, worker_stage_sums=totals,
+                    worker_stage_share_pct={k: (100 * v / total if total else 0.0) for k, v in totals.items()},
+                    effective_parallelism=(total / phases["compute_s"] if phases.get("compute_s") else None),
+                    wisdom_loaded="status=loaded" in result.stderr,
+                    output_passed=True))
+    if args.out_json:
+        args.out_json.parent.mkdir(parents=True, exist_ok=True)
+        args.out_json.write_text(json.dumps(records, indent=2) + "\n")
 
 
 if __name__ == "__main__":
