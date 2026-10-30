@@ -98,7 +98,7 @@ struct FFTPlan {
     }
 
     void apply_permuted(ComplexBuffer& a) const {
-        const int n = static_cast<int>(a.re.size());
+        const int n = static_cast<int>(a.im.size());
         double* re = a.re.data();
         double* im = a.im.data();
         if (initial_radix2) {
@@ -303,12 +303,12 @@ static inline void store4(Lane4& destination, __m256d value) {
 }
 
 struct Batch4Buffer {
-    std::vector<Lane4> re, im, power;
-    explicit Batch4Buffer(int n) : re(n), im(n), power(n + 1) {}
+    std::vector<Lane4> re, im;
+    explicit Batch4Buffer(int n) : re(n + 1), im(n) {}
 };
 
 void apply_batch4(const FFTPlan& plan, Batch4Buffer& a) {
-    const int n = static_cast<int>(a.re.size());
+    const int n = static_cast<int>(a.im.size());
     if (plan.initial_radix2) {
         for (int i = 0; i < n; i += 2) {
             auto rr = load4(a.re[i]), ri = load4(a.im[i]);
@@ -387,12 +387,51 @@ void apply_batch4(const FFTPlan& plan, Batch4Buffer& a) {
 void recover_power_batch4(Batch4Buffer& a, const std::vector<double>& recovery_re,
                           const std::vector<double>& recovery_im,
                           int support_first, int support_last) {
-    const int half = static_cast<int>(a.re.size());
+    const int half = static_cast<int>(a.im.size());
     auto dc = _mm256_add_pd(load4(a.re[0]), load4(a.im[0]));
     auto nyquist = _mm256_sub_pd(load4(a.re[0]), load4(a.im[0]));
-    store4(a.power[0], _mm256_mul_pd(dc, dc));
-    store4(a.power[half], _mm256_mul_pd(nyquist, nyquist));
+    store4(a.re[0], _mm256_mul_pd(dc, dc));
+    store4(a.re[half], _mm256_mul_pd(nyquist, nyquist));
     const auto scale = _mm256_set1_pd(0.5);
+    if (2 * (support_last - 1) >= half) {
+        for (int k = 1; k < half - k; ++k) {
+            auto ar = load4(a.re[k]), ai = load4(a.im[k]);
+            auto br = load4(a.re[half - k]);
+            auto bi = _mm256_sub_pd(_mm256_setzero_pd(), load4(a.im[half - k]));
+            auto rr = _mm256_set1_pd(recovery_re[k]);
+            auto ri = _mm256_set1_pd(recovery_im[k]);
+            auto dr = _mm256_sub_pd(ar, br);
+            auto di = _mm256_sub_pd(ai, bi);
+            auto sumr = _mm256_mul_pd(scale, _mm256_add_pd(ar, br));
+            auto xr = _mm256_fnmadd_pd(ri, di, _mm256_fmadd_pd(rr, dr, sumr));
+            auto xi = _mm256_fmadd_pd(ri, dr, _mm256_mul_pd(scale, _mm256_add_pd(ai, bi)));
+            xi = _mm256_fmadd_pd(rr, di, xi);
+            int j = half - k;
+            auto rr2 = _mm256_set1_pd(recovery_re[j]);
+            auto ri2 = _mm256_set1_pd(recovery_im[j]);
+            auto dr2 = _mm256_sub_pd(_mm256_setzero_pd(), dr);
+            auto di2 = di;
+            auto zr = _mm256_fnmadd_pd(ri2, di2, _mm256_fmadd_pd(rr2, dr2, sumr));
+            auto zi = _mm256_fmadd_pd(ri2, dr2,
+                _mm256_mul_pd(_mm256_sub_pd(_mm256_setzero_pd(), scale),
+                              _mm256_add_pd(ai, bi)));
+            zi = _mm256_fmadd_pd(rr2, di2, zi);
+            store4(a.re[k], _mm256_fmadd_pd(xr, xr, _mm256_mul_pd(xi, xi)));
+            store4(a.re[j], _mm256_fmadd_pd(zr, zr, _mm256_mul_pd(zi, zi)));
+        }
+        if (half % 2 == 0) {
+            const int k = half / 2;
+            auto ar = load4(a.re[k]), ai = load4(a.im[k]);
+            auto bi = _mm256_sub_pd(_mm256_setzero_pd(), ai);
+            auto rr = _mm256_set1_pd(recovery_re[k]);
+            auto ri = _mm256_set1_pd(recovery_im[k]);
+            auto di = _mm256_sub_pd(ai, bi);
+            auto xr = _mm256_fnmadd_pd(ri, di, ar);
+            auto xi = _mm256_fmadd_pd(rr, di, _mm256_mul_pd(scale, _mm256_add_pd(ai, bi)));
+            store4(a.re[k], _mm256_fmadd_pd(xr, xr, _mm256_mul_pd(xi, xi)));
+        }
+        return;
+    }
     const int begin = std::max(1, support_first);
     const int end = std::min(half - 1, support_last - 1);
     for (int k = begin; k <= end; ++k) {
@@ -407,7 +446,7 @@ void recover_power_batch4(Batch4Buffer& a, const std::vector<double>& recovery_r
         xr = _mm256_fnmadd_pd(ri, di, xr);
         auto xi = _mm256_fmadd_pd(ri, dr, _mm256_mul_pd(scale, _mm256_add_pd(ai, bi)));
         xi = _mm256_fmadd_pd(rr, di, xi);
-        store4(a.power[k], _mm256_fmadd_pd(xr, xr, _mm256_mul_pd(xi, xi)));
+        store4(a.re[k], _mm256_fmadd_pd(xr, xr, _mm256_mul_pd(xi, xi)));
     }
 }
 #endif
@@ -426,12 +465,12 @@ static inline void store8(Lane8& destination, __m512d value) {
 }
 
 struct Batch8Buffer {
-    std::vector<Lane8> re, im, power;
-    explicit Batch8Buffer(int n) : re(n), im(n), power(n + 1) {}
+    std::vector<Lane8> re, im;
+    explicit Batch8Buffer(int n) : re(n + 1), im(n) {}
 };
 
 void apply_batch8(const FFTPlan& plan, Batch8Buffer& a) {
-    const int n = static_cast<int>(a.re.size());
+    const int n = static_cast<int>(a.im.size());
     if (plan.initial_radix2) {
         for (int i = 0; i < n; i += 2) {
             auto rr = load8(a.re[i]), ri = load8(a.im[i]);
@@ -510,12 +549,51 @@ void apply_batch8(const FFTPlan& plan, Batch8Buffer& a) {
 void recover_power_batch8(Batch8Buffer& a, const std::vector<double>& recovery_re,
                           const std::vector<double>& recovery_im,
                           int support_first, int support_last) {
-    const int half = static_cast<int>(a.re.size());
+    const int half = static_cast<int>(a.im.size());
     auto dc = _mm512_add_pd(load8(a.re[0]), load8(a.im[0]));
     auto nyquist = _mm512_sub_pd(load8(a.re[0]), load8(a.im[0]));
-    store8(a.power[0], _mm512_mul_pd(dc, dc));
-    store8(a.power[half], _mm512_mul_pd(nyquist, nyquist));
+    store8(a.re[0], _mm512_mul_pd(dc, dc));
+    store8(a.re[half], _mm512_mul_pd(nyquist, nyquist));
     const auto scale = _mm512_set1_pd(0.5);
+    if (2 * (support_last - 1) >= half) {
+        for (int k = 1; k < half - k; ++k) {
+            auto ar = load8(a.re[k]), ai = load8(a.im[k]);
+            auto br = load8(a.re[half - k]);
+            auto bi = _mm512_sub_pd(_mm512_setzero_pd(), load8(a.im[half - k]));
+            auto rr = _mm512_set1_pd(recovery_re[k]);
+            auto ri = _mm512_set1_pd(recovery_im[k]);
+            auto dr = _mm512_sub_pd(ar, br);
+            auto di = _mm512_sub_pd(ai, bi);
+            auto sumr = _mm512_mul_pd(scale, _mm512_add_pd(ar, br));
+            auto xr = _mm512_fnmadd_pd(ri, di, _mm512_fmadd_pd(rr, dr, sumr));
+            auto xi = _mm512_fmadd_pd(ri, dr, _mm512_mul_pd(scale, _mm512_add_pd(ai, bi)));
+            xi = _mm512_fmadd_pd(rr, di, xi);
+            int j = half - k;
+            auto rr2 = _mm512_set1_pd(recovery_re[j]);
+            auto ri2 = _mm512_set1_pd(recovery_im[j]);
+            auto dr2 = _mm512_sub_pd(_mm512_setzero_pd(), dr);
+            auto di2 = di;
+            auto zr = _mm512_fnmadd_pd(ri2, di2, _mm512_fmadd_pd(rr2, dr2, sumr));
+            auto zi = _mm512_fmadd_pd(ri2, dr2,
+                _mm512_mul_pd(_mm512_sub_pd(_mm512_setzero_pd(), scale),
+                              _mm512_add_pd(ai, bi)));
+            zi = _mm512_fmadd_pd(rr2, di2, zi);
+            store8(a.re[k], _mm512_fmadd_pd(xr, xr, _mm512_mul_pd(xi, xi)));
+            store8(a.re[j], _mm512_fmadd_pd(zr, zr, _mm512_mul_pd(zi, zi)));
+        }
+        if (half % 2 == 0) {
+            const int k = half / 2;
+            auto ar = load8(a.re[k]), ai = load8(a.im[k]);
+            auto bi = _mm512_sub_pd(_mm512_setzero_pd(), ai);
+            auto rr = _mm512_set1_pd(recovery_re[k]);
+            auto ri = _mm512_set1_pd(recovery_im[k]);
+            auto di = _mm512_sub_pd(ai, bi);
+            auto xr = _mm512_fnmadd_pd(ri, di, ar);
+            auto xi = _mm512_fmadd_pd(rr, di, _mm512_mul_pd(scale, _mm512_add_pd(ai, bi)));
+            store8(a.re[k], _mm512_fmadd_pd(xr, xr, _mm512_mul_pd(xi, xi)));
+        }
+        return;
+    }
     const int begin = std::max(1, support_first);
     const int end = std::min(half - 1, support_last - 1);
     for (int k = begin; k <= end; ++k) {
@@ -530,14 +608,14 @@ void recover_power_batch8(Batch8Buffer& a, const std::vector<double>& recovery_r
         xr = _mm512_fnmadd_pd(ri, di, xr);
         auto xi = _mm512_fmadd_pd(ri, dr, _mm512_mul_pd(scale, _mm512_add_pd(ai, bi)));
         xi = _mm512_fmadd_pd(rr, di, xi);
-        store8(a.power[k], _mm512_fmadd_pd(xr, xr, _mm512_mul_pd(xi, xi)));
+        store8(a.re[k], _mm512_fmadd_pd(xr, xr, _mm512_mul_pd(xi, xi)));
     }
 }
 #endif
 
 void recover_power(const ComplexBuffer& a, const std::vector<double>& recovery_re,
                    const std::vector<double>& recovery_im, std::vector<double>& power) {
-    const int half = static_cast<int>(a.re.size());
+    const int half = static_cast<int>(a.im.size());
     double dc = a.re[0] + a.im[0];
     double nyquist = a.re[0] - a.im[0];
     power[0] = dc * dc;
@@ -756,7 +834,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                 auto acc = _mm512_setzero_pd();
                 for (int k = first[m]; k < last[m]; ++k)
                     acc = _mm512_fmadd_pd(_mm512_set1_pd(mel_fb[m][k]),
-                                          load8(a.power[k]), acc);
+                                          load8(a.re[k]), acc);
                 _mm512_storeu_pd(output.data() + static_cast<size_t>(m) * n_frames + t, acc);
             }
         }
@@ -787,7 +865,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                 auto acc = _mm256_setzero_pd();
                 for (int k = first[m]; k < last[m]; ++k)
                     acc = _mm256_fmadd_pd(_mm256_set1_pd(mel_fb[m][k]),
-                                          load4(a.power[k]), acc);
+                                          load4(a.re[k]), acc);
                 _mm256_storeu_pd(output.data() + static_cast<size_t>(m) * n_frames + t, acc);
             }
         }
