@@ -44,7 +44,7 @@ def main():
 """ + apply + """
             auto after_fft = Clock::now();
             fft_s += std::chrono::duration<double>(after_fft - after_pack).count();""")
-    recover = f"            recover_power_batch{args.batch}(a, recovery_re, recovery_im);"
+    recover = f"            recover_power_batch{args.batch}(a, recovery_re, recovery_im, support_first, support_last);"
     source = replace_once(source, recover, recover + """
             auto after_recover = Clock::now();
             recover_s += std::chrono::duration<double>(after_recover - after_fft).count();""")

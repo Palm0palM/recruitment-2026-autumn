@@ -385,14 +385,17 @@ void apply_batch4(const FFTPlan& plan, Batch4Buffer& a) {
 }
 
 void recover_power_batch4(Batch4Buffer& a, const std::vector<double>& recovery_re,
-                          const std::vector<double>& recovery_im) {
+                          const std::vector<double>& recovery_im,
+                          int support_first, int support_last) {
     const int half = static_cast<int>(a.re.size());
     auto dc = _mm256_add_pd(load4(a.re[0]), load4(a.im[0]));
     auto nyquist = _mm256_sub_pd(load4(a.re[0]), load4(a.im[0]));
     store4(a.power[0], _mm256_mul_pd(dc, dc));
     store4(a.power[half], _mm256_mul_pd(nyquist, nyquist));
     const auto scale = _mm256_set1_pd(0.5);
-    for (int k = 1; k < half; ++k) {
+    const int begin = std::max(1, support_first);
+    const int end = std::min(half - 1, support_last - 1);
+    for (int k = begin; k <= end; ++k) {
         auto ar = load4(a.re[k]), ai = load4(a.im[k]);
         auto br = load4(a.re[half - k]);
         auto bi = _mm256_sub_pd(_mm256_setzero_pd(), load4(a.im[half - k]));
@@ -505,14 +508,17 @@ void apply_batch8(const FFTPlan& plan, Batch8Buffer& a) {
 }
 
 void recover_power_batch8(Batch8Buffer& a, const std::vector<double>& recovery_re,
-                          const std::vector<double>& recovery_im) {
+                          const std::vector<double>& recovery_im,
+                          int support_first, int support_last) {
     const int half = static_cast<int>(a.re.size());
     auto dc = _mm512_add_pd(load8(a.re[0]), load8(a.im[0]));
     auto nyquist = _mm512_sub_pd(load8(a.re[0]), load8(a.im[0]));
     store8(a.power[0], _mm512_mul_pd(dc, dc));
     store8(a.power[half], _mm512_mul_pd(nyquist, nyquist));
     const auto scale = _mm512_set1_pd(0.5);
-    for (int k = 1; k < half; ++k) {
+    const int begin = std::max(1, support_first);
+    const int end = std::min(half - 1, support_last - 1);
+    for (int k = begin; k <= end; ++k) {
         auto ar = load8(a.re[k]), ai = load8(a.im[k]);
         auto br = load8(a.re[half - k]);
         auto bi = _mm512_sub_pd(_mm512_setzero_pd(), load8(a.im[half - k]));
@@ -649,9 +655,14 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     auto mel_fb = build_mel_filterbank(sr, n_fft, n_mels, f_min, f_max);
     // Triangular filters have contiguous support. Skip only exact zeros.
     std::vector<int> first(n_mels), last(n_mels, n_bins);
+    int support_first = n_bins, support_last = 0;
     for (int m = 0; m < n_mels; ++m) {
         while (first[m] < n_bins && mel_fb[m][first[m]] == 0.0) ++first[m];
         while (last[m] > first[m] && mel_fb[m][last[m] - 1] == 0.0) --last[m];
+        if (first[m] < last[m]) {
+            support_first = std::min(support_first, first[m]);
+            support_last = std::max(support_last, last[m]);
+        }
     }
 
     const int half = std::max(1, n_fft / 2);
@@ -740,7 +751,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                     y[start + 7 * hop_length + 2 * i + 1] * wo));
             }
             apply_batch8(plan, a);
-            recover_power_batch8(a, recovery_re, recovery_im);
+            recover_power_batch8(a, recovery_re, recovery_im, support_first, support_last);
             for (int m = 0; m < n_mels; ++m) {
                 auto acc = _mm512_setzero_pd();
                 for (int k = first[m]; k < last[m]; ++k)
@@ -771,7 +782,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                     y[start + 3 * hop_length + 2 * i + 1] * wo));
             }
             apply_batch4(plan, a);
-            recover_power_batch4(a, recovery_re, recovery_im);
+            recover_power_batch4(a, recovery_re, recovery_im, support_first, support_last);
             for (int m = 0; m < n_mels; ++m) {
                 auto acc = _mm256_setzero_pd();
                 for (int k = first[m]; k < last[m]; ++k)
