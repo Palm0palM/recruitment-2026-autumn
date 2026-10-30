@@ -1,0 +1,73 @@
+== fp32 b16 job 268 on hepnode3 ==
+16
+Cpus_allowed_list:	0-15
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+default: PASS shape=(256, 1437) max_abs_err=0.00018310547
+small_mels: PASS shape=(64, 1437) max_abs_err=9.1552734e-05
+large_fft: PASS shape=(256, 1373) max_abs_err=0.00048828125
+narrow_band: PASS shape=(256, 1373) max_abs_err=0.00073242188
+cli_defaults: PASS shape=(128, 372) max_abs_err=2.2888184e-05
+fft_1: PASS shape=(4, 1500) max_abs_err=0
+fft_2: PASS shape=(4, 1500) max_abs_err=3.2311743e-27
+fft_8: PASS shape=(4, 1500) max_abs_err=8.7311491e-11
+tail_2: PASS shape=(16, 958) max_abs_err=0.00011444092
+tail_3: PASS shape=(16, 719) max_abs_err=9.9182129e-05
+n=    1: random/zero/impulse/sine PASS
+n=    2: random/zero/impulse/sine PASS
+n=    4: random/zero/impulse/sine PASS
+n=    8: random/zero/impulse/sine PASS
+n=   16: random/zero/impulse/sine PASS
+n=   32: random/zero/impulse/sine PASS
+n=   64: random/zero/impulse/sine PASS
+n=  128: random/zero/impulse/sine PASS
+n=  256: random/zero/impulse/sine PASS
+n=  512: random/zero/impulse/sine PASS
+n= 1024: random/zero/impulse/sine PASS
+n= 2048: random/zero/impulse/sine PASS
+n= 4096: random/zero/impulse/sine PASS
+n= 8192: random/zero/impulse/sine PASS
+n=16384: random/zero/impulse/sine PASS
+All public rfft checks passed.
+4cc0fa284664d6fbb18cf039bff0ec2abbce434a5385236e42bccac5cb273fa2  src/melspec.cpp
+368aa5cbab7292fea1810f9b2d1d6c6cbd7062d0aafa687f93877cb8e819f750  tmp/bin/fp32-b8
+5514ccb5def7329a5356f2ae85c773c4d06bd6a722945f984b20049581525182  tmp/bin/fp32-b16
+424cc980c1c2a987d4287883d6925bbc4e55d735b5f685463fb28e215e5ba9df  tmp/bin/stable-batch8
+a9d994473813cdc44b5588a8510007c5b2ee73072ba235221b880440c030030c  tmp/bin/fftw-float-patient
+dedf4e8f151618a9a0f8fd98e44b8c60d3fce395697ab6fa2e72ebc0c10e3adf  tmp/wisdom-patient/r2c-8192.wisdom
+82dafed5e3e3915b1985fe01fd2472ca33b59c2227ca8e14d79f3fb71fc80cc2  tmp/wisdom-patient/r2c-16384.wisdom
+default/fp64-b8: min=0.881268s median=0.885516s PASS=True
+  runs: 0.886624 0.882758 0.885535 0.885496 0.887958 0.881268
+default/fp32-b8: min=0.835066s median=0.838518s PASS=True
+  runs: 0.837680 0.839356 0.835671 0.842401 0.843133 0.835066
+default/fp32-b16: min=0.825217s median=0.829879s PASS=True
+  runs: 0.827106 0.825217 0.830818 0.839643 0.832760 0.828940
+default/fftw-float-patient: min=0.846561s median=0.855917s PASS=True
+  runs: 0.859663 0.888010 0.849221 0.859401 0.852433 0.846561
+small_mels/fp64-b8: min=0.540395s median=0.544662s PASS=True
+  runs: 0.540395 0.545242 0.544482 0.544843 0.543532 0.545226
+small_mels/fp32-b8: min=0.488235s median=0.492914s PASS=True
+  runs: 0.488235 0.494983 0.500469 0.493582 0.488792 0.492247
+small_mels/fp32-b16: min=0.482585s median=0.485407s PASS=True
+  runs: 0.488487 0.483405 0.487635 0.484815 0.485999 0.482585
+small_mels/fftw-float-patient: min=0.516553s median=0.520371s PASS=True
+  runs: 0.516553 0.517420 0.529060 0.553300 0.518507 0.522234
+large_fft/fp64-b8: min=1.198123s median=1.214478s PASS=True
+  runs: 1.217914 1.216529 1.198123 1.215822 1.210887 1.213135
+large_fft/fp32-b8: min=1.047759s median=1.049961s PASS=True
+  runs: 1.049469 1.050453 1.053662 1.048929 1.054044 1.047759
+large_fft/fp32-b16: min=1.026986s median=1.036130s PASS=True
+  runs: 1.027324 1.032819 1.039441 1.026986 1.065543 1.046376
+large_fft/fftw-float-patient: min=1.052968s median=1.071452s PASS=True
+  runs: 1.067066 1.077924 1.070154 1.074760 1.052968 1.072750
+narrow_band/fp64-b8: min=1.184138s median=1.190412s PASS=True
+  runs: 1.274485 1.184138 1.190578 1.190515 1.188649 1.190309
+narrow_band/fp32-b8: min=1.011888s median=1.020079s PASS=True
+  runs: 1.026136 1.014809 1.025350 1.014020 1.025353 1.011888
+narrow_band/fp32-b16: min=0.991435s median=0.999187s PASS=True
+  runs: 0.997662 1.002757 1.000712 0.991435 0.995170 1.004236
+narrow_band/fftw-float-patient: min=0.997648s median=1.003940s PASS=True
+  runs: 1.003259 0.997653 1.004622 0.997648 1.013051 1.018910

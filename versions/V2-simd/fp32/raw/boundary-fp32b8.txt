@@ -1,0 +1,8 @@
+zero vs_fp64 allclose True max_abs 0.0 rms 0.0
+impulse vs_fp64 allclose True max_abs 2.2351741790771484e-08 rms 8.352974068566778e-10
+alt_full vs_fp64 allclose True max_abs 3.28203896060586e-07 rms 2.1295617806929204e-08
+sine_1k vs_fp64 allclose True max_abs 0.03125 rms 0.0011338822057304842
+sine_near_nyq vs_fp64 allclose True max_abs 1.4136105619400041e-08 rms 3.37441525862981e-10
+dc_step vs_fp64 allclose True max_abs 0.125 rms 0.0006810027060268506
+random vs_fp64 allclose True max_abs 0.0001220703125 rms 9.772542217882588e-06
+two_frames vs_fp64 allclose True max_abs 2.117582368135751e-22 rms 4.200502346675206e-24
