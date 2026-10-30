@@ -28,6 +28,15 @@
 #ifndef MELSPEC_CUDA_OVERLAP_INIT
 #define MELSPEC_CUDA_OVERLAP_INIT 0
 #endif
+#ifndef MELSPEC_CUDA_DEFER_RESIZE
+#define MELSPEC_CUDA_DEFER_RESIZE 0
+#endif
+#ifndef MELSPEC_CUDA_ASYNC_OUTPUT
+#define MELSPEC_CUDA_ASYNC_OUTPUT 0
+#endif
+#ifndef MELSPEC_CUDA_STAGING_ROWS
+#define MELSPEC_CUDA_STAGING_ROWS 16
+#endif
 
 #if MELSPEC_CUDA_OVERLAP_INIT
 #include <exception>
@@ -62,7 +71,7 @@ using ProfileClock = std::chrono::steady_clock;
 double profile_elapsed(ProfileClock::time_point start) {
     return std::chrono::duration<double, std::milli>(ProfileClock::now() - start).count();
 }
-#define PROFILE_POINT(name) auto name = ProfileClock::now()
+#define PROFILE_POINT(name) name = ProfileClock::now()
 #define PROFILE_ADD(variable, point) variable += profile_elapsed(point); point = ProfileClock::now()
 #define PROFILE_ADD_SYNC(variable, point) \
     cuda_check(cudaDeviceSynchronize(), "CUDA profile synchronize"); PROFILE_ADD(variable, point)
@@ -78,6 +87,9 @@ namespace {
 
 using Real = std::conditional_t<MELSPEC_CUDA_PRECISION == 32, float, double>;
 static_assert(MELSPEC_CUDA_BATCH > 0, "CUDA_BATCH must be positive");
+static_assert(MELSPEC_CUDA_STAGING_ROWS > 0, "CUDA_STAGING_ROWS must be positive");
+static_assert(!(MELSPEC_CUDA_PINNED && MELSPEC_CUDA_ASYNC_OUTPUT),
+              "Use either full pinned output or async chunked output, not both");
 
 void cuda_check(cudaError_t status, const char* operation) {
     if (status != cudaSuccess)
@@ -198,7 +210,7 @@ public:
     operator bool() const { return pointer_ != nullptr; }
 };
 
-#if MELSPEC_CUDA_PINNED
+#if MELSPEC_CUDA_PINNED || MELSPEC_CUDA_ASYNC_OUTPUT
 template <typename T> class PinnedBuffer {
     T* pointer_ = nullptr;
 public:
@@ -213,6 +225,31 @@ public:
     PinnedBuffer& operator=(const PinnedBuffer&) = delete;
     T* get() const { return pointer_; }
     T& operator[](size_t i) const { return pointer_[i]; }
+};
+#endif
+
+#if MELSPEC_CUDA_ASYNC_OUTPUT
+class CudaStream {
+    cudaStream_t stream_ = nullptr;
+public:
+    CudaStream() {
+        cuda_check(cudaStreamCreateWithFlags(&stream_, cudaStreamNonBlocking),
+                   "cudaStreamCreateWithFlags");
+    }
+    ~CudaStream() { cudaStreamDestroy(stream_); }
+    CudaStream(const CudaStream&) = delete;
+    CudaStream& operator=(const CudaStream&) = delete;
+    cudaStream_t get() const { return stream_; }
+};
+
+class CudaEvent {
+    cudaEvent_t event_ = nullptr;
+public:
+    CudaEvent() { cuda_check(cudaEventCreate(&event_), "cudaEventCreate"); }
+    ~CudaEvent() { cudaEventDestroy(event_); }
+    CudaEvent(const CudaEvent&) = delete;
+    CudaEvent& operator=(const CudaEvent&) = delete;
+    cudaEvent_t get() const { return event_; }
 };
 #endif
 
@@ -248,9 +285,12 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
                                  int hop_length, int n_mels, double f_min,
                                  double f_max, std::vector<double>& output) {
 #ifdef MELSPEC_CUDA_PROFILE
-    double host_setup_ms = 0, device_alloc_ms = 0, h2d_ms = 0, batch_alloc_ms = 0;
+    ProfileClock::time_point total_start, phase, async_start;
+    double device_alloc_ms = 0, h2d_ms = 0, batch_alloc_ms = 0;
     double plan_ms = 0, gather_ms = 0, fft_ms = 0, mel_ms = 0, pipeline_sync_ms = 0;
     double d2h_ms = 0, host_convert_ms = 0;
+    double y_convert_ms = 0, window_fb_ms = 0, output_resize_ms = 0, staging_alloc_ms = 0;
+    double async_output_total_ms = 0;
 #endif
     PROFILE_POINT(total_start);
     PROFILE_POINT(phase);
@@ -262,22 +302,30 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
         throw std::runtime_error("Invalid parameters or audio too short for n_fft");
     const int n_frames = 1 + (n_samples - n_fft) / hop_length;
     const int n_bins = n_fft / 2 + 1;
+    const size_t output_elements = static_cast<size_t>(n_mels) * n_frames;
     if (n_fft == 1) {
-        output.resize(static_cast<size_t>(n_mels) * n_frames);
+        output.resize(output_elements);
         std::fill(output.begin(), output.end(), 0.0);
         return;
     }
 #if MELSPEC_CUDA_OVERLAP_INIT
     ContextInit context_init;
 #endif
-    output.resize(static_cast<size_t>(n_mels) * n_frames);
+#if !MELSPEC_CUDA_DEFER_RESIZE
+    PROFILE_POINT(phase);
+    output.resize(output_elements);
+    PROFILE_ADD(output_resize_ms, phase);
+#endif
 
+    PROFILE_POINT(phase);
 #if MELSPEC_CUDA_PINNED
     PinnedBuffer<Real> host_y(y.size());
     std::copy(y.begin(), y.end(), host_y.get());
 #else
     std::vector<Real> host_y(y.begin(), y.end());
 #endif
+    PROFILE_ADD(y_convert_ms, phase);
+    PROFILE_POINT(phase);
     std::vector<Real> window(n_fft);
     for (int i = 0; i < n_fft; ++i)
         window[i] = static_cast<Real>(0.5 * (1.0 - std::cos(2.0 * M_PI * i / n_fft)));
@@ -291,7 +339,7 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
         while (first[m] < n_bins && mel_fb[m][first[m]] == 0.0) ++first[m];
         while (last[m] > first[m] && mel_fb[m][last[m] - 1] == 0.0) --last[m];
     }
-    PROFILE_ADD(host_setup_ms, phase);
+    PROFILE_ADD(window_fb_ms, phase);
 #if MELSPEC_CUDA_OVERLAP_INIT
     context_init.finish();
 #endif
@@ -301,7 +349,7 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
     DeviceBuffer<Real> device_weights(weights.size());
     DeviceBuffer<int> device_first(first.size());
     DeviceBuffer<int> device_last(last.size());
-    DeviceBuffer<Real> device_output(output.size());
+    DeviceBuffer<Real> device_output(output_elements);
     PROFILE_ADD(device_alloc_ms, phase);
 #if MELSPEC_CUDA_PINNED
     copy_to_device(device_y.get(), host_y.get(), y.size() * sizeof(Real));
@@ -360,9 +408,71 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
         PROFILE_ADD_SYNC(mel_ms, phase);
     }
     cuda_check(cudaGetLastError(), "CUDA kernel launch");
+
+#if MELSPEC_CUDA_ASYNC_OUTPUT
+    PROFILE_POINT(async_start);
+    CudaEvent compute_done;
+    cuda_check(cudaEventRecord(compute_done.get()), "cudaEventRecord compute");
+    const int staging_rows = std::min(MELSPEC_CUDA_STAGING_ROWS, n_mels);
+    const int chunks = (n_mels + staging_rows - 1) / staging_rows;
+    const size_t staging_values = static_cast<size_t>(staging_rows) * n_frames;
+    PROFILE_POINT(phase);
+    PinnedBuffer<Real> staging0(staging_values);
+    PinnedBuffer<Real> staging1(staging_values);
+    CudaStream streams[2];
+    CudaEvent copies[2];
+    PROFILE_ADD(staging_alloc_ms, phase);
+    cudaStreamWaitEvent(streams[0].get(), compute_done.get());
+    cudaStreamWaitEvent(streams[1].get(), compute_done.get());
+    auto enqueue = [&](int chunk) {
+        const int p = chunk & 1;
+        const int row_begin = chunk * staging_rows;
+        const size_t rows = std::min(staging_rows, n_mels - row_begin);
+        const size_t bytes = rows * n_frames * sizeof(Real);
+        cuda_check(cudaMemcpyAsync((p == 0 ? staging0.get() : staging1.get()),
+                                   device_output.get() + static_cast<size_t>(row_begin) * n_frames,
+                                   bytes, cudaMemcpyDeviceToHost, streams[p].get()),
+                   "cudaMemcpyAsync D2H output");
+        cuda_check(cudaEventRecord(copies[p].get(), streams[p].get()),
+                   "cudaEventRecord D2H");
+    };
+    for (int i = 0; i < std::min(2, chunks); ++i) enqueue(i);
+#if MELSPEC_CUDA_DEFER_RESIZE
+    PROFILE_POINT(phase);
+    output.resize(output_elements);
+    PROFILE_ADD(output_resize_ms, phase);
+#endif
+    for (int chunk = 0; chunk < chunks; ++chunk) {
+        const int p = chunk & 1;
+        const int row_begin = chunk * staging_rows;
+        const size_t rows = std::min(staging_rows, n_mels - row_begin);
+        const size_t values = rows * n_frames;
+        PROFILE_POINT(phase);
+        cuda_check(cudaEventSynchronize(copies[p].get()), "cudaEventSynchronize D2H");
+        PROFILE_ADD(d2h_ms, phase);
+        PROFILE_POINT(phase);
+        const Real* source = p == 0 ? staging0.get() : staging1.get();
+        double* destination = output.data() + static_cast<size_t>(row_begin) * n_frames;
+        if constexpr (std::is_same_v<Real, double>) {
+            std::copy(source, source + values, destination);
+        } else {
+            for (size_t i = 0; i < values; ++i)
+                destination[i] = static_cast<double>(source[i]);
+        }
+        PROFILE_ADD(host_convert_ms, phase);
+        if (chunk + 2 < chunks) enqueue(chunk + 2);
+    }
+    cuda_check(cudaStreamSynchronize(streams[0].get()), "cudaStreamSynchronize output");
+    cuda_check(cudaStreamSynchronize(streams[1].get()), "cudaStreamSynchronize output");
+    PROFILE_ADD(async_output_total_ms, async_start);
+#else
+#if MELSPEC_CUDA_DEFER_RESIZE
+    PROFILE_POINT(phase);
+    output.resize(output_elements);
+    PROFILE_ADD(output_resize_ms, phase);
+#endif
     cuda_check(cudaDeviceSynchronize(), "CUDA pipeline synchronize");
     PROFILE_ADD_SYNC(pipeline_sync_ms, phase);
-
 #if MELSPEC_CUDA_PINNED
     PinnedBuffer<Real> host_output(output.size());
     cuda_check(cudaMemcpy(host_output.get(), device_output.get(),
@@ -387,9 +497,12 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
         PROFILE_ADD(host_convert_ms, phase);
     }
 #endif
-    PROFILE_PRINT("cuda_profile precision=%d batch=%d fused=%d host_setup_ms=%.3f device_alloc_ms=%.3f h2d_ms=%.3f batch_alloc_ms=%.3f plan_ms=%.3f gather_ms=%.3f fft_ms=%.3f mel_ms=%.3f pipeline_sync_ms=%.3f d2h_ms=%.3f host_convert_ms=%.3f total_ms=%.3f\n",
+#endif
+    PROFILE_PRINT("cuda_profile precision=%d batch=%d fused=%d defer_resize=%d async_output=%d staging_rows=%d y_convert_ms=%.3f window_fb_ms=%.3f output_resize_ms=%.3f device_alloc_ms=%.3f h2d_ms=%.3f batch_alloc_ms=%.3f plan_ms=%.3f gather_ms=%.3f fft_ms=%.3f mel_ms=%.3f pipeline_sync_ms=%.3f staging_alloc_ms=%.3f d2h_ms=%.3f host_convert_ms=%.3f async_output_total_ms=%.3f compute_total_ms=%.3f\n",
                   MELSPEC_CUDA_PRECISION, MELSPEC_CUDA_BATCH, MELSPEC_CUDA_FUSED,
-                  host_setup_ms, device_alloc_ms, h2d_ms, batch_alloc_ms, plan_ms,
-                  gather_ms, fft_ms, mel_ms, pipeline_sync_ms, d2h_ms, host_convert_ms,
-                  profile_elapsed(total_start));
+                  MELSPEC_CUDA_DEFER_RESIZE, MELSPEC_CUDA_ASYNC_OUTPUT,
+                  MELSPEC_CUDA_STAGING_ROWS, y_convert_ms, window_fb_ms, output_resize_ms,
+                  device_alloc_ms, h2d_ms, batch_alloc_ms, plan_ms, gather_ms, fft_ms,
+                  mel_ms, pipeline_sync_ms, staging_alloc_ms, d2h_ms, host_convert_ms,
+                  async_output_total_ms, profile_elapsed(total_start));
 }

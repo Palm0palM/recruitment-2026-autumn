@@ -1,0 +1,96 @@
+default stable round=0 elapsed=1.115519 max_abs_err=0.09375 PASS
+default defer round=0 elapsed=1.274554 max_abs_err=0.09375 PASS
+default async round=0 elapsed=0.963260 max_abs_err=0.09375 PASS
+default async_defer round=0 elapsed=0.909490 max_abs_err=0.09375 PASS
+default defer round=1 elapsed=1.088104 max_abs_err=0.09375 PASS
+default async round=1 elapsed=0.866467 max_abs_err=0.09375 PASS
+default async_defer round=1 elapsed=0.877922 max_abs_err=0.09375 PASS
+default stable round=1 elapsed=0.956761 max_abs_err=0.09375 PASS
+default async round=2 elapsed=0.930169 max_abs_err=0.09375 PASS
+default async_defer round=2 elapsed=0.924738 max_abs_err=0.09375 PASS
+default stable round=2 elapsed=1.262454 max_abs_err=0.09375 PASS
+default defer round=2 elapsed=1.026693 max_abs_err=0.09375 PASS
+default async_defer round=3 elapsed=0.974051 max_abs_err=0.09375 PASS
+default stable round=3 elapsed=0.971825 max_abs_err=0.09375 PASS
+default defer round=3 elapsed=1.099738 max_abs_err=0.09375 PASS
+default async round=3 elapsed=0.941559 max_abs_err=0.09375 PASS
+default stable round=4 elapsed=0.933362 max_abs_err=0.09375 PASS
+default defer round=4 elapsed=1.167259 max_abs_err=0.09375 PASS
+default async round=4 elapsed=0.998011 max_abs_err=0.09375 PASS
+default async_defer round=4 elapsed=1.156255 max_abs_err=0.09375 PASS
+small_mels stable round=0 elapsed=0.677525 max_abs_err=0.0234375 PASS
+small_mels defer round=0 elapsed=0.728545 max_abs_err=0.0234375 PASS
+small_mels async round=0 elapsed=0.678335 max_abs_err=0.0234375 PASS
+small_mels async_defer round=0 elapsed=0.716451 max_abs_err=0.0234375 PASS
+small_mels defer round=1 elapsed=0.654724 max_abs_err=0.0234375 PASS
+small_mels async round=1 elapsed=0.664007 max_abs_err=0.0234375 PASS
+small_mels async_defer round=1 elapsed=0.791815 max_abs_err=0.0234375 PASS
+small_mels stable round=1 elapsed=0.698119 max_abs_err=0.0234375 PASS
+small_mels async round=2 elapsed=0.679996 max_abs_err=0.0234375 PASS
+small_mels async_defer round=2 elapsed=0.666637 max_abs_err=0.0234375 PASS
+small_mels stable round=2 elapsed=0.703512 max_abs_err=0.0234375 PASS
+small_mels defer round=2 elapsed=0.837439 max_abs_err=0.0234375 PASS
+small_mels async_defer round=3 elapsed=1.161845 max_abs_err=0.0234375 PASS
+small_mels stable round=3 elapsed=0.657241 max_abs_err=0.0234375 PASS
+small_mels defer round=3 elapsed=0.674217 max_abs_err=0.0234375 PASS
+small_mels async round=3 elapsed=0.655131 max_abs_err=0.0234375 PASS
+small_mels stable round=4 elapsed=0.648086 max_abs_err=0.0234375 PASS
+small_mels defer round=4 elapsed=0.633678 max_abs_err=0.0234375 PASS
+small_mels async round=4 elapsed=0.640341 max_abs_err=0.0234375 PASS
+small_mels async_defer round=4 elapsed=0.633436 max_abs_err=0.0234375 PASS
+large_fft stable round=0 elapsed=1.096618 max_abs_err=0.21875 PASS
+large_fft defer round=0 elapsed=1.098820 max_abs_err=0.21875 PASS
+large_fft async round=0 elapsed=0.997857 max_abs_err=0.21875 PASS
+large_fft async_defer round=0 elapsed=0.858519 max_abs_err=0.21875 PASS
+large_fft defer round=1 elapsed=1.093292 max_abs_err=0.21875 PASS
+large_fft async round=1 elapsed=0.963347 max_abs_err=0.21875 PASS
+large_fft async_defer round=1 elapsed=0.963088 max_abs_err=0.21875 PASS
+large_fft stable round=1 elapsed=1.027988 max_abs_err=0.21875 PASS
+large_fft async round=2 elapsed=0.998246 max_abs_err=0.21875 PASS
+large_fft async_defer round=2 elapsed=1.006359 max_abs_err=0.21875 PASS
+large_fft stable round=2 elapsed=1.056836 max_abs_err=0.21875 PASS
+large_fft defer round=2 elapsed=1.179399 max_abs_err=0.21875 PASS
+large_fft async_defer round=3 elapsed=1.020894 max_abs_err=0.21875 PASS
+large_fft stable round=3 elapsed=1.119056 max_abs_err=0.21875 PASS
+large_fft defer round=3 elapsed=1.150673 max_abs_err=0.21875 PASS
+large_fft async round=3 elapsed=0.988832 max_abs_err=0.21875 PASS
+large_fft stable round=4 elapsed=1.050869 max_abs_err=0.21875 PASS
+large_fft defer round=4 elapsed=1.152574 max_abs_err=0.21875 PASS
+large_fft async round=4 elapsed=1.071897 max_abs_err=0.21875 PASS
+large_fft async_defer round=4 elapsed=0.934817 max_abs_err=0.21875 PASS
+narrow_band stable round=0 elapsed=1.040814 max_abs_err=0.15625 PASS
+narrow_band defer round=0 elapsed=1.963734 max_abs_err=0.15625 PASS
+narrow_band async round=0 elapsed=1.023350 max_abs_err=0.15625 PASS
+narrow_band async_defer round=0 elapsed=1.004812 max_abs_err=0.15625 PASS
+narrow_band defer round=1 elapsed=0.933682 max_abs_err=0.15625 PASS
+narrow_band async round=1 elapsed=0.979972 max_abs_err=0.15625 PASS
+narrow_band async_defer round=1 elapsed=1.100639 max_abs_err=0.15625 PASS
+narrow_band stable round=1 elapsed=1.194679 max_abs_err=0.15625 PASS
+narrow_band async round=2 elapsed=0.983186 max_abs_err=0.15625 PASS
+narrow_band async_defer round=2 elapsed=0.963825 max_abs_err=0.15625 PASS
+narrow_band stable round=2 elapsed=1.151406 max_abs_err=0.15625 PASS
+narrow_band defer round=2 elapsed=1.269913 max_abs_err=0.15625 PASS
+narrow_band async_defer round=3 elapsed=1.053662 max_abs_err=0.15625 PASS
+narrow_band stable round=3 elapsed=1.133845 max_abs_err=0.15625 PASS
+narrow_band defer round=3 elapsed=1.308288 max_abs_err=0.15625 PASS
+narrow_band async round=3 elapsed=1.040056 max_abs_err=0.15625 PASS
+narrow_band stable round=4 elapsed=1.175959 max_abs_err=0.15625 PASS
+narrow_band defer round=4 elapsed=1.193572 max_abs_err=0.15625 PASS
+narrow_band async round=4 elapsed=1.075182 max_abs_err=0.15625 PASS
+narrow_band async_defer round=4 elapsed=1.314021 max_abs_err=0.15625 PASS
+default | stable | min=0.933362 | median=0.971825 | vs_a2=None
+default | defer | min=1.026693 | median=1.099738 | vs_a2=None
+default | async | min=0.866467 | median=0.941559 | vs_a2=None
+default | async_defer | min=0.877922 | median=0.924738 | vs_a2=None
+small_mels | stable | min=0.648086 | median=0.677525 | vs_a2=None
+small_mels | defer | min=0.633678 | median=0.674217 | vs_a2=None
+small_mels | async | min=0.640341 | median=0.664007 | vs_a2=None
+small_mels | async_defer | min=0.633436 | median=0.716451 | vs_a2=None
+large_fft | stable | min=1.027988 | median=1.056836 | vs_a2=None
+large_fft | defer | min=1.093292 | median=1.150673 | vs_a2=None
+large_fft | async | min=0.963347 | median=0.997857 | vs_a2=None
+large_fft | async_defer | min=0.858519 | median=0.963088 | vs_a2=None
+narrow_band | stable | min=1.040814 | median=1.151406 | vs_a2=None
+narrow_band | defer | min=0.933682 | median=1.269913 | vs_a2=None
+narrow_band | async | min=0.979972 | median=1.023350 | vs_a2=None
+narrow_band | async_defer | min=0.963825 | median=1.053662 | vs_a2=None
