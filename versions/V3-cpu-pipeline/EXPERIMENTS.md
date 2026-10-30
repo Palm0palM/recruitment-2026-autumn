@@ -126,6 +126,15 @@ large_fft 2.362→2.885 s、narrow_band 2.558→3.055 s，整体回退，不能�
 small_mels 0.494/0.522/0.602 s，large_fft 1.527/1.622/1.790 s，narrow_band 1.481/1.546/1.778 s。
 本地混合 CPU 只用于趋势，集群同节点复核后才决定。
 
+集群作业 155 的 median 均为 16 < 12 < 8：default 0.985/1.101/1.326 s，
+small_mels 0.663/0.772/0.992 s，large_fft 1.356/1.598/2.096 s，narrow_band 1.302/1.520/1.986 s。
+因此保留 16，不引入自定义 affinity；cpuset 0-15 下没有证据支持额外绑核或 NUMA 改动。
+
+最终作业 156 的压缩 Mel 构造为 75–150 μs，output.resize 为 0.198–0.203 s（small_mels 0.050 s），
+与 setup 主导项吻合；FFT 线程秒基本不变，default Mel 比例从 A2 的 11.78% 降为 10.31%。
+最终官方四组 `0.957 / 0.648 / 1.334 / 1.296 s`，4/4 PASS，详见 [RESULTS.md](RESULTS.md)。
+
 额外 Kimi 只读审查未发现分块越界、矩索引、计时宏默认副作用或线程回退问题；
 确认默认 B=1/sparse/16、单变换 Plan 和 FFTW 对齐保持。矩抵消、线程失败故障注入和受保护 main 的
 奇数字节 PCM 既有风险被记录，但不在本路线借优化之名修改受保护文件。
+另以 `-fsanitize=address,undefined` 构建 B1/B2/B4/B16：各 8 项 smoke、39 组对照及短输入拒绝全部通过，未发现 sanitizer 报告。

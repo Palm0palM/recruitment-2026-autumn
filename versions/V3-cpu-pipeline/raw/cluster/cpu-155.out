@@ -1,0 +1,119 @@
+job=155 node=hepnode2 mode=threads
+d94e45c3a1d1f56dc53f93679e4cab0714b45076
+Cpus_allowed_list:	0-15
+CPU(s):                                  64
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+CPU(s) scaling MHz:                      28%
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+ae64b75affb99495e194d000c81df1beba72ba45b8f9f4e9eb5d3f87855ab2e5  /home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/lib/libfftw3.a
+c82bf45065551f8659748f9c77d8c9dee6783ea524d579e951757ac78a926d05  /home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include/fftw3.h
+#define HAVE_AVX 1
+#define HAVE_AVX2 1
+#define HAVE_AVX512 1
+#define PACKAGE_VERSION "3.3.11"
+g++ -I./include -DMELSPEC_FRAME_BLOCK=1 -DMELSPEC_MAX_THREADS=8 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b1-sparse-t8/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FRAME_BLOCK=1 -DMELSPEC_MAX_THREADS=8 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b1-sparse-t8/melspec.o -c src/melspec.cpp
+g++  -o tmp/bin/t8 tmp/build/r2c-estimate-b1-sparse-t8/main.o tmp/build/r2c-estimate-b1-sparse-t8/melspec.o -pthread /home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+g++ -I./include -DMELSPEC_FRAME_BLOCK=1 -DMELSPEC_MAX_THREADS=12 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b1-sparse-t12/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FRAME_BLOCK=1 -DMELSPEC_MAX_THREADS=12 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b1-sparse-t12/main.o -c src/main.cpp
+g++  -o tmp/bin/t12 tmp/build/r2c-estimate-b1-sparse-t12/main.o tmp/build/r2c-estimate-b1-sparse-t12/melspec.o -pthread /home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+g++ -I./include -DMELSPEC_FRAME_BLOCK=1 -DMELSPEC_MAX_THREADS=16 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b1-sparse-t16/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FRAME_BLOCK=1 -DMELSPEC_MAX_THREADS=16 -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate-b1-sparse-t16/main.o -c src/main.cpp
+g++  -o tmp/bin/t16 tmp/build/r2c-estimate-b1-sparse-t16/main.o tmp/build/r2c-estimate-b1-sparse-t16/melspec.o -pthread /home/zsx/melspec-v3-cpu-pipeline/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+5be1f196179171e205a8f165f2bda1ed36f7e8a5ff96f8a7e5502285fcc416c2  src/melspec.cpp
+3bcb8265fb0157fcb8166415c5fe3e6bcf165463e8df976aeb58c861cfe228a1  include/fftw_support.h
+e894829df1c7f82a044e74b231a19a6e3762ba5f0c57322a6f6bf8fdfa400a64  Makefile
+b43d32ec26380a411a995ada96ca65fedfee0e920ee0a0d2ccc79aab4ded53b5  tmp/build/a2.cpp
+5c3f586c2e8cd2ca22824d4aaa0fa6267148dce05d8ad44d7cca19635058c8d9  tmp/bin/a2-base
+518d97704ea18152ecc5b49d66717db8bec356099948d973c0168cd3a68544ec  tmp/bin/b1
+4b47d0ea82a9eff9168d5c6a423a0e483218b28f49aa7a7670840120c8adb8f1  tmp/bin/b16
+a963759c5a1978dc170b178d5d9701c1331e6166b6610768e1421c550794986e  tmp/bin/b2
+40bf4aa11b58a46716695da034c51fef66d6fd9aafc1483bb3460545964f328e  tmp/bin/b4
+6095f3fc6d76b44cb90bd8fb07825a8137e3dc863ef81f41b5a192f43dafbff7  tmp/bin/b8
+31ffb641af312f21c0c3e47dd5a5f51aee364a949013a926ae3856194fe62d1a  tmp/bin/t12
+518d97704ea18152ecc5b49d66717db8bec356099948d973c0168cd3a68544ec  tmp/bin/t16
+109f5cac6bc3b230b1b219c6e4830b36272b766c8daa6a794e7dfcbfc5f83976  tmp/bin/t8
+default a2-base round=0 elapsed=0.993315 max_abs_err=0.03125 PASS
+default t8 round=0 elapsed=1.317361 max_abs_err=0.03125 PASS
+default t12 round=0 elapsed=1.094466 max_abs_err=0.03125 PASS
+default t16 round=0 elapsed=0.981899 max_abs_err=0.03125 PASS
+default t8 round=1 elapsed=1.325756 max_abs_err=0.03125 PASS
+default t12 round=1 elapsed=1.100772 max_abs_err=0.03125 PASS
+default t16 round=1 elapsed=0.989388 max_abs_err=0.03125 PASS
+default a2-base round=1 elapsed=0.998759 max_abs_err=0.03125 PASS
+default t12 round=2 elapsed=1.105946 max_abs_err=0.03125 PASS
+default t16 round=2 elapsed=0.985352 max_abs_err=0.03125 PASS
+default a2-base round=2 elapsed=1.011003 max_abs_err=0.03125 PASS
+default t8 round=2 elapsed=1.331243 max_abs_err=0.03125 PASS
+small_mels a2-base round=0 elapsed=0.663488 max_abs_err=0.01171875 PASS
+small_mels t8 round=0 elapsed=0.993236 max_abs_err=0.01171875 PASS
+small_mels t12 round=0 elapsed=0.774737 max_abs_err=0.01171875 PASS
+small_mels t16 round=0 elapsed=0.654058 max_abs_err=0.01171875 PASS
+small_mels t8 round=1 elapsed=0.992224 max_abs_err=0.01171875 PASS
+small_mels t12 round=1 elapsed=0.771280 max_abs_err=0.01171875 PASS
+small_mels t16 round=1 elapsed=0.663807 max_abs_err=0.01171875 PASS
+small_mels a2-base round=1 elapsed=0.664821 max_abs_err=0.01171875 PASS
+small_mels t12 round=2 elapsed=0.772347 max_abs_err=0.01171875 PASS
+small_mels t16 round=2 elapsed=0.663430 max_abs_err=0.01171875 PASS
+small_mels a2-base round=2 elapsed=0.672384 max_abs_err=0.01171875 PASS
+small_mels t8 round=2 elapsed=0.988584 max_abs_err=0.01171875 PASS
+large_fft a2-base round=0 elapsed=1.351831 max_abs_err=0.125 PASS
+large_fft t8 round=0 elapsed=2.117606 max_abs_err=0.125 PASS
+large_fft t12 round=0 elapsed=1.586438 max_abs_err=0.125 PASS
+large_fft t16 round=0 elapsed=1.353550 max_abs_err=0.125 PASS
+large_fft t8 round=1 elapsed=2.095858 max_abs_err=0.125 PASS
+large_fft t12 round=1 elapsed=1.599733 max_abs_err=0.125 PASS
+large_fft t16 round=1 elapsed=1.355710 max_abs_err=0.125 PASS
+large_fft a2-base round=1 elapsed=1.373683 max_abs_err=0.125 PASS
+large_fft t12 round=2 elapsed=1.598082 max_abs_err=0.125 PASS
+large_fft t16 round=2 elapsed=1.368378 max_abs_err=0.125 PASS
+large_fft a2-base round=2 elapsed=1.376168 max_abs_err=0.125 PASS
+large_fft t8 round=2 elapsed=2.093329 max_abs_err=0.125 PASS
+narrow_band a2-base round=0 elapsed=1.301335 max_abs_err=0.0625 PASS
+narrow_band t8 round=0 elapsed=1.985764 max_abs_err=0.0625 PASS
+narrow_band t12 round=0 elapsed=1.517060 max_abs_err=0.0625 PASS
+narrow_band t16 round=0 elapsed=1.301939 max_abs_err=0.0625 PASS
+narrow_band t8 round=1 elapsed=1.994384 max_abs_err=0.0625 PASS
+narrow_band t12 round=1 elapsed=1.522755 max_abs_err=0.0625 PASS
+narrow_band t16 round=1 elapsed=1.307990 max_abs_err=0.0625 PASS
+narrow_band a2-base round=1 elapsed=1.322409 max_abs_err=0.0625 PASS
+narrow_band t12 round=2 elapsed=1.519509 max_abs_err=0.0625 PASS
+narrow_band t16 round=2 elapsed=1.293581 max_abs_err=0.0625 PASS
+narrow_band a2-base round=2 elapsed=1.319273 max_abs_err=0.0625 PASS
+narrow_band t8 round=2 elapsed=1.983054 max_abs_err=0.0625 PASS
+case | program | min_s | median_s | vs_v1
+default | a2-base | 0.993315 | 0.998759 | None
+default | t8 | 1.317361 | 1.325756 | None
+default | t12 | 1.094466 | 1.100772 | None
+default | t16 | 0.981899 | 0.985352 | None
+small_mels | a2-base | 0.663488 | 0.664821 | None
+small_mels | t8 | 0.988584 | 0.992224 | None
+small_mels | t12 | 0.771280 | 0.772347 | None
+small_mels | t16 | 0.654058 | 0.663430 | None
+large_fft | a2-base | 1.351831 | 1.373683 | None
+large_fft | t8 | 2.093329 | 2.095858 | None
+large_fft | t12 | 1.586438 | 1.598082 | None
+large_fft | t16 | 1.353550 | 1.355710 | None
+narrow_band | a2-base | 1.301335 | 1.319273 | None
+narrow_band | t8 | 1.983054 | 1.985764 | None
+narrow_band | t12 | 1.517060 | 1.519509 | None
+narrow_band | t16 | 1.293581 | 1.301939 | None
+== complete official validate.py, t16, 3 runs ==
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    0.957 | 16.726x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    0.648 | 23.840x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.334 | 24.063x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    1.296 | 24.828x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
