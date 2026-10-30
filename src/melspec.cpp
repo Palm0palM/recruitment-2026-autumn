@@ -11,9 +11,11 @@
 #include <thread>
 #include <vector>
 
-#if defined(__AVX2__) && defined(__FMA__)
+#if defined(__AVX512F__) || (defined(__AVX2__) && defined(__FMA__))
 #include <immintrin.h>
+#endif
 
+#if defined(__AVX2__) && defined(__FMA__)
 static inline void transpose4(__m256d& a, __m256d& b, __m256d& c, __m256d& d) {
     auto ab_lo = _mm256_unpacklo_pd(a, b);
     auto ab_hi = _mm256_unpackhi_pd(a, b);
@@ -407,6 +409,126 @@ void recover_power_batch4(Batch4Buffer& a, const std::vector<double>& recovery_r
 }
 #endif
 
+#if defined(__AVX512F__)
+struct alignas(64) Lane8 {
+    std::array<double, 8> values;
+};
+
+static inline __m512d load8(const Lane8& value) {
+    return _mm512_load_pd(value.values.data());
+}
+
+static inline void store8(Lane8& destination, __m512d value) {
+    _mm512_store_pd(destination.values.data(), value);
+}
+
+struct Batch8Buffer {
+    std::vector<Lane8> re, im, power;
+    explicit Batch8Buffer(int n) : re(n), im(n), power(n + 1) {}
+};
+
+void apply_batch8(const FFTPlan& plan, Batch8Buffer& a) {
+    const int n = static_cast<int>(a.re.size());
+    if (plan.initial_radix2) {
+        for (int i = 0; i < n; i += 2) {
+            auto rr = load8(a.re[i]), ri = load8(a.im[i]);
+            store8(a.re[i], _mm512_add_pd(rr, load8(a.re[i + 1])));
+            store8(a.im[i], _mm512_add_pd(ri, load8(a.im[i + 1])));
+            store8(a.re[i + 1], _mm512_sub_pd(rr, load8(a.re[i + 1])));
+            store8(a.im[i + 1], _mm512_sub_pd(ri, load8(a.im[i + 1])));
+        }
+    }
+    for (const auto& stage : plan.stages) {
+        const int len = stage.len;
+        const int quarter = len / 4;
+        for (int base = 0; base < n; base += len) {
+            if (quarter == 1) {
+                auto ar = load8(a.re[base]), ai = load8(a.im[base]);
+                auto br = load8(a.re[base + 1]), bi = load8(a.im[base + 1]);
+                auto cr = load8(a.re[base + 2]), ci = load8(a.im[base + 2]);
+                auto dr = load8(a.re[base + 3]), di = load8(a.im[base + 3]);
+                auto sum01r = _mm512_add_pd(ar, br);
+                auto sum01i = _mm512_add_pd(ai, bi);
+                auto dif01r = _mm512_sub_pd(ar, br);
+                auto dif01i = _mm512_sub_pd(ai, bi);
+                auto sum23r = _mm512_add_pd(cr, dr);
+                auto sum23i = _mm512_add_pd(ci, di);
+                auto dif23r = _mm512_sub_pd(cr, dr);
+                auto dif23i = _mm512_sub_pd(ci, di);
+                store8(a.re[base], _mm512_add_pd(sum01r, sum23r));
+                store8(a.im[base], _mm512_add_pd(sum01i, sum23i));
+                store8(a.re[base + 1], _mm512_add_pd(dif01r, dif23i));
+                store8(a.im[base + 1], _mm512_sub_pd(dif01i, dif23r));
+                store8(a.re[base + 2], _mm512_sub_pd(sum01r, sum23r));
+                store8(a.im[base + 2], _mm512_sub_pd(sum01i, sum23i));
+                store8(a.re[base + 3], _mm512_sub_pd(dif01r, dif23i));
+                store8(a.im[base + 3], _mm512_add_pd(dif01i, dif23r));
+                continue;
+            }
+            for (int j = 0; j < quarter; ++j) {
+                const int p = base + j;
+                auto ar = load8(a.re[p]), ai = load8(a.im[p]);
+                auto br = load8(a.re[p + quarter]), bi = load8(a.im[p + quarter]);
+                auto cr = load8(a.re[p + 2 * quarter]), ci = load8(a.im[p + 2 * quarter]);
+                auto dr = load8(a.re[p + 3 * quarter]), di = load8(a.im[p + 3 * quarter]);
+                auto w1r = _mm512_set1_pd(stage.w1re[j]);
+                auto w1i = _mm512_set1_pd(stage.w1im[j]);
+                auto w2r = _mm512_set1_pd(stage.w2re[j]);
+                auto w2i = _mm512_set1_pd(stage.w2im[j]);
+                auto w3r = _mm512_set1_pd(stage.w3re[j]);
+                auto w3i = _mm512_set1_pd(stage.w3im[j]);
+                auto br2 = _mm512_fmsub_pd(br, w2r, _mm512_mul_pd(bi, w2i));
+                auto bi2 = _mm512_fmadd_pd(br, w2i, _mm512_mul_pd(bi, w2r));
+                auto cr1 = _mm512_fmsub_pd(cr, w1r, _mm512_mul_pd(ci, w1i));
+                auto ci1 = _mm512_fmadd_pd(cr, w1i, _mm512_mul_pd(ci, w1r));
+                auto dr3 = _mm512_fmsub_pd(dr, w3r, _mm512_mul_pd(di, w3i));
+                auto di3 = _mm512_fmadd_pd(dr, w3i, _mm512_mul_pd(di, w3r));
+                auto sum01r = _mm512_add_pd(ar, br2);
+                auto sum01i = _mm512_add_pd(ai, bi2);
+                auto dif01r = _mm512_sub_pd(ar, br2);
+                auto dif01i = _mm512_sub_pd(ai, bi2);
+                auto sum23r = _mm512_add_pd(cr1, dr3);
+                auto sum23i = _mm512_add_pd(ci1, di3);
+                auto dif23r = _mm512_sub_pd(cr1, dr3);
+                auto dif23i = _mm512_sub_pd(ci1, di3);
+                store8(a.re[p], _mm512_add_pd(sum01r, sum23r));
+                store8(a.im[p], _mm512_add_pd(sum01i, sum23i));
+                store8(a.re[p + quarter], _mm512_add_pd(dif01r, dif23i));
+                store8(a.im[p + quarter], _mm512_sub_pd(dif01i, dif23r));
+                store8(a.re[p + 2 * quarter], _mm512_sub_pd(sum01r, sum23r));
+                store8(a.im[p + 2 * quarter], _mm512_sub_pd(sum01i, sum23i));
+                store8(a.re[p + 3 * quarter], _mm512_sub_pd(dif01r, dif23i));
+                store8(a.im[p + 3 * quarter], _mm512_add_pd(dif01i, dif23r));
+            }
+        }
+    }
+}
+
+void recover_power_batch8(Batch8Buffer& a, const std::vector<double>& recovery_re,
+                          const std::vector<double>& recovery_im) {
+    const int half = static_cast<int>(a.re.size());
+    auto dc = _mm512_add_pd(load8(a.re[0]), load8(a.im[0]));
+    auto nyquist = _mm512_sub_pd(load8(a.re[0]), load8(a.im[0]));
+    store8(a.power[0], _mm512_mul_pd(dc, dc));
+    store8(a.power[half], _mm512_mul_pd(nyquist, nyquist));
+    const auto scale = _mm512_set1_pd(0.5);
+    for (int k = 1; k < half; ++k) {
+        auto ar = load8(a.re[k]), ai = load8(a.im[k]);
+        auto br = load8(a.re[half - k]);
+        auto bi = _mm512_sub_pd(_mm512_setzero_pd(), load8(a.im[half - k]));
+        auto rr = _mm512_set1_pd(recovery_re[k]);
+        auto ri = _mm512_set1_pd(recovery_im[k]);
+        auto dr = _mm512_sub_pd(ar, br);
+        auto di = _mm512_sub_pd(ai, bi);
+        auto xr = _mm512_fmadd_pd(rr, dr, _mm512_mul_pd(scale, _mm512_add_pd(ar, br)));
+        xr = _mm512_fnmadd_pd(ri, di, xr);
+        auto xi = _mm512_fmadd_pd(ri, dr, _mm512_mul_pd(scale, _mm512_add_pd(ai, bi)));
+        xi = _mm512_fmadd_pd(rr, di, xi);
+        store8(a.power[k], _mm512_fmadd_pd(xr, xr, _mm512_mul_pd(xi, xi)));
+    }
+}
+#endif
+
 void recover_power(const ComplexBuffer& a, const std::vector<double>& recovery_re,
                    const std::vector<double>& recovery_im, std::vector<double>& power) {
     const int half = static_cast<int>(a.re.size());
@@ -574,7 +696,13 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     };
 
     int tail_begin = 0;
-#if defined(__AVX2__) && defined(__FMA__)
+#if defined(__AVX512F__)
+    std::vector<Batch8Buffer> batch_buffers;
+    if (n_fft > 1)
+        batch_buffers.assign(n_threads, Batch8Buffer(half));
+    const int n_batches = n_fft > 1 ? n_frames / 8 : 0;
+    tail_begin = n_batches * 8;
+#elif defined(__AVX2__) && defined(__FMA__)
     std::vector<Batch4Buffer> batch_buffers;
     if (n_fft > 1)
         batch_buffers.assign(n_threads, Batch4Buffer(half));
@@ -582,7 +710,46 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     tail_begin = n_batches * 4;
 #endif
     auto worker = [&](int id) {
-#if defined(__AVX2__) && defined(__FMA__)
+#if defined(__AVX512F__)
+        auto& a = batch_buffers[id];
+        const int begin = static_cast<long long>(n_batches) * id / n_threads;
+        const int end = static_cast<long long>(n_batches) * (id + 1) / n_threads;
+        for (int batch = begin; batch < end; ++batch) {
+            const int t = batch * 8;
+            const int start = t * hop_length;
+            for (int i = 0; i < half; ++i) {
+                const int p = plan.reversed[i];
+                const double we = window[2 * i], wo = window[2 * i + 1];
+                store8(a.re[p], _mm512_setr_pd(
+                    y[start + 2 * i] * we,
+                    y[start + hop_length + 2 * i] * we,
+                    y[start + 2 * hop_length + 2 * i] * we,
+                    y[start + 3 * hop_length + 2 * i] * we,
+                    y[start + 4 * hop_length + 2 * i] * we,
+                    y[start + 5 * hop_length + 2 * i] * we,
+                    y[start + 6 * hop_length + 2 * i] * we,
+                    y[start + 7 * hop_length + 2 * i] * we));
+                store8(a.im[p], _mm512_setr_pd(
+                    y[start + 2 * i + 1] * wo,
+                    y[start + hop_length + 2 * i + 1] * wo,
+                    y[start + 2 * hop_length + 2 * i + 1] * wo,
+                    y[start + 3 * hop_length + 2 * i + 1] * wo,
+                    y[start + 4 * hop_length + 2 * i + 1] * wo,
+                    y[start + 5 * hop_length + 2 * i + 1] * wo,
+                    y[start + 6 * hop_length + 2 * i + 1] * wo,
+                    y[start + 7 * hop_length + 2 * i + 1] * wo));
+            }
+            apply_batch8(plan, a);
+            recover_power_batch8(a, recovery_re, recovery_im);
+            for (int m = 0; m < n_mels; ++m) {
+                auto acc = _mm512_setzero_pd();
+                for (int k = first[m]; k < last[m]; ++k)
+                    acc = _mm512_fmadd_pd(_mm512_set1_pd(mel_fb[m][k]),
+                                          load8(a.power[k]), acc);
+                _mm512_storeu_pd(output.data() + static_cast<size_t>(m) * n_frames + t, acc);
+            }
+        }
+#elif defined(__AVX2__) && defined(__FMA__)
         auto& a = batch_buffers[id];
         const int begin = static_cast<long long>(n_batches) * id / n_threads;
         const int end = static_cast<long long>(n_batches) * (id + 1) / n_threads;
