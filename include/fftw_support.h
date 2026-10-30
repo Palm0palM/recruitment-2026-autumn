@@ -7,6 +7,30 @@
 #include <new>
 #include <stdexcept>
 
+#ifdef MELSPEC_PROFILE
+#include <array>
+#include <chrono>
+#include <cstdio>
+namespace melspec_fftw {
+using Clock = std::chrono::steady_clock;
+struct Counters { std::array<double, 4> seconds{}; };
+inline double elapsed(Clock::time_point t) {
+    return std::chrono::duration<double>(Clock::now() - t).count();
+}
+}
+#define FFTW_START(name) const auto name = melspec_fftw::Clock::now()
+#define FFTW_COUNTERS(name) melspec_fftw::Counters name
+#define FFTW_ADD(name, index, start) name.seconds[index] += melspec_fftw::elapsed(start)
+#define FFTW_TIME(label, start) std::fprintf(stderr, label "=%.9f\n", melspec_fftw::elapsed(start))
+#define FFTW_PRINT(name, id) std::fprintf(stderr, "worker=%d pack_s=%.9f fft_s=%.9f power_s=%.9f mel_s=%.9f\n", id, name.seconds[0], name.seconds[1], name.seconds[2], name.seconds[3])
+#else
+#define FFTW_START(name)
+#define FFTW_COUNTERS(name)
+#define FFTW_ADD(name, index, start)
+#define FFTW_TIME(label, start)
+#define FFTW_PRINT(name, id)
+#endif
+
 // Link ONLY libfftw3, not its OpenMP/pthreads execution backends. The outer
 // std::threads are the sole level of parallelism (16 workers, as in V1).
 namespace melspec_fftw {
@@ -49,13 +73,17 @@ class Plan {
 public:
     Plan(int n, fftw_complex* buffer) {
         std::lock_guard<std::mutex> lock(planner_mutex());
+        FFTW_START(plan_start);
         plan_ = fftw_plan_dft_1d(n, buffer, buffer, FFTW_FORWARD, planner_flags());
         if (!plan_) throw std::runtime_error("FFTW C2C plan creation failed");
+        FFTW_TIME("c2c_plan_s", plan_start);
     }
     Plan(int n, double* input, fftw_complex* output) {
         std::lock_guard<std::mutex> lock(planner_mutex());
+        FFTW_START(plan_start);
         plan_ = fftw_plan_dft_r2c_1d(n, input, output, planner_flags());
         if (!plan_) throw std::runtime_error("FFTW R2C plan creation failed");
+        FFTW_TIME("r2c_plan_s", plan_start);
     }
     Plan(const Plan&) = delete;
     Plan& operator=(const Plan&) = delete;

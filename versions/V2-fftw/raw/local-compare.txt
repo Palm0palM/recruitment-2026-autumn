@@ -1,0 +1,81 @@
+default v1 round=0 elapsed=1.418352 max_abs_err=0.03125 PASS
+default a1-estimate round=0 elapsed=0.850575 max_abs_err=0.03125 PASS
+default a1-measure round=0 elapsed=1.013315 max_abs_err=0.03125 PASS
+default a2-estimate round=0 elapsed=0.811730 max_abs_err=0.03125 PASS
+default a2-measure round=0 elapsed=0.930709 max_abs_err=0.03125 PASS
+default a1-estimate round=1 elapsed=0.838628 max_abs_err=0.03125 PASS
+default a1-measure round=1 elapsed=1.021860 max_abs_err=0.03125 PASS
+default a2-estimate round=1 elapsed=0.738040 max_abs_err=0.03125 PASS
+default a2-measure round=1 elapsed=1.050570 max_abs_err=0.03125 PASS
+default v1 round=1 elapsed=1.307512 max_abs_err=0.03125 PASS
+default a1-measure round=2 elapsed=1.037345 max_abs_err=0.03125 PASS
+default a2-estimate round=2 elapsed=0.738975 max_abs_err=0.03125 PASS
+default a2-measure round=2 elapsed=0.946831 max_abs_err=0.03125 PASS
+default v1 round=2 elapsed=1.219841 max_abs_err=0.03125 PASS
+default a1-estimate round=2 elapsed=0.803781 max_abs_err=0.03125 PASS
+small_mels v1 round=0 elapsed=0.994249 max_abs_err=0.01171875 PASS
+small_mels a1-estimate round=0 elapsed=0.574242 max_abs_err=0.01171875 PASS
+small_mels a1-measure round=0 elapsed=0.817751 max_abs_err=0.01171875 PASS
+small_mels a2-estimate round=0 elapsed=0.474060 max_abs_err=0.01171875 PASS
+small_mels a2-measure round=0 elapsed=0.704391 max_abs_err=0.01171875 PASS
+small_mels a1-estimate round=1 elapsed=0.591858 max_abs_err=0.01171875 PASS
+small_mels a1-measure round=1 elapsed=0.786273 max_abs_err=0.01171875 PASS
+small_mels a2-estimate round=1 elapsed=0.488314 max_abs_err=0.01171875 PASS
+small_mels a2-measure round=1 elapsed=0.718465 max_abs_err=0.01171875 PASS
+small_mels v1 round=1 elapsed=1.064204 max_abs_err=0.01171875 PASS
+small_mels a1-measure round=2 elapsed=0.996473 max_abs_err=0.01171875 PASS
+small_mels a2-estimate round=2 elapsed=0.642570 max_abs_err=0.01171875 PASS
+small_mels a2-measure round=2 elapsed=0.862750 max_abs_err=0.01171875 PASS
+small_mels v1 round=2 elapsed=1.393897 max_abs_err=0.01171875 PASS
+small_mels a1-estimate round=2 elapsed=0.766024 max_abs_err=0.01171875 PASS
+large_fft v1 round=0 elapsed=3.127328 max_abs_err=0.125 PASS
+large_fft a1-estimate round=0 elapsed=1.972965 max_abs_err=0.125 PASS
+large_fft a1-measure round=0 elapsed=2.107308 max_abs_err=0.125 PASS
+large_fft a2-estimate round=0 elapsed=1.791889 max_abs_err=0.125 PASS
+large_fft a2-measure round=0 elapsed=1.972875 max_abs_err=0.125 PASS
+large_fft a1-estimate round=1 elapsed=2.064915 max_abs_err=0.125 PASS
+large_fft a1-measure round=1 elapsed=2.179613 max_abs_err=0.125 PASS
+large_fft a2-estimate round=1 elapsed=1.959119 max_abs_err=0.125 PASS
+large_fft a2-measure round=1 elapsed=2.098278 max_abs_err=0.125 PASS
+large_fft v1 round=1 elapsed=3.328492 max_abs_err=0.125 PASS
+large_fft a1-measure round=2 elapsed=1.987124 max_abs_err=0.125 PASS
+large_fft a2-estimate round=2 elapsed=1.618784 max_abs_err=0.125 PASS
+large_fft a2-measure round=2 elapsed=2.103902 max_abs_err=0.125 PASS
+large_fft v1 round=2 elapsed=3.321633 max_abs_err=0.125 PASS
+large_fft a1-estimate round=2 elapsed=1.906353 max_abs_err=0.125 PASS
+narrow_band v1 round=0 elapsed=3.130435 max_abs_err=0.0625 PASS
+narrow_band a1-estimate round=0 elapsed=1.862286 max_abs_err=0.0625 PASS
+narrow_band a1-measure round=0 elapsed=1.932898 max_abs_err=0.0625 PASS
+narrow_band a2-estimate round=0 elapsed=1.537287 max_abs_err=0.0625 PASS
+narrow_band a2-measure round=0 elapsed=1.747004 max_abs_err=0.0625 PASS
+narrow_band a1-estimate round=1 elapsed=1.919898 max_abs_err=0.0625 PASS
+narrow_band a1-measure round=1 elapsed=2.049579 max_abs_err=0.0625 PASS
+narrow_band a2-estimate round=1 elapsed=1.760890 max_abs_err=0.0625 PASS
+narrow_band a2-measure round=1 elapsed=1.908581 max_abs_err=0.0625 PASS
+narrow_band v1 round=1 elapsed=3.154098 max_abs_err=0.0625 PASS
+narrow_band a1-measure round=2 elapsed=1.885710 max_abs_err=0.0625 PASS
+narrow_band a2-estimate round=2 elapsed=1.527347 max_abs_err=0.0625 PASS
+narrow_band a2-measure round=2 elapsed=1.727116 max_abs_err=0.0625 PASS
+narrow_band v1 round=2 elapsed=3.376656 max_abs_err=0.0625 PASS
+narrow_band a1-estimate round=2 elapsed=1.813475 max_abs_err=0.0625 PASS
+case | program | min_s | median_s | vs_v1
+default | v1 | 1.219841 | 1.307512 | 1.0
+default | a1-estimate | 0.803781 | 0.838628 | 1.5176289551804243
+default | a1-measure | 1.013315 | 1.021860 | 1.203812275245078
+default | a2-estimate | 0.738040 | 0.738975 | 1.6528111839418471
+default | a2-measure | 0.930709 | 0.946831 | 1.310657600860295
+small_mels | v1 | 0.994249 | 1.064204 | 1.0
+small_mels | a1-estimate | 0.574242 | 0.591858 | 1.7314109151661523
+small_mels | a1-measure | 0.786273 | 0.817751 | 1.264509069639626
+small_mels | a2-estimate | 0.474060 | 0.488314 | 2.09730476684466
+small_mels | a2-measure | 0.704391 | 0.718465 | 1.4115017378829113
+large_fft | v1 | 3.127328 | 3.321633 | 1.0
+large_fft | a1-estimate | 1.906353 | 1.972965 | 1.6404772782462926
+large_fft | a1-measure | 1.987124 | 2.107308 | 1.5737963946835327
+large_fft | a2-estimate | 1.618784 | 1.791889 | 1.9319002833129306
+large_fft | a2-measure | 1.972875 | 2.098278 | 1.5851633088529722
+narrow_band | v1 | 3.130435 | 3.154098 | 1.0
+narrow_band | a1-estimate | 1.813475 | 1.862286 | 1.7262081757767378
+narrow_band | a1-measure | 1.885710 | 1.932898 | 1.6600827467479933
+narrow_band | a2-estimate | 1.527347 | 1.537287 | 2.0495901852543414
+narrow_band | a2-measure | 1.727116 | 1.747004 | 1.8125217056241032

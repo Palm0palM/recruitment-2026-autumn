@@ -55,6 +55,38 @@ A1 独立代码提交 `a7a0752`；A2 增量提交后仍可通过 `FFT_MODE=c2c` 
 最大输出差为 `3.0517578125e-05`，容差仍为题目 `rtol=1e-3, atol=1e-4`。
 后续补充 ESTIMATE/MEASURE 对照、正式集群四组验证与新瓶颈分析。失败实验同样保留。
 
+## 首轮本地全量对照（有效阶段）
+
+同 BASE/V1，自行编译，统一 `-std=c++17 -O3 -march=native -pthread`；A1/A2 另链接本地系统 FFTW。
+全部五种二进制、四组、各三次输出均通过官方 expected，保留每轮数据，以下为进程 wall time 最小值。
+
+| 用例 | V1 | A1 ESTIMATE | A1 MEASURE | A2 ESTIMATE | A2 MEASURE | A2 EST vs V1 |
+|---|---:|---:|---:|---:|---:|---:|
+| default | 1.219841 | 0.803781 | 1.013315 | **0.738040** | 0.930709 | 1.653× |
+| small_mels | 0.994249 | 0.574242 | 0.786273 | **0.474060** | 0.704391 | 2.097× |
+| large_fft | 3.127328 | 1.906353 | 1.987124 | **1.618784** | 1.972875 | 1.932× |
+| narrow_band | 3.130435 | 1.813475 | 1.885710 | **1.527347** | 1.727116 | 2.050× |
+
+暂选 **A2 ESTIMATE** 进行正式验证：MEASURE 在本题单次 CLI 的总时间口径下反而更慢，不能只看纯 FFT 执行。
+本地 WSL 的频率/宿主机负载会扰动测量，结论必须回集群同作业内复核，不混算跨平台加速比。
+原始逐次数据与 min/median 见 `raw/local-compare.txt`、`raw/local-compare.json`。
+
+## 独立插桩构建
+
+正式版的 `FFTW_*` 计时宏全部为空；定义 `MELSPEC_PROFILE` 才记录 planner、compute 准备及
+每线程 pack / FFT execute / 恢复或模平方 / Mel 时间。宏不控制算法选择，不作为正式成绩。
+`scripts/fftw_profile.py` 在 tmp 生成只添加调用计时的 main 副本，不修改受保护 main；另行编译并全量核对输出。
+集群以 `MODE=profile` 单独提交作业，绝不在 perf 不可用的节点伪造硬件计数。
+本地诊断实测：ESTIMATE 的 planner 约 0.0004–0.0013 s，MEASURE 约 0.267–0.371 s；
+部分执行能变快，但本题每个 CLI 只处理一次输入，规划开销实际计入成绩，不使用预导入 wisdom。
+保留 local phase 日志，不以单次插桩 wall time 代替上表 min。
+添加计时宏后，关闭插桩的 A2 ESTIMATE 二进制 SHA-256 前后相同：
+`97594fa7f89161aae8e41bb086dee0736ec2839cf83f59556947188c0f57720c`，8 项 smoke 复核 PASS。
+
+失败尝试：WSL 未安装 GNU `/usr/bin/time`，初次本地阶段 profile 因此失败。工具已改为自动检测，
+缺失时仍计时 read/compute/write 和进程 wall，但明确不报告 RSS；集群有 GNU time 才采集相应统计。
+原始失败日志见 `raw/failed-profile-gnu-time-missing.txt`，不为此修改系统或共享 Python 环境。
+
 ## 评测流程
 
 `scripts/fftw_bench.py` 在同一环境以轮换顺序运行 V1、A1/A2 与两种 planner，保留每次 wall time、

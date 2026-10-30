@@ -30,6 +30,14 @@ JOBS=8 bash scripts/build_fftw.sh > "tmp/logs/fftw-build-${SLURM_JOB_ID}.txt" 2>
 sha256sum "$FFTW_PREFIX/lib/libfftw3.a" "$FFTW_PREFIX/include/fftw3.h"
 grep -E '^(#define PACKAGE_VERSION|#define HAVE_AVX)' tmp/deps/build-fftw/config.h || true
 if [ "${MODE:-bench}" = build ]; then exit 0; fi
+scratch=$(mktemp -d "/tmp/fftw-agent-a-${SLURM_JOB_ID}-XXXXXX")
+trap 'rm -rf -- "$scratch"' EXIT
+export TMPDIR="$scratch"
+if [ "${MODE:-bench}" = profile ]; then
+  sha256sum src/melspec.cpp include/fftw_support.h scripts/fftw_profile.py
+  "$PY" -u scripts/fftw_profile.py --mode r2c --planner estimate
+  exit 0
+fi
 git show "$BASE:src/melspec.cpp" > tmp/build/v1.cpp
 g++ -std=c++17 -O3 -march=native -pthread -Iinclude src/main.cpp tmp/build/v1.cpp -o tmp/bin/v1
 for mode in c2c r2c; do
@@ -38,9 +46,6 @@ for mode in c2c r2c; do
   done
 done
 sha256sum src/melspec.cpp include/fftw_support.h Makefile tmp/build/v1.cpp tmp/bin/*
-scratch=$(mktemp -d "/tmp/fftw-agent-a-${SLURM_JOB_ID}-XXXXXX")
-trap 'rm -rf -- "$scratch"' EXIT
-export TMPDIR="$scratch"
 "$PY" -u scripts/fftw_bench.py --runs 3 --out "tmp/logs/compare-${SLURM_JOB_ID}.json"
 echo '== complete official validate.py, A2 ESTIMATE, 3 runs =='
 "$PY" -u validate.py ./tmp/bin/r2c-estimate --runs 3 | tee "tmp/logs/official-${SLURM_JOB_ID}.txt"

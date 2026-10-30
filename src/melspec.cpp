@@ -121,6 +121,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
 
     if (n_frames <= 0)
         throw std::runtime_error("Audio too short for given n_fft");
+    FFTW_START(setup_start);
 
     // Periodic Hann window: w[n] = 0.5 * (1 - cos(2*pi*n/n_fft))
     std::vector<double> window(n_fft);
@@ -168,7 +169,9 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
 #endif
     std::vector<std::vector<double>> power_buffers(
         n_threads, std::vector<double>(n_bins));
+    FFTW_TIME("compute_setup_s", setup_start);
     auto worker = [&](int id) {
+        FFTW_COUNTERS(counters);
         auto& fft_out = fft_buffers[id];
         auto& power = power_buffers[id];
         const int begin = static_cast<long long>(n_frames) * id / n_threads;
@@ -182,20 +185,31 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
             } else {
 #if MELSPEC_FFTW_R2C
                 auto& input = input_buffers[id];
+                FFTW_START(pack_start);
                 for (int i = 0; i < n_fft; ++i)
                     input[i] = y[start + i] * window[i];
+                FFTW_ADD(counters, 0, pack_start);
+                FFTW_START(fft_start);
                 plan.apply(input.get(), fft_out.get());
+                FFTW_ADD(counters, 1, fft_start);
+                FFTW_START(power_start);
                 for (int k = 0; k < n_bins; ++k)
                     power[k] = fft_out[k][0] * fft_out[k][0] +
                                fft_out[k][1] * fft_out[k][1];
+                FFTW_ADD(counters, 2, power_start);
 #else
                 // Pack even/odd real samples into a half-length complex FFT.
+                FFTW_START(pack_start);
                 for (int i = 0; i < half; ++i) {
                     fft_out[i][0] = y[start + 2 * i] * window[2 * i];
                     fft_out[i][1] = y[start + 2 * i + 1] * window[2 * i + 1];
                 }
+                FFTW_ADD(counters, 0, pack_start);
+                FFTW_START(fft_start);
                 plan.apply(fft_out.get());
+                FFTW_ADD(counters, 1, fft_start);
 
+                FFTW_START(power_start);
                 double dc = fft_out[0][0] + fft_out[0][1];
                 double nyquist = fft_out[0][0] - fft_out[0][1];
                 power[0] = dc * dc;
@@ -206,17 +220,21 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                     auto x = 0.5 * (a + b) + recovery[k] * (a - b);
                     power[k] = std::norm(x);
                 }
+                FFTW_ADD(counters, 2, power_start);
 #endif
             }
 
             // Apply filters immediately, while this frame's power is in cache.
+            FFTW_START(mel_start);
             for (int m = 0; m < n_mels; ++m) {
                 double acc = 0.0;
                 for (int k = first[m]; k < last[m]; ++k)
                     acc += mel_fb[m][k] * power[k];
                 output[static_cast<size_t>(m) * n_frames + t] = acc;
             }
+            FFTW_ADD(counters, 3, mel_start);
         }
+        FFTW_PRINT(counters, id);
     };
 
     std::vector<std::thread> threads;

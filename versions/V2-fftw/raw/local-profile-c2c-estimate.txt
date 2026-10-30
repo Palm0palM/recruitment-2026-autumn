@@ -1,0 +1,55 @@
++ g++ -std=c++17 -O3 -march=native -pthread -g -DMELSPEC_PROFILE=1 -DMELSPEC_FFTW_R2C=0 -DMELSPEC_FFTW_MEASURE=0 -I/home/palm/projects/heptagon/melspec-v2-fftw/include /home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-profile/c2c-estimate/main.cpp /home/palm/projects/heptagon/melspec-v2-fftw/src/melspec.cpp -o /home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-profile/c2c-estimate/melspec-profile -lfftw3
+== c2c-estimate default ==
+diagnostic_process_wall_s=1.294664
+GNU time unavailable: RSS/user/system statistics NOT collected
+read_s=0.113059
+c2c_plan_s=0.000375511
+compute_setup_s=0.204842669
+worker=2 pack_s=0.041337411 fft_s=0.309215104 power_s=0.151664510 mel_s=0.049751271
+worker=6 pack_s=0.046362698 fft_s=0.332135648 power_s=0.158705114 mel_s=0.053343785
+worker=10 pack_s=0.045620037 fft_s=0.327952852 power_s=0.165986019 mel_s=0.052485649
+worker=8 pack_s=0.045255493 fft_s=0.333460637 power_s=0.162281275 mel_s=0.052182890
+worker=9 pack_s=0.047988354 fft_s=0.339616887 power_s=0.155340024 mel_s=0.051536393
+worker=14 pack_s=0.043451980 fft_s=0.331416563 power_s=0.174016713 mel_s=0.056092575
+worker=13 pack_s=0.045069540 fft_s=0.341469566 power_s=0.171069098 mel_s=0.053494410
+worker=4 pack_s=0.047117116 fft_s=0.347557298 power_s=0.168099077 mel_s=0.053449548
+worker=0 pack_s=0.048328653 fft_s=0.352587859 power_s=0.164569972 mel_s=0.051802371
+worker=11 pack_s=0.051056356 fft_s=0.346582617 power_s=0.169594703 mel_s=0.054662430
+worker=5 pack_s=0.047923301 fft_s=0.349873750 power_s=0.172925638 mel_s=0.055273220
+worker=15 pack_s=0.047203493 fft_s=0.354718782 power_s=0.171096054 mel_s=0.054891064
+worker=3 pack_s=0.050063332 fft_s=0.359587367 power_s=0.168116420 mel_s=0.054227258
+worker=12 pack_s=0.047271781 fft_s=0.356258802 power_s=0.178676793 mel_s=0.056905765
+worker=1 pack_s=0.047955148 fft_s=0.361430963 power_s=0.175345763 mel_s=0.056883445
+worker=7 pack_s=0.054149072 fft_s=0.375408001 power_s=0.167294011 mel_s=0.054693450
+compute_s=0.860107
+write_s=0.301288
+
+{"case": "default", "thread_wall_sums": {"pack_s": 0.756153765, "fft_s": 5.519272696000001, "power_s": 2.674781184, "mel_s": 0.861675524}, "percentages": {"pack_s": 7.706510075344333, "fft_s": 56.250901085306225, "power_s": 27.260630175976765, "mel_s": 8.781958663372665}}
+Profile output PASS
+== c2c-estimate large_fft ==
+diagnostic_process_wall_s=2.087620
+GNU time unavailable: RSS/user/system statistics NOT collected
+read_s=0.109514
+c2c_plan_s=0.000416932
+compute_setup_s=0.185850599
+worker=3 pack_s=0.093859716 fft_s=0.817396525 power_s=0.345095549 mel_s=0.104137371
+worker=5 pack_s=0.093423238 fft_s=0.807633581 power_s=0.358180892 mel_s=0.105636047
+worker=12 pack_s=0.094886462 fft_s=0.826079307 power_s=0.363447971 mel_s=0.106369887
+worker=1 pack_s=0.097930488 fft_s=0.842233180 power_s=0.356425512 mel_s=0.110302089
+worker=0 pack_s=0.095614137 fft_s=0.830348075 power_s=0.373006681 mel_s=0.107587258
+worker=6 pack_s=0.097837791 fft_s=0.845371585 power_s=0.357871036 mel_s=0.108230574
+worker=8 pack_s=0.098359931 fft_s=0.856558135 power_s=0.352214907 mel_s=0.108410563
+worker=13 pack_s=0.096403429 fft_s=0.844628360 power_s=0.379350226 mel_s=0.108784020
+worker=7 pack_s=0.101548629 fft_s=0.869133061 power_s=0.353368688 mel_s=0.107442448
+worker=10 pack_s=0.097961693 fft_s=0.848762972 power_s=0.374413153 mel_s=0.112019164
+worker=11 pack_s=0.099613409 fft_s=0.855636301 power_s=0.368516303 mel_s=0.110277834
+worker=15 pack_s=0.098227933 fft_s=0.858773575 power_s=0.373141614 mel_s=0.109618488
+worker=4 pack_s=0.099210324 fft_s=0.861444632 power_s=0.374246719 mel_s=0.109397541
+worker=9 pack_s=0.101522318 fft_s=0.884703480 power_s=0.374056845 mel_s=0.110236373
+worker=14 pack_s=0.103329770 fft_s=0.888500386 power_s=0.370153047 mel_s=0.111085404
+worker=2 pack_s=0.106041316 fft_s=0.902001853 power_s=0.357896368 mel_s=0.109113458
+compute_s=1.66494
+write_s=0.286331
+
+{"case": "large_fft", "thread_wall_sums": {"pack_s": 1.5757705839999998, "fft_s": 13.639205008000001, "power_s": 5.831385510999999, "mel_s": 1.7386485189999998}, "percentages": {"pack_s": 6.915821455166378, "fft_s": 59.86043119696867, "power_s": 25.593078992468456, "mel_s": 7.630668355396492}}
+Profile output PASS
