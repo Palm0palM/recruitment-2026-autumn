@@ -1,0 +1,21 @@
+batch_profile id=8 batches=1503 pack_s=0.066983643 fft_s=0.121635049 recover_s=0.012784164 mel_s=0.011340286
+batch_profile id=7 batches=1503 pack_s=0.067715321 fft_s=0.121853063 recover_s=0.012785710 mel_s=0.011440565
+batch_profile id=0 batches=1503 pack_s=0.067453348 fft_s=0.122286367 recover_s=0.012621776 mel_s=0.011340049
+batch_profile id=12 batches=1503 pack_s=0.067171019 fft_s=0.123367335 recover_s=0.012711085 mel_s=0.011442448
+batch_profile id=1 batches=1503 pack_s=0.067224172 fft_s=0.123826031 recover_s=0.012796943 mel_s=0.011415006
+batch_profile id=2 batches=1503 pack_s=0.067635449 fft_s=0.123486960 recover_s=0.012763549 mel_s=0.011399142
+batch_profile id=3 batches=1503 pack_s=0.067946128 fft_s=0.123228912 recover_s=0.012798153 mel_s=0.011382771
+batch_profile id=15 batches=1504 pack_s=0.067729609 fft_s=0.123768573 recover_s=0.012827771 mel_s=0.011450101
+batch_profile id=4 batches=1503 pack_s=0.068220860 fft_s=0.123761153 recover_s=0.012855470 mel_s=0.011429794
+batch_profile id=14 batches=1503 pack_s=0.068032672 fft_s=0.123980418 recover_s=0.012751477 mel_s=0.011310121
+batch_profile id=6 batches=1503 pack_s=0.068360349 fft_s=0.123932132 recover_s=0.012758710 mel_s=0.011489218
+batch_profile id=5 batches=1503 pack_s=0.067970197 fft_s=0.124784527 recover_s=0.012768660 mel_s=0.011444304
+batch_profile id=10 batches=1503 pack_s=0.067420805 fft_s=0.126063106 recover_s=0.013217373 mel_s=0.011400291
+batch_profile id=11 batches=1503 pack_s=0.068099548 fft_s=0.125629268 recover_s=0.012769692 mel_s=0.011600509
+batch_profile id=9 batches=1503 pack_s=0.067479900 fft_s=0.126913244 recover_s=0.012704220 mel_s=0.011327978
+batch_profile id=13 batches=1503 pack_s=0.068727605 fft_s=0.125721946 recover_s=0.012854599 mel_s=0.011477431
+TOTAL pack_s: 1.084170625s; 45081.734 ns/batch; 5635.217 ns/frame
+TOTAL fft_s: 1.984238084s; 82508.133 ns/batch; 10313.517 ns/frame
+TOTAL recover_s: 0.204769352s; 8514.672 ns/batch; 1064.334 ns/frame
+TOTAL mel_s: 0.182690014s; 7596.574 ns/batch; 949.572 ns/frame
+诊断输出: PASS

@@ -1,0 +1,194 @@
+[
+  {
+    "case": "default",
+    "runs": 6,
+    "order": [
+      [
+        "0",
+        "1"
+      ],
+      [
+        "1",
+        "0"
+      ]
+    ],
+    "programs": [
+      {
+        "label": "stable",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/tmp/results/next/stable/melspec",
+        "times_s": [
+          1.5864621270011412,
+          1.326275216000795,
+          1.4178707300015958,
+          1.1932672549992276,
+          1.234693459002301,
+          1.171457148000627
+        ],
+        "min_s": 1.171457148000627,
+        "median_s": 1.280484337501548,
+        "pass": true,
+        "max_abs_err": 0.03125
+      },
+      {
+        "label": "support",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/melspec",
+        "times_s": [
+          1.2320319470018148,
+          1.15744802199697,
+          1.422075185997528,
+          1.2479940659977729,
+          1.266286157999275,
+          1.3175604030002432
+        ],
+        "min_s": 1.15744802199697,
+        "median_s": 1.257140111998524,
+        "pass": true,
+        "max_abs_err": 0.03125
+      }
+    ]
+  },
+  {
+    "case": "small_mels",
+    "runs": 6,
+    "order": [
+      [
+        "0",
+        "1"
+      ],
+      [
+        "1",
+        "0"
+      ]
+    ],
+    "programs": [
+      {
+        "label": "stable",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/tmp/results/next/stable/melspec",
+        "times_s": [
+          0.9036757649992069,
+          0.9488964120027958,
+          0.8713785910003935,
+          0.8334260709998489,
+          0.8784646400017664,
+          0.8043375509987527
+        ],
+        "min_s": 0.8043375509987527,
+        "median_s": 0.8749216155010799,
+        "pass": true,
+        "max_abs_err": 0.01171875
+      },
+      {
+        "label": "support",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/melspec",
+        "times_s": [
+          1.094005842001934,
+          0.7760936049999145,
+          0.8250948559980316,
+          0.7813466190018516,
+          0.7897297839990642,
+          0.8063967019988922
+        ],
+        "min_s": 0.7760936049999145,
+        "median_s": 0.7980632429989782,
+        "pass": true,
+        "max_abs_err": 0.01171875
+      }
+    ]
+  },
+  {
+    "case": "large_fft",
+    "runs": 6,
+    "order": [
+      [
+        "0",
+        "1"
+      ],
+      [
+        "1",
+        "0"
+      ]
+    ],
+    "programs": [
+      {
+        "label": "stable",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/tmp/results/next/stable/melspec",
+        "times_s": [
+          2.2631942799998797,
+          2.133479203999741,
+          2.167198757000733,
+          2.1688454870018177,
+          2.0890869369977736,
+          2.220586674997321
+        ],
+        "min_s": 2.0890869369977736,
+        "median_s": 2.1680221220012754,
+        "pass": true,
+        "max_abs_err": 0.125
+      },
+      {
+        "label": "support",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/melspec",
+        "times_s": [
+          2.228175125001144,
+          1.9397148070020194,
+          2.009893575002934,
+          2.093155177997687,
+          1.8784107710016542,
+          1.9305307720023848
+        ],
+        "min_s": 1.8784107710016542,
+        "median_s": 1.9748041910024767,
+        "pass": true,
+        "max_abs_err": 0.125
+      }
+    ]
+  },
+  {
+    "case": "narrow_band",
+    "runs": 6,
+    "order": [
+      [
+        "0",
+        "1"
+      ],
+      [
+        "1",
+        "0"
+      ]
+    ],
+    "programs": [
+      {
+        "label": "stable",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/tmp/results/next/stable/melspec",
+        "times_s": [
+          1.8234640679984295,
+          2.1300089830001525,
+          2.083044865001284,
+          1.9101854059990728,
+          1.8257128139994165,
+          3.8449173910012178
+        ],
+        "min_s": 1.8234640679984295,
+        "median_s": 1.9966151355001784,
+        "pass": true,
+        "max_abs_err": 0.0625
+      },
+      {
+        "label": "support",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/melspec",
+        "times_s": [
+          1.7073279090000142,
+          2.051216846997704,
+          1.9604393520021404,
+          2.03329107099853,
+          2.0726541570002155,
+          3.611132729001838
+        ],
+        "min_s": 1.7073279090000142,
+        "median_s": 2.042253958998117,
+        "pass": true,
+        "max_abs_err": 0.0625
+      }
+    ]
+  }
+]
