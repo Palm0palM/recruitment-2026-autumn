@@ -1,0 +1,47 @@
+== batch4 profile job 91 on hepnode3 ==
+16
+Cpus_allowed_list:	0-15
+a7a340029750b988f91884af2cca5eb3f06a473d441642730c7cbde97d150b11  src/melspec.cpp
+6a3e692ce1117a8745128ccaf80f6167c4c2c3f604223710a35efb64276b125e  scripts/batch_profile.py
+batch_profile id=0 batches=3006 pack_s=0.083528281 fft_s=0.139992965 recover_s=0.036941930 mel_s=0.014351817
+batch_profile id=6 batches=3006 pack_s=0.085851352 fft_s=0.141476192 recover_s=0.036921449 mel_s=0.016278041
+batch_profile id=3 batches=3006 pack_s=0.085809473 fft_s=0.141933878 recover_s=0.036965601 mel_s=0.016311245
+batch_profile id=7 batches=3006 pack_s=0.087190478 fft_s=0.141983153 recover_s=0.037365478 mel_s=0.016429121
+batch_profile id=2 batches=3006 pack_s=0.085864430 fft_s=0.143535637 recover_s=0.037353671 mel_s=0.016452275
+batch_profile id=5 batches=3007 pack_s=0.086424448 fft_s=0.142963939 recover_s=0.037492298 mel_s=0.016562155
+batch_profile id=14 batches=3006 pack_s=0.086065226 fft_s=0.143849911 recover_s=0.037131535 mel_s=0.016351073
+batch_profile id=4 batches=3006 pack_s=0.087393161 fft_s=0.142664504 recover_s=0.037535716 mel_s=0.016478120
+batch_profile id=15 batches=3007 pack_s=0.086750576 fft_s=0.143268339 recover_s=0.037397286 mel_s=0.016526667
+batch_profile id=1 batches=3006 pack_s=0.085913955 fft_s=0.144965741 recover_s=0.037415203 mel_s=0.016490443
+batch_profile id=9 batches=3006 pack_s=0.086683999 fft_s=0.145481814 recover_s=0.037337748 mel_s=0.016560434
+batch_profile id=12 batches=3006 pack_s=0.087044140 fft_s=0.145160171 recover_s=0.037376301 mel_s=0.016528342
+batch_profile id=10 batches=3007 pack_s=0.085738767 fft_s=0.147069494 recover_s=0.037211146 mel_s=0.016378883
+batch_profile id=13 batches=3006 pack_s=0.087082835 fft_s=0.145333271 recover_s=0.037534280 mel_s=0.016679232
+batch_profile id=11 batches=3006 pack_s=0.088579886 fft_s=0.145100962 recover_s=0.037460865 mel_s=0.016703449
+batch_profile id=8 batches=3006 pack_s=0.087054217 fft_s=0.148226156 recover_s=0.037512714 mel_s=0.016379306
+TOTAL pack_s: 1.382975224s; 28752.681 ns/batch; 7188.170 ns/frame
+TOTAL fft_s: 2.303006127s; 47880.541 ns/batch; 11970.135 ns/frame
+TOTAL recover_s: 0.596953221s; 12410.928 ns/batch; 3102.732 ns/frame
+TOTAL mel_s: 0.261460603s; 5435.884 ns/batch; 1358.971 ns/frame
+诊断输出: PASS
+batch_profile id=8 batches=3005 pack_s=0.172596637 fft_s=0.342152323 recover_s=0.075622557 mel_s=0.032911568
+batch_profile id=4 batches=3005 pack_s=0.174065637 fft_s=0.341081390 recover_s=0.075602200 mel_s=0.033076466
+batch_profile id=1 batches=3005 pack_s=0.173609602 fft_s=0.342296781 recover_s=0.076112637 mel_s=0.033111724
+batch_profile id=9 batches=3005 pack_s=0.173779248 fft_s=0.345371143 recover_s=0.075196256 mel_s=0.032737553
+batch_profile id=7 batches=3005 pack_s=0.175402289 fft_s=0.343204754 recover_s=0.075692049 mel_s=0.033337657
+batch_profile id=3 batches=3005 pack_s=0.174325786 fft_s=0.345098378 recover_s=0.076068601 mel_s=0.033066290
+batch_profile id=6 batches=3005 pack_s=0.173974900 fft_s=0.345373496 recover_s=0.075924329 mel_s=0.033206249
+batch_profile id=5 batches=3006 pack_s=0.175251184 fft_s=0.344353016 recover_s=0.076149611 mel_s=0.033034568
+batch_profile id=0 batches=3005 pack_s=0.179723605 fft_s=0.343532564 recover_s=0.075492967 mel_s=0.030057227
+batch_profile id=11 batches=3005 pack_s=0.173608083 fft_s=0.346994979 recover_s=0.075470604 mel_s=0.033071106
+batch_profile id=10 batches=3006 pack_s=0.174739846 fft_s=0.346519009 recover_s=0.075605829 mel_s=0.033143211
+batch_profile id=15 batches=3006 pack_s=0.173705422 fft_s=0.347411376 recover_s=0.075820108 mel_s=0.033141435
+batch_profile id=12 batches=3005 pack_s=0.175552172 fft_s=0.346006897 recover_s=0.075718003 mel_s=0.033024373
+batch_profile id=13 batches=3005 pack_s=0.173978549 fft_s=0.347097468 recover_s=0.075659142 mel_s=0.033834515
+batch_profile id=2 batches=3005 pack_s=0.173814562 fft_s=0.348850474 recover_s=0.075766434 mel_s=0.033239280
+batch_profile id=14 batches=3005 pack_s=0.173999401 fft_s=0.348902931 recover_s=0.076027599 mel_s=0.033586906
+TOTAL pack_s: 2.792126923s; 58068.900 ns/batch; 14517.225 ns/frame
+TOTAL fft_s: 5.524246979s; 114889.815 ns/batch; 28722.454 ns/frame
+TOTAL recover_s: 1.211928926s; 25204.936 ns/batch; 6301.234 ns/frame
+TOTAL mel_s: 0.527580128s; 10972.280 ns/batch; 2743.070 ns/frame
+诊断输出: PASS

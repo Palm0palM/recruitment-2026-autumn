@@ -1,0 +1,65 @@
+== batch4 job 84 on hepnode3 ==
+16
+Cpus_allowed_list:	0-15
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+g++ -I./include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/main.o -c src/main.cpp
+g++ -I./include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/melspec.o -c src/melspec.cpp
+g++  -o melspec tmp/build/main.o tmp/build/melspec.o -pthread
+default: PASS shape=(256, 1437) max_abs_err=0.00012207031
+small_mels: PASS shape=(64, 1437) max_abs_err=7.6293945e-05
+large_fft: PASS shape=(256, 1373) max_abs_err=0.00036621094
+narrow_band: PASS shape=(256, 1373) max_abs_err=0.00048828125
+cli_defaults: PASS shape=(128, 372) max_abs_err=1.5258789e-05
+fft_1: PASS shape=(4, 1500) max_abs_err=0
+fft_2: PASS shape=(4, 1500) max_abs_err=6.4623485e-27
+fft_8: PASS shape=(4, 1500) max_abs_err=8.7311491e-11
+tail_2: PASS shape=(16, 958) max_abs_err=0.00010681152
+tail_3: PASS shape=(16, 719) max_abs_err=9.1552734e-05
+n=    1: random/impulse/sine PASS
+n=    2: random/impulse/sine PASS
+n=    4: random/impulse/sine PASS
+n=    8: random/impulse/sine PASS
+n=   16: random/impulse/sine PASS
+n=   32: random/impulse/sine PASS
+n=   64: random/impulse/sine PASS
+n=  128: random/impulse/sine PASS
+n=  256: random/impulse/sine PASS
+n=  512: random/impulse/sine PASS
+n= 1024: random/impulse/sine PASS
+n= 2048: random/impulse/sine PASS
+n= 4096: random/impulse/sine PASS
+n= 8192: random/impulse/sine PASS
+n=16384: random/impulse/sine PASS
+All public rfft checks passed.
+a7a340029750b988f91884af2cca5eb3f06a473d441642730c7cbde97d150b11  src/melspec.cpp
+4b9f9e8791b98e7bfb378563c2229024e4d5f9f391b3f6b418902c89433b8307  melspec
+78c968fedcf8d30207af7f19c36dc739275df85a8e733bbb5178535bb60ed552  variants/simd-melspec.cpp
+27e344c78d55ca4d8c63806228c0a9ae307767d90665af24a6efddbbc431454b  tmp/bin/simd
+default/simd: min=1.211402s median=1.219966s PASS=True
+  runs: 1.211402 1.219334 1.228979 1.220598 1.223281 1.217275
+default/batch4: min=0.935205s median=0.937963s PASS=True
+  runs: 0.941333 0.935205 0.945022 0.938080 0.935205 0.937847
+default/fftw: min=0.991803s median=0.996682s PASS=True
+  runs: 0.998577 1.002872 1.002167 0.994787 0.993917 0.991803
+small_mels/simd: min=0.878152s median=0.884385s PASS=True
+  runs: 0.884512 0.881404 0.884257 0.888127 0.878152 0.909934
+small_mels/batch4: min=0.593368s median=0.595915s PASS=True
+  runs: 0.593778 0.595037 0.598901 0.593368 0.597518 0.596793
+small_mels/fftw: min=0.649122s median=0.657029s PASS=True
+  runs: 0.663764 0.658895 0.655162 0.649122 0.661301 0.654288
+large_fft/simd: min=1.947285s median=1.959421s PASS=True
+  runs: 1.947285 1.959224 1.962180 1.959618 1.962945 1.954993
+large_fft/batch4: min=1.294016s median=1.300800s PASS=True
+  runs: 1.301648 1.294016 1.317918 1.299953 1.297201 1.304496
+large_fft/fftw: min=1.357215s median=1.363878s PASS=True
+  runs: 1.368007 1.357215 1.365385 1.369378 1.360340 1.362371
+narrow_band/simd: min=1.900709s median=1.913292s PASS=True
+  runs: 1.902611 1.912394 1.936313 1.900709 1.942272 1.914190
+narrow_band/batch4: min=1.268810s median=1.279153s PASS=True
+  runs: 1.277173 1.278836 1.304988 1.279471 1.280700 1.268810
+narrow_band/fftw: min=1.304998s median=1.310996s PASS=True
+  runs: 1.304998 1.309392 1.332564 1.315561 1.312601 1.307408
