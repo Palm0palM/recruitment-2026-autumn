@@ -25,12 +25,17 @@ def main():
     ap.add_argument("--cases", nargs="+", default=["default", "small_mels", "large_fft", "narrow_band"])
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--configs", nargs="+", default=["a2", "1:bcast", "1:scatter", "1:shared",
-                    "2:bcast", "2:scatter", "2:shared", "4:bcast", "4:scatter", "4:shared"])
+                    "1:scatter:srun", "2:bcast", "2:scatter", "2:shared", "2:scatter:srun",
+                    "4:bcast", "4:scatter", "4:shared"])
     args = ap.parse_args()
     if args.runs < 1 or "a2" not in args.configs:
         ap.error("--runs must be positive and --configs must include a2")
     mpi_home = Path(os.environ.get("OPENMPI_HOME", "/cache/toolchain/openmpi-4.1.6"))
     mpirun = mpi_home / "bin/mpirun"
+    nodes = int(os.environ.get("SLURM_NNODES", "1"))
+    for config in args.configs:
+        if config != "a2" and int(config.split(":", 1)[0]) > nodes:
+            ap.error(f"config {config} needs more ranks than allocated nodes={nodes}")
     driver = ROOT / "tmp/bin/mpi-melspec"
     reference = ROOT / "tmp/bin/a2-estimate"
     data = find_data_dir()
@@ -49,13 +54,21 @@ def main():
                 order = args.configs[repeat % len(args.configs):] + args.configs[:repeat % len(args.configs)]
                 for config in order:
                     if config == "a2":
-                        ranks, mode = 1, "serial-a2"
+                        ranks, mode, launcher = 1, "serial-a2", "direct"
                         cmd = [str(reference), str(data / "audio.pcm"), str(output), *flags]
                     else:
-                        ranks_text, mode = config.split(":", 1)
-                        ranks = int(ranks_text)
-                        cmd = [str(mpirun), "-np", str(ranks), "--map-by", "ppr:1:node:pe=16",
-                               "--bind-to", "none", str(driver), str(data / "audio.pcm"), str(output), *flags]
+                        parts = config.split(":")
+                        ranks = int(parts[0])
+                        mode, launcher = parts[1], parts[2] if len(parts) > 2 else "mpirun"
+                        if launcher == "srun":
+                            cmd = ["srun", "--mpi=pmix", "-N", str(ranks), "-n", str(ranks),
+                                   "--ntasks-per-node=1", "-c16", "--hint=nomultithread",
+                                   str(driver), str(data / "audio.pcm"), str(output), *flags]
+                        elif launcher == "mpirun":
+                            cmd = [str(mpirun), "-np", str(ranks), "--map-by", "ppr:1:node:pe=16",
+                                   "--bind-to", "none", str(driver), str(data / "audio.pcm"), str(output), *flags]
+                        else:
+                            raise SystemExit(f"unknown launcher in {config}")
                     env = dict(os.environ, MELSPEC_MPI_IO=mode)
                     start = time.perf_counter()
                     proc = subprocess.run(cmd, check=True, capture_output=True, text=True, env=env)

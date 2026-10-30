@@ -56,7 +56,14 @@ case "$MODE" in
     "$PY" -u scripts/mpi_check.py
     ;;
   bench)
-    "$PY" -u scripts/mpi_bench.py --runs "${RUNS:-3}" --out "tmp/logs/mpi-bench-${SLURM_JOB_ID}.json"
+    if [ -n "${CONFIGS:-}" ]; then
+      read -r -a config_args <<< "$CONFIGS"
+      "$PY" -u scripts/mpi_bench.py --runs "${RUNS:-3}" --configs "${config_args[@]}" \
+        --out "tmp/logs/mpi-bench-${SLURM_JOB_ID}.json"
+    else
+      "$PY" -u scripts/mpi_bench.py --runs "${RUNS:-3}" \
+        --out "tmp/logs/mpi-bench-${SLURM_JOB_ID}.json"
+    fi
     ;;
   official)
     export MELSPEC_MPI_RANKS="${MELSPEC_MPI_RANKS:-2}" MELSPEC_MPI_IO="${MELSPEC_MPI_IO:-scatter}"
