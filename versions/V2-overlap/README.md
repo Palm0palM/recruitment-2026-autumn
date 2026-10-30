@@ -1,5 +1,12 @@
 # V2-overlap：高重叠 STFT 的计算共享研究
 
+> **最终归档：** [完整版本演进与证据](FINAL.md) ·
+> [P0 Mel 裁剪技术说明](P0-mel-pruning.md) · [答辩精简材料](DEFENSE.md) ·
+> [第三轮集群结果](next/cluster-next.md)
+>
+> 推荐实现：FFTW Batched C2C + P0；同作业相对 V1 为
+> 1.415× / 1.565× / 1.720× / 1.909×，四组全部 PASS。
+
 > 第二轮更正：V1 半长复数 FFT 的蝶形数应为 `(N/4)*log2(N/2)`，本文表格已修正。
 > 利用完整 m 输出的实信号共轭对称，可将重组 FFT 从 B 组降为 B/2+1 组；
 > 见 [half-r 专项实验](half-r/README.md)。
