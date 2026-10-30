@@ -1,0 +1,19 @@
+precision=double version=fftw-3.3.11-sse2-avx-avx2-avx2_128 compiler=gcc -O3 -march=x86-64-v3 -mno-avx512f
+kind=r2c n_fft=16384 c2c_n=8192 batch=1 api=single planner=measure out_width_complex=8193 out_stride_complex=8193
+wisdom_import=not-requested
+plan_s=0.625595687
+actual_plan_begin
+(rdft2-ct-dit/8
+  (hc2c-direct-8/28/1 "hc2cfdftv_8_avx2"
+    (rdft2-r2hc-direct-8 "r2cf_8")
+    (rdft2-r2hc01-direct-8 "r2cfII_8"))
+  (dft-vrank>=1-x4/1
+    (dft-ct-dit/32
+      (dftw-direct-32/248 "t2fv_32_avx2")
+      (dft-direct-64-x32 "n1fv_64_avx"))))
+actual_plan_end
+layout=planning which=input row=0 alignment_class=0 address_mod16=0 address_mod32=0 address_mod64=32
+layout=planning which=output row=0 alignment_class=0 address_mod16=0 address_mod32=0 address_mod64=32
+layout=new-array-inspection-only which=input row=0 alignment_class=0 address_mod16=0 address_mod32=0 address_mod64=32
+layout=new-array-inspection-only which=output row=0 alignment_class=0 address_mod16=0 address_mod32=0 address_mod64=32
+scope=single-thread-copy-plus-execute-not-end-to-end

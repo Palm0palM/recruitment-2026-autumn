@@ -15,6 +15,7 @@ export OMP_NUM_THREADS=16 OPENBLAS_NUM_THREADS=16 MKL_NUM_THREADS=16 OMP_PROC_BI
 PY="$HOME/venv/bin/python"
 O=tmp/fftw-lab/isa-comparison
 E=versions/V2-fftw/experiments
+export FFTW_ISA_LAB="$PWD/tmp/fftw-lab/isa/v3"
 mkdir -p "$O"
 echo "job=$SLURM_JOB_ID node=$(hostname)"
 git rev-parse HEAD
@@ -24,10 +25,10 @@ g++ --version
 # Both controlled libraries have identical scalar flags. Only enabled SIMD
 # codelets differ. The historical native library is a third, separate control.
 for isa in avx2 avx512; do
-  prefix="$PWD/tmp/fftw-lab/isa/prefix/$isa-double"
+  prefix="$FFTW_ISA_LAB/prefix/$isa-double"
   if [ -f "$prefix/lib/libfftw3.a" ]; then
-    grep -Fx 'CFLAGS=-O3 -march=x86-64-v3 -mno-avx512f' "tmp/fftw-lab/isa/config-$isa-double.txt"
-    grep -Fx 'archive_sha256=5630c24cdeb33b131612f7eb4b1a9934234754f9f388ff8617458d0be6f239a1' "tmp/fftw-lab/isa/config-$isa-double.txt"
+    grep -Fx 'CFLAGS=-O3 -march=x86-64-v3' "$FFTW_ISA_LAB/config-$isa-double.txt"
+    grep -Fx 'archive_sha256=5630c24cdeb33b131612f7eb4b1a9934234754f9f388ff8617458d0be6f239a1' "$FFTW_ISA_LAB/config-$isa-double.txt"
     echo "Reuse previously recorded $isa prefix"
   else
     VARIANT="$isa" PRECISION=double JOBS=8 bash "$E/isa/build_fftw_variant.sh" \
@@ -46,8 +47,8 @@ for isa in avx2 avx512; do
   done
 done
 bash "$E/isa/audit_isa.sh" \
-  "$PWD/tmp/fftw-lab/isa/prefix/avx2-double/lib/libfftw3.a" \
-  "$PWD/tmp/fftw-lab/isa/prefix/avx512-double/lib/libfftw3.a" \
+  "$FFTW_ISA_LAB/prefix/avx2-double/lib/libfftw3.a" \
+  "$FFTW_ISA_LAB/prefix/avx512-double/lib/libfftw3.a" \
   > "tmp/logs/isa-audit-$SLURM_JOB_ID.txt"
 for f in tmp/fftw-lab/isa/audit/*.suspect-avx512.txt; do
   wc -l "$f"

@@ -57,10 +57,10 @@ mkdir -p "$BUILD" "$PREFIX"
 
 SIMD=(--enable-avx --enable-avx2)
 if [[ "$PRECISION" == float ]]; then SIMD+=(--enable-sse); else SIMD+=(--enable-sse2); fi
-# Identical scalar/compiler baseline for BOTH libraries. FFTW appends the
+# Identical scalar/compiler baseline for BOTH libraries. FFTW adds the
 # required -mavx512f to its enabled AVX-512 codelet compilation units only.
 # Audit the build log before attributing a result to enabled codelets.
-CFLAGS='-O3 -march=x86-64-v3 -mno-avx512f'
+CFLAGS='-O3 -march=x86-64-v3'
 if [[ "$VARIANT" == avx512 ]]; then
   SIMD+=(--enable-avx512)
 fi

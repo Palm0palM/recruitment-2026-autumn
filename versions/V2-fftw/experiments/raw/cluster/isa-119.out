@@ -1,0 +1,13 @@
+job=119 node=hepnode2
+68e4a6cb8794651274306de9eaae3d2318114529
+Cpus_allowed_list:	0-15
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+CFLAGS=-O3 -march=x86-64-v3 -mno-avx512f
+archive_sha256=5630c24cdeb33b131612f7eb4b1a9934234754f9f388ff8617458d0be6f239a1
+Reuse previously recorded avx2 prefix
+e0b47f32b9d68ec0ba87d1a6deb5d613b9963f3148ab316afe3cf94232206e58  /home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/isa/prefix/avx2-double/lib/libfftw3.a
+80c692827a6ec7506e459311117c779602030c057b80cb77f10bf3a31f28abab  tmp/fftw-lab/isa-comparison/a2-avx2
