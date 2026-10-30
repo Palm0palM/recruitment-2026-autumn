@@ -52,6 +52,31 @@ CASE=small_mels RUNS=1 sbatch scripts/bench.slurm
   V1 继承 Slurm cpuset，自己最多启动 16 个线程。
 - 提交前必须创建 `tmp/logs`（Slurm 在脚本执行前打开日志）。`slurm.job` 只是同一流程的兼容入口。
 
+## Hybrid：交叉点测量与调度模型
+
+```bash
+# 单节点 L40 作业内：CPU-only 与 CPU+CUDA 两套二进制
+make CUDA=0 -B -j16 EXEC=tmp/bin/hybrid-cpu-only
+make CUDA=1 -B -j16 CUDA_HOME=... CUDA_ARCH=89 EXEC=tmp/bin/hybrid-cuda
+
+$PY scripts/hybrid_bench.py \
+  --cpu  tmp/bin/hybrid-cpu-only \
+  --cuda tmp/bin/run-hybrid-cuda \
+  --auto tmp/bin/run-hybrid-auto \
+  --runs 3 --out tmp/logs/hybrid-h2.json
+$PY scripts/fit_hybrid_model.py tmp/logs/hybrid-h2.json --emit-cpp   # CPU/GPU 系数
+$PY scripts/summarize_hybrid.py tmp/logs/hybrid-h2.json               # auto vs 始终 CPU/CUDA
+```
+
+- 38 个点：官方 4 组 + 合成矩阵（`frames`、`n_fft`、`n_mels`、频带、大型输入），
+  每点先校验输出（官方对 `data/expected`，合成 CPU vs CUDA），再计时。
+- 计时是**完整进程 wall time**，CPU/CUDA/auto 在同一轮内交错并逐轮翻转顺序，
+  取 3 轮中位数，原始值与最小值全部保留在 JSON。
+- `--auto` 通过 `MELSPEC_DISPATCH_LOG=1` 读取实际选择的后端，并统计逐点 regret。
+- `fit_hybrid_model.py --emit-cpp` 打印的 `MELSPEC_MODEL_*` 宏应与
+  `src/melspec.cpp` 中的常量一致；模型结构与适用范围见
+  `versions/V3-hybrid/DISPATCH_MODEL.md`。
+
 ## 集群 profile
 
 ```bash
