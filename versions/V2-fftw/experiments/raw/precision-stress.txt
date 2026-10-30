@@ -1,0 +1,89 @@
+[1/54] N256-period4-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[2/54] N256-period8-wide64-f4 reference=ok float-dp=ok float-fp=ok
+[3/54] N256-quantized-bin-tone-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[4/54] N256-quantized-offbin-tone-wide64-f4 reference=ok float-dp=ok float-fp=ok
+[5/54] N256-near-nyquist-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[6/54] N256-quiet-tone-narrow64-f4 reference=ok float-dp=ok float-fp=ok
+[7/54] N256-fullscale-dc-plus-1lsb-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[8/54] N256-multitone-plus-quiet-narrow64-f4 reference=ok float-dp=ok float-fp=ok
+[9/54] N256-sparse-impulse-wide64-f4 reference=ok float-dp=ok float-fp=ok
+[10/54] N2048-period4-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[11/54] N2048-period8-wide64-f4 reference=ok float-dp=ok float-fp=ok
+[12/54] N2048-quantized-bin-tone-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[13/54] N2048-quantized-offbin-tone-wide64-f4 reference=ok float-dp=ok float-fp=ok
+[14/54] N2048-near-nyquist-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[15/54] N2048-quiet-tone-narrow64-f4 reference=ok float-dp=ok float-fp=ok
+[16/54] N2048-fullscale-dc-plus-1lsb-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[17/54] N2048-multitone-plus-quiet-narrow64-f4 reference=ok float-dp=ok float-fp=ok
+[18/54] N2048-sparse-impulse-wide64-f4 reference=ok float-dp=ok float-fp=ok
+[19/54] N8192-period4-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[20/54] N8192-period8-wide64-f4 reference=ok float-dp=ok float-fp=ok
+[21/54] N8192-quantized-bin-tone-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[22/54] N8192-quantized-offbin-tone-wide64-f4 reference=ok float-dp=ok float-fp=ok
+[23/54] N8192-near-nyquist-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[24/54] N8192-quiet-tone-narrow64-f4 reference=ok float-dp=ok float-fp=ok
+[25/54] N8192-fullscale-dc-plus-1lsb-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[26/54] N8192-multitone-plus-quiet-narrow64-f4 reference=ok float-dp=ok float-fp=ok
+[27/54] N8192-sparse-impulse-wide64-f4 reference=ok float-dp=ok float-fp=ok
+[28/54] N16384-period4-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[29/54] N16384-period8-wide64-f4 reference=ok float-dp=ok float-fp=ok
+[30/54] N16384-quantized-bin-tone-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[31/54] N16384-quantized-offbin-tone-wide64-f4 reference=ok float-dp=ok float-fp=ok
+[32/54] N16384-near-nyquist-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[33/54] N16384-quiet-tone-narrow64-f4 reference=ok float-dp=ok float-fp=ok
+[34/54] N16384-fullscale-dc-plus-1lsb-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[35/54] N16384-multitone-plus-quiet-narrow64-f4 reference=ok float-dp=ok float-fp=ok
+[36/54] N16384-sparse-impulse-wide64-f4 reference=ok float-dp=ok float-fp=ok
+[37/54] N32768-period4-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[38/54] N32768-period8-wide64-f4 reference=ok float-dp=ok float-fp=ok
+[39/54] N32768-quantized-bin-tone-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[40/54] N32768-quantized-offbin-tone-wide64-f4 reference=ok float-dp=ok float-fp=ok
+[41/54] N32768-near-nyquist-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[42/54] N32768-quiet-tone-narrow64-f4 reference=ok float-dp=ok float-fp=ok
+[43/54] N32768-fullscale-dc-plus-1lsb-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[44/54] N32768-multitone-plus-quiet-narrow64-f4 reference=ok float-dp=ok float-fp=ok
+[45/54] N32768-sparse-impulse-wide64-f4 reference=ok float-dp=ok float-fp=ok
+[46/54] N65536-period4-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[47/54] N65536-period8-wide64-f4 reference=ok float-dp=ok float-fp=ok
+[48/54] N65536-quantized-bin-tone-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[49/54] N65536-quantized-offbin-tone-wide64-f4 reference=ok float-dp=ok float-fp=ok
+[50/54] N65536-near-nyquist-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[51/54] N65536-quiet-tone-narrow64-f4 reference=ok float-dp=ok float-fp=ok
+[52/54] N65536-fullscale-dc-plus-1lsb-wide256-f1 reference=ok float-dp=ok float-fp=ok
+[53/54] N65536-multitone-plus-quiet-narrow64-f4 reference=ok float-dp=ok float-fp=ok
+[54/54] N65536-sparse-impulse-wide64-f4 reference=ok float-dp=ok float-fp=ok
+{
+  "summary": "tmp/fftw-lab/orchestrator/stress/summary.json",
+  "all_ok": true,
+  "reference_problem_count": 0,
+  "programs": {
+    "float-dp": {
+      "passed": 54,
+      "failed": 0,
+      "not_comparable": 0,
+      "worst_normalized_error": 0.022546550724449894,
+      "worst_case": "N65536-multitone-plus-quiet-narrow64-f4",
+      "worst_detail": {
+        "abs": 3.6507844924926758e-06,
+        "rel": 5.895771306159402e-05,
+        "maxindex": 201,
+        "ref": 0.06192208454012871,
+        "got": 0.061918433755636215
+      }
+    },
+    "float-fp": {
+      "passed": 54,
+      "failed": 0,
+      "not_comparable": 0,
+      "worst_normalized_error": 0.022523544040037192,
+      "worst_case": "N65536-multitone-plus-quiet-narrow64-f4",
+      "worst_detail": {
+        "abs": 3.647059202194214e-06,
+        "rel": 5.889755212989852e-05,
+        "maxindex": 201,
+        "ref": 0.06192208454012871,
+        "got": 0.061918437480926514
+      }
+    }
+  }
+}

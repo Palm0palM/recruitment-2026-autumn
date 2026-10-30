@@ -1,0 +1,117 @@
+job=93 node=hepnode2
+f9d2080af32b63c9147e21c2a7cce163ea7ed096
+Cpus_allowed_list:	0-15
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+/home/zsx/melspec-v2-fftw-agent-a/tmp/deps/downloads/fftw-3.3.11.tar.gz: OK
+Reuse FFTW: /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11
+g++ -I./include -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FFTW_R2C=1 -I/home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/r2c-estimate/melspec.o -c src/melspec.cpp
+g++  -o tmp/fftw-lab/orchestrator/a2 tmp/build/r2c-estimate/main.o tmp/build/r2c-estimate/melspec.o -pthread /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/lib/libfftw3.a -lm
+output=/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/orchestrator/wisdom-files/r2c-1.wisdom transform=r2c size=1 planner=measure precision=double planning_s=9.311e-06 wisdom_bytes=167
+output=/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/orchestrator/wisdom-files/r2c-2.wisdom transform=r2c size=2 planner=measure precision=double planning_s=1.4493e-05 wisdom_bytes=161
+output=/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/orchestrator/wisdom-files/r2c-8.wisdom transform=r2c size=8 planner=measure precision=double planning_s=4.167e-05 wisdom_bytes=161
+output=/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/orchestrator/wisdom-files/r2c-256.wisdom transform=r2c size=256 planner=measure precision=double planning_s=0.0965733 wisdom_bytes=545
+output=/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/orchestrator/wisdom-files/r2c-2048.wisdom transform=r2c size=2048 planner=measure precision=double planning_s=0.260002 wisdom_bytes=546
+output=/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/orchestrator/wisdom-files/r2c-8192.wisdom transform=r2c size=8192 planner=measure precision=double planning_s=0.452865 wisdom_bytes=546
+output=/home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/orchestrator/wisdom-files/r2c-16384.wisdom transform=r2c size=16384 planner=measure precision=double planning_s=0.6642 wisdom_bytes=743
+c487eddeb264013f9f051af9fb15ce66d60fc6d15d32ff7eb31501f593554ef5  /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11/lib/libfftw3.a
+15c7fb154e1a65ed84858cf1776ce8d8a18ec46ddc55f556208f12e098fd761a  /home/zsx/melspec-v2-fftw-agent-a/tmp/opt/fftw-3.3.11-float/lib/libfftw3f.a
+f1ab166c877e3921ed1a1d330a69ca542e243cd69eaef9184443662e7eb88e64  tmp/fftw-lab/orchestrator/a2
+2e12fd2f7278613d0151701032cbaf66d3bf4324976016f53e3fad87f1b06ba7  tmp/fftw-lab/orchestrator/float-0
+7a416cea3731a544eead629f47d7fc1756f56b43c8d767c9c5202e510ba2d199  tmp/fftw-lab/orchestrator/float-1
+36d8d013da203ae9142b6f294c55b640556a1dee5c77bad413e265165b69960f  tmp/fftw-lab/orchestrator/wisdom
+{"program": "tmp/fftw-lab/orchestrator/float-0", "passed_valid": 39, "max_abs_err_vs_v1": 0.125, "rejected_short": 3}
+{"program": "tmp/fftw-lab/orchestrator/float-1", "passed_valid": 39, "max_abs_err_vs_v1": 0.125, "rejected_short": 3}
+{"program": "tmp/fftw-lab/orchestrator/wisdom", "passed_valid": 39, "max_abs_err_vs_v1": 7.836940203662097e-28, "rejected_short": 3}
+default a2 round=0 elapsed=0.985100 max_abs_err=0.03125 PASS
+default float-fp round=0 elapsed=0.893212 max_abs_err=0.0546875 PASS
+default float-dp round=0 elapsed=0.889642 max_abs_err=0.046875 PASS
+default wisdom round=0 elapsed=0.924865 max_abs_err=0.03125 PASS
+default float-fp round=1 elapsed=0.914073 max_abs_err=0.0546875 PASS
+default float-dp round=1 elapsed=0.906400 max_abs_err=0.046875 PASS
+default wisdom round=1 elapsed=0.935493 max_abs_err=0.03125 PASS
+default a2 round=1 elapsed=1.011655 max_abs_err=0.03125 PASS
+default float-dp round=2 elapsed=0.911188 max_abs_err=0.046875 PASS
+default wisdom round=2 elapsed=0.920328 max_abs_err=0.03125 PASS
+default a2 round=2 elapsed=1.011762 max_abs_err=0.03125 PASS
+default float-fp round=2 elapsed=0.892141 max_abs_err=0.0546875 PASS
+small_mels a2 round=0 elapsed=0.654032 max_abs_err=0.01171875 PASS
+small_mels float-fp round=0 elapsed=0.558061 max_abs_err=0.01953125 PASS
+small_mels float-dp round=0 elapsed=0.561641 max_abs_err=0.015625 PASS
+small_mels wisdom round=0 elapsed=0.582842 max_abs_err=0.01171875 PASS
+small_mels float-fp round=1 elapsed=0.597576 max_abs_err=0.01953125 PASS
+small_mels float-dp round=1 elapsed=0.563181 max_abs_err=0.015625 PASS
+small_mels wisdom round=1 elapsed=0.584593 max_abs_err=0.01171875 PASS
+small_mels a2 round=1 elapsed=0.663716 max_abs_err=0.01171875 PASS
+small_mels float-dp round=2 elapsed=0.562626 max_abs_err=0.015625 PASS
+small_mels wisdom round=2 elapsed=0.584478 max_abs_err=0.01171875 PASS
+small_mels a2 round=2 elapsed=0.660833 max_abs_err=0.01171875 PASS
+small_mels float-fp round=2 elapsed=0.574579 max_abs_err=0.01953125 PASS
+large_fft a2 round=0 elapsed=1.356232 max_abs_err=0.125 PASS
+large_fft float-fp round=0 elapsed=1.192368 max_abs_err=0.15625 PASS
+large_fft float-dp round=0 elapsed=1.213870 max_abs_err=0.1875 PASS
+large_fft wisdom round=0 elapsed=1.243168 max_abs_err=0.125 PASS
+large_fft float-fp round=1 elapsed=1.196847 max_abs_err=0.15625 PASS
+large_fft float-dp round=1 elapsed=1.213276 max_abs_err=0.1875 PASS
+large_fft wisdom round=1 elapsed=1.240894 max_abs_err=0.125 PASS
+large_fft a2 round=1 elapsed=1.375322 max_abs_err=0.125 PASS
+large_fft float-dp round=2 elapsed=1.202029 max_abs_err=0.1875 PASS
+large_fft wisdom round=2 elapsed=1.248703 max_abs_err=0.125 PASS
+large_fft a2 round=2 elapsed=1.363302 max_abs_err=0.125 PASS
+large_fft float-fp round=2 elapsed=1.193986 max_abs_err=0.15625 PASS
+narrow_band a2 round=0 elapsed=1.293080 max_abs_err=0.0625 PASS
+narrow_band float-fp round=0 elapsed=1.132575 max_abs_err=0.125 PASS
+narrow_band float-dp round=0 elapsed=1.149210 max_abs_err=0.125 PASS
+narrow_band wisdom round=0 elapsed=1.179988 max_abs_err=0.0625 PASS
+narrow_band float-fp round=1 elapsed=1.135100 max_abs_err=0.125 PASS
+narrow_band float-dp round=1 elapsed=1.152742 max_abs_err=0.125 PASS
+narrow_band wisdom round=1 elapsed=1.189456 max_abs_err=0.0625 PASS
+narrow_band a2 round=1 elapsed=1.320362 max_abs_err=0.0625 PASS
+narrow_band float-dp round=2 elapsed=1.149965 max_abs_err=0.125 PASS
+narrow_band wisdom round=2 elapsed=1.187405 max_abs_err=0.0625 PASS
+narrow_band a2 round=2 elapsed=1.328106 max_abs_err=0.0625 PASS
+narrow_band float-fp round=2 elapsed=1.145034 max_abs_err=0.125 PASS
+case | program | min_s | median_s | vs_v1
+default | a2 | 0.985100 | 1.011655 | None
+default | float-fp | 0.892141 | 0.893212 | None
+default | float-dp | 0.889642 | 0.906400 | None
+default | wisdom | 0.920328 | 0.924865 | None
+small_mels | a2 | 0.654032 | 0.660833 | None
+small_mels | float-fp | 0.558061 | 0.574579 | None
+small_mels | float-dp | 0.561641 | 0.562626 | None
+small_mels | wisdom | 0.582842 | 0.584478 | None
+large_fft | a2 | 1.356232 | 1.363302 | None
+large_fft | float-fp | 1.192368 | 1.193986 | None
+large_fft | float-dp | 1.202029 | 1.213276 | None
+large_fft | wisdom | 1.240894 | 1.243168 | None
+narrow_band | a2 | 1.293080 | 1.320362 | None
+narrow_band | float-fp | 1.132575 | 1.135100 | None
+narrow_band | float-dp | 1.149210 | 1.149965 | None
+narrow_band | wisdom | 1.179988 | 1.187405 | None
+Official validation winner=float-fp program=tmp/fftw-lab/orchestrator/float-0
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    5.47e-02 |   PASS |    0.907 | 16.952x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.95e-02 |   PASS |    0.573 | 26.039x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.56e-01 |   PASS |    1.212 | 26.169x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    1.25e-01 |   PASS |    1.155 | 27.272x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+{"case": "default", "program": "a2", "proc_vmhwm_kib": 788288, "inherited_wait4_maxrss_kib": 784060, "user_s": 5.582065, "system_s": 0.477321, "passed": true}
+{"case": "default", "program": "float-fp", "proc_vmhwm_kib": 787660, "inherited_wait4_maxrss_kib": 991816, "user_s": 3.966934, "system_s": 0.48138499999999995, "passed": true}
+{"case": "default", "program": "float-dp", "proc_vmhwm_kib": 787492, "inherited_wait4_maxrss_kib": 991816, "user_s": 4.085024, "system_s": 0.47918099999999997, "passed": true}
+{"case": "default", "program": "wisdom", "proc_vmhwm_kib": 788308, "inherited_wait4_maxrss_kib": 991848, "user_s": 4.385155, "system_s": 0.486351, "passed": true}
+{"case": "large_fft", "program": "a2", "proc_vmhwm_kib": 794400, "inherited_wait4_maxrss_kib": 991848, "user_s": 11.336085, "system_s": 0.48765899999999995, "passed": true}
+{"case": "large_fft", "program": "float-fp", "proc_vmhwm_kib": 796616, "inherited_wait4_maxrss_kib": 991848, "user_s": 8.582008, "system_s": 0.507114, "passed": true}
+{"case": "large_fft", "program": "float-dp", "proc_vmhwm_kib": 796704, "inherited_wait4_maxrss_kib": 991848, "user_s": 8.813883, "system_s": 0.47939499999999996, "passed": true}
+{"case": "large_fft", "program": "wisdom", "proc_vmhwm_kib": 794376, "inherited_wait4_maxrss_kib": 991848, "user_s": 9.236682, "system_s": 0.476467, "passed": true}

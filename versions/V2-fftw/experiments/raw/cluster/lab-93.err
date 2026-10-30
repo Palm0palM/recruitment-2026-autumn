@@ -1,0 +1,48 @@
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+FFTW wisdom status=loaded transform=r2c size=1 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=1 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=1 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=2 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=2 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=2 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=8 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=8 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=8 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=256 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=256 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=256 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=2048 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=2048 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=2048 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=8192 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=8192 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=16384 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=16384 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=8192 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=8192 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=16384 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=16384 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=8192 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=8192 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=16384 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=16384 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=8192 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=8192 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=16384 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=16384 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=8192 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=8192 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=16384 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=16384 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=8192 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=8192 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=16384 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=16384 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=8192 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE
+FFTW wisdom status=loaded transform=r2c size=16384 generated_with=measure runtime=WISDOM_ONLY|ESTIMATE

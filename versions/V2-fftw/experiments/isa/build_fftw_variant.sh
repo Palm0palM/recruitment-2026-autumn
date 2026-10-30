@@ -4,7 +4,13 @@
 # Run only after the main Agent schedules CPU time and reviews all paths/flags.
 set -euo pipefail
 
-LAB="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Archived script lives under versions/, but dependency builds must stay tmp/.
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../.." && pwd)"
+LAB="$(realpath -m "${FFTW_ISA_LAB:-$ROOT/tmp/fftw-lab/isa}")"
+case "$LAB" in
+  "$ROOT/tmp/fftw-lab/isa"|"$ROOT/tmp/fftw-lab/isa/"*) ;;
+  *) printf 'ISA build directory must remain under this worktree tmp/fftw-lab/isa\n' >&2; exit 2 ;;
+esac
 VARIANT="${VARIANT:?set VARIANT=avx2 or avx512}"
 PRECISION="${PRECISION:-double}"
 JOBS="${JOBS:-1}"

@@ -1,0 +1,74 @@
+[
+  {
+    "case": "default",
+    "program": "a2",
+    "proc_vmhwm_kib": 788288,
+    "inherited_wait4_maxrss_kib": 784060,
+    "user_s": 5.582065,
+    "system_s": 0.477321,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "float-fp",
+    "proc_vmhwm_kib": 787660,
+    "inherited_wait4_maxrss_kib": 991816,
+    "user_s": 3.966934,
+    "system_s": 0.48138499999999995,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "float-dp",
+    "proc_vmhwm_kib": 787492,
+    "inherited_wait4_maxrss_kib": 991816,
+    "user_s": 4.085024,
+    "system_s": 0.47918099999999997,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "wisdom",
+    "proc_vmhwm_kib": 788308,
+    "inherited_wait4_maxrss_kib": 991848,
+    "user_s": 4.385155,
+    "system_s": 0.486351,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "a2",
+    "proc_vmhwm_kib": 794400,
+    "inherited_wait4_maxrss_kib": 991848,
+    "user_s": 11.336085,
+    "system_s": 0.48765899999999995,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "float-fp",
+    "proc_vmhwm_kib": 796616,
+    "inherited_wait4_maxrss_kib": 991848,
+    "user_s": 8.582008,
+    "system_s": 0.507114,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "float-dp",
+    "proc_vmhwm_kib": 796704,
+    "inherited_wait4_maxrss_kib": 991848,
+    "user_s": 8.813883,
+    "system_s": 0.47939499999999996,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "wisdom",
+    "proc_vmhwm_kib": 794376,
+    "inherited_wait4_maxrss_kib": 991848,
+    "user_s": 9.236682,
+    "system_s": 0.476467,
+    "passed": true
+  }
+]

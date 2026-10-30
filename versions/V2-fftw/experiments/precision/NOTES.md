@@ -163,3 +163,47 @@ export FFTW_PREFIX="$PREFIX"
 6. 重复运行检查确定性，再进行主 Agent 安排的串行正式验收。未执行前不得写 PASS，不得提供或暗示性能数字。
 
 若任何用例超出原容差，应保留输入参数、原始输出、误差索引和构建身份，判定该变体未通过并分析原因；不得针对该输入硬编码修正或自行放宽容差。
+
+## 独立强数值反例搜索：`stress_precision.py`
+
+主 Agent 已报告的 official/local/cluster 结果只说明那些输入上的验收结果，不能代替这里的泛化压力检查。本脚本仍未在本轮执行；它固定生成 **54 个小输出用例**，覆盖 `n_fft=256/2048/8192/16384/32768/65536`，每个 N 同时包含 single-frame 和四帧（三个 hop）输入：
+
+- 满幅、严格整数周期 4 和周期 8 信号；
+- int16 量化后的 bin-centered tone、half-bin off-bin tone 和 near-Nyquist tone；
+- 4 LSB quiet tone；
+- 全 `-32768` DC 中恰有一个样本增加 1 LSB 到 `-32767`；
+- 强 tone 与 4 LSB 弱 off-bin tone 在量化前叠加；
+- 窗零点、窗内、hop 边界和不完整尾部的稀疏正负冲激；
+- `n_mels=256` 全频带、`n_mels=64` 全频带以及 `100–4000 Hz` narrow-band。
+
+四帧输出最多只有 `256×4=1024` 个 float32，PCM 最大也只有 `N+3·N/4` 个 int16，不构造全时长功率谱或大 expected 文件。高 N、高 Mel 和 narrow-band 用例全部照常执行，没有按尺寸、信号或既有结果硬编码跳过。
+
+待主 Agent 在 worktree 根目录串行运行（reference 必须指向独立构建的 double A2）：
+
+```bash
+source tmp/session-env.sh
+export TMPDIR=/path/to/orchestrator-private/tmp
+$PY tmp/fftw-lab/precision/stress_precision.py \
+  --reference /path/to/a2-estimate \
+  --programs \
+    double-power=/path/to/melspec-fftwf-double-power \
+    float-power=/path/to/melspec-fftwf-float-power \
+  --out /path/to/orchestrator-private/stress-report
+```
+
+每个 case 先运行 A2 reference，再按命令行顺序逐 candidate、逐进程运行；没有 Python 或 shell 并发。PCM 与临时 `.f32` 只在 `TMPDIR` 下自动清理的 `TemporaryDirectory` 中，`--out` 仅写 `summary.json`。脚本不使用官方 expected 特征，也不改变输入或容差。
+
+### 判定和 JSON 数据
+
+对 reference/candidate 都检查进程返回、文件存在、预期元素数和有限性。合法数组逐元素使用原条件：
+
+```text
+abs(got-ref) <= 1e-4 + 1e-3*abs(ref)
+normalized_error = abs(got-ref)/(1e-4 + 1e-3*abs(ref))
+```
+
+`normalized_error>1` 就是容差失败。每条比较记录最差 normalized error 的 `abs/rel/maxindex/ref/got`，另记录 `max_abs` 及其索引和 `num_failed`。当 reference 为零而 candidate 非零时，相对误差在 JSON 中为 `null`，由 absolute/normalized error 完整表示；NaN/Inf 标量以字符串保存，避免生成非标准 JSON。shape、非有限值、进程失败、timeout 和 reference 异常均作为明确失败原因记录。
+
+单个失败不会中止后续用例。最终 `summary.json` 包含全部 case 参数、信号频率/幅值/相位所需信息、PCM 摘要、每次进程 stdout/stderr/returncode、全部比较和每 candidate 的最差记录；终端只打印进度和汇总。任何 candidate 失败、不可比较或 reference 异常都会使脚本最终返回非零，同时保留完整报告。
+
+这些测试只是**反例搜索**：全部满足容差也不构成对其他频率、幅值、帧数或参数的数学证明。若极端大 `n_fft`、高 `n_mels` 或 narrow-band 暴露失败，应原样保留并归因，不能删除用例、因 official 已通过而忽略、硬编码修正或放宽容差。

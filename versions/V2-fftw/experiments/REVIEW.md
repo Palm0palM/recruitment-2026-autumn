@@ -43,6 +43,8 @@ negative-envelope tests and cluster validation remain pending; no wisdom speedup
 Static research and independent build/probe/audit drafts received; execution not authorized yet.
 Enabled/selected ISA, planner decomposition and copy behavior must be separated. No AVX2-only benefit is measured.
 Review scripts before any shell execution, and never build an AVX2-only claim with accidental native AVX-512.
+Parent adapted the archived ISA builder's output root to this worktree's tmp/fftw-lab/isa/, and the archived
+batch test's scratch to TMPDIR: archiving a worker script must not make it emit dependencies/PCM in versions/.
 
 ## Local screen (3 repeats, parent-only serialized)
 
