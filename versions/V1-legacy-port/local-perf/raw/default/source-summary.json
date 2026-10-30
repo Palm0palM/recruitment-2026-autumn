@@ -1,0 +1,42 @@
+{
+  "total_samples": 6573,
+  "sampled_threads": 16,
+  "phases": {
+    "read_pcm": {
+      "samples": 12,
+      "percent": 0.18256503879507074
+    },
+    "other": {
+      "samples": 1,
+      "percent": 0.015213753232922561
+    },
+    "compute_setup": {
+      "samples": 8,
+      "percent": 0.12171002586338049
+    },
+    "fft_butterflies_and_loop": {
+      "samples": 4319,
+      "percent": 65.70820021299255
+    },
+    "fft_bit_reversal": {
+      "samples": 797,
+      "percent": 12.125361326639283
+    },
+    "mel_projection": {
+      "samples": 263,
+      "percent": 4.001217100258634
+    },
+    "power_reconstruction": {
+      "samples": 893,
+      "percent": 13.585881636999847
+    },
+    "window_pack": {
+      "samples": 262,
+      "percent": 3.9860033470257115
+    },
+    "write_output": {
+      "samples": 18,
+      "percent": 0.2738475581926061
+    }
+  }
+}

@@ -1,0 +1,64 @@
++ git rev-parse HEAD
+191225a6e625b627eda10a517ee29ea02a45384e
++ uname -a
+Linux PalmPC 6.6.87.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025 x86_64 GNU/Linux
++ lscpu
+Architecture:                         x86_64
+CPU op-mode(s):                       32-bit, 64-bit
+Address sizes:                        39 bits physical, 48 bits virtual
+Byte Order:                           Little Endian
+CPU(s):                               24
+On-line CPU(s) list:                  0-23
+Vendor ID:                            GenuineIntel
+Model name:                           Intel(R) Core(TM) i7-14650HX
+CPU family:                           6
+Model:                                183
+Thread(s) per core:                   2
+Core(s) per socket:                   12
+Socket(s):                            1
+Stepping:                             1
+Microcode version:                    0xffffffff
+BogoMIPS:                             4838.40
+Flags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid tsc_known_freq pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni vnmi umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize flush_l1d arch_capabilities
+Virtualization:                       VT-x
+Hypervisor vendor:                    Microsoft
+Virtualization type:                  full
+L1d cache:                            576 KiB (12 instances)
+L1i cache:                            384 KiB (12 instances)
+L2 cache:                             24 MiB (12 instances)
+L3 cache:                             30 MiB (1 instance)
+NUMA node(s):                         1
+NUMA node0 CPU(s):                    0-23
+Vulnerability Gather data sampling:   Not affected
+Vulnerability Itlb multihit:          Not affected
+Vulnerability L1tf:                   Not affected
+Vulnerability Mds:                    Not affected
+Vulnerability Meltdown:               Not affected
+Vulnerability Mmio stale data:        Not affected
+Vulnerability Reg file data sampling: Mitigation; Clear Register File
+Vulnerability Retbleed:               Mitigation; Enhanced IBRS
+Vulnerability Spec rstack overflow:   Not affected
+Vulnerability Spec store bypass:      Mitigation; Speculative Store Bypass disabled via prctl
+Vulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:             Mitigation; Enhanced / Automatic IBRS; IBPB conditional; RSB filling; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S
+Vulnerability Srbds:                  Not affected
+Vulnerability Tsx async abort:        Not affected
++ free -h
+               total        used        free      shared  buff/cache   available
+Mem:            15Gi       2.3Gi        12Gi        35Mi       936Mi        13Gi
+Swap:          4.0Gi          0B       4.0Gi
++ g++ --version
+g++ (GCC) 16.2.1 20260810
+Copyright (C) 2026 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
++ perf --version
+perf version 7.3-1
++ git -C /home/palm/projects/heptagon/recruitment-2026-autumn/tmp/tools/FlameGraph rev-parse HEAD
+41fee1f99f9276008b7cd112fca19dc3ea84ac32
+perf_event_paranoid=2
+Cpus_allowed_list:	0-23
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  /home/palm/projects/heptagon/recruitment-2026-autumn/src/main.cpp
+3b00a2d777a20de397c3a2e407b60f6a21258940470851cbeb82c4c21c64f957  /home/palm/projects/heptagon/recruitment-2026-autumn/src/melspec.cpp
+bdfb7670b7042ae81005ecc72378b5b46bd409fb7f9e482a853e753435e6d73a  /home/palm/projects/heptagon/recruitment-2026-autumn/tmp/perf-v1-r2/melspec-perf

@@ -1,0 +1,20 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 6K of event 'task-clock:u'
+# Event count (approx.): 13172344584
+#
+# Overhead       Samples  Symbol                                                                                                                                                                                                                                                             Shared Object     IPC   [IPC Coverage]
+# ........  ............  .................................................................................................................................................................................................................................................................  ................  ....................
+#
+    93.17%          6124  [.] std::thread::_State_impl<std::thread::_Invoker<std::tuple<compute_melspectrogram(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)::{lambda(int)#1}, int> > >::_M_run()  melspec-perf      -      -
+     6.24%           410  [.] compute_melspectrogram(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)                                                                                                 melspec-perf      -      -
+     0.18%            12  [.] write_output(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::vector<double, std::allocator<double> > const&, int, int)                                                                                            melspec-perf      -      -
+     0.14%             9  [.] 0x0000000000176ede                                                                                                                                                                                                                                             libc.so.6         -      -
+
+
+#
+# (Tip: For memory address profiling, try: perf mem record / perf mem report)
+#

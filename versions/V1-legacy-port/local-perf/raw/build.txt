@@ -1,0 +1,1 @@
+g++ -std=c++17 -O3 -march=native -pthread -g -Iinclude src/main.cpp src/melspec.cpp -o /home/palm/projects/heptagon/recruitment-2026-autumn/tmp/perf-v1-r2/melspec-perf

@@ -1,0 +1,5 @@
+perf record --no-buildid-cache -e task-clock:u -F 499 --call-graph dwarf,16384 -m 1024 -o /home/palm/projects/heptagon/recruitment-2026-autumn/tmp/perf-v1/default/perf.data -- /home/palm/projects/heptagon/recruitment-2026-autumn/tmp/perf-v1/melspec-perf /home/palm/projects/heptagon/recruitment-2026-autumn/tmp/data/audio.pcm /home/palm/projects/heptagon/recruitment-2026-autumn/tmp/perf-v1/default/output.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels 256 --f_min 0.0 --f_max 22050.0
+Permission error mapping pages.
+Consider increasing /proc/sys/kernel/perf_event_mlock_kb,
+or try again with a smaller value of -m/--mmap_pages.
+(current value: 1024,0)

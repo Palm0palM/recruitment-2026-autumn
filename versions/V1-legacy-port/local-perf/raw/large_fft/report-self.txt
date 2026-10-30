@@ -1,0 +1,19 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 22K of event 'task-clock:u'
+# Event count (approx.): 45901803240
+#
+# Overhead       Samples  Symbol                                                                                                                                                                                                                                                             Shared Object     IPC   [IPC Coverage]
+# ........  ............  .................................................................................................................................................................................................................................................................  ................  ....................
+#
+    93.48%         21411  [.] std::thread::_State_impl<std::thread::_Invoker<std::tuple<compute_melspectrogram(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)::{lambda(int)#1}, int> > >::_M_run()  melspec-perf      -      -
+     6.31%          1446  [.] compute_melspectrogram(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)                                                                                                 melspec-perf      -      -
+     0.11%            26  [.] write_output(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::vector<double, std::allocator<double> > const&, int, int)                                                                                            melspec-perf      -      -
+
+
+#
+# (Tip: To add Node.js USDT(User-Level Statically Defined Tracing): perf buildid-cache --add `which node`)
+#

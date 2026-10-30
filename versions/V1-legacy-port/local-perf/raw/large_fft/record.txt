@@ -1,0 +1,3 @@
+perf record --no-buildid-cache -e task-clock:u -F 499 --call-graph dwarf,16384 -m 128 -o /home/palm/projects/heptagon/recruitment-2026-autumn/tmp/perf-v1-r2/large_fft/perf.data -- /home/palm/projects/heptagon/recruitment-2026-autumn/tmp/perf-v1-r2/melspec-perf /home/palm/projects/heptagon/recruitment-2026-autumn/tmp/data/audio.pcm /home/palm/projects/heptagon/recruitment-2026-autumn/tmp/perf-v1-r2/large_fft/output.bin --sr 96000 --n_fft 16384 --hop_length 128 --n_mels 256 --f_min 0.0 --f_max 22050.0
+[ perf record: Woken up 864 times to write data ]
+[ perf record: Captured and wrote 362.990 MB /home/palm/projects/heptagon/recruitment-2026-autumn/tmp/perf-v1-r2/large_fft/perf.data ]

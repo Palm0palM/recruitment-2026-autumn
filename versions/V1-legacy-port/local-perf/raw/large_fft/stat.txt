@@ -1,0 +1,9 @@
+
+ Performance counter stats for '/home/palm/projects/heptagon/recruitment-2026-autumn/tmp/perf-v1-r2/melspec-perf /home/palm/projects/heptagon/recruitment-2026-autumn/tmp/data/audio.pcm /home/palm/projects/heptagon/recruitment-2026-autumn/tmp/perf-v1-r2/large_fft/output.bin --sr 96000 --n_fft 16384 --hop_length 128 --n_mels 256 --f_min 0.0 --f_max 22050.0' (3 runs):
+
+          41593.06 msec task-clock:u                                                            ( +-  5.44% )
+                 0      context-switches:u
+                 0      cpu-migrations:u
+            209614      page-faults:u                                                           ( +-  0.00% )
+
+       3.192599792 +- 0.127883114 seconds time elapsed  ( +-  4.01% )

@@ -1,0 +1,32 @@
+Command: g++ -std=c++17 -O3 -march=native -pthread -g -Iinclude -fopt-info-vec-all=tmp/v1-vectorization.txt -c src/melspec.cpp -o tmp/build/melspec-vector-inspect.o
+
+First worker-loop diagnostics (original lines 9-27):
+src/melspec.cpp:177:31: missed: couldn't vectorize loop
+src/melspec.cpp:177:31: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+src/melspec.cpp:203:31: missed: couldn't vectorize loop
+src/melspec.cpp:203:31: missed: not vectorized: unsupported control flow in loop.
+src/melspec.cpp:205:42: optimized: loop vectorized using 32 byte vectors and unroll factor 4
+src/melspec.cpp:205:42: optimized: epilogue loop vectorized using 16 byte vectors and unroll factor 2
+src/melspec.cpp:194:35: missed: couldn't vectorize loop
+src/melspec.cpp:194:35: missed: not vectorized: unsupported control flow in loop.
+src/melspec.cpp:56:31: missed: couldn't vectorize loop
+src/melspec.cpp:56:31: missed: not vectorized: unsupported control flow in loop.
+src/melspec.cpp:57:31: missed: couldn't vectorize loop
+src/melspec.cpp:57:31: missed: not vectorized: unsupported control flow in loop.
+src/melspec.cpp:58:35: missed: couldn't vectorize loop
+src/melspec.cpp:58:35: missed: not vectorized: unsupported control flow in loop.
+src/melspec.cpp:54:27: missed: couldn't vectorize loop
+src/melspec.cpp:54:27: missed: not vectorized: unsupported control flow in loop.
+src/melspec.cpp:185:35: optimized: loop vectorized using 32 byte vectors and unroll factor 2
+src/melspec.cpp:185:35: optimized:  loop versioned for vectorization because of possible aliasing
+src/melspec.cpp:185:35: optimized: epilogue loop vectorized using 16 byte vectors and unroll factor 1
+
+SLP diagnostics for butterfly stores:
+src/melspec.cpp:63:40: optimized: basic block part vectorized using 16 byte vectors
+src/melspec.cpp:62:30: optimized: basic block part vectorized using 16 byte vectors
+src/melspec.cpp:63:40: optimized: basic block part vectorized using 16 byte vectors
+src/melspec.cpp:62:30: optimized: basic block part vectorized using 16 byte vectors
+src/melspec.cpp:63:40: optimized: basic block part vectorized using 16 byte vectors
+src/melspec.cpp:62:30: optimized: basic block part vectorized using 16 byte vectors
+src/melspec.cpp:63:40: optimized: basic block part vectorized using 16 byte vectors
+src/melspec.cpp:62:30: optimized: basic block part vectorized using 16 byte vectors

@@ -1,0 +1,6 @@
+{
+  "case": "large_fft",
+  "passed": true,
+  "elements": 49237248,
+  "max_abs_err": 0.125
+}
