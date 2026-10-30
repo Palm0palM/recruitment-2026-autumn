@@ -55,6 +55,17 @@ A1 独立代码提交 `a7a0752`；A2 增量提交后仍可通过 `FFT_MODE=c2c` 
 最大输出差为 `3.0517578125e-05`，容差仍为题目 `rtol=1e-3, atol=1e-4`。
 后续补充 ESTIMATE/MEASURE 对照、正式集群四组验证与新瓶颈分析。失败实验同样保留。
 
+## 评测流程
+
+`scripts/fftw_bench.py` 在同一环境以轮换顺序运行 V1、A1/A2 与两种 planner，保留每次 wall time、
+min/median、对同次 V1 的加速比，每次输出都与官方全量 expected 校验。输入/输出 I/O、规划、
+线程创建均计入进程时间；不导入/计时 librosa，不把本地结果当作集群成绩。
+
+`scripts/fftw-cluster.slurm` 为本实验独立作业：1 task × 16 CPU、nomultithread、不写 mem。
+MODE=build 仅在计算节点构建静态 FFTW；默认先做五种二进制的全量三次对比，再对 A2 ESTIMATE
+运行完整官方 `validate.py --runs 3`。中间输出在节点本地 scratch，源码、库和日志留独立 home 目录。
+依赖构建日志、源码/库/程序哈希和 cpuset 均输出；只串行提交本实验作业，不跑 V0。
+
 资料：FFTW 官方 [下载](https://www.fftw.org/download.html)、
 [线程安全](https://www.fftw.org/fftw3_doc/Thread-safety.html)、
 [new-array execute](https://www.fftw.org/fftw3_doc/New_002darray-Execute-Functions.html)、
