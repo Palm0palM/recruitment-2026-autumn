@@ -51,19 +51,29 @@ scratch=$(mktemp -d "/tmp/melspec-mpi-${SLURM_JOB_ID}-XXXXXX")
 trap 'rm -rf -- "$scratch"' EXIT
 export TMPDIR="$scratch"
 
+run_bench() {
+  if [ -n "${CONFIGS:-}" ]; then
+    read -r -a config_args <<< "$CONFIGS"
+    "$PY" -u scripts/mpi_bench.py --runs "${RUNS:-3}" --configs "${config_args[@]}" \
+      --out "tmp/logs/mpi-bench-${SLURM_JOB_ID}.json"
+  else
+    "$PY" -u scripts/mpi_bench.py --runs "${RUNS:-3}" \
+      --out "tmp/logs/mpi-bench-${SLURM_JOB_ID}.json"
+  fi
+}
+
 case "$MODE" in
   check)
     "$PY" -u scripts/mpi_check.py
     ;;
   bench)
-    if [ -n "${CONFIGS:-}" ]; then
-      read -r -a config_args <<< "$CONFIGS"
-      "$PY" -u scripts/mpi_bench.py --runs "${RUNS:-3}" --configs "${config_args[@]}" \
-        --out "tmp/logs/mpi-bench-${SLURM_JOB_ID}.json"
-    else
-      "$PY" -u scripts/mpi_bench.py --runs "${RUNS:-3}" \
-        --out "tmp/logs/mpi-bench-${SLURM_JOB_ID}.json"
-    fi
+    run_bench
+    ;;
+  full)
+    run_bench
+    export MELSPEC_MPI_RANKS="${MELSPEC_MPI_RANKS:-4}" MELSPEC_MPI_IO="${MELSPEC_MPI_IO:-scatter}"
+    "$PY" -u validate.py ./scripts/mpi-official-wrapper.sh --runs "${RUNS:-3}" | tee "tmp/logs/mpi-official-${SLURM_JOB_ID}.txt"
+    grep -q 'Result: 4/4 PASSED' "tmp/logs/mpi-official-${SLURM_JOB_ID}.txt"
     ;;
   official)
     export MELSPEC_MPI_RANKS="${MELSPEC_MPI_RANKS:-2}" MELSPEC_MPI_IO="${MELSPEC_MPI_IO:-scatter}"
