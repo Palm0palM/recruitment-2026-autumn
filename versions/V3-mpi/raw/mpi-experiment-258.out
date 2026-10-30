@@ -1,0 +1,118 @@
+job=258 mode=check nodes=hepnode[2-3]
+hepnode2
+hepnode3
+source snapshot: no Git metadata (recorded by the local orchestrator)
+Open MPI v4.1.6
+
+http://www.open-mpi.org/community/help/
+MPI plugin types are...
+	none
+	cray_shasta
+	pmi2
+	pmix
+specific pmix plugin versions available: pmix_v5
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+b43d32ec26380a411a995ada96ca65fedfee0e920ee0a0d2ccc79aab4ded53b5  src/melspec.cpp
+3bcb8265fb0157fcb8166415c5fe3e6bcf165463e8df976aeb58c861cfe228a1  include/fftw_support.h
+6a867dc6a03653cb0d0026f6e05b8473659b73a327865025b5f2d90c36ee9bec  scripts/mpi_melspec.cpp
+4ea24a5e953708491f376d3f199e052d96bf61bb5e7936c3d09d8a1da2cedc63  /home/zsx/melspec-v3-mpi-spike/tmp/opt/fftw-3.3.11/lib/libfftw3.a
+bc03dc054f760fab6ed55524fbe76ddf5082943aa95f6a60aa987f9670f6ed3a  tmp/bin/a2-estimate
+282d1c959406f2ed7f4718c8b875f6a23734080f77135732d8ee9b32374b4afa  tmp/bin/mpi-melspec
+	libmpi.so.40 => /cache/toolchain/openmpi-4.1.6/lib/libmpi.so.40 (0x00007157a96dd000)
+	libopen-rte.so.40 => /cache/toolchain/openmpi-4.1.6/lib/libopen-rte.so.40 (0x00007157a8f94000)
+	libopen-pal.so.40 => /cache/toolchain/openmpi-4.1.6/lib/libopen-pal.so.40 (0x00007157a8ca9000)
+MPI_CHECK random-default ranks=1 io=bcast exact=True PASS
+MPI_CHECK random-default ranks=1 io=scatter exact=True PASS
+MPI_CHECK random-default ranks=1 io=shared exact=True PASS
+MPI_CHECK random-default ranks=2 io=bcast exact=True PASS
+MPI_CHECK random-default ranks=2 io=scatter exact=True PASS
+MPI_CHECK random-default ranks=2 io=shared exact=True PASS
+MPI_CHECK random-default ranks=4 io=bcast exact=True PASS
+MPI_CHECK random-default ranks=4 io=scatter exact=True PASS
+MPI_CHECK random-default ranks=4 io=shared exact=True PASS
+MPI_TIMING rank=3 size=4 host=hepnode3 cpus=8 frames=1437 local_frames=360 io=shared init_s=0.447130747 read_s=0.000264026 distribution_s=0.010482675 compute_s=0.019507311 convert_pack_s=0.000089956 gather_s=0.003484104 write_s=0.000000051 sync_s=0.002243539 finalize_s=0.137213570 process_s=0.629006858
+MPI_TIMING rank=1 size=4 host=hepnode2 cpus=8 frames=1437 local_frames=359 io=shared init_s=0.448544289 read_s=0.000219633 distribution_s=0.009080818 compute_s=0.019354869 convert_pack_s=0.000109448 gather_s=0.002486225 write_s=0.000000052 sync_s=0.004817562 finalize_s=0.140795389 process_s=0.634148307
+MPI_TIMING rank=2 size=4 host=hepnode3 cpus=8 frames=1437 local_frames=359 io=shared init_s=0.446906301 read_s=0.000452885 distribution_s=0.009306981 compute_s=0.019657973 convert_pack_s=0.000118984 gather_s=0.004095779 write_s=0.000000051 sync_s=0.002894819 finalize_s=0.211593424 process_s=0.703317694
+MPI_TIMING rank=0 size=4 host=hepnode2 cpus=8 frames=1437 local_frames=359 io=shared init_s=0.441065691 read_s=0.000350968 distribution_s=0.010854410 compute_s=0.019186368 convert_pack_s=0.000116724 gather_s=0.004210285 write_s=0.001803549 sync_s=0.000008627 finalize_s=0.214253108 process_s=0.700139683
+MPI_CHECK random-large ranks=1 io=bcast exact=True PASS
+MPI_CHECK random-large ranks=1 io=scatter exact=True PASS
+MPI_CHECK random-large ranks=1 io=shared exact=True PASS
+MPI_CHECK random-large ranks=2 io=bcast exact=True PASS
+MPI_CHECK random-large ranks=2 io=scatter exact=True PASS
+MPI_CHECK random-large ranks=2 io=shared exact=True PASS
+MPI_CHECK random-large ranks=4 io=bcast exact=True PASS
+MPI_CHECK random-large ranks=4 io=scatter exact=True PASS
+MPI_CHECK random-large ranks=4 io=shared exact=True PASS
+MPI_TIMING rank=2 size=4 host=hepnode3 cpus=8 frames=1373 local_frames=343 io=shared init_s=0.447586645 read_s=0.000593051 distribution_s=5.218057066 compute_s=0.024553848 convert_pack_s=0.000013410 gather_s=0.002122361 write_s=0.000000041 sync_s=0.001782209 finalize_s=0.150829093 process_s=5.859133112
+MPI_TIMING rank=1 size=4 host=hepnode2 cpus=8 frames=1373 local_frames=343 io=shared init_s=0.439405874 read_s=5.197993716 distribution_s=0.020649638 compute_s=0.024725271 convert_pack_s=0.000011958 gather_s=0.000397385 write_s=0.000000059 sync_s=0.003349837 finalize_s=0.156494540 process_s=5.855346999
+MPI_TIMING rank=0 size=4 host=hepnode2 cpus=8 frames=1373 local_frames=343 io=shared init_s=0.448388150 read_s=0.000254627 distribution_s=5.219746346 compute_s=0.025322195 convert_pack_s=0.000014030 gather_s=0.000633267 write_s=0.001151815 sync_s=0.000006578 finalize_s=0.157139497 process_s=5.864647467
+MPI_TIMING rank=3 size=4 host=hepnode3 cpus=8 frames=1373 local_frames=344 io=shared init_s=0.439728747 read_s=5.198000214 distribution_s=0.021995743 compute_s=0.025246180 convert_pack_s=0.000013181 gather_s=0.000020632 write_s=0.000000071 sync_s=0.001853326 finalize_s=0.226261564 process_s=5.926681187
+MPI_CHECK one-frame ranks=1 io=bcast exact=True PASS
+MPI_CHECK one-frame ranks=1 io=scatter exact=True PASS
+MPI_CHECK one-frame ranks=1 io=shared exact=True PASS
+MPI_CHECK one-frame ranks=2 io=bcast exact=True PASS
+MPI_CHECK one-frame ranks=2 io=scatter exact=True PASS
+MPI_CHECK one-frame ranks=2 io=shared exact=True PASS
+MPI_CHECK one-frame ranks=4 io=bcast exact=True PASS
+MPI_CHECK one-frame ranks=4 io=scatter exact=True PASS
+MPI_CHECK one-frame ranks=4 io=shared exact=True PASS
+MPI_TIMING rank=0 size=4 host=hepnode2 cpus=8 frames=1 local_frames=0 io=shared init_s=0.439872814 read_s=0.000327557 distribution_s=5.399838896 compute_s=0.000000045 convert_pack_s=0.000000074 gather_s=0.003588287 write_s=0.000728659 sync_s=0.000005924 finalize_s=0.138342866 process_s=5.992950332
+MPI_TIMING rank=3 size=4 host=hepnode3 cpus=8 frames=1 local_frames=1 io=shared init_s=0.428123357 read_s=5.376338015 distribution_s=0.023821811 compute_s=0.003561891 convert_pack_s=0.000000215 gather_s=0.000007472 write_s=0.000000051 sync_s=0.000754875 finalize_s=0.138149004 process_s=5.983368922
+MPI_TIMING rank=1 size=4 host=hepnode2 cpus=8 frames=1 local_frames=0 io=shared init_s=0.440607338 read_s=5.376332524 distribution_s=0.022547204 compute_s=0.000000046 convert_pack_s=0.000000081 gather_s=0.000313765 write_s=0.000000036 sync_s=0.005293348 finalize_s=0.209819118 process_s=6.065052729
+MPI_TIMING rank=2 size=4 host=hepnode3 cpus=8 frames=1 local_frames=0 io=shared init_s=0.436096569 read_s=0.000438204 distribution_s=5.398451432 compute_s=0.000000046 convert_pack_s=0.000000086 gather_s=0.000314511 write_s=0.000000053 sync_s=0.005280348 finalize_s=0.210134452 process_s=6.063515387
+MPI_CHECK two-frames ranks=1 io=bcast exact=True PASS
+MPI_CHECK two-frames ranks=1 io=scatter exact=True PASS
+MPI_CHECK two-frames ranks=1 io=shared exact=True PASS
+MPI_CHECK two-frames ranks=2 io=bcast exact=True PASS
+MPI_CHECK two-frames ranks=2 io=scatter exact=True PASS
+MPI_CHECK two-frames ranks=2 io=shared exact=True PASS
+MPI_CHECK two-frames ranks=4 io=bcast exact=True PASS
+MPI_CHECK two-frames ranks=4 io=scatter exact=True PASS
+MPI_CHECK two-frames ranks=4 io=shared exact=True PASS
+MPI_TIMING rank=2 size=4 host=hepnode3 cpus=8 frames=2 local_frames=0 io=shared init_s=0.437109769 read_s=0.000515966 distribution_s=0.010097788 compute_s=0.000000060 convert_pack_s=0.000000073 gather_s=0.000186085 write_s=0.000000052 sync_s=0.004881396 finalize_s=0.124346827 process_s=0.586757282
+MPI_TIMING rank=3 size=4 host=hepnode3 cpus=8 frames=2 local_frames=1 io=shared init_s=0.437113108 read_s=0.000487761 distribution_s=0.011507224 compute_s=0.002981437 convert_pack_s=0.000000214 gather_s=0.000005691 write_s=0.000000052 sync_s=0.000699994 finalize_s=0.124339825 process_s=0.586737220
+MPI_TIMING rank=0 size=4 host=hepnode2 cpus=8 frames=2 local_frames=0 io=shared init_s=0.437417399 read_s=0.000270799 distribution_s=0.011723988 compute_s=0.000000056 convert_pack_s=0.000000090 gather_s=0.003005708 write_s=0.000677373 sync_s=0.000004242 finalize_s=0.127163636 process_s=0.591086539
+MPI_TIMING rank=1 size=4 host=hepnode2 cpus=8 frames=2 local_frames=1 io=shared init_s=0.432466942 read_s=0.000487175 distribution_s=0.010126018 compute_s=0.002897783 convert_pack_s=0.000000224 gather_s=0.000006416 write_s=0.000000051 sync_s=0.002163596 finalize_s=0.199806099 process_s=0.658781229
+MPI_CHECK hop-greater-than-fft ranks=1 io=bcast exact=True PASS
+MPI_CHECK hop-greater-than-fft ranks=1 io=scatter exact=True PASS
+MPI_CHECK hop-greater-than-fft ranks=1 io=shared exact=True PASS
+MPI_CHECK hop-greater-than-fft ranks=2 io=bcast exact=True PASS
+MPI_CHECK hop-greater-than-fft ranks=2 io=scatter exact=True PASS
+MPI_CHECK hop-greater-than-fft ranks=2 io=shared exact=True PASS
+MPI_CHECK hop-greater-than-fft ranks=4 io=bcast exact=True PASS
+MPI_CHECK hop-greater-than-fft ranks=4 io=scatter exact=True PASS
+MPI_CHECK hop-greater-than-fft ranks=4 io=shared exact=True PASS
+MPI_TIMING rank=3 size=4 host=hepnode3 cpus=8 frames=16 local_frames=4 io=shared init_s=0.443098636 read_s=0.000525937 distribution_s=0.010196303 compute_s=0.001222870 convert_pack_s=0.000000227 gather_s=0.000005937 write_s=0.000000041 sync_s=0.000924219 finalize_s=0.129424474 process_s=0.594129790
+MPI_TIMING rank=2 size=4 host=hepnode3 cpus=8 frames=16 local_frames=4 io=shared init_s=0.443534588 read_s=0.000429108 distribution_s=0.008863915 compute_s=0.001359915 convert_pack_s=0.000000271 gather_s=0.001551598 write_s=0.000000054 sync_s=0.000670864 finalize_s=0.130142971 process_s=0.594847709
+MPI_TIMING rank=0 size=4 host=hepnode2 cpus=8 frames=16 local_frames=4 io=shared init_s=0.435783804 read_s=0.000303964 distribution_s=0.010418728 compute_s=0.001101757 convert_pack_s=0.000000222 gather_s=0.000397563 write_s=0.000649237 sync_s=0.000004982 finalize_s=0.132166307 process_s=0.590929150
+MPI_TIMING rank=1 size=4 host=hepnode2 cpus=8 frames=16 local_frames=4 io=shared init_s=0.441156589 read_s=0.000426644 distribution_s=0.008862855 compute_s=0.001251626 convert_pack_s=0.000000205 gather_s=0.000223149 write_s=0.000000052 sync_s=0.002110104 finalize_s=0.206779266 process_s=0.670933912
+MPI_CHECK fft-one ranks=1 io=bcast exact=True PASS
+MPI_CHECK fft-one ranks=1 io=scatter exact=True PASS
+MPI_CHECK fft-one ranks=1 io=shared exact=True PASS
+MPI_CHECK fft-one ranks=2 io=bcast exact=True PASS
+MPI_CHECK fft-one ranks=2 io=scatter exact=True PASS
+MPI_CHECK fft-one ranks=2 io=shared exact=True PASS
+MPI_CHECK fft-one ranks=4 io=bcast exact=True PASS
+MPI_CHECK fft-one ranks=4 io=scatter exact=True PASS
+MPI_CHECK fft-one ranks=4 io=shared exact=True PASS
+MPI_TIMING rank=2 size=4 host=hepnode3 cpus=8 frames=17 local_frames=4 io=shared init_s=0.441300610 read_s=0.000511975 distribution_s=0.007408540 compute_s=0.000737941 convert_pack_s=0.000000290 gather_s=0.000181764 write_s=0.000000051 sync_s=0.001925448 finalize_s=0.126491847 process_s=0.588323079
+MPI_TIMING rank=0 size=4 host=hepnode2 cpus=8 frames=17 local_frames=4 io=shared init_s=0.441344779 read_s=0.000430861 distribution_s=0.008869626 compute_s=0.000727510 convert_pack_s=0.000000320 gather_s=0.000077120 write_s=0.000655960 sync_s=0.000008932 finalize_s=0.130735375 process_s=0.591893838
+MPI_TIMING rank=1 size=4 host=hepnode2 cpus=8 frames=17 local_frames=4 io=shared init_s=0.441187647 read_s=0.000261155 distribution_s=0.006806150 compute_s=0.000647097 convert_pack_s=0.000000239 gather_s=0.000195072 write_s=0.000000054 sync_s=0.002004574 finalize_s=0.131245505 process_s=0.592407134
+MPI_TIMING rank=3 size=4 host=hepnode3 cpus=8 frames=17 local_frames=5 io=shared init_s=0.440921995 read_s=0.000261611 distribution_s=0.008184262 compute_s=0.000633462 convert_pack_s=0.000000266 gather_s=0.000005741 write_s=0.000000042 sync_s=0.000830671 finalize_s=0.202766411 process_s=0.664232708
+MPI_CHECK fft-eight ranks=1 io=bcast exact=True PASS
+MPI_CHECK fft-eight ranks=1 io=scatter exact=True PASS
+MPI_CHECK fft-eight ranks=1 io=shared exact=True PASS
+MPI_CHECK fft-eight ranks=2 io=bcast exact=True PASS
+MPI_CHECK fft-eight ranks=2 io=scatter exact=True PASS
+MPI_CHECK fft-eight ranks=2 io=shared exact=True PASS
+MPI_CHECK fft-eight ranks=4 io=bcast exact=True PASS
+MPI_CHECK fft-eight ranks=4 io=scatter exact=True PASS
+MPI_CHECK fft-eight ranks=4 io=shared exact=True PASS
+MPI_TIMING rank=2 size=4 host=hepnode3 cpus=8 frames=33 local_frames=8 io=shared init_s=0.452930263 read_s=0.000484587 distribution_s=5.413838947 compute_s=0.000873930 convert_pack_s=0.000000317 gather_s=0.000325756 write_s=0.000000054 sync_s=0.001609567 finalize_s=0.138170609 process_s=6.019264887
+MPI_TIMING rank=1 size=4 host=hepnode2 cpus=8 frames=33 local_frames=8 io=shared init_s=0.449913643 read_s=5.390307816 distribution_s=0.023910239 compute_s=0.000632930 convert_pack_s=0.000000224 gather_s=0.000312600 write_s=0.000000054 sync_s=0.001874940 finalize_s=0.149113650 process_s=6.028644465
+MPI_TIMING rank=3 size=4 host=hepnode3 cpus=8 frames=33 local_frames=9 io=shared init_s=0.451909485 read_s=5.390315129 distribution_s=0.025222524 compute_s=0.000718148 convert_pack_s=0.000000285 gather_s=0.000007286 write_s=0.000000068 sync_s=0.000775847 finalize_s=0.212476437 process_s=6.092398770
+MPI_TIMING rank=0 size=4 host=hepnode2 cpus=8 frames=33 local_frames=8 io=shared init_s=0.450202778 read_s=0.000355676 distribution_s=5.415279169 compute_s=0.000578880 convert_pack_s=0.000000208 gather_s=0.000159065 write_s=0.000756016 sync_s=0.000006475 finalize_s=0.226251447 process_s=6.106078526
+MPI_CHECK short-N0 rejected PASS
+MPI_CHECK short-N1 rejected PASS
+MPI_CHECK short-N2047 rejected PASS
+MPI_CHECK total=63 exact outputs + 3 rejected short inputs: PASS

@@ -20,6 +20,8 @@
 - `validate.py` 直接启动程序，原始 main 没有 Rank 管理；普通多 Rank 不是其原生执行方式。
 - 独立 driver + 研究 wrapper 仅用于实验，**当前不能声称是正式提交入口**。
 - 三个 Kimi 子任务完成了数据划分、输出汇总和性能模型；主 Agent 负责集成和全部集群测试。
+- 2 节点小矩阵已完成：1/2/4 Rank × bcast/scatter/shared，63 个合法输出逐字节等于 A2，
+  3 个短输入正确拒绝；详见 [CORRECTNESS.md](CORRECTNESS.md)。
 
 详见 [ENVIRONMENT.md](ENVIRONMENT.md)、[DESIGN.md](DESIGN.md) 和后续 [PERFORMANCE.md](PERFORMANCE.md)。
 原始环境日志、正确性与强扩展结果归档在 `raw/`；研发 Subagent 的设计材料在 `research/`。
