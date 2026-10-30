@@ -1,0 +1,25 @@
+default a2-base round=0 elapsed=0.859770 max_abs_err=0.03125 PASS
+default a2-base round=1 elapsed=0.786224 max_abs_err=0.03125 PASS
+default a2-base round=2 elapsed=0.801738 max_abs_err=0.03125 PASS
+default a2-base round=3 elapsed=0.880722 max_abs_err=0.03125 PASS
+default a2-base round=4 elapsed=0.752183 max_abs_err=0.03125 PASS
+small_mels a2-base round=0 elapsed=0.506521 max_abs_err=0.01171875 PASS
+small_mels a2-base round=1 elapsed=0.488870 max_abs_err=0.01171875 PASS
+small_mels a2-base round=2 elapsed=0.488666 max_abs_err=0.01171875 PASS
+small_mels a2-base round=3 elapsed=0.521507 max_abs_err=0.01171875 PASS
+small_mels a2-base round=4 elapsed=0.485293 max_abs_err=0.01171875 PASS
+large_fft a2-base round=0 elapsed=1.211097 max_abs_err=0.125 PASS
+large_fft a2-base round=1 elapsed=1.131332 max_abs_err=0.125 PASS
+large_fft a2-base round=2 elapsed=1.160603 max_abs_err=0.125 PASS
+large_fft a2-base round=3 elapsed=1.167819 max_abs_err=0.125 PASS
+large_fft a2-base round=4 elapsed=1.200710 max_abs_err=0.125 PASS
+narrow_band a2-base round=0 elapsed=1.135767 max_abs_err=0.0625 PASS
+narrow_band a2-base round=1 elapsed=1.161458 max_abs_err=0.0625 PASS
+narrow_band a2-base round=2 elapsed=1.185376 max_abs_err=0.0625 PASS
+narrow_band a2-base round=3 elapsed=1.162279 max_abs_err=0.0625 PASS
+narrow_band a2-base round=4 elapsed=1.153672 max_abs_err=0.0625 PASS
+case | program | min_s | median_s | vs_v1
+default | a2-base | 0.752183 | 0.801738 | None
+small_mels | a2-base | 0.485293 | 0.488870 | None
+large_fft | a2-base | 1.131332 | 1.167819 | None
+narrow_band | a2-base | 1.135767 | 1.161458 | None
