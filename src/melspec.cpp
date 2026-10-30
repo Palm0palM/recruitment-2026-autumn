@@ -1,4 +1,5 @@
 #include "melspec.h"
+#include "fftw_support.h"
 
 #include <algorithm>
 #include <cassert>
@@ -23,61 +24,28 @@ double mel_to_hz(double m) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Cooley-Tukey iterative FFT (in-place, complex input/output)
+// FFTW in-place C2C, with one plan shared by independent worker buffers.
 // ─────────────────────────────────────────────────────────────────────────────
 
-struct FFTPlan {
-    std::vector<int> reversed;
-    std::vector<std::complex<double>> twiddles;
-
-    explicit FFTPlan(int n) : reversed(n), twiddles(n) {
-        for (int i = 1, j = 0; i < n; ++i) {
-            int bit = n >> 1;
-            for (; j & bit; bit >>= 1) j ^= bit;
-            j ^= bit;
-            reversed[i] = j;
-        }
-        // Store each stage's factors, using the original recurrence.
-        for (int len = 2; len <= n; len <<= 1) {
-            double ang = -2.0 * M_PI / static_cast<double>(len);
-            std::complex<double> wlen(std::cos(ang), std::sin(ang));
-            std::complex<double> w(1.0, 0.0);
-            for (int j = 0; j < len / 2; ++j) {
-                twiddles[len / 2 + j] = w;
-                w *= wlen;
-            }
-        }
-    }
-
-    void apply(std::vector<std::complex<double>>& a) const {
-        const int n = static_cast<int>(a.size());
-        for (int i = 1; i < n; ++i)
-            if (i < reversed[i]) std::swap(a[i], a[reversed[i]]);
-        for (int len = 2; len <= n; len <<= 1) {
-            for (int i = 0; i < n; i += len) {
-                for (int j = 0; j < len / 2; ++j) {
-                    std::complex<double> u = a[i + j];
-                    std::complex<double> v =
-                        a[i + j + len / 2] * twiddles[len / 2 + j];
-                    a[i + j] = u + v;
-                    a[i + j + len / 2] = u - v;
-                }
-            }
-        }
-    }
-};
+using melspec_fftw::Buffer;
+using melspec_fftw::Plan;
 
 // Real FFT: input n real values → output n/2+1 complex values.
 void compute_rfft(const std::vector<double>& frame,
                   std::vector<std::complex<double>>& out) {
     const int n = static_cast<int>(frame.size());
     // Copy real input into complex array
-    std::vector<std::complex<double>> a(n);
-    for (int i = 0; i < n; ++i) a[i] = {frame[i], 0.0};
-    FFTPlan(n).apply(a);
+    Buffer<fftw_complex> a(n);
+    Plan plan(n, a.get());
+    // MEASURE may overwrite arrays: initialize only AFTER plan creation.
+    for (int i = 0; i < n; ++i) {
+        a[i][0] = frame[i];
+        a[i][1] = 0.0;
+    }
+    plan.apply(a.get());
     // Keep only DC + positive frequencies (n/2+1 bins)
     out.resize(n / 2 + 1);
-    for (int k = 0; k <= n / 2; ++k) out[k] = a[k];
+    for (int k = 0; k <= n / 2; ++k) out[k] = {a[k][0], a[k][1]};
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -151,7 +119,6 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     }
 
     const int half = std::max(1, n_fft / 2);
-    FFTPlan plan(half);
     // -i/2 * exp(-2*pi*i*k/n_fft), for real-FFT reconstruction.
     std::vector<std::complex<double>> recovery(n_bins);
     for (int k = 1; k < n_fft / 2; ++k) {
@@ -165,10 +132,12 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
         static_cast<int>(std::max(1u, std::thread::hardware_concurrency())),
         std::max(1, n_frames / 256)});
     // Allocate scratch before launching threads, so workers cannot throw.
-    std::vector<std::vector<std::complex<double>>> fft_buffers(
-        n_threads, std::vector<std::complex<double>>(half));
+    std::vector<Buffer<fftw_complex>> fft_buffers;
+    fft_buffers.reserve(n_threads);
+    for (int id = 0; id < n_threads; ++id) fft_buffers.emplace_back(half);
     std::vector<std::vector<double>> power_buffers(
         n_threads, std::vector<double>(n_bins));
+    Plan plan(half, fft_buffers[0].get());
     auto worker = [&](int id) {
         auto& fft_out = fft_buffers[id];
         auto& power = power_buffers[id];
@@ -182,18 +151,19 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                 power[0] = sample * sample;
             } else {
                 // Pack even/odd real samples into a half-length complex FFT.
-                for (int i = 0; i < half; ++i)
-                    fft_out[i] = {y[start + 2 * i] * window[2 * i],
-                                  y[start + 2 * i + 1] * window[2 * i + 1]};
-                plan.apply(fft_out);
+                for (int i = 0; i < half; ++i) {
+                    fft_out[i][0] = y[start + 2 * i] * window[2 * i];
+                    fft_out[i][1] = y[start + 2 * i + 1] * window[2 * i + 1];
+                }
+                plan.apply(fft_out.get());
 
-                double dc = fft_out[0].real() + fft_out[0].imag();
-                double nyquist = fft_out[0].real() - fft_out[0].imag();
+                double dc = fft_out[0][0] + fft_out[0][1];
+                double nyquist = fft_out[0][0] - fft_out[0][1];
                 power[0] = dc * dc;
                 power[half] = nyquist * nyquist;
                 for (int k = 1; k < half; ++k) {
-                    auto a = fft_out[k];
-                    auto b = std::conj(fft_out[half - k]);
+                    std::complex<double> a(fft_out[k][0], fft_out[k][1]);
+                    std::complex<double> b(fft_out[half - k][0], -fft_out[half - k][1]);
                     auto x = 0.5 * (a + b) + recovery[k] * (a - b);
                     power[k] = std::norm(x);
                 }
