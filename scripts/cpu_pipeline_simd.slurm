@@ -50,6 +50,28 @@ elif [ "$MODE" = reuse-confirm ]; then
         --out "tmp/logs/reuse-confirm-$SLURM_JOB_ID.json"
     "$PY" -u validate.py tmp/bin/reuse-b16 --runs 3 | tee "tmp/logs/official-reuse-$SLURM_JOB_ID.txt"
     grep -q 'Result: 4/4 PASSED' "tmp/logs/official-reuse-$SLURM_JOB_ID.txt"
+elif [ "$MODE" = hugepage ] || [ "$MODE" = hugepage-confirm ]; then
+    cat /sys/kernel/mm/transparent_hugepage/enabled /sys/kernel/mm/transparent_hugepage/defrag
+    cat /sys/kernel/mm/transparent_hugepage/hpage_pmd_size /proc/sys/kernel/numa_balancing
+    perf stat -e cycles true 2>&1 || true
+    g++ "${flags[@]}" src/main.cpp tmp/control/melspec.cpp -o tmp/bin/frozen-b16
+    g++ "${flags[@]}" -DMELSPEC_OUTPUT_HUGEPAGE=1 src/main.cpp src/melspec.cpp -o tmp/bin/hugepage-b16
+    sha256sum tmp/bin/frozen-b16 tmp/bin/hugepage-b16
+    "$PY" -u scripts/cpu_pipeline_check.py tmp/bin/frozen-b16 tmp/bin/hugepage-b16 --exact
+    g++ -std=c++17 -O1 -g -march=native -pthread -Iinclude -DMELSPEC_FP32_BATCH=16 \
+        -DMELSPEC_OUTPUT_HUGEPAGE=1 -fsanitize=address,undefined -fno-omit-frame-pointer \
+        scripts/cpu_pipeline_interface_check.cpp src/melspec.cpp -o tmp/bin/sanitize-hugepage
+    ASAN_OPTIONS=detect_leaks=1 tmp/bin/sanitize-hugepage
+    "$PY" -u scripts/multi_bench.py frozen=tmp/bin/frozen-b16 hugepage=tmp/bin/hugepage-b16 --runs 8 \
+        --out "tmp/logs/$MODE-$SLURM_JOB_ID.json"
+    if [ "$MODE" = hugepage ]; then
+        "$PY" -u scripts/cpu_pipeline_profile.py --source src/melspec.cpp --tag hugepage --runs 2 \
+            --cppflag=-DMELSPEC_OUTPUT_HUGEPAGE=1
+        cp tmp/pipeline-profile/hugepage/results.json "tmp/logs/hugepage-profile-$SLURM_JOB_ID.json"
+    else
+        "$PY" -u validate.py tmp/bin/hugepage-b16 --runs 3 | tee "tmp/logs/official-hugepage-$SLURM_JOB_ID.txt"
+        grep -q 'Result: 4/4 PASSED' "tmp/logs/official-hugepage-$SLURM_JOB_ID.txt"
+    fi
 else
     echo 'Set MODE=profile until a separately reviewed experiment is available.' >&2
     exit 2

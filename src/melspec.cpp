@@ -17,6 +17,14 @@
 #ifndef MELSPEC_PACK_REUSE
 #define MELSPEC_PACK_REUSE 0
 #endif
+#ifndef MELSPEC_OUTPUT_HUGEPAGE
+#define MELSPEC_OUTPUT_HUGEPAGE 0
+#endif
+#if MELSPEC_OUTPUT_HUGEPAGE && defined(__linux__)
+#include <cstdint>
+#include <sys/mman.h>
+#include <unistd.h>
+#endif
 #if MELSPEC_FP32_BATCH != 0 && MELSPEC_FP32_BATCH != 8 && MELSPEC_FP32_BATCH != 16
 #error "MELSPEC_FP32_BATCH must be 0, 8, or 16"
 #endif
@@ -1116,6 +1124,23 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
         recovery_re[k] = 0.5 * std::sin(ang);
         recovery_im[k] = -0.5 * std::cos(ang);
     }
+#if MELSPEC_OUTPUT_HUGEPAGE && defined(__linux__) && defined(MADV_HUGEPAGE)
+    // This is ONLY an optional page-allocation hint. Every output double is
+    // still constructed by the normal resize below, including zero filling.
+    const size_t output_count = static_cast<size_t>(n_mels) * n_frames;
+    output.reserve(output_count);
+    const long system_page = sysconf(_SC_PAGESIZE);
+    if (output.data() != nullptr && system_page > 0) {
+        const uintptr_t page = static_cast<uintptr_t>(system_page);
+        const uintptr_t base = reinterpret_cast<uintptr_t>(output.data());
+        const uintptr_t begin = base + (page - base % page) % page;
+        const uintptr_t end_address = base + output_count * sizeof(double);
+        const uintptr_t end = end_address - end_address % page;
+        // Never advise adjacent allocator metadata or another allocation.
+        if (end > begin)
+            (void)madvise(reinterpret_cast<void*>(begin), end - begin, MADV_HUGEPAGE);
+    }
+#endif
     output.resize(static_cast<size_t>(n_mels) * n_frames);
 
     // Keep short inputs single-threaded, and use at most the judge's 16 cores.

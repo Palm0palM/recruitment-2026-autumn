@@ -71,7 +71,13 @@ static double pipeline_seconds(PipelineClock::time_point start) {
     const auto tail_start = PipelineClock::now();
 """ + tail + """
     std::fprintf(stderr, "pipeline setup_s=%.9f workers_s=%.9f tail_s=%.9f total_s=%.9f\\n",
-                 setup_s, workers_s, pipeline_seconds(tail_start), pipeline_seconds(setup_start));""")
+                 setup_s, workers_s, pipeline_seconds(tail_start), pipeline_seconds(setup_start));
+    if (FILE* smaps = std::fopen("/proc/self/smaps_rollup", "r")) {
+        char line[256];
+        while (std::fgets(line, sizeof(line), smaps))
+            if (std::strstr(line, "AnonHugePages:")) std::fputs(line, stderr);
+        std::fclose(smaps);
+    }""")
     return source
 
 
