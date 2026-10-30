@@ -1,0 +1,20 @@
+[
+  {
+    "case": "default",
+    "program": "combo",
+    "proc_vmhwm_kib": 784580,
+    "inherited_wait4_maxrss_kib": 784580,
+    "user_s": 5.571414,
+    "system_s": 0.5551579999999999,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "combo",
+    "proc_vmhwm_kib": 793140,
+    "inherited_wait4_maxrss_kib": 1000384,
+    "user_s": 12.979947,
+    "system_s": 0.579283,
+    "passed": true
+  }
+]

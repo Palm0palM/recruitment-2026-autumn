@@ -1,0 +1,322 @@
+[
+  {
+    "case": "default",
+    "program": "a2",
+    "times": [
+      0.9870048549491912,
+      1.0029062149696983,
+      1.0099814910208806
+    ],
+    "max_abs_err": 0.03125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.9870048549491912,
+    "median_s": 1.0029062149696983,
+    "vs_v1": null
+  },
+  {
+    "case": "default",
+    "program": "avx2",
+    "times": [
+      1.0282712639891542,
+      1.0209347709896974,
+      1.0154752020025626
+    ],
+    "max_abs_err": 0.03125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.0154752020025626,
+    "median_s": 1.0209347709896974,
+    "vs_v1": null
+  },
+  {
+    "case": "default",
+    "program": "avx512",
+    "times": [
+      1.000334736017976,
+      1.0106536379898898,
+      0.9934029320138507
+    ],
+    "max_abs_err": 0.03125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.9934029320138507,
+    "median_s": 1.000334736017976,
+    "vs_v1": null
+  },
+  {
+    "case": "default",
+    "program": "batch4",
+    "times": [
+      1.0470004259841517,
+      1.0444199219928123,
+      1.037212377996184
+    ],
+    "max_abs_err": 0.03125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.037212377996184,
+    "median_s": 1.0444199219928123,
+    "vs_v1": null
+  },
+  {
+    "case": "default",
+    "program": "float-fp",
+    "times": [
+      0.8897679630317725,
+      0.8997475020005368,
+      0.8937303720158525
+    ],
+    "max_abs_err": 0.0546875,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.8897679630317725,
+    "median_s": 0.8937303720158525,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "a2",
+    "times": [
+      0.6601188319618814,
+      0.6666559730074368,
+      0.6681006139842793
+    ],
+    "max_abs_err": 0.01171875,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.6601188319618814,
+    "median_s": 0.6666559730074368,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "avx2",
+    "times": [
+      0.6866461419849657,
+      0.683908729988616,
+      0.685611845983658
+    ],
+    "max_abs_err": 0.01171875,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.683908729988616,
+    "median_s": 0.685611845983658,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "avx512",
+    "times": [
+      0.6594430549885146,
+      0.65582283801632,
+      0.665092596958857
+    ],
+    "max_abs_err": 0.01171875,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.65582283801632,
+    "median_s": 0.6594430549885146,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "batch4",
+    "times": [
+      0.7020033569424413,
+      0.7008487640414387,
+      0.7022551650297828
+    ],
+    "max_abs_err": 0.01171875,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.7008487640414387,
+    "median_s": 0.7020033569424413,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "float-fp",
+    "times": [
+      0.5620852430001833,
+      0.5589279039995745,
+      0.554752160969656
+    ],
+    "max_abs_err": 0.01953125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.554752160969656,
+    "median_s": 0.5589279039995745,
+    "vs_v1": null
+  },
+  {
+    "case": "large_fft",
+    "program": "a2",
+    "times": [
+      1.3580737930024043,
+      1.3766550159780309,
+      1.373017166974023
+    ],
+    "max_abs_err": 0.125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.3580737930024043,
+    "median_s": 1.373017166974023,
+    "vs_v1": null
+  },
+  {
+    "case": "large_fft",
+    "program": "avx2",
+    "times": [
+      1.4427778349490836,
+      1.4531453849631362,
+      1.4424068479565904
+    ],
+    "max_abs_err": 0.125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.4424068479565904,
+    "median_s": 1.4427778349490836,
+    "vs_v1": null
+  },
+  {
+    "case": "large_fft",
+    "program": "avx512",
+    "times": [
+      1.3639759509824216,
+      1.3764689530362375,
+      1.39101138204569
+    ],
+    "max_abs_err": 0.125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.3639759509824216,
+    "median_s": 1.3764689530362375,
+    "vs_v1": null
+  },
+  {
+    "case": "large_fft",
+    "program": "batch4",
+    "times": [
+      1.5341549019794911,
+      1.5343840930145234,
+      1.5384569459711201
+    ],
+    "max_abs_err": 0.125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.5341549019794911,
+    "median_s": 1.5343840930145234,
+    "vs_v1": null
+  },
+  {
+    "case": "large_fft",
+    "program": "float-fp",
+    "times": [
+      1.2010406689951196,
+      1.2038392800022848,
+      1.190111015981529
+    ],
+    "max_abs_err": 0.15625,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.190111015981529,
+    "median_s": 1.2010406689951196,
+    "vs_v1": null
+  },
+  {
+    "case": "narrow_band",
+    "program": "a2",
+    "times": [
+      1.3052478110184893,
+      1.3200593549991027,
+      1.318608969973866
+    ],
+    "max_abs_err": 0.0625,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.3052478110184893,
+    "median_s": 1.318608969973866,
+    "vs_v1": null
+  },
+  {
+    "case": "narrow_band",
+    "program": "avx2",
+    "times": [
+      1.3889425719971769,
+      1.3895576340146363,
+      1.390926819993183
+    ],
+    "max_abs_err": 0.0625,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.3889425719971769,
+    "median_s": 1.3895576340146363,
+    "vs_v1": null
+  },
+  {
+    "case": "narrow_band",
+    "program": "avx512",
+    "times": [
+      1.3185178330168128,
+      1.3156041670008563,
+      1.327563750965055
+    ],
+    "max_abs_err": 0.0625,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.3156041670008563,
+    "median_s": 1.3185178330168128,
+    "vs_v1": null
+  },
+  {
+    "case": "narrow_band",
+    "program": "batch4",
+    "times": [
+      1.475780187989585,
+      1.4804955850122496,
+      1.4798060770262964
+    ],
+    "max_abs_err": 0.0625,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.475780187989585,
+    "median_s": 1.4798060770262964,
+    "vs_v1": null
+  },
+  {
+    "case": "narrow_band",
+    "program": "float-fp",
+    "times": [
+      1.1416780769941397,
+      1.1472644970053807,
+      1.1429364979849197
+    ],
+    "max_abs_err": 0.125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 1.1416780769941397,
+    "median_s": 1.1429364979849197,
+    "vs_v1": null
+  }
+]

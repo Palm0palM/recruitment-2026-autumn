@@ -1,0 +1,74 @@
+[
+  {
+    "case": "default",
+    "program": "a2",
+    "proc_vmhwm_kib": 788300,
+    "inherited_wait4_maxrss_kib": 785428,
+    "user_s": 5.5667159999999996,
+    "system_s": 0.473635,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "avx2",
+    "proc_vmhwm_kib": 787640,
+    "inherited_wait4_maxrss_kib": 992916,
+    "user_s": 5.981899,
+    "system_s": 0.502898,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "avx512",
+    "proc_vmhwm_kib": 788436,
+    "inherited_wait4_maxrss_kib": 993788,
+    "user_s": 5.569809,
+    "system_s": 0.49799899999999997,
+    "passed": true
+  },
+  {
+    "case": "default",
+    "program": "batch4",
+    "proc_vmhwm_kib": 786228,
+    "inherited_wait4_maxrss_kib": 993796,
+    "user_s": 6.263892,
+    "system_s": 0.487291,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "a2",
+    "proc_vmhwm_kib": 794436,
+    "inherited_wait4_maxrss_kib": 993796,
+    "user_s": 11.312742,
+    "system_s": 0.488075,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "avx2",
+    "proc_vmhwm_kib": 793528,
+    "inherited_wait4_maxrss_kib": 993796,
+    "user_s": 12.449919,
+    "system_s": 0.49923399999999996,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "avx512",
+    "proc_vmhwm_kib": 794396,
+    "inherited_wait4_maxrss_kib": 993796,
+    "user_s": 11.288005,
+    "system_s": 0.48478499999999997,
+    "passed": true
+  },
+  {
+    "case": "large_fft",
+    "program": "batch4",
+    "proc_vmhwm_kib": 794204,
+    "inherited_wait4_maxrss_kib": 993796,
+    "user_s": 13.873177,
+    "system_s": 0.49778599999999995,
+    "passed": true
+  }
+]

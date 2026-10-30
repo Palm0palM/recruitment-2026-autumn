@@ -1,0 +1,6 @@
+{"program": "/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/layout-0-4", "cases": 122, "max_abs_err": 0.0, "rejected": 9}
+{"program": "/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/layout-0-8", "cases": 122, "max_abs_err": 0.0, "rejected": 9}
+{"program": "/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/layout-0-16", "cases": 122, "max_abs_err": 0.0, "rejected": 9}
+{"program": "/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/layout-1-4", "cases": 122, "max_abs_err": 0.0, "rejected": 9}
+{"program": "/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/layout-1-8", "cases": 122, "max_abs_err": 0.0, "rejected": 9}
+{"program": "/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/layout-1-16", "cases": 122, "max_abs_err": 0.0, "rejected": 9}

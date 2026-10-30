@@ -1,0 +1,47 @@
+[
+  {
+    "case": "small_mels",
+    "program": "a2",
+    "times": [
+      0.876317932998063
+    ],
+    "max_abs_err": 0.01171875,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.876317932998063,
+    "median_s": 0.876317932998063,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "float",
+    "times": [
+      0.6635858660010854
+    ],
+    "max_abs_err": 0.01953125,
+    "passed": true,
+    "environment_overrides": {},
+    "wisdom_loaded_runs": 0,
+    "min_s": 0.6635858660010854,
+    "median_s": 0.6635858660010854,
+    "vs_v1": null
+  },
+  {
+    "case": "small_mels",
+    "program": "combo",
+    "times": [
+      0.7123509509983705
+    ],
+    "max_abs_err": 0.01953125,
+    "passed": true,
+    "environment_overrides": {
+      "MELSPEC_FFTWF_LIBRARY_ID": "3e01d56ec1bed22cec2895bfcc2b7d22c5d8ece13d19754093a38662429522a9",
+      "MELSPEC_FFTWF_WISDOM_DIRECTORY": "/home/palm/projects/heptagon/melspec-v2-fftw/tmp/fftw-lab/orchestrator/float-wisdom"
+    },
+    "wisdom_loaded_runs": 1,
+    "min_s": 0.7123509509983705,
+    "median_s": 0.7123509509983705,
+    "vs_v1": null
+  }
+]

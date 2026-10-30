@@ -1,0 +1,106 @@
+job=126 node=hepnode2
+05733e66dba96a3715fae8a1c649571453551147
+Cpus_allowed_list:	0-15
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+cc4e5aea42fb52a164c3028d929c3b947fb2c289bd76aa5e764ec6664d610c71  /home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/isa/v3/prefix/avx2-double/lib/libfftw3.a
+30f05c5e9d69354bb170a110199e13f58b414dbb08a9e711d1d395f56868581a  tmp/fftw-lab/isa-comparison/a2-avx2
+77d77d977800e26d2b284fdb04d490d1e175ac2e8e3622afae169eb1eae7afa0  /home/zsx/melspec-v2-fftw-agent-a/tmp/fftw-lab/isa/v3/prefix/avx512-double/lib/libfftw3.a
+e25530bb52a871da72687acbe3f4a3d4a113645487c2bb10135caed1751c46f4  tmp/fftw-lab/isa-comparison/a2-avx512
+1 tmp/fftw-lab/isa/audit/001-libfftw3.a.suspect-avx512.txt
+46565 tmp/fftw-lab/isa/audit/002-libfftw3.a.suspect-avx512.txt
+{"program": "tmp/fftw-lab/isa-comparison/a2-avx2", "passed_valid": 39, "max_abs_err_vs_v1": 1.1173909462559447e-27, "rejected_short": 3}
+{"program": "tmp/fftw-lab/isa-comparison/a2-avx512", "passed_valid": 39, "max_abs_err_vs_v1": 0.0, "rejected_short": 3}
+{"program": "tmp/fftw-lab/isa-comparison/batch4-native", "passed_valid": 39, "max_abs_err_vs_v1": 0.0, "rejected_short": 3}
+default a2 round=0 elapsed=0.987005 max_abs_err=0.03125 PASS
+default avx2 round=0 elapsed=1.028271 max_abs_err=0.03125 PASS
+default avx512 round=0 elapsed=1.000335 max_abs_err=0.03125 PASS
+default batch4 round=0 elapsed=1.047000 max_abs_err=0.03125 PASS
+default float-fp round=0 elapsed=0.889768 max_abs_err=0.0546875 PASS
+default avx2 round=1 elapsed=1.020935 max_abs_err=0.03125 PASS
+default avx512 round=1 elapsed=1.010654 max_abs_err=0.03125 PASS
+default batch4 round=1 elapsed=1.044420 max_abs_err=0.03125 PASS
+default float-fp round=1 elapsed=0.899748 max_abs_err=0.0546875 PASS
+default a2 round=1 elapsed=1.002906 max_abs_err=0.03125 PASS
+default avx512 round=2 elapsed=0.993403 max_abs_err=0.03125 PASS
+default batch4 round=2 elapsed=1.037212 max_abs_err=0.03125 PASS
+default float-fp round=2 elapsed=0.893730 max_abs_err=0.0546875 PASS
+default a2 round=2 elapsed=1.009981 max_abs_err=0.03125 PASS
+default avx2 round=2 elapsed=1.015475 max_abs_err=0.03125 PASS
+small_mels a2 round=0 elapsed=0.660119 max_abs_err=0.01171875 PASS
+small_mels avx2 round=0 elapsed=0.686646 max_abs_err=0.01171875 PASS
+small_mels avx512 round=0 elapsed=0.659443 max_abs_err=0.01171875 PASS
+small_mels batch4 round=0 elapsed=0.702003 max_abs_err=0.01171875 PASS
+small_mels float-fp round=0 elapsed=0.562085 max_abs_err=0.01953125 PASS
+small_mels avx2 round=1 elapsed=0.683909 max_abs_err=0.01171875 PASS
+small_mels avx512 round=1 elapsed=0.655823 max_abs_err=0.01171875 PASS
+small_mels batch4 round=1 elapsed=0.700849 max_abs_err=0.01171875 PASS
+small_mels float-fp round=1 elapsed=0.558928 max_abs_err=0.01953125 PASS
+small_mels a2 round=1 elapsed=0.666656 max_abs_err=0.01171875 PASS
+small_mels avx512 round=2 elapsed=0.665093 max_abs_err=0.01171875 PASS
+small_mels batch4 round=2 elapsed=0.702255 max_abs_err=0.01171875 PASS
+small_mels float-fp round=2 elapsed=0.554752 max_abs_err=0.01953125 PASS
+small_mels a2 round=2 elapsed=0.668101 max_abs_err=0.01171875 PASS
+small_mels avx2 round=2 elapsed=0.685612 max_abs_err=0.01171875 PASS
+large_fft a2 round=0 elapsed=1.358074 max_abs_err=0.125 PASS
+large_fft avx2 round=0 elapsed=1.442778 max_abs_err=0.125 PASS
+large_fft avx512 round=0 elapsed=1.363976 max_abs_err=0.125 PASS
+large_fft batch4 round=0 elapsed=1.534155 max_abs_err=0.125 PASS
+large_fft float-fp round=0 elapsed=1.201041 max_abs_err=0.15625 PASS
+large_fft avx2 round=1 elapsed=1.453145 max_abs_err=0.125 PASS
+large_fft avx512 round=1 elapsed=1.376469 max_abs_err=0.125 PASS
+large_fft batch4 round=1 elapsed=1.534384 max_abs_err=0.125 PASS
+large_fft float-fp round=1 elapsed=1.203839 max_abs_err=0.15625 PASS
+large_fft a2 round=1 elapsed=1.376655 max_abs_err=0.125 PASS
+large_fft avx512 round=2 elapsed=1.391011 max_abs_err=0.125 PASS
+large_fft batch4 round=2 elapsed=1.538457 max_abs_err=0.125 PASS
+large_fft float-fp round=2 elapsed=1.190111 max_abs_err=0.15625 PASS
+large_fft a2 round=2 elapsed=1.373017 max_abs_err=0.125 PASS
+large_fft avx2 round=2 elapsed=1.442407 max_abs_err=0.125 PASS
+narrow_band a2 round=0 elapsed=1.305248 max_abs_err=0.0625 PASS
+narrow_band avx2 round=0 elapsed=1.388943 max_abs_err=0.0625 PASS
+narrow_band avx512 round=0 elapsed=1.318518 max_abs_err=0.0625 PASS
+narrow_band batch4 round=0 elapsed=1.475780 max_abs_err=0.0625 PASS
+narrow_band float-fp round=0 elapsed=1.141678 max_abs_err=0.125 PASS
+narrow_band avx2 round=1 elapsed=1.389558 max_abs_err=0.0625 PASS
+narrow_band avx512 round=1 elapsed=1.315604 max_abs_err=0.0625 PASS
+narrow_band batch4 round=1 elapsed=1.480496 max_abs_err=0.0625 PASS
+narrow_band float-fp round=1 elapsed=1.147264 max_abs_err=0.125 PASS
+narrow_band a2 round=1 elapsed=1.320059 max_abs_err=0.0625 PASS
+narrow_band avx512 round=2 elapsed=1.327564 max_abs_err=0.0625 PASS
+narrow_band batch4 round=2 elapsed=1.479806 max_abs_err=0.0625 PASS
+narrow_band float-fp round=2 elapsed=1.142936 max_abs_err=0.125 PASS
+narrow_band a2 round=2 elapsed=1.318609 max_abs_err=0.0625 PASS
+narrow_band avx2 round=2 elapsed=1.390927 max_abs_err=0.0625 PASS
+case | program | min_s | median_s | vs_v1
+default | a2 | 0.987005 | 1.002906 | None
+default | avx2 | 1.015475 | 1.020935 | None
+default | avx512 | 0.993403 | 1.000335 | None
+default | batch4 | 1.037212 | 1.044420 | None
+default | float-fp | 0.889768 | 0.893730 | None
+small_mels | a2 | 0.660119 | 0.666656 | None
+small_mels | avx2 | 0.683909 | 0.685612 | None
+small_mels | avx512 | 0.655823 | 0.659443 | None
+small_mels | batch4 | 0.700849 | 0.702003 | None
+small_mels | float-fp | 0.554752 | 0.558928 | None
+large_fft | a2 | 1.358074 | 1.373017 | None
+large_fft | avx2 | 1.442407 | 1.442778 | None
+large_fft | avx512 | 1.363976 | 1.376469 | None
+large_fft | batch4 | 1.534155 | 1.534384 | None
+large_fft | float-fp | 1.190111 | 1.201041 | None
+narrow_band | a2 | 1.305248 | 1.318609 | None
+narrow_band | avx2 | 1.388943 | 1.389558 | None
+narrow_band | avx512 | 1.315604 | 1.318518 | None
+narrow_band | batch4 | 1.475780 | 1.479806 | None
+narrow_band | float-fp | 1.141678 | 1.142936 | None
+{"case": "default", "program": "a2", "proc_vmhwm_kib": 788300, "inherited_wait4_maxrss_kib": 785428, "user_s": 5.5667159999999996, "system_s": 0.473635, "passed": true}
+{"case": "default", "program": "avx2", "proc_vmhwm_kib": 787640, "inherited_wait4_maxrss_kib": 992916, "user_s": 5.981899, "system_s": 0.502898, "passed": true}
+{"case": "default", "program": "avx512", "proc_vmhwm_kib": 788436, "inherited_wait4_maxrss_kib": 993788, "user_s": 5.569809, "system_s": 0.49799899999999997, "passed": true}
+{"case": "default", "program": "batch4", "proc_vmhwm_kib": 786228, "inherited_wait4_maxrss_kib": 993796, "user_s": 6.263892, "system_s": 0.487291, "passed": true}
+{"case": "large_fft", "program": "a2", "proc_vmhwm_kib": 794436, "inherited_wait4_maxrss_kib": 993796, "user_s": 11.312742, "system_s": 0.488075, "passed": true}
+{"case": "large_fft", "program": "avx2", "proc_vmhwm_kib": 793528, "inherited_wait4_maxrss_kib": 993796, "user_s": 12.449919, "system_s": 0.49923399999999996, "passed": true}
+{"case": "large_fft", "program": "avx512", "proc_vmhwm_kib": 794396, "inherited_wait4_maxrss_kib": 993796, "user_s": 11.288005, "system_s": 0.48478499999999997, "passed": true}
+{"case": "large_fft", "program": "batch4", "proc_vmhwm_kib": 794204, "inherited_wait4_maxrss_kib": 993796, "user_s": 13.873177, "system_s": 0.49778599999999995, "passed": true}

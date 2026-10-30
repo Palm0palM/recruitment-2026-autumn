@@ -11,6 +11,10 @@
 #define MELSPEC_FFTW_FLOAT 0
 #endif
 
+#if MELSPEC_FFTW_FLOAT && defined(MELSPEC_FFTWF_WISDOM) && MELSPEC_FFTWF_WISDOM
+#include "fftw_float_wisdom.h"
+#endif
+
 #ifdef MELSPEC_PROFILE
 #include <array>
 #include <chrono>
@@ -99,7 +103,11 @@ public:
     Plan(int n, float* input, fftwf_complex* output) {
         std::lock_guard<std::mutex> lock(planner_mutex());
         FFTW_START(plan_start);
+#if defined(MELSPEC_FFTWF_WISDOM) && MELSPEC_FFTWF_WISDOM
+        plan_ = melspec_fftwf::plan_r2c_with_float_wisdom(n, input, output);
+#else
         plan_ = fftwf_plan_dft_r2c_1d(n, input, output, planner_flags());
+#endif
         if (!plan_) throw std::runtime_error("FFTW float R2C plan creation failed");
         FFTW_TIME("r2c_plan_s", plan_start);
     }

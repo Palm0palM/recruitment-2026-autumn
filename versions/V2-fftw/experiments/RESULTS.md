@@ -85,11 +85,66 @@ The AVX2 library built and installed successfully, but the parent Slurm script t
 `work/install-*` path instead of the builder's actual `prefix/*`. Compilation failed before any benchmark
 (`fftw3.h` not found); job FAILED, exit 1, 3:51. This is an orchestration failure, not an ISA performance result.
 The corrected script reuses only a library with recorded matching archive and scalar compiler flags.
-Review additionally tightened BOTH ISA variants to identical scalar flags `-O3 -march=x86-64-v3 -mno-avx512f`;
-only FFTW's enabled AVX-512 codelet units receive their required extra ISA flags. The earlier drafted
+Review initially tried explicit `-mno-avx512f` for both scalar builds, but job 119 exposed that this overrides
+FFTW's codelet flags. The successful job 126 instead uses identical `-O3 -march=x86-64-v3` for both;
+only enabled AVX-512 codelet units receive their required extra ISA flags. See `FAILURES.md`. The earlier drafted
 AVX-512 variant's global `-mavx512f` was never built in job 104 and must not be used for a codelet-only claim.
 
 New private prototypes received: padded-row/interleaved batch layouts (B=4/8/16) and float MEASURE/PATIENT
 wisdom with precision-specific envelope checks. Parent reviewed and compiled all six layout variants and
 both combo power variants; each passed 39 valid and 3 rejection cases. Layout/combo local full-output
 screening is a separate pending stage. None is a production default or has a cluster speedup yet.
+
+All 88 full-output checks in the two-repeat local layout/combo screen passed. Its timing data is retained
+but **not accepted as speedup evidence**: process times varied strongly (including roughly doubled A2 times
+versus earlier local screens), and near-identical float-power variants exchanged implausibly large gaps.
+Only controlled cluster results will decide these variants. Both double and float wisdom also passed the
+parent's expanded 19-case envelope suite, including valid import with no applicable plan and malformed
+FFTW payloads whose outer checksums were deliberately made valid.
+
+## Integration stage 2 — opt-in float wisdom
+
+The parent ported the reviewed float envelope loader/generator helper into `src/fftw_float_wisdom.cpp`
+and `include/fftw_float_wisdom.h`. It is linked ONLY with `FFTW_WISDOM=1`; default double and ordinary
+float do not gain this dependency. This build option requires float + ESTIMATE and forbids cold MEASURE.
+Offline generation is a separate target using `MELSPEC_FFTWF_WISDOM_GENERATOR=1`, never an app code path.
+
+```sh
+make -B FFT_PRECISION=float FFT_POWER=float FFTW_WISDOM=1 FFTW_PREFIX=/path/to/float-prefix EXEC=tmp/bin/combo
+make FFT_PRECISION=float FFTW_PREFIX=/path/to/float-prefix wisdom-generator
+```
+
+At runtime, set `MELSPEC_FFTWF_LIBRARY_ID` to the actual linked archive hash and
+`MELSPEC_FFTWF_WISDOM_DIRECTORY` to a directory containing `r2c-<n_fft>.wisdom`. MEASURE and PATIENT
+files are separate experimental configurations, not automatically mixed. Missing/mismatched files safely
+fall back to ESTIMATE with explicit diagnostics; no PCM-specific lookup or runtime measurement occurs.
+Both integrated power routes passed the 39+3 suite; the float-power integrated loader additionally passed
+19 negative-envelope tests locally.
+The default A2 build is still byte-identical locally. Exact integrated cluster tests are staged in
+`scripts/fftw-lab-final.slurm`, including both offline planners, original-tolerance numerical stress,
+interleaved whole-process scoring, official validation of all six float configurations, and separate memory runs.
+
+## Cluster job 126 — controlled ISA and original batch
+
+Commit `05733e6`, hepnode2, same allocation/compiler as job 93. COMPLETED 0:0 in 9:06.
+All **60** interleaved full-output checks PASS, plus 39 valid/3 rejection cases for each new candidate.
+Both controlled library builds use scalar `-O3 -march=x86-64-v3`; application flags remain identical native.
+
+| Candidate (median seconds) | default | small_mels | large_fft | narrow_band |
+|---|---:|---:|---:|---:|
+| Native A2 | 1.002906 | 0.666656 | 1.373017 | 1.318609 |
+| Controlled AVX2-only A2 | 1.020935 | 0.685612 | 1.442778 | 1.389558 |
+| Controlled AVX-512-enabled A2 | 1.000335 | 0.659443 | 1.376469 | 1.318518 |
+| Original dense-row batch 4 | 1.044420 | 0.702003 | 1.534384 | 1.479806 |
+| Float FFT/float-power control | 0.893730 | 0.558928 | 1.201041 | 1.142936 |
+
+Controlled AVX-512-enabled versus AVX2-only observed gains are **1.021 / 1.040 / 1.048 / 1.054×**;
+no improvement over the existing native library is established. Retain existing AVX-512-enabled library;
+do not change compiler ISA flags merely on an assumption about downclocking. Actual ESTIMATE plan includes
+AVX-512 codelets. Disassembly triage found 46565 suspect lines in the enabled archive; the AVX2 archive's
+sole matching line is the filename `avx512.o`, NOT an AVX-512 instruction. Text triage is not a complete proof.
+
+Original batch 4 regresses versus same-job native A2: ratios **0.960 / 0.950 / 0.895 / 0.891×**. It is rejected
+for integration, not called an algorithmic correctness failure. Revised layouts still require their own tests.
+Default/large_fft VmHWM KiB: A2 **788300/794436**, AVX2 **787640/793528**, AVX-512 **788436/794396**,
+batch4 **786228/794204**. Again whole-process output conversion dominates peak, not just FFT scratch.

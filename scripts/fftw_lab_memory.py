@@ -19,8 +19,26 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--programs", nargs="+", required=True)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--env-json", type=Path)
     args = ap.parse_args()
     programs = dict(x.split("=", 1) for x in args.programs)
+    overrides = json.loads(args.env_json.read_text()) if args.env_json else {}
+    if not isinstance(overrides, dict) or any(n not in programs for n in overrides):
+        ap.error("environment JSON must map known program names to objects")
+    environments = {}
+    for n in programs:
+        values = overrides.get(n, {})
+        if not isinstance(values, dict) or any(
+            not k.startswith(("MELSPEC_FFTW_", "MELSPEC_FFTWF_")) or not (v is None or isinstance(v, str))
+            for k, v in values.items()
+        ):
+            ap.error("invalid FFTW environment override")
+        environments[n] = dict(os.environ)
+        for k, v in values.items():
+            if v is None:
+                environments[n].pop(k, None)
+            else:
+                environments[n][k] = v
     data = find_data_dir()
     rows = []
     scratch = Path(os.environ.get("TMPDIR", str(ROOT / "tmp/scratch")))
@@ -33,7 +51,7 @@ def main():
             flags = [s for k, v in case["params"].items() for s in (f"--{k}", str(v))]
             for name, program in programs.items():
                 executable = str(Path(program).resolve())
-                pid = os.posix_spawn(executable, [executable, str(data / "audio.pcm"), str(output), *flags], dict(os.environ))
+                pid = os.posix_spawn(executable, [executable, str(data / "audio.pcm"), str(output), *flags], environments[name])
                 # vfork/posix_spawn can inherit a large Python parent's RSS
                 # high-water mark across exec in ru_maxrss. Sample the child's
                 # post-exec mm's VmHWM instead; retain wait4 only for CPU times.
