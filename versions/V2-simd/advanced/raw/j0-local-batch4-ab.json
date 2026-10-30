@@ -1,0 +1,194 @@
+[
+  {
+    "case": "default",
+    "runs": 6,
+    "order": [
+      [
+        "0",
+        "1"
+      ],
+      [
+        "1",
+        "0"
+      ]
+    ],
+    "programs": [
+      {
+        "label": "batch4",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/tmp/results/advanced/batch4-integrated/melspec-avx2",
+        "times_s": [
+          0.9163544520015421,
+          0.9818837540005916,
+          1.3150217210004485,
+          1.133508533001077,
+          0.9506266320004215,
+          1.1318432230000326
+        ],
+        "min_s": 0.9163544520015421,
+        "median_s": 1.056863488500312,
+        "pass": true,
+        "max_abs_err": 0.03125
+      },
+      {
+        "label": "j0",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/melspec",
+        "times_s": [
+          0.9645786479995877,
+          0.9573336009998457,
+          0.9005126680003741,
+          0.912441010999828,
+          1.027377050000723,
+          0.9198616339999717
+        ],
+        "min_s": 0.9005126680003741,
+        "median_s": 0.9385976174999087,
+        "pass": true,
+        "max_abs_err": 0.03125
+      }
+    ]
+  },
+  {
+    "case": "small_mels",
+    "runs": 6,
+    "order": [
+      [
+        "0",
+        "1"
+      ],
+      [
+        "1",
+        "0"
+      ]
+    ],
+    "programs": [
+      {
+        "label": "batch4",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/tmp/results/advanced/batch4-integrated/melspec-avx2",
+        "times_s": [
+          1.3804368400014937,
+          0.9180313599990768,
+          0.800035016000038,
+          0.9059629319999658,
+          0.9882917649993033,
+          0.8039616189998924
+        ],
+        "min_s": 0.800035016000038,
+        "median_s": 0.9119971459995213,
+        "pass": true,
+        "max_abs_err": 0.01171875
+      },
+      {
+        "label": "j0",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/melspec",
+        "times_s": [
+          0.8524803279997286,
+          0.9724582079998072,
+          1.2078670800001419,
+          0.8257888309999544,
+          0.7744023370014474,
+          1.2231898160007404
+        ],
+        "min_s": 0.7744023370014474,
+        "median_s": 0.9124692679997679,
+        "pass": true,
+        "max_abs_err": 0.01171875
+      }
+    ]
+  },
+  {
+    "case": "large_fft",
+    "runs": 6,
+    "order": [
+      [
+        "0",
+        "1"
+      ],
+      [
+        "1",
+        "0"
+      ]
+    ],
+    "programs": [
+      {
+        "label": "batch4",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/tmp/results/advanced/batch4-integrated/melspec-avx2",
+        "times_s": [
+          2.7721602719993825,
+          2.7068255030008004,
+          2.493631239000024,
+          2.326979025001492,
+          2.571701483000652,
+          2.6912067100001877
+        ],
+        "min_s": 2.326979025001492,
+        "median_s": 2.63145409650042,
+        "pass": true,
+        "max_abs_err": 0.125
+      },
+      {
+        "label": "j0",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/melspec",
+        "times_s": [
+          2.570359027999075,
+          2.594981848000316,
+          3.108364003999668,
+          2.0716366579999885,
+          1.8644756590001634,
+          2.7319372439997096
+        ],
+        "min_s": 1.8644756590001634,
+        "median_s": 2.5826704379996954,
+        "pass": true,
+        "max_abs_err": 0.125
+      }
+    ]
+  },
+  {
+    "case": "narrow_band",
+    "runs": 6,
+    "order": [
+      [
+        "0",
+        "1"
+      ],
+      [
+        "1",
+        "0"
+      ]
+    ],
+    "programs": [
+      {
+        "label": "batch4",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/tmp/results/advanced/batch4-integrated/melspec-avx2",
+        "times_s": [
+          2.6564961780004523,
+          2.638696006999453,
+          1.7994451729991852,
+          2.260065312999359,
+          1.9846440920009627,
+          1.7990780100008124
+        ],
+        "min_s": 1.7990780100008124,
+        "median_s": 2.122354702500161,
+        "pass": true,
+        "max_abs_err": 0.0625
+      },
+      {
+        "label": "j0",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/melspec",
+        "times_s": [
+          1.9618313269984355,
+          2.701509992000865,
+          2.6657050889989478,
+          2.8511775560000387,
+          2.5085256149995985,
+          2.5379696319996583
+        ],
+        "min_s": 1.9618313269984355,
+        "median_s": 2.601837360499303,
+        "pass": true,
+        "max_abs_err": 0.0625
+      }
+    ]
+  }
+]

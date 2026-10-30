@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""多程序全量交错 benchmark：轮转全部执行顺序，校验官方 expected。"""
+"""多程序全量交错 benchmark：按排列轮转，校验官方 expected。
+
+runs 达到程序数阶乘时覆盖全部顺序；较少 runs 只取排列序列前缀。
+"""
 import argparse
 import itertools
 import json
