@@ -24,6 +24,11 @@ static_assert(MELSPEC_FRAME_BLOCK > 0, "frame block must be positive");
 #define MELSPEC_MOMENTS 0
 #endif
 
+#ifndef MELSPEC_MAX_THREADS
+#define MELSPEC_MAX_THREADS 16
+#endif
+static_assert(MELSPEC_MAX_THREADS > 0, "thread count must be positive");
+
 // ─────────────────────────────────────────────────────────────────────────────
 // HTK mel scale
 // ─────────────────────────────────────────────────────────────────────────────
@@ -280,7 +285,7 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
 
     // Keep short inputs single-threaded, and use at most the judge's 16 cores.
     const int n_threads = std::min(
-        {16,
+        {MELSPEC_MAX_THREADS,
          static_cast<int>(std::max(1u, std::thread::hardware_concurrency())),
          std::max(1, n_frames / 256)});
     // Allocate scratch before launching threads, so workers cannot throw.

@@ -7,7 +7,8 @@ FFTW_PLAN ?= estimate
 FFT_MODE ?= r2c
 FRAME_BLOCK ?= 1
 MEL_PROJECTION ?= sparse
-CPPFLAGS += -DMELSPEC_FRAME_BLOCK=$(FRAME_BLOCK)
+CPU_THREADS ?= 16
+CPPFLAGS += -DMELSPEC_FRAME_BLOCK=$(FRAME_BLOCK) -DMELSPEC_MAX_THREADS=$(CPU_THREADS)
 ifeq ($(MEL_PROJECTION),moments)
 CPPFLAGS += -DMELSPEC_MOMENTS=1
 else ifneq ($(MEL_PROJECTION),sparse)
@@ -35,7 +36,7 @@ endif
 
 SRCS = $(wildcard src/*.cpp)
 INCS = $(wildcard include/*.h)
-BUILD = tmp/build/$(FFT_MODE)-$(FFTW_PLAN)-b$(FRAME_BLOCK)-$(MEL_PROJECTION)
+BUILD = tmp/build/$(FFT_MODE)-$(FFTW_PLAN)-b$(FRAME_BLOCK)-$(MEL_PROJECTION)-t$(CPU_THREADS)
 OBJS = $(patsubst src/%.cpp,$(BUILD)/%.o,$(SRCS))
 EXEC = melspec
 

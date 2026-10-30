@@ -43,13 +43,20 @@ git show "$BASE:src/melspec.cpp" > tmp/build/a2.cpp
 g++ -std=c++17 -O3 -march=native -pthread -Iinclude -I"$FFTW_PREFIX/include" \
   src/main.cpp tmp/build/a2.cpp "$FFTW_PREFIX/lib/libfftw3.a" -lm -o tmp/bin/a2-base
 programs=(a2-base=tmp/bin/a2-base)
-for block in ${CANDIDATES:-1 2 4 8 16}; do
-  make -B -j4 FFT_MODE=r2c FFTW_PLAN=estimate FRAME_BLOCK="$block" EXEC="tmp/bin/b$block"
-  programs+=("b$block=tmp/bin/b$block")
-done
+if [ "$MODE" = threads ]; then
+  for threads in ${THREAD_CANDIDATES:-8 12 16}; do
+    make -B -j4 FFT_MODE=r2c FFTW_PLAN=estimate FRAME_BLOCK=1 MEL_PROJECTION=sparse CPU_THREADS="$threads" EXEC="tmp/bin/t$threads"
+    programs+=("t$threads=tmp/bin/t$threads")
+  done
+else
+  for block in ${CANDIDATES:-1 2 4 8 16}; do
+    make -B -j4 FFT_MODE=r2c FFTW_PLAN=estimate FRAME_BLOCK="$block" EXEC="tmp/bin/b$block"
+    programs+=("b$block=tmp/bin/b$block")
+  done
+fi
 sha256sum src/melspec.cpp include/fftw_support.h Makefile tmp/build/a2.cpp tmp/bin/*
 "$PY" -u scripts/fftw_bench.py --programs "${programs[@]}" --runs 3 --out "tmp/logs/compare-${SLURM_JOB_ID}.json"
-official="${OFFICIAL:-b1}"
+if [ "$MODE" = threads ]; then official="${OFFICIAL:-t16}"; else official="${OFFICIAL:-b1}"; fi
 echo "== complete official validate.py, $official, 3 runs =="
 "$PY" -u validate.py "./tmp/bin/$official" --runs 3 | tee "tmp/logs/official-${SLURM_JOB_ID}.txt"
 grep -q 'Result: 4/4 PASSED' "tmp/logs/official-${SLURM_JOB_ID}.txt"

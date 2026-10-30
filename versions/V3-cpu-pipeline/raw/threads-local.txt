@@ -1,0 +1,73 @@
+default t8 round=0 elapsed=0.960562 max_abs_err=0.03125 PASS
+default t12 round=0 elapsed=0.786729 max_abs_err=0.03125 PASS
+default t16 round=0 elapsed=0.728112 max_abs_err=0.03125 PASS
+default t12 round=1 elapsed=0.878677 max_abs_err=0.03125 PASS
+default t16 round=1 elapsed=0.767119 max_abs_err=0.03125 PASS
+default t8 round=1 elapsed=0.918118 max_abs_err=0.03125 PASS
+default t16 round=2 elapsed=0.745548 max_abs_err=0.03125 PASS
+default t8 round=2 elapsed=0.839496 max_abs_err=0.03125 PASS
+default t12 round=2 elapsed=0.773118 max_abs_err=0.03125 PASS
+default t8 round=3 elapsed=0.822799 max_abs_err=0.03125 PASS
+default t12 round=3 elapsed=0.836348 max_abs_err=0.03125 PASS
+default t16 round=3 elapsed=0.731210 max_abs_err=0.03125 PASS
+default t12 round=4 elapsed=0.819310 max_abs_err=0.03125 PASS
+default t16 round=4 elapsed=0.715008 max_abs_err=0.03125 PASS
+default t8 round=4 elapsed=0.922723 max_abs_err=0.03125 PASS
+small_mels t8 round=0 elapsed=0.603961 max_abs_err=0.01171875 PASS
+small_mels t12 round=0 elapsed=0.534707 max_abs_err=0.01171875 PASS
+small_mels t16 round=0 elapsed=0.479842 max_abs_err=0.01171875 PASS
+small_mels t12 round=1 elapsed=0.522302 max_abs_err=0.01171875 PASS
+small_mels t16 round=1 elapsed=0.529821 max_abs_err=0.01171875 PASS
+small_mels t8 round=1 elapsed=0.601759 max_abs_err=0.01171875 PASS
+small_mels t16 round=2 elapsed=0.502811 max_abs_err=0.01171875 PASS
+small_mels t8 round=2 elapsed=0.584029 max_abs_err=0.01171875 PASS
+small_mels t12 round=2 elapsed=0.512909 max_abs_err=0.01171875 PASS
+small_mels t8 round=3 elapsed=0.579458 max_abs_err=0.01171875 PASS
+small_mels t12 round=3 elapsed=2.092943 max_abs_err=0.01171875 PASS
+small_mels t16 round=3 elapsed=0.487769 max_abs_err=0.01171875 PASS
+small_mels t12 round=4 elapsed=0.521590 max_abs_err=0.01171875 PASS
+small_mels t16 round=4 elapsed=0.493722 max_abs_err=0.01171875 PASS
+small_mels t8 round=4 elapsed=0.604528 max_abs_err=0.01171875 PASS
+large_fft t8 round=0 elapsed=1.611472 max_abs_err=0.125 PASS
+large_fft t12 round=0 elapsed=1.604842 max_abs_err=0.125 PASS
+large_fft t16 round=0 elapsed=1.547342 max_abs_err=0.125 PASS
+large_fft t12 round=1 elapsed=1.636081 max_abs_err=0.125 PASS
+large_fft t16 round=1 elapsed=1.536237 max_abs_err=0.125 PASS
+large_fft t8 round=1 elapsed=1.845903 max_abs_err=0.125 PASS
+large_fft t16 round=2 elapsed=1.527027 max_abs_err=0.125 PASS
+large_fft t8 round=2 elapsed=1.805037 max_abs_err=0.125 PASS
+large_fft t12 round=2 elapsed=1.621594 max_abs_err=0.125 PASS
+large_fft t8 round=3 elapsed=1.789841 max_abs_err=0.125 PASS
+large_fft t12 round=3 elapsed=1.590118 max_abs_err=0.125 PASS
+large_fft t16 round=3 elapsed=1.487027 max_abs_err=0.125 PASS
+large_fft t12 round=4 elapsed=1.623457 max_abs_err=0.125 PASS
+large_fft t16 round=4 elapsed=1.481086 max_abs_err=0.125 PASS
+large_fft t8 round=4 elapsed=1.708704 max_abs_err=0.125 PASS
+narrow_band t8 round=0 elapsed=1.692610 max_abs_err=0.0625 PASS
+narrow_band t12 round=0 elapsed=1.546343 max_abs_err=0.0625 PASS
+narrow_band t16 round=0 elapsed=1.482969 max_abs_err=0.0625 PASS
+narrow_band t12 round=1 elapsed=1.545291 max_abs_err=0.0625 PASS
+narrow_band t16 round=1 elapsed=1.481307 max_abs_err=0.0625 PASS
+narrow_band t8 round=1 elapsed=1.778065 max_abs_err=0.0625 PASS
+narrow_band t16 round=2 elapsed=1.438690 max_abs_err=0.0625 PASS
+narrow_band t8 round=2 elapsed=1.779325 max_abs_err=0.0625 PASS
+narrow_band t12 round=2 elapsed=1.548480 max_abs_err=0.0625 PASS
+narrow_band t8 round=3 elapsed=1.900692 max_abs_err=0.0625 PASS
+narrow_band t12 round=3 elapsed=1.505539 max_abs_err=0.0625 PASS
+narrow_band t16 round=3 elapsed=1.438877 max_abs_err=0.0625 PASS
+narrow_band t12 round=4 elapsed=1.557344 max_abs_err=0.0625 PASS
+narrow_band t16 round=4 elapsed=1.504558 max_abs_err=0.0625 PASS
+narrow_band t8 round=4 elapsed=1.712449 max_abs_err=0.0625 PASS
+case | program | min_s | median_s | vs_v1
+default | t8 | 0.822799 | 0.918118 | None
+default | t12 | 0.773118 | 0.819310 | None
+default | t16 | 0.715008 | 0.731210 | None
+small_mels | t8 | 0.579458 | 0.601759 | None
+small_mels | t12 | 0.512909 | 0.522302 | None
+small_mels | t16 | 0.479842 | 0.493722 | None
+large_fft | t8 | 1.611472 | 1.789841 | None
+large_fft | t12 | 1.590118 | 1.621594 | None
+large_fft | t16 | 1.481086 | 1.527027 | None
+narrow_band | t8 | 1.692610 | 1.778065 | None
+narrow_band | t12 | 1.505539 | 1.546343 | None
+narrow_band | t16 | 1.438690 | 1.481307 | None
