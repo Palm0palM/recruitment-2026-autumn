@@ -1,0 +1,96 @@
+default stable round=0 elapsed=0.784662 max_abs_err=0.09375 PASS
+default A round=0 elapsed=0.741391 max_abs_err=0.09375 PASS
+default B round=0 elapsed=0.742605 max_abs_err=0.09375 PASS
+default AB round=0 elapsed=0.698265 max_abs_err=0.09375 PASS
+default A round=1 elapsed=0.644132 max_abs_err=0.09375 PASS
+default B round=1 elapsed=0.725853 max_abs_err=0.09375 PASS
+default AB round=1 elapsed=0.751624 max_abs_err=0.09375 PASS
+default stable round=1 elapsed=0.674441 max_abs_err=0.09375 PASS
+default B round=2 elapsed=0.657028 max_abs_err=0.09375 PASS
+default AB round=2 elapsed=0.726620 max_abs_err=0.09375 PASS
+default stable round=2 elapsed=0.704405 max_abs_err=0.09375 PASS
+default A round=2 elapsed=0.768161 max_abs_err=0.09375 PASS
+default AB round=3 elapsed=0.857394 max_abs_err=0.09375 PASS
+default stable round=3 elapsed=0.678387 max_abs_err=0.09375 PASS
+default A round=3 elapsed=0.696229 max_abs_err=0.09375 PASS
+default B round=3 elapsed=0.868642 max_abs_err=0.09375 PASS
+default stable round=4 elapsed=0.769753 max_abs_err=0.09375 PASS
+default A round=4 elapsed=0.708789 max_abs_err=0.09375 PASS
+default B round=4 elapsed=0.790064 max_abs_err=0.09375 PASS
+default AB round=4 elapsed=0.668443 max_abs_err=0.09375 PASS
+small_mels stable round=0 elapsed=0.468364 max_abs_err=0.0234375 PASS
+small_mels A round=0 elapsed=0.536861 max_abs_err=0.0234375 PASS
+small_mels B round=0 elapsed=0.484050 max_abs_err=0.0234375 PASS
+small_mels AB round=0 elapsed=0.455805 max_abs_err=0.0234375 PASS
+small_mels A round=1 elapsed=0.511632 max_abs_err=0.0234375 PASS
+small_mels B round=1 elapsed=0.505941 max_abs_err=0.0234375 PASS
+small_mels AB round=1 elapsed=0.500998 max_abs_err=0.0234375 PASS
+small_mels stable round=1 elapsed=0.463337 max_abs_err=0.0234375 PASS
+small_mels B round=2 elapsed=0.437510 max_abs_err=0.0234375 PASS
+small_mels AB round=2 elapsed=0.510008 max_abs_err=0.0234375 PASS
+small_mels stable round=2 elapsed=0.590920 max_abs_err=0.0234375 PASS
+small_mels A round=2 elapsed=0.477619 max_abs_err=0.0234375 PASS
+small_mels AB round=3 elapsed=0.472274 max_abs_err=0.0234375 PASS
+small_mels stable round=3 elapsed=0.493701 max_abs_err=0.0234375 PASS
+small_mels A round=3 elapsed=0.507621 max_abs_err=0.0234375 PASS
+small_mels B round=3 elapsed=0.492469 max_abs_err=0.0234375 PASS
+small_mels stable round=4 elapsed=0.451014 max_abs_err=0.0234375 PASS
+small_mels A round=4 elapsed=0.498170 max_abs_err=0.0234375 PASS
+small_mels B round=4 elapsed=0.451529 max_abs_err=0.0234375 PASS
+small_mels AB round=4 elapsed=0.458784 max_abs_err=0.0234375 PASS
+large_fft stable round=0 elapsed=0.856171 max_abs_err=0.21875 PASS
+large_fft A round=0 elapsed=0.844878 max_abs_err=0.21875 PASS
+large_fft B round=0 elapsed=0.860425 max_abs_err=0.21875 PASS
+large_fft AB round=0 elapsed=0.780050 max_abs_err=0.21875 PASS
+large_fft A round=1 elapsed=0.857215 max_abs_err=0.21875 PASS
+large_fft B round=1 elapsed=0.725533 max_abs_err=0.21875 PASS
+large_fft AB round=1 elapsed=0.849224 max_abs_err=0.21875 PASS
+large_fft stable round=1 elapsed=0.775415 max_abs_err=0.21875 PASS
+large_fft B round=2 elapsed=0.758204 max_abs_err=0.21875 PASS
+large_fft AB round=2 elapsed=0.805843 max_abs_err=0.21875 PASS
+large_fft stable round=2 elapsed=0.760303 max_abs_err=0.21875 PASS
+large_fft A round=2 elapsed=0.883956 max_abs_err=0.21875 PASS
+large_fft AB round=3 elapsed=0.866233 max_abs_err=0.21875 PASS
+large_fft stable round=3 elapsed=0.950747 max_abs_err=0.21875 PASS
+large_fft A round=3 elapsed=0.974341 max_abs_err=0.21875 PASS
+large_fft B round=3 elapsed=0.943583 max_abs_err=0.21875 PASS
+large_fft stable round=4 elapsed=0.786032 max_abs_err=0.21875 PASS
+large_fft A round=4 elapsed=0.780061 max_abs_err=0.21875 PASS
+large_fft B round=4 elapsed=0.721685 max_abs_err=0.21875 PASS
+large_fft AB round=4 elapsed=0.764212 max_abs_err=0.21875 PASS
+narrow_band stable round=0 elapsed=0.700056 max_abs_err=0.15625 PASS
+narrow_band A round=0 elapsed=0.905593 max_abs_err=0.15625 PASS
+narrow_band B round=0 elapsed=0.822771 max_abs_err=0.15625 PASS
+narrow_band AB round=0 elapsed=0.846750 max_abs_err=0.15625 PASS
+narrow_band A round=1 elapsed=0.852344 max_abs_err=0.15625 PASS
+narrow_band B round=1 elapsed=0.747147 max_abs_err=0.15625 PASS
+narrow_band AB round=1 elapsed=0.999045 max_abs_err=0.15625 PASS
+narrow_band stable round=1 elapsed=0.761303 max_abs_err=0.15625 PASS
+narrow_band B round=2 elapsed=0.815582 max_abs_err=0.15625 PASS
+narrow_band AB round=2 elapsed=0.777677 max_abs_err=0.15625 PASS
+narrow_band stable round=2 elapsed=0.748004 max_abs_err=0.15625 PASS
+narrow_band A round=2 elapsed=0.866747 max_abs_err=0.15625 PASS
+narrow_band AB round=3 elapsed=0.869344 max_abs_err=0.15625 PASS
+narrow_band stable round=3 elapsed=0.885534 max_abs_err=0.15625 PASS
+narrow_band A round=3 elapsed=0.965310 max_abs_err=0.15625 PASS
+narrow_band B round=3 elapsed=0.897038 max_abs_err=0.15625 PASS
+narrow_band stable round=4 elapsed=0.915907 max_abs_err=0.15625 PASS
+narrow_band A round=4 elapsed=0.899460 max_abs_err=0.15625 PASS
+narrow_band B round=4 elapsed=0.886820 max_abs_err=0.15625 PASS
+narrow_band AB round=4 elapsed=0.917463 max_abs_err=0.15625 PASS
+default | stable | min=0.674441 | median=0.704405 | vs_a2=None
+default | A | min=0.644132 | median=0.708789 | vs_a2=None
+default | B | min=0.657028 | median=0.742605 | vs_a2=None
+default | AB | min=0.668443 | median=0.726620 | vs_a2=None
+small_mels | stable | min=0.451014 | median=0.468364 | vs_a2=None
+small_mels | A | min=0.477619 | median=0.507621 | vs_a2=None
+small_mels | B | min=0.437510 | median=0.484050 | vs_a2=None
+small_mels | AB | min=0.455805 | median=0.472274 | vs_a2=None
+large_fft | stable | min=0.760303 | median=0.786032 | vs_a2=None
+large_fft | A | min=0.780061 | median=0.857215 | vs_a2=None
+large_fft | B | min=0.721685 | median=0.758204 | vs_a2=None
+large_fft | AB | min=0.764212 | median=0.805843 | vs_a2=None
+narrow_band | stable | min=0.700056 | median=0.761303 | vs_a2=None
+narrow_band | A | min=0.852344 | median=0.899460 | vs_a2=None
+narrow_band | B | min=0.747147 | median=0.822771 | vs_a2=None
+narrow_band | AB | min=0.777677 | median=0.869344 | vs_a2=None

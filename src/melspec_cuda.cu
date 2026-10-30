@@ -8,9 +8,11 @@
 #include <cmath>
 #include <cstddef>
 #include <limits>
+#include <memory>
 #include <stdexcept>
 #include <string>
 #include <type_traits>
+#include <utility>
 #include <vector>
 
 #ifndef MELSPEC_CUDA_PRECISION
@@ -37,11 +39,17 @@
 #ifndef MELSPEC_CUDA_RESIZE_THREAD
 #define MELSPEC_CUDA_RESIZE_THREAD 1
 #endif
+#ifndef MELSPEC_CUDA_BACKGROUND_INIT
+#define MELSPEC_CUDA_BACKGROUND_INIT 0
+#endif
+#ifndef MELSPEC_CUDA_GPU_INPUT_CONVERT
+#define MELSPEC_CUDA_GPU_INPUT_CONVERT 0
+#endif
 #ifndef MELSPEC_CUDA_STAGING_ROWS
 #define MELSPEC_CUDA_STAGING_ROWS 16
 #endif
 
-#if MELSPEC_CUDA_OVERLAP_INIT || MELSPEC_CUDA_RESIZE_THREAD
+#if MELSPEC_CUDA_OVERLAP_INIT || MELSPEC_CUDA_RESIZE_THREAD || MELSPEC_CUDA_BACKGROUND_INIT
 #include <exception>
 #include <thread>
 #endif
@@ -62,6 +70,31 @@ struct OutputResize {
     void finish() {
         if (thread.joinable()) thread.join();
         if (error) std::rethrow_exception(error);
+    }
+};
+#endif
+#if MELSPEC_CUDA_BACKGROUND_INIT
+class BackgroundTask {
+    std::exception_ptr error_;
+    std::thread thread_;
+public:
+    template <class Function>
+    explicit BackgroundTask(Function function)
+        : thread_([this, function = std::move(function)]() mutable {
+              try {
+                  function();
+              } catch (...) {
+                  error_ = std::current_exception();
+              }
+          }) {}
+    ~BackgroundTask() {
+        if (thread_.joinable()) thread_.join();
+    }
+    BackgroundTask(const BackgroundTask&) = delete;
+    BackgroundTask& operator=(const BackgroundTask&) = delete;
+    void finish() {
+        if (thread_.joinable()) thread_.join();
+        if (error_) std::rethrow_exception(error_);
     }
 };
 #endif
@@ -117,6 +150,8 @@ static_assert(!(MELSPEC_CUDA_PINNED && MELSPEC_CUDA_ASYNC_OUTPUT),
               "Use either full pinned output or async chunked output, not both");
 static_assert(!(MELSPEC_CUDA_RESIZE_THREAD && MELSPEC_CUDA_DEFER_RESIZE),
               "Use either resize thread or deferred resize, not both");
+static_assert(!MELSPEC_CUDA_GPU_INPUT_CONVERT || MELSPEC_CUDA_PRECISION == 32,
+              "GPU input conversion experiment is FP32-only");
 
 void cuda_check(cudaError_t status, const char* operation) {
     if (status != cudaSuccess)
@@ -167,6 +202,17 @@ __global__ void gather_window_kernel(const T* __restrict__ y,
         fft_input[i] = y[(frame_begin + frame) * hop_length + n] * window[n];
     }
 }
+
+#if MELSPEC_CUDA_GPU_INPUT_CONVERT
+template <typename In, typename Out>
+__global__ void convert_input_kernel(const In* __restrict__ input,
+                                     Out* __restrict__ output, size_t count) {
+    const size_t stride = static_cast<size_t>(blockDim.x) * gridDim.x;
+    for (size_t i = static_cast<size_t>(blockIdx.x) * blockDim.x + threadIdx.x;
+         i < count; i += stride)
+        output[i] = static_cast<Out>(input[i]);
+}
+#endif
 
 template <typename T>
 __global__ void power_kernel(const typename FftTraits<T>::Complex* __restrict__ fft_output,
@@ -300,6 +346,47 @@ public:
     }
 };
 
+#if MELSPEC_CUDA_BACKGROUND_INIT
+struct DeviceState {
+#if MELSPEC_CUDA_GPU_INPUT_CONVERT
+    DeviceBuffer<double> y_input;
+#endif
+    DeviceBuffer<Real> y;
+    DeviceBuffer<Real> window;
+    DeviceBuffer<Real> weights;
+    DeviceBuffer<int> first;
+    DeviceBuffer<int> last;
+    DeviceBuffer<Real> output;
+    DeviceBuffer<Real> fft_input;
+    DeviceBuffer<Complex> fft_output;
+#if !MELSPEC_CUDA_FUSED
+    DeviceBuffer<Real> power;
+#endif
+    CufftPlan full_plan;
+    CufftPlan tail_plan;
+
+    DeviceState(size_t n_samples, int n_fft, size_t weight_count, size_t mel_count,
+                size_t output_elements, int capacity, int n_bins, int tail)
+        :
+#if MELSPEC_CUDA_GPU_INPUT_CONVERT
+          y_input(n_samples),
+#endif
+          y(n_samples),
+          window(n_fft),
+          weights(weight_count),
+          first(mel_count),
+          last(mel_count),
+          output(output_elements),
+          fft_input(static_cast<size_t>(capacity) * n_fft),
+          fft_output(static_cast<size_t>(capacity) * n_bins),
+#if !MELSPEC_CUDA_FUSED
+          power(static_cast<size_t>(capacity) * n_bins),
+#endif
+          full_plan(n_fft, capacity),
+          tail_plan(n_fft, tail ? tail : capacity) {}
+};
+#endif
+
 void copy_to_device(void* destination, const void* source, size_t bytes) {
     if (bytes)
         cuda_check(cudaMemcpy(destination, source, bytes, cudaMemcpyHostToDevice),
@@ -313,10 +400,11 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
                                  double f_max, std::vector<double>& output) {
 #ifdef MELSPEC_CUDA_PROFILE
     ProfileClock::time_point total_start, phase, async_start;
-    double device_alloc_ms = 0, h2d_ms = 0, batch_alloc_ms = 0;
+    double device_alloc_ms = 0, h2d_ms = 0, batch_alloc_ms = 0, device_alloc_wait_ms = 0;
     double plan_ms = 0, gather_ms = 0, fft_ms = 0, mel_ms = 0, pipeline_sync_ms = 0;
     double d2h_ms = 0, host_convert_ms = 0;
     double y_convert_ms = 0, window_fb_ms = 0, output_resize_ms = 0, staging_alloc_ms = 0;
+    double gpu_input_convert_ms = 0;
     double async_output_total_ms = 0, resize_wait_ms = 0;
 #endif
     PROFILE_POINT(total_start);
@@ -329,6 +417,8 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
         throw std::runtime_error("Invalid parameters or audio too short for n_fft");
     const int n_frames = 1 + (n_samples - n_fft) / hop_length;
     const int n_bins = n_fft / 2 + 1;
+    const int capacity = std::min(MELSPEC_CUDA_BATCH, n_frames);
+    const int tail = n_frames % capacity;
     const size_t output_elements = static_cast<size_t>(n_mels) * n_frames;
     if (n_fft == 1) {
         output.resize(output_elements);
@@ -342,16 +432,25 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
     output.resize(output_elements);
     PROFILE_ADD(output_resize_ms, phase);
 #endif
-#if MELSPEC_CUDA_OVERLAP_INIT
+#if MELSPEC_CUDA_BACKGROUND_INIT
+    std::unique_ptr<DeviceState> device_state;
+    BackgroundTask device_init([&] {
+        device_state = std::make_unique<DeviceState>(
+            y.size(), n_fft, static_cast<size_t>(n_mels) * n_bins, n_mels,
+            output_elements, capacity, n_bins, tail);
+    });
+#elif MELSPEC_CUDA_OVERLAP_INIT
     ContextInit context_init;
 #endif
 
     PROFILE_POINT(phase);
+#if !MELSPEC_CUDA_GPU_INPUT_CONVERT
 #if MELSPEC_CUDA_PINNED
     PinnedBuffer<Real> host_y(y.size());
     std::copy(y.begin(), y.end(), host_y.get());
 #else
     std::vector<Real> host_y(y.begin(), y.end());
+#endif
 #endif
     PROFILE_ADD(y_convert_ms, phase);
     PROFILE_POINT(phase);
@@ -369,18 +468,58 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
         while (last[m] > first[m] && mel_fb[m][last[m] - 1] == 0.0) --last[m];
     }
     PROFILE_ADD(window_fb_ms, phase);
+#if MELSPEC_CUDA_BACKGROUND_INIT
+    PROFILE_POINT(phase);
+    device_init.finish();
+    PROFILE_ADD(device_alloc_wait_ms, phase);
+#if MELSPEC_CUDA_GPU_INPUT_CONVERT
+    auto& device_y_input = device_state->y_input;
+#endif
+    auto& device_y = device_state->y;
+    auto& device_window = device_state->window;
+    auto& device_weights = device_state->weights;
+    auto& device_first = device_state->first;
+    auto& device_last = device_state->last;
+    auto& device_output = device_state->output;
+    auto& fft_input = device_state->fft_input;
+    auto& fft_output = device_state->fft_output;
+#if !MELSPEC_CUDA_FUSED
+    auto& power = device_state->power;
+#endif
+    auto& full_plan = device_state->full_plan;
+    auto& tail_plan = device_state->tail_plan;
+#else
 #if MELSPEC_CUDA_OVERLAP_INIT
     context_init.finish();
 #endif
-
     DeviceBuffer<Real> device_y(y.size());
     DeviceBuffer<Real> device_window(window.size());
     DeviceBuffer<Real> device_weights(weights.size());
     DeviceBuffer<int> device_first(first.size());
     DeviceBuffer<int> device_last(last.size());
     DeviceBuffer<Real> device_output(output_elements);
+#if MELSPEC_CUDA_GPU_INPUT_CONVERT
+    DeviceBuffer<double> device_y_input(y.size());
+#endif
     PROFILE_ADD(device_alloc_ms, phase);
-#if MELSPEC_CUDA_PINNED
+    DeviceBuffer<Real> fft_input(static_cast<size_t>(capacity) * n_fft);
+    DeviceBuffer<Complex> fft_output(static_cast<size_t>(capacity) * n_bins);
+#if !MELSPEC_CUDA_FUSED
+    DeviceBuffer<Real> power(static_cast<size_t>(capacity) * n_bins);
+#endif
+    PROFILE_ADD(batch_alloc_ms, phase);
+    CufftPlan full_plan(n_fft, capacity);
+    CufftPlan tail_plan(n_fft, tail ? tail : capacity);
+    PROFILE_ADD(plan_ms, phase);
+#endif
+#if MELSPEC_CUDA_GPU_INPUT_CONVERT
+    copy_to_device(device_y_input.get(), y.data(),
+                   y.size() * sizeof(double));
+    PROFILE_POINT(phase);
+    convert_input_kernel<<<blocks_for(y.size()), 256>>>(
+        device_y_input.get(), device_y.get(), y.size());
+    PROFILE_ADD_SYNC(gpu_input_convert_ms, phase);
+#elif MELSPEC_CUDA_PINNED
     copy_to_device(device_y.get(), host_y.get(), y.size() * sizeof(Real));
 #else
     copy_to_device(device_y.get(), host_y.data(), y.size() * sizeof(Real));
@@ -390,18 +529,6 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
     copy_to_device(device_first.get(), first.data(), first.size() * sizeof(int));
     copy_to_device(device_last.get(), last.data(), last.size() * sizeof(int));
     PROFILE_ADD(h2d_ms, phase);
-
-    const int capacity = std::min(MELSPEC_CUDA_BATCH, n_frames);
-    DeviceBuffer<Real> fft_input(static_cast<size_t>(capacity) * n_fft);
-    DeviceBuffer<Complex> fft_output(static_cast<size_t>(capacity) * n_bins);
-#if !MELSPEC_CUDA_FUSED
-    DeviceBuffer<Real> power(static_cast<size_t>(capacity) * n_bins);
-#endif
-    PROFILE_ADD(batch_alloc_ms, phase);
-    CufftPlan full_plan(n_fft, capacity);
-    const int tail = n_frames % capacity;
-    CufftPlan tail_plan(n_fft, tail ? tail : capacity);
-    PROFILE_ADD(plan_ms, phase);
     PROFILE_PRINT("cufft_workspace full=%zu tail=%zu bytes\n",
                   full_plan.workspace(), tail_plan.workspace());
 #ifdef MELSPEC_CUDA_PROFILE
@@ -535,12 +662,13 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
     }
 #endif
 #endif
-    PROFILE_PRINT("cuda_profile precision=%d batch=%d fused=%d defer_resize=%d async_output=%d resize_thread=%d staging_rows=%d y_convert_ms=%.3f window_fb_ms=%.3f output_resize_ms=%.3f resize_wait_ms=%.3f device_alloc_ms=%.3f h2d_ms=%.3f batch_alloc_ms=%.3f plan_ms=%.3f gather_ms=%.3f fft_ms=%.3f mel_ms=%.3f pipeline_sync_ms=%.3f staging_alloc_ms=%.3f d2h_ms=%.3f host_convert_ms=%.3f async_output_total_ms=%.3f compute_total_ms=%.3f\n",
+    PROFILE_PRINT("cuda_profile precision=%d batch=%d fused=%d defer_resize=%d async_output=%d resize_thread=%d staging_rows=%d y_convert_ms=%.3f window_fb_ms=%.3f output_resize_ms=%.3f resize_wait_ms=%.3f device_alloc_ms=%.3f device_alloc_wait_ms=%.3f h2d_ms=%.3f gpu_input_convert_ms=%.3f batch_alloc_ms=%.3f plan_ms=%.3f gather_ms=%.3f fft_ms=%.3f mel_ms=%.3f pipeline_sync_ms=%.3f staging_alloc_ms=%.3f d2h_ms=%.3f host_convert_ms=%.3f async_output_total_ms=%.3f compute_total_ms=%.3f\n",
                   MELSPEC_CUDA_PRECISION, MELSPEC_CUDA_BATCH, MELSPEC_CUDA_FUSED,
                   MELSPEC_CUDA_DEFER_RESIZE, MELSPEC_CUDA_ASYNC_OUTPUT,
                   MELSPEC_CUDA_RESIZE_THREAD, MELSPEC_CUDA_STAGING_ROWS,
                   y_convert_ms, window_fb_ms, output_resize_ms, resize_wait_ms,
-                  device_alloc_ms, h2d_ms, batch_alloc_ms, plan_ms, gather_ms, fft_ms,
+                  device_alloc_ms, device_alloc_wait_ms, h2d_ms, gpu_input_convert_ms,
+                  batch_alloc_ms, plan_ms, gather_ms, fft_ms,
                   mel_ms, pipeline_sync_ms, staging_alloc_ms, d2h_ms, host_convert_ms,
                   async_output_total_ms, profile_elapsed(total_start));
 }
