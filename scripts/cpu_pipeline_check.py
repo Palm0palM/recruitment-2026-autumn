@@ -49,6 +49,9 @@ def main():
     # Ensure all 16 partitions are exercised, not just single-thread tiny cases.
     specs.append((256, 11, 4127, 22050, 27, 110.0, 9876.0, "random"))
     specs.append((1024, 5, 4175, 48000, 7, 233.0, 7777.0, "random"))
+    # Multi-MiB output to exercise actual huge-page-backed ranges, independent
+    # of official parameters. Also crosses many slab boundaries.
+    specs.append((512, 13, 17001, 44100, 129, 317.0, 17003.0, "random"))
     with tempfile.TemporaryDirectory(dir=os.environ.get("TMPDIR", ROOT / "tmp")) as td:
         td = Path(td)
         for index, (nfft, hop, frames, sr, mels, lo, hi, pattern) in enumerate(specs):

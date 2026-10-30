@@ -11,6 +11,7 @@ set -euo pipefail
 cd "${SLURM_SUBMIT_DIR:-$PWD}"
 source tmp/session-env.sh
 export OPENBLAS_NUM_THREADS=16 OMP_NUM_THREADS=16 MKL_NUM_THREADS=16
+export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1
 echo "job=$SLURM_JOB_ID node=$(hostname) mode=${MODE:-profile}"
 grep Cpus_allowed_list /proc/self/status
 lscpu

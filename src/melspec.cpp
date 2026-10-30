@@ -1203,6 +1203,11 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     tail_begin = n_batches * 4;
 #endif
     auto worker = [&](int id) {
+#if defined(__AVX512F__) || (defined(__AVX2__) && defined(__FMA__))
+        // n_fft=1 has no batch buffer; the single-frame tail handles it.
+        // Do not even bind a reference to an element of an empty vector.
+        if (n_batches == 0) return;
+#endif
 #if MELSPEC_FP32_BATCH == 8
         auto& a = batch_buffers[id];
         const int begin = static_cast<long long>(n_batches) * id / n_threads;
