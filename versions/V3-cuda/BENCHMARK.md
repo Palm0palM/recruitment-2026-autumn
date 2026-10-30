@@ -60,3 +60,23 @@ fused/separate 差异较小，保留 fused 以避免功率矩阵及其显存流�
 
 原始逐次结果：`raw/sweep-201.out`、`raw/sweep-201.json`、`raw/sweep-220.out`、`raw/sweep-220.json`。
 这些数字来自 `cuda_bench.py`，与官方 validate 的 harness 有小幅口径差异，不与官方最小值混算。
+
+## 最终 batch512 复核（作业 226）
+
+同一算法 commit `c4df954`，FP32、batch512、fused、pageable、初始化重叠。
+完整官方 `validate.py --runs 3`，四组全部 PASS：
+
+| 用例 | GPU FP32（秒） | 同次官方 librosa / GPU | max_abs_err |
+|---|---:|---:|---:|
+| default | **1.016** | 13.877× | 0.09375 |
+| small_mels | **0.578** | 23.895× | 0.0234375 |
+| large_fft | **1.035** | 28.883× | 0.21875 |
+| narrow_band | **1.040** | 28.435× | 0.15625 |
+
+正式二进制 SHA-256：`bcb55ab0986ee41330e9501f667d1bc19c557045c659fe7e8d513d7061c35f30`。
+最终默认构建只把上述参数设为默认，不改变算法；同节点重建后需与该哈希对照。
+
+**结论：GPU 在本题真实规模下有竞争力，但不是所有用例都明显快于最佳 CPU。**
+同作业 220 中，初始化重叠 batch512 对 A2 的 default/small_mels 约 1.019×/1.428×，
+batch256 对 large/narrow 约 1.751×/1.630×；最终选择简单的 batch512 候选，
+其大 FFT 与 batch256 的差异约 1%，以官方 226 的完整验证为准。

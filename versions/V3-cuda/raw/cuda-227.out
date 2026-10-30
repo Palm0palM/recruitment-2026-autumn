@@ -1,0 +1,45 @@
+node=hepnode2 job=227 precision=32 arch=89 mode=profile
+c4df954db14acae4266d09f1828c9bb6e479708d
+Cpus_allowed_list:	0-3,16-19,32-35,48-51
+0, NVIDIA L40, 595.91.07, 46068 MiB, 8.9
+1, NVIDIA L40, 595.91.07, 46068 MiB, 8.9
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2026 NVIDIA Corporation
+Built on Tue_Sep_01_08:45:21_PDT_2026
+Cuda compilation tools, release 13.4, V13.4.92
+Build cuda_13.4.r13.4/compiler.38855100_0
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_PROFILE=1 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p1-h0-o1/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_PROFILE=1 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p1-h0-o1/main.o -c src/main.cpp
+/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/bin/nvcc -I./include -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_PROFILE=1 -I/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/targets/x86_64-linux/include -std=c++17 -O3 -arch=sm_89 -Xcompiler -O3,-march=native,-pthread -MMD -MP -o tmp/build/cuda-89-fp32-b512-f1-p1-h0-o1/melspec_cuda.o -c src/melspec_cuda.cu
+g++  -o tmp/bin/cuda-fp32 tmp/build/cuda-89-fp32-b512-f1-p1-h0-o1/main.o tmp/build/cuda-89-fp32-b512-f1-p1-h0-o1/melspec.o tmp/build/cuda-89-fp32-b512-f1-p1-h0-o1/melspec_cuda.o -pthread -L/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -Wl,-rpath,/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4/lib64 -lcufft -lcudart
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+7c963b180a2cd7f06a0a0c2ad0c3a536c3034c4b65d5c900341f841904c9561d  src/melspec.cpp
+35db64a35fae8de66efb15da3d25d3ab41bb175a751f29f73619bc316b2a4647  src/melspec_cuda.cu
+ae96df25e59816e6162e2cee7101c380d0058c820d1771cea302d0e91de2ea9d  include/melspec.h
+6eb64b3912ed90cbb348a7b65ef4ea9f75b57df4a14fd90c2e57adad26df7c22  include/melspec_cuda.h
+1296c8d388329e413188bf50820403031429bc28b6805411b099846752ff5087  Makefile
+008ee4f1d7b5f1f9408dd5222b78ed7514a0bc6dd8f142515e1cbf7b8c0f5e32  tmp/bin/cuda-fp32
+== cuda profile default ==
+cufft_workspace full=0 tail=0 bytes
+cuda_memory free=46862237696 total=47667740672 used=805502976 bytes
+cuda_profile precision=32 batch=512 fused=1 host_setup_ms=262.593 device_alloc_ms=0.445 h2d_ms=10.030 batch_alloc_ms=0.224 plan_ms=3.110 gather_ms=6.926 fft_ms=7.453 mel_ms=10.320 pipeline_sync_ms=24.775 d2h_ms=125.885 host_convert_ms=47.450 total_ms=481.932
+diagnostic_process_wall_s=1.021349
+profile output PASS: default
+== cuda profile small_mels ==
+cufft_workspace full=0 tail=0 bytes
+cuda_memory free=47015329792 total=47667740672 used=652410880 bytes
+cuda_profile precision=32 batch=512 fused=1 host_setup_ms=102.556 device_alloc_ms=41.959 h2d_ms=9.775 batch_alloc_ms=0.182 plan_ms=2.877 gather_ms=6.960 fft_ms=7.447 mel_ms=5.109 pipeline_sync_ms=19.586 d2h_ms=31.754 host_convert_ms=11.820 total_ms=222.665
+diagnostic_process_wall_s=0.595724
+profile output PASS: small_mels
+== cuda profile large_fft ==
+cufft_workspace full=0 tail=0 bytes
+cuda_memory free=46824488960 total=47667740672 used=843251712 bytes
+cuda_profile precision=32 batch=512 fused=1 host_setup_ms=267.435 device_alloc_ms=0.436 h2d_ms=10.249 batch_alloc_ms=0.242 plan_ms=3.498 gather_ms=11.750 fft_ms=24.558 mel_ms=11.216 pipeline_sync_ms=47.596 d2h_ms=124.452 host_convert_ms=47.549 total_ms=508.510
+diagnostic_process_wall_s=1.035207
+profile output PASS: large_fft
+== cuda profile narrow_band ==
+cufft_workspace full=0 tail=0 bytes
+cuda_memory free=46824488960 total=47667740672 used=843251712 bytes
+cuda_profile precision=32 batch=512 fused=1 host_setup_ms=266.538 device_alloc_ms=0.418 h2d_ms=10.223 batch_alloc_ms=0.227 plan_ms=3.314 gather_ms=13.219 fft_ms=25.090 mel_ms=10.529 pipeline_sync_ms=48.919 d2h_ms=126.124 host_convert_ms=47.526 total_ms=512.100
+diagnostic_process_wall_s=1.060666
+profile output PASS: narrow_band

@@ -1,0 +1,24 @@
+== cuda profile default ==
+cufft_workspace full=0 tail=0 bytes
+cuda_memory free=46862237696 total=47667740672 used=805502976 bytes
+cuda_profile precision=32 batch=512 fused=1 host_setup_ms=262.593 device_alloc_ms=0.445 h2d_ms=10.030 batch_alloc_ms=0.224 plan_ms=3.110 gather_ms=6.926 fft_ms=7.453 mel_ms=10.320 pipeline_sync_ms=24.775 d2h_ms=125.885 host_convert_ms=47.450 total_ms=481.932
+diagnostic_process_wall_s=1.021349
+profile output PASS: default
+== cuda profile small_mels ==
+cufft_workspace full=0 tail=0 bytes
+cuda_memory free=47015329792 total=47667740672 used=652410880 bytes
+cuda_profile precision=32 batch=512 fused=1 host_setup_ms=102.556 device_alloc_ms=41.959 h2d_ms=9.775 batch_alloc_ms=0.182 plan_ms=2.877 gather_ms=6.960 fft_ms=7.447 mel_ms=5.109 pipeline_sync_ms=19.586 d2h_ms=31.754 host_convert_ms=11.820 total_ms=222.665
+diagnostic_process_wall_s=0.595724
+profile output PASS: small_mels
+== cuda profile large_fft ==
+cufft_workspace full=0 tail=0 bytes
+cuda_memory free=46824488960 total=47667740672 used=843251712 bytes
+cuda_profile precision=32 batch=512 fused=1 host_setup_ms=267.435 device_alloc_ms=0.436 h2d_ms=10.249 batch_alloc_ms=0.242 plan_ms=3.498 gather_ms=11.750 fft_ms=24.558 mel_ms=11.216 pipeline_sync_ms=47.596 d2h_ms=124.452 host_convert_ms=47.549 total_ms=508.510
+diagnostic_process_wall_s=1.035207
+profile output PASS: large_fft
+== cuda profile narrow_band ==
+cufft_workspace full=0 tail=0 bytes
+cuda_memory free=46824488960 total=47667740672 used=843251712 bytes
+cuda_profile precision=32 batch=512 fused=1 host_setup_ms=266.538 device_alloc_ms=0.418 h2d_ms=10.223 batch_alloc_ms=0.227 plan_ms=3.314 gather_ms=13.219 fft_ms=25.090 mel_ms=10.529 pipeline_sync_ms=48.919 d2h_ms=126.124 host_convert_ms=47.526 total_ms=512.100
+diagnostic_process_wall_s=1.060666
+profile output PASS: narrow_band

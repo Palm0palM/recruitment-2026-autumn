@@ -6,15 +6,16 @@
 ## 本地：编译与小规模验证
 
 ```bash
-./scripts/setup.sh
-source scripts/env.sh
-make -j4
-$PY scripts/smoke.py                 # 固定种子随机 PCM，官方四组、默认 CLI、小 FFT
+source tmp/session-env.sh
+make -j4 CUDA_ARCH=120           # 本机 CUDA 功能构建；L40 集群使用默认 89
+# make -j4 CUDA=0                # 或构建 V1 CPU 对照
+$PY scripts/smoke.py ./melspec   # 固定种子随机 PCM，官方四组、默认 CLI、小 FFT
 $PY scripts/bench.py --slice 0.5 --runs 1  # 真实 PCM 切片；不是正式成绩
 ```
 
 - venv：`tmp/.venv`；目标文件：`tmp/build`；程序：`./melspec`。
-- 迁移解答使用 `std::thread`，编译/链接用 `-pthread`，不依赖 OpenMP 或外部数学库。
+- V3 CUDA 默认使用 `CUDA=1`、FP32、batch512、fused、初始化重叠；`CUDA=0` 构建 V1 CPU 对照。
+- 集群通过私有 `CUDA_HOME` 提供 CUDA/cuFFT，不依赖系统 toolkit 或 FFTW。
 - `data` 是题目提供的集群绝对路径链接，本地不改它；副本从 `$MELSPEC_DATA` 或 `tmp/data` 读取。
 - `setup.sh` 可自动发现旧的本地副本 `../autumn26/cluster_melspec/data`。
 - 本地只有约 15 GiB 内存，不跑官方全量 librosa；默认只做 smoke test。

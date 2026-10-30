@@ -3,16 +3,16 @@ CPPFLAGS = -I./include
 CXXFLAGS = -std=c++17 -Wall -Wextra -O3 -march=native -pthread
 LDLIBS = -pthread
 
-CUDA ?= 0
+CUDA ?= 1
 CUDA_HOME ?= /opt/cuda
 NVCC ?= $(CUDA_HOME)/bin/nvcc
 CUDA_ARCH ?= 89
 CUDA_PRECISION ?= 32
-CUDA_BATCH ?= 256
+CUDA_BATCH ?= 512
 CUDA_FUSED ?= 1
 CUDA_PROFILE ?= 0
 CUDA_PINNED ?= 0
-CUDA_OVERLAP_INIT ?= 0
+CUDA_OVERLAP_INIT ?= 1
 
 SRCS = $(wildcard src/*.cpp)
 INCS = $(wildcard include/*.h)
