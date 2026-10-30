@@ -1,6 +1,7 @@
 #include "melspec.h"
 
 #include <algorithm>
+#include <array>
 #include <cassert>
 #include <cmath>
 #include <complex>
@@ -286,6 +287,126 @@ struct FFTPlan {
     }
 };
 
+#if defined(__AVX2__) && defined(__FMA__)
+struct alignas(32) Lane4 {
+    std::array<double, 4> values;
+};
+
+static inline __m256d load4(const Lane4& value) {
+    return _mm256_load_pd(value.values.data());
+}
+
+static inline void store4(Lane4& destination, __m256d value) {
+    _mm256_store_pd(destination.values.data(), value);
+}
+
+struct Batch4Buffer {
+    std::vector<Lane4> re, im, power;
+    explicit Batch4Buffer(int n) : re(n), im(n), power(n + 1) {}
+};
+
+void apply_batch4(const FFTPlan& plan, Batch4Buffer& a) {
+    const int n = static_cast<int>(a.re.size());
+    if (plan.initial_radix2) {
+        for (int i = 0; i < n; i += 2) {
+            auto rr = load4(a.re[i]), ri = load4(a.im[i]);
+            store4(a.re[i], _mm256_add_pd(rr, load4(a.re[i + 1])));
+            store4(a.im[i], _mm256_add_pd(ri, load4(a.im[i + 1])));
+            store4(a.re[i + 1], _mm256_sub_pd(rr, load4(a.re[i + 1])));
+            store4(a.im[i + 1], _mm256_sub_pd(ri, load4(a.im[i + 1])));
+        }
+    }
+    for (const auto& stage : plan.stages) {
+        const int len = stage.len;
+        const int quarter = len / 4;
+        for (int base = 0; base < n; base += len) {
+            if (quarter == 1) {
+                auto ar = load4(a.re[base]), ai = load4(a.im[base]);
+                auto br = load4(a.re[base + 1]), bi = load4(a.im[base + 1]);
+                auto cr = load4(a.re[base + 2]), ci = load4(a.im[base + 2]);
+                auto dr = load4(a.re[base + 3]), di = load4(a.im[base + 3]);
+                auto sum01r = _mm256_add_pd(ar, br);
+                auto sum01i = _mm256_add_pd(ai, bi);
+                auto dif01r = _mm256_sub_pd(ar, br);
+                auto dif01i = _mm256_sub_pd(ai, bi);
+                auto sum23r = _mm256_add_pd(cr, dr);
+                auto sum23i = _mm256_add_pd(ci, di);
+                auto dif23r = _mm256_sub_pd(cr, dr);
+                auto dif23i = _mm256_sub_pd(ci, di);
+                store4(a.re[base], _mm256_add_pd(sum01r, sum23r));
+                store4(a.im[base], _mm256_add_pd(sum01i, sum23i));
+                store4(a.re[base + 1], _mm256_add_pd(dif01r, dif23i));
+                store4(a.im[base + 1], _mm256_sub_pd(dif01i, dif23r));
+                store4(a.re[base + 2], _mm256_sub_pd(sum01r, sum23r));
+                store4(a.im[base + 2], _mm256_sub_pd(sum01i, sum23i));
+                store4(a.re[base + 3], _mm256_sub_pd(dif01r, dif23i));
+                store4(a.im[base + 3], _mm256_add_pd(dif01i, dif23r));
+                continue;
+            }
+            for (int j = 0; j < quarter; ++j) {
+                const int p = base + j;
+                auto ar = load4(a.re[p]), ai = load4(a.im[p]);
+                auto br = load4(a.re[p + quarter]), bi = load4(a.im[p + quarter]);
+                auto cr = load4(a.re[p + 2 * quarter]), ci = load4(a.im[p + 2 * quarter]);
+                auto dr = load4(a.re[p + 3 * quarter]), di = load4(a.im[p + 3 * quarter]);
+                auto w1r = _mm256_set1_pd(stage.w1re[j]);
+                auto w1i = _mm256_set1_pd(stage.w1im[j]);
+                auto w2r = _mm256_set1_pd(stage.w2re[j]);
+                auto w2i = _mm256_set1_pd(stage.w2im[j]);
+                auto w3r = _mm256_set1_pd(stage.w3re[j]);
+                auto w3i = _mm256_set1_pd(stage.w3im[j]);
+                auto br2 = _mm256_fmsub_pd(br, w2r, _mm256_mul_pd(bi, w2i));
+                auto bi2 = _mm256_fmadd_pd(br, w2i, _mm256_mul_pd(bi, w2r));
+                auto cr1 = _mm256_fmsub_pd(cr, w1r, _mm256_mul_pd(ci, w1i));
+                auto ci1 = _mm256_fmadd_pd(cr, w1i, _mm256_mul_pd(ci, w1r));
+                auto dr3 = _mm256_fmsub_pd(dr, w3r, _mm256_mul_pd(di, w3i));
+                auto di3 = _mm256_fmadd_pd(dr, w3i, _mm256_mul_pd(di, w3r));
+                auto sum01r = _mm256_add_pd(ar, br2);
+                auto sum01i = _mm256_add_pd(ai, bi2);
+                auto dif01r = _mm256_sub_pd(ar, br2);
+                auto dif01i = _mm256_sub_pd(ai, bi2);
+                auto sum23r = _mm256_add_pd(cr1, dr3);
+                auto sum23i = _mm256_add_pd(ci1, di3);
+                auto dif23r = _mm256_sub_pd(cr1, dr3);
+                auto dif23i = _mm256_sub_pd(ci1, di3);
+                store4(a.re[p], _mm256_add_pd(sum01r, sum23r));
+                store4(a.im[p], _mm256_add_pd(sum01i, sum23i));
+                store4(a.re[p + quarter], _mm256_add_pd(dif01r, dif23i));
+                store4(a.im[p + quarter], _mm256_sub_pd(dif01i, dif23r));
+                store4(a.re[p + 2 * quarter], _mm256_sub_pd(sum01r, sum23r));
+                store4(a.im[p + 2 * quarter], _mm256_sub_pd(sum01i, sum23i));
+                store4(a.re[p + 3 * quarter], _mm256_sub_pd(dif01r, dif23i));
+                store4(a.im[p + 3 * quarter], _mm256_add_pd(dif01i, dif23r));
+            }
+        }
+    }
+}
+
+void recover_power_batch4(Batch4Buffer& a, const std::vector<double>& recovery_re,
+                          const std::vector<double>& recovery_im) {
+    const int half = static_cast<int>(a.re.size());
+    auto dc = _mm256_add_pd(load4(a.re[0]), load4(a.im[0]));
+    auto nyquist = _mm256_sub_pd(load4(a.re[0]), load4(a.im[0]));
+    store4(a.power[0], _mm256_mul_pd(dc, dc));
+    store4(a.power[half], _mm256_mul_pd(nyquist, nyquist));
+    const auto scale = _mm256_set1_pd(0.5);
+    for (int k = 1; k < half; ++k) {
+        auto ar = load4(a.re[k]), ai = load4(a.im[k]);
+        auto br = load4(a.re[half - k]);
+        auto bi = _mm256_sub_pd(_mm256_setzero_pd(), load4(a.im[half - k]));
+        auto rr = _mm256_set1_pd(recovery_re[k]);
+        auto ri = _mm256_set1_pd(recovery_im[k]);
+        auto dr = _mm256_sub_pd(ar, br);
+        auto di = _mm256_sub_pd(ai, bi);
+        auto xr = _mm256_fmadd_pd(rr, dr, _mm256_mul_pd(scale, _mm256_add_pd(ar, br)));
+        xr = _mm256_fnmadd_pd(ri, di, xr);
+        auto xi = _mm256_fmadd_pd(ri, dr, _mm256_mul_pd(scale, _mm256_add_pd(ai, bi)));
+        xi = _mm256_fmadd_pd(rr, di, xi);
+        store4(a.power[k], _mm256_fmadd_pd(xr, xr, _mm256_mul_pd(xi, xi)));
+    }
+}
+#endif
+
 void recover_power(const ComplexBuffer& a, const std::vector<double>& recovery_re,
                    const std::vector<double>& recovery_im, std::vector<double>& power) {
     const int half = static_cast<int>(a.re.size());
@@ -430,36 +551,71 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     std::vector<ComplexBuffer> fft_buffers(n_threads, ComplexBuffer(half));
     std::vector<std::vector<double>> power_buffers(
         n_threads, std::vector<double>(n_bins));
-    auto worker = [&](int id) {
-        auto& fft_out = fft_buffers[id];
-        auto& power = power_buffers[id];
-        const int begin = static_cast<long long>(n_frames) * id / n_threads;
-        const int end = static_cast<long long>(n_frames) * (id + 1) / n_threads;
-        for (int t = begin; t < end; ++t) {
-            int start = t * hop_length;
-
-            if (n_fft == 1) {
-                double sample = y[start] * window[0];
-                power[0] = sample * sample;
-            } else {
-                // Fuse bit reversal with windowing and even/odd packing.
-                for (int i = 0; i < half; ++i) {
-                    fft_out.re[plan.reversed[i]] = y[start + 2 * i] * window[2 * i];
-                    fft_out.im[plan.reversed[i]] =
-                        y[start + 2 * i + 1] * window[2 * i + 1];
-                }
-                plan.apply_permuted(fft_out);
-                recover_power(fft_out, recovery_re, recovery_im, power);
+    auto process_single = [&](int t, ComplexBuffer& fft_out, std::vector<double>& power) {
+        const int start = t * hop_length;
+        if (n_fft == 1) {
+            double sample = y[start] * window[0];
+            power[0] = sample * sample;
+        } else {
+            for (int i = 0; i < half; ++i) {
+                fft_out.re[plan.reversed[i]] = y[start + 2 * i] * window[2 * i];
+                fft_out.im[plan.reversed[i]] =
+                    y[start + 2 * i + 1] * window[2 * i + 1];
             }
+            plan.apply_permuted(fft_out);
+            recover_power(fft_out, recovery_re, recovery_im, power);
+        }
+        for (int m = 0; m < n_mels; ++m) {
+            double acc = 0.0;
+            for (int k = first[m]; k < last[m]; ++k)
+                acc += mel_fb[m][k] * power[k];
+            output[static_cast<size_t>(m) * n_frames + t] = acc;
+        }
+    };
 
-            // Apply filters immediately, while this frame's power is in cache.
+    int tail_begin = 0;
+#if defined(__AVX2__) && defined(__FMA__)
+    std::vector<Batch4Buffer> batch_buffers;
+    if (n_fft > 1)
+        batch_buffers.assign(n_threads, Batch4Buffer(half));
+    const int n_batches = n_fft > 1 ? n_frames / 4 : 0;
+    tail_begin = n_batches * 4;
+#endif
+    auto worker = [&](int id) {
+#if defined(__AVX2__) && defined(__FMA__)
+        auto& a = batch_buffers[id];
+        const int begin = static_cast<long long>(n_batches) * id / n_threads;
+        const int end = static_cast<long long>(n_batches) * (id + 1) / n_threads;
+        for (int batch = begin; batch < end; ++batch) {
+            const int t = batch * 4;
+            const int start = t * hop_length;
+            for (int i = 0; i < half; ++i) {
+                const int p = plan.reversed[i];
+                const double we = window[2 * i], wo = window[2 * i + 1];
+                store4(a.re[p], _mm256_setr_pd(
+                    y[start + 2 * i] * we,
+                    y[start + hop_length + 2 * i] * we,
+                    y[start + 2 * hop_length + 2 * i] * we,
+                    y[start + 3 * hop_length + 2 * i] * we));
+                store4(a.im[p], _mm256_setr_pd(
+                    y[start + 2 * i + 1] * wo,
+                    y[start + hop_length + 2 * i + 1] * wo,
+                    y[start + 2 * hop_length + 2 * i + 1] * wo,
+                    y[start + 3 * hop_length + 2 * i + 1] * wo));
+            }
+            apply_batch4(plan, a);
+            recover_power_batch4(a, recovery_re, recovery_im);
             for (int m = 0; m < n_mels; ++m) {
-                double acc = 0.0;
+                auto acc = _mm256_setzero_pd();
                 for (int k = first[m]; k < last[m]; ++k)
-                    acc += mel_fb[m][k] * power[k];
-                output[static_cast<size_t>(m) * n_frames + t] = acc;
+                    acc = _mm256_fmadd_pd(_mm256_set1_pd(mel_fb[m][k]),
+                                          load4(a.power[k]), acc);
+                _mm256_storeu_pd(output.data() + static_cast<size_t>(m) * n_frames + t, acc);
             }
         }
+#else
+        (void)id;
+#endif
     };
 
     std::vector<std::thread> threads;
@@ -474,4 +630,6 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     worker(0);
     for (int id = launched; id < n_threads; ++id) worker(id);
     for (auto& thread : threads) thread.join();
+    for (int t = tail_begin; t < n_frames; ++t)
+        process_single(t, fft_buffers[0], power_buffers[0]);
 }
