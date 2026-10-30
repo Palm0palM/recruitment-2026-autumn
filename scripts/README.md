@@ -11,6 +11,8 @@ source scripts/env.sh
 make -j4
 $PY scripts/smoke.py                 # 固定种子随机 PCM，官方四组、默认 CLI、小 FFT
 $PY scripts/bench.py --slice 0.5 --runs 1  # 真实 PCM 切片；不是正式成绩
+$PY scripts/fft_check.py                  # 公开 rfft 的全二次幂尺寸回归
+$PY scripts/ab_bench.py ./melspec-v1 ./melspec --cases default large_fft --runs 7
 ```
 
 - venv：`tmp/.venv`；目标文件：`tmp/build`；程序：`./melspec`。
@@ -18,6 +20,8 @@ $PY scripts/bench.py --slice 0.5 --runs 1  # 真实 PCM 切片；不是正式成
 - `data` 是题目提供的集群绝对路径链接，本地不改它；副本从 `$MELSPEC_DATA` 或 `tmp/data` 读取。
 - `setup.sh` 可自动发现旧的本地副本 `../autumn26/cluster_melspec/data`。
 - 本地只有约 15 GiB 内存，不跑官方全量 librosa；默认只做 smoke test。
+- `fft_check.py` 仅用 NumPy 作测试参考；`ab_bench.py` 交替 A/B 并交换先后次序，
+  输出全量最小值/中位数及 expected 校验，降低顺序测量受宿主机漂移的影响。
 
 ## 同步、计算节点编译与 benchmark
 

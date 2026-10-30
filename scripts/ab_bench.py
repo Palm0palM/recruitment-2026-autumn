@@ -29,6 +29,7 @@ def main():
         ap.error("unknown case")
     data = find_data_dir()
     pcm = data / "audio.pcm"
+    (ROOT / "tmp/bench").mkdir(parents=True, exist_ok=True)
     results = []
     for name in args.cases:
         case = cases[name]
