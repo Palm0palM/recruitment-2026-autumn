@@ -1,0 +1,3 @@
+hip_devices=1
+name=AMD Radeon AI PRO R9700 gcnArchName=gfx1201 global_mem=34208743424 multiprocessors=32
+HIP vector-add: PASS (1048576 elements)

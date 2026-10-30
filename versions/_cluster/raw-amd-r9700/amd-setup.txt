@@ -1,0 +1,4 @@
+Reuse extracted ROCm user space: /home/zsx/melspec-v3-mpi-spike/tmp/amd-gpu/root
+ROCm prefix: /home/zsx/melspec-v3-mpi-spike/tmp/amd-gpu/root
+source /home/zsx/melspec-v3-mpi-spike/tmp/amd-gpu/env.sh
+HIPCC=/home/zsx/melspec-v3-mpi-spike/tmp/amd-gpu/root/usr/bin/hipcc

@@ -1,0 +1,9 @@
+Sat Oct 31 12:41:23 AM CST 2026
+hepnode0
+04:00.0 VGA compatible controller [0300]: ASPEED Technology, Inc. ASPEED Graphics Family [1a03:2000] (rev 41)
+b1:00.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD/ATI] Navi 10 XL Upstream Port of PCI Express Switch [1002:1478] (rev 24)
+b2:00.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD/ATI] Navi 10 XL Downstream Port of PCI Express Switch [1002:1479] (rev 24)
+b3:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/ATI] Navi 48 [Radeon AI PRO R9700] [1002:7551] (rev c0)
+b3:00.1 Audio device [0403]: Advanced Micro Devices, Inc. [AMD/ATI] Navi 48 HDMI/DP Audio Controller [1002:ab40]
+crw-rw-rw- 1 root render 226, 128 Oct 30 10:57 /dev/dri/renderD128
+crw-rw-rw- 1 root render 504,   0 Oct 30 10:57 /dev/kfd
