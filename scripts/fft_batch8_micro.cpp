@@ -135,12 +135,92 @@ static void micro_apply_batch8(const FFTPlan& plan, MicroBatch8Buffer& a) {
     }
 }
 
-static double validate_batch8(const FFTPlan& plan, const std::vector<double>& input) {
+static void micro_apply_batch8_jouter(const FFTPlan& plan, MicroBatch8Buffer& a) {
+    const int n = static_cast<int>(a.re.size());
+    if (plan.initial_radix2) {
+        for (int i = 0; i < n; i += 2) {
+            const auto rr = micro_load8(a.re[i]), ri = micro_load8(a.im[i]);
+            micro_store8(a.re[i], _mm512_add_pd(rr, micro_load8(a.re[i + 1])));
+            micro_store8(a.im[i], _mm512_add_pd(ri, micro_load8(a.im[i + 1])));
+            micro_store8(a.re[i + 1], _mm512_sub_pd(rr, micro_load8(a.re[i + 1])));
+            micro_store8(a.im[i + 1], _mm512_sub_pd(ri, micro_load8(a.im[i + 1])));
+        }
+    }
+    for (const auto& stage : plan.stages) {
+        const int len = stage.len;
+        const int quarter = len / 4;
+        if (quarter == 1) {
+            for (int base = 0; base < n; base += len) {
+                const auto ar = micro_load8(a.re[base]), ai = micro_load8(a.im[base]);
+                const auto br = micro_load8(a.re[base + 1]), bi = micro_load8(a.im[base + 1]);
+                const auto cr = micro_load8(a.re[base + 2]), ci = micro_load8(a.im[base + 2]);
+                const auto dr = micro_load8(a.re[base + 3]), di = micro_load8(a.im[base + 3]);
+                const auto sum01r = _mm512_add_pd(ar, br);
+                const auto sum01i = _mm512_add_pd(ai, bi);
+                const auto dif01r = _mm512_sub_pd(ar, br);
+                const auto dif01i = _mm512_sub_pd(ai, bi);
+                const auto sum23r = _mm512_add_pd(cr, dr);
+                const auto sum23i = _mm512_add_pd(ci, di);
+                const auto dif23r = _mm512_sub_pd(cr, dr);
+                const auto dif23i = _mm512_sub_pd(ci, di);
+                micro_store8(a.re[base], _mm512_add_pd(sum01r, sum23r));
+                micro_store8(a.im[base], _mm512_add_pd(sum01i, sum23i));
+                micro_store8(a.re[base + 1], _mm512_add_pd(dif01r, dif23i));
+                micro_store8(a.im[base + 1], _mm512_sub_pd(dif01i, dif23r));
+                micro_store8(a.re[base + 2], _mm512_sub_pd(sum01r, sum23r));
+                micro_store8(a.im[base + 2], _mm512_sub_pd(sum01i, sum23i));
+                micro_store8(a.re[base + 3], _mm512_sub_pd(dif01r, dif23i));
+                micro_store8(a.im[base + 3], _mm512_add_pd(dif01i, dif23r));
+            }
+            continue;
+        }
+        for (int j = 0; j < quarter; ++j) {
+            const auto w1r = _mm512_set1_pd(stage.w1re[j]);
+            const auto w1i = _mm512_set1_pd(stage.w1im[j]);
+            const auto w2r = _mm512_set1_pd(stage.w2re[j]);
+            const auto w2i = _mm512_set1_pd(stage.w2im[j]);
+            const auto w3r = _mm512_set1_pd(stage.w3re[j]);
+            const auto w3i = _mm512_set1_pd(stage.w3im[j]);
+            for (int base = 0; base < n; base += len) {
+                const int p = base + j;
+                const auto ar = micro_load8(a.re[p]), ai = micro_load8(a.im[p]);
+                const auto br = micro_load8(a.re[p + quarter]), bi = micro_load8(a.im[p + quarter]);
+                const auto cr = micro_load8(a.re[p + 2 * quarter]), ci = micro_load8(a.im[p + 2 * quarter]);
+                const auto dr = micro_load8(a.re[p + 3 * quarter]), di = micro_load8(a.im[p + 3 * quarter]);
+                const auto br2 = _mm512_fmsub_pd(br, w2r, _mm512_mul_pd(bi, w2i));
+                const auto bi2 = _mm512_fmadd_pd(br, w2i, _mm512_mul_pd(bi, w2r));
+                const auto cr1 = _mm512_fmsub_pd(cr, w1r, _mm512_mul_pd(ci, w1i));
+                const auto ci1 = _mm512_fmadd_pd(cr, w1i, _mm512_mul_pd(ci, w1r));
+                const auto dr3 = _mm512_fmsub_pd(dr, w3r, _mm512_mul_pd(di, w3i));
+                const auto di3 = _mm512_fmadd_pd(dr, w3i, _mm512_mul_pd(di, w3r));
+                const auto sum01r = _mm512_add_pd(ar, br2);
+                const auto sum01i = _mm512_add_pd(ai, bi2);
+                const auto dif01r = _mm512_sub_pd(ar, br2);
+                const auto dif01i = _mm512_sub_pd(ai, bi2);
+                const auto sum23r = _mm512_add_pd(cr1, dr3);
+                const auto sum23i = _mm512_add_pd(ci1, di3);
+                const auto dif23r = _mm512_sub_pd(cr1, dr3);
+                const auto dif23i = _mm512_sub_pd(ci1, di3);
+                micro_store8(a.re[p], _mm512_add_pd(sum01r, sum23r));
+                micro_store8(a.im[p], _mm512_add_pd(sum01i, sum23i));
+                micro_store8(a.re[p + quarter], _mm512_add_pd(dif01r, dif23i));
+                micro_store8(a.im[p + quarter], _mm512_sub_pd(dif01i, dif23r));
+                micro_store8(a.re[p + 2 * quarter], _mm512_sub_pd(sum01r, sum23r));
+                micro_store8(a.im[p + 2 * quarter], _mm512_sub_pd(sum01i, sum23i));
+                micro_store8(a.re[p + 3 * quarter], _mm512_sub_pd(dif01r, dif23i));
+                micro_store8(a.im[p + 3 * quarter], _mm512_add_pd(dif01i, dif23r));
+            }
+        }
+    }
+}
+
+static double validate_batch8(const FFTPlan& plan, const std::vector<double>& input,
+                              void (*apply)(const FFTPlan&, MicroBatch8Buffer&)) {
     const int n = static_cast<int>(input.size());
     ComplexBuffer single(n);
     MicroBatch8Buffer batch(n);
     pack_batch8(plan, input, 0, batch);
-    micro_apply_batch8(plan, batch);
+    apply(plan, batch);
     double max_error = 0.0;
     double scale = 1.0;
     for (int lane = 0; lane < 8; ++lane) {
@@ -197,11 +277,18 @@ int main(int argc, char** argv) {
     for (int i = 0; i < n; ++i)
         input[i] = 0.25 + 0.5 * std::sin(0.017 * i) + 0.1 * std::cos(0.071 * i);
 
-    const double validation_error = validate_batch8(plan, input);
+    const double validation_error = validate_batch8(plan, input, micro_apply_batch8);
+    const double jouter_validation_error = validate_batch8(plan, input, micro_apply_batch8_jouter);
     std::cout << "validation scaled_max_error=" << std::setprecision(12)
               << validation_error << '\n';
+    std::cout << "validation_jouter scaled_max_error=" << std::setprecision(12)
+              << jouter_validation_error << '\n';
     if (!(validation_error <= 1e-9)) {
         std::cerr << "batch8 numerical validation failed\n";
+        return 1;
+    }
+    if (!(jouter_validation_error <= 1e-9)) {
+        std::cerr << "batch8_jouter numerical validation failed\n";
         return 1;
     }
 
@@ -237,6 +324,23 @@ int main(int argc, char** argv) {
             }
         }
 
+        double jouter_pack = 0.0, jouter_fft = 0.0;
+        volatile double jouter_checksum = 0.0;
+        for (int frame = 0; frame < frames; frame += 8) {
+            auto begin = Clock::now();
+            pack_batch8(plan, input, frame, batch);
+            auto packed = Clock::now();
+            micro_apply_batch8_jouter(plan, batch);
+            auto end = Clock::now();
+            jouter_pack += seconds(begin, packed);
+            jouter_fft += seconds(packed, end);
+            for (int lane = 0; lane < 8; ++lane) {
+                const int current = frame + lane;
+                jouter_checksum += batch.re[current % n].values[lane]
+                    + batch.im[(current * 7) % n].values[lane];
+            }
+        }
+
         std::cout << "single," << n << ',' << rep << ',' << std::setprecision(12)
                   << single_pack * 1e9 / frames << ',' << single_fft * 1e9 / frames << ','
                   << (single_pack + single_fft) * 1e9 / frames << ','
@@ -245,6 +349,10 @@ int main(int argc, char** argv) {
                   << batch_pack * 1e9 / frames << ',' << batch_fft * 1e9 / frames << ','
                   << (batch_pack + batch_fft) * 1e9 / frames << ','
                   << batch_checksum << '\n';
+        std::cout << "batch8_jouter," << n << ',' << rep << ',' << std::setprecision(12)
+                  << jouter_pack * 1e9 / frames << ',' << jouter_fft * 1e9 / frames << ','
+                  << (jouter_pack + jouter_fft) * 1e9 / frames << ','
+                  << jouter_checksum << '\n';
     }
     return 0;
 #endif

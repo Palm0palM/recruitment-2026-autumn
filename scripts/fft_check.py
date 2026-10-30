@@ -40,6 +40,7 @@ extern "C" void checked_rfft(int n, const double* input, double* output) {
         n = 1 << exponent
         signals = {
             "random": rng.standard_normal(n),
+            "zero": np.zeros(n),
             "impulse": np.eye(1, n, n // 3).ravel(),
             "sine": np.sin(np.arange(n) * (2 * np.pi * 5.25 / n)),
         }
@@ -53,7 +54,7 @@ extern "C" void checked_rfft(int n, const double* input, double* output) {
             scale = max(1.0, float(np.max(np.abs(expected))))
             if error > 1e-9 * scale:
                 raise SystemExit(f"FAIL n={n} {kind}: max_abs_err={error:.3e}, scale={scale:.3e}")
-        print(f"n={n:5d}: random/impulse/sine PASS", flush=True)
+        print(f"n={n:5d}: random/zero/impulse/sine PASS", flush=True)
     print("All public rfft checks passed.")
 
 
