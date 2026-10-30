@@ -1,5 +1,8 @@
 # 七边形 2026 年秋季招新题目！
 
+> 本仓库的开发/集群评测流程见 [scripts/README.md](scripts/README.md)，优化记录见
+> [versions/README.md](versions/README.md)。下文保留题目说明；测试规模以 `validate.py` 为准。
+
 嗨，欢迎来做七边形的招新题！
 
 招新题是一个C++ 小项目，使用 Make 构建。你需要对这个项目做你能想到的性能优化，使其在保持正确性的前提下，跑得尽可能快。

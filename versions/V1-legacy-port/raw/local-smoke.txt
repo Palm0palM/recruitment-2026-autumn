@@ -1,0 +1,23 @@
+Local build: make -j4
+g++ -I./include -std=c++17 -Wall -Wextra -O3 -march=native -pthread
+Only warnings: existing unused n_mels/n_frames parameters in protected src/main.cpp.
+
+Command: tmp/.venv/bin/python -X pycache_prefix=tmp/pycache scripts/smoke.py
+default: PASS shape=(256, 1437) max_abs_err=0.00012207031
+small_mels: PASS shape=(64, 1437) max_abs_err=6.1035156e-05
+large_fft: PASS shape=(256, 1373) max_abs_err=0.00036621094
+narrow_band: PASS shape=(256, 1373) max_abs_err=0.00048828125
+cli_defaults: PASS shape=(128, 372) max_abs_err=1.5258789e-05
+fft_1: PASS shape=(4, 1500) max_abs_err=0
+librosa warning for n_fft=2: Empty filters detected in mel frequency basis.
+fft_2: PASS shape=(4, 1500) max_abs_err=6.4623485e-27
+fft_8: PASS shape=(4, 1500) max_abs_err=8.7311491e-11
+
+Command: tmp/.venv/bin/python -X pycache_prefix=tmp/pycache scripts/bench.py --case all --slice 0.5 --runs 1 --out tmp/bench/v1-smoke.md
+Input: 48000 samples (0.5s), first samples of official PCM.
+NOT a performance measurement: single run; includes librosa cold import/JIT.
+case        |  n_fft |  hop | mels | f_min |  f_max |   max|err| | pass |  time(s) |  librosa | speedup
+default     |   8192 |  128 |  256 |     0 |  22050 |   2.27e-12 | PASS |    0.020 |    2.631 | 129.76x
+small_mels  |   8192 |  128 |   64 |     0 |  22050 |   4.55e-13 | PASS |    0.036 |    0.051 |   1.43x
+large_fft   |  16384 |  128 |  256 |     0 |  22050 |   1.27e-11 | PASS |    0.054 |    0.049 |   0.91x
+narrow_band |  16384 |  128 |  256 |   300 |   8000 |   8.53e-14 | PASS |    0.050 |    0.042 |   0.84x

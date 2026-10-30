@@ -1,0 +1,8 @@
+Command: ssh hepnode 'sacct -j 45,47 --format=JobID,JobName,State,ExitCode,Elapsed,AllocCPUS,NodeList,MaxRSS -P'
+JobID|JobName|State|ExitCode|Elapsed|AllocCPUS|NodeList|MaxRSS
+45|melspec-bench|COMPLETED|0:0|00:06:38|16|hepnode3|
+45.batch|batch|COMPLETED|0:0|00:06:38|16|hepnode3|
+45.extern|extern|COMPLETED|0:0|00:06:38|16|hepnode3|
+47|melspec-profile|COMPLETED|0:0|00:00:12|16|hepnode3|
+47.batch|batch|COMPLETED|0:0|00:00:12|16|hepnode3|
+47.extern|extern|COMPLETED|0:0|00:00:12|16|hepnode3|

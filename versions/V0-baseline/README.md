@@ -1,5 +1,8 @@
 # V0 — Baseline（原始朴素实现）
 
+> V1 整理说明：本页保留早期测量和当时的设计假设；V1 实际采用迁移旧招新赛最终解答，
+> 并非逐项实现本页 §7 的计划。V0 没有集群基线，**不能用本地 V0 / 集群 V1 计算加速比**。
+
 - 代码状态：tag `v0-baseline`（commit `25f2871`），`src/melspec.cpp`、`src/main.cpp` 均为题目原始版本
 - 关键实现：逐帧 `std::vector<std::complex<double>>` 手写 Cooley-Tukey、每帧重建旋转因子、
   `power_spec` 完整物化（`vector<vector<double>>`，形状 `(n_bins, n_frames)`）、
@@ -13,7 +16,7 @@
 2. **内存不可行**：`power_spec` 在 default 用例下就是 **6.3 GiB**，large_fft/narrow_band 需要 **12.6 GiB**。
    16 GB 的本地机器跑 large_fft 只能靠 swap；librosa 全量更是需要 ~25 GB。
    → 结论：必须改为**分块流式**，不能物化功率谱。
-3. **朴素实现比 librosa 慢 20 倍左右**（5 s 片段：17.5 s vs 0.83 s），
+3. **本地 5 s 片段朴素实现比 librosa 慢 20 倍左右**（17.5 s vs 0.83 s），
    `validate.py` 的 speedup 列会是 0.05x 量级。
 4. 全流程 `double` 而输出只要求 `float32`，容差 `rtol=1e-3, atol=1e-4` → **float32 化是白送的带宽收益**。
 5. `Makefile` 已带 `-O3 -march=native -fopenmp`，但代码中无任何 OpenMP 指令 → 24 核完全闲置。
@@ -60,7 +63,7 @@
 - **V0 的基线数字一律取本地实测**（同一台机器、同一数据集，纵向可比）。
 - 集群只在 **V1 之后**用于验证优化版本的绝对性能与扩展性；
   且仍然优先用小算例（`small_mels` 或截断输入），避免占用过多资源。
-- 跨平台比较时只比「相对 V0 的倍数」，不混用本地的绝对秒数。
+- 不将本地 V0 和集群优化版本混算加速比；集群采用同作业内 librosa 对照。
 
 ## 4. 瓶颈定位（证据）
 
@@ -102,8 +105,7 @@ large_fft   : 8193 × 192333 × 8 B = 12.6 GiB
 tmp/.venv/bin/python scripts/bench.py --case default --slice 5 --runs 3
 tmp/.venv/bin/python scripts/bench.py --case default --runs 3     # 全量，约 15~25 min
 
-# 集群（正式）
-ssh hepnode && cd <repo> && make -j && mkdir -p logs && sbatch scripts/bench.slurm
+# 集群 V0：按学长要求不再提交；V1 后的当前流程见 scripts/README.md。
 ```
 
 ## 7. 下一步（V1 的假设）

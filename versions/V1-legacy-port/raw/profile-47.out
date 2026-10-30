@@ -1,0 +1,198 @@
+== profile job 47 on hepnode3 ==
+Cpus_allowed_list:	0-15
+3b00a2d777a20de397c3a2e407b60f6a21258940470851cbeb82c4c21c64f957  src/melspec.cpp
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+8d88438eb5289c41fac4e2ba3dfd9ea9682a26a1bc8f2be629d6b274897758ca  scripts/profile.py
++ g++ -std=c++17 -O3 -march=native -pthread -I/home/zsx/recruitment-2026-autumn-v1/include /home/zsx/recruitment-2026-autumn-v1/tmp/profile/main.cpp /home/zsx/recruitment-2026-autumn-v1/tmp/profile/melspec.cpp -o /home/zsx/recruitment-2026-autumn-v1/tmp/profile/melspec-profile
+== profile default ==
+worker=12 pack_s=0.038077 fft_s=0.635689 power_s=0.127564 mel_s=0.037608 wall_s=0.839360
+worker=15 pack_s=0.039442 fft_s=0.634636 power_s=0.127554 mel_s=0.037554 wall_s=0.839603
+worker=14 pack_s=0.039001 fft_s=0.634953 power_s=0.127517 mel_s=0.037760 wall_s=0.839644
+worker=9 pack_s=0.039113 fft_s=0.636448 power_s=0.127175 mel_s=0.037728 wall_s=0.840877
+worker=10 pack_s=0.038789 fft_s=0.636619 power_s=0.127450 mel_s=0.037829 wall_s=0.841101
+worker=13 pack_s=0.038806 fft_s=0.636860 power_s=0.127186 mel_s=0.037925 wall_s=0.841190
+worker=6 pack_s=0.038573 fft_s=0.638489 power_s=0.127122 mel_s=0.037765 wall_s=0.842362
+worker=11 pack_s=0.039110 fft_s=0.637554 power_s=0.127676 mel_s=0.037738 wall_s=0.842492
+worker=8 pack_s=0.038238 fft_s=0.638788 power_s=0.127657 mel_s=0.037664 wall_s=0.842765
+worker=7 pack_s=0.039254 fft_s=0.639041 power_s=0.127421 mel_s=0.037620 wall_s=0.843751
+worker=5 pack_s=0.039471 fft_s=0.644509 power_s=0.127611 mel_s=0.037760 wall_s=0.849768
+worker=0 pack_s=0.037224 fft_s=0.651318 power_s=0.126466 mel_s=0.037741 wall_s=0.853160
+worker=4 pack_s=0.038131 fft_s=0.654698 power_s=0.127796 mel_s=0.037622 wall_s=0.858666
+worker=2 pack_s=0.038671 fft_s=0.664941 power_s=0.127030 mel_s=0.037825 wall_s=0.868886
+worker=1 pack_s=0.039368 fft_s=0.664207 power_s=0.127296 mel_s=0.038070 wall_s=0.869355
+worker=3 pack_s=0.039540 fft_s=0.666693 power_s=0.127959 mel_s=0.037839 wall_s=0.872445
+process read_s=0.176799 compute_s=1.07971 write_s=0.217623
+	Command being timed: "/home/zsx/recruitment-2026-autumn-v1/tmp/profile/melspec-profile /home/zsx/recruitment-2026-autumn-v1/data/audio.pcm /tmp/melspec-profile-47-SIdyLE/tmp6nonwoo1/out.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels 256 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 13.72
+	System time (seconds): 0.46
+	Percent of CPU this job got: 947%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.49
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 772664
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 207147
+	Voluntary context switches: 256
+	Involuntary context switches: 5239
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+worker phase totals (sum of thread wall time, NOT process wall time):
+  pack_s: 0.620808s (4.57%)
+  fft_s: 10.315443s (75.97%)
+  power_s: 2.038480s (15.01%)
+  mel_s: 0.604048s (4.45%)
+profile output: PASS
+== profile small_mels ==
+worker=15 pack_s=0.037663 fft_s=0.631656 power_s=0.126550 mel_s=0.041958 wall_s=0.838239
+worker=9 pack_s=0.037624 fft_s=0.631999 power_s=0.126543 mel_s=0.042118 wall_s=0.838698
+worker=13 pack_s=0.037631 fft_s=0.631978 power_s=0.126632 mel_s=0.042001 wall_s=0.838660
+worker=10 pack_s=0.037488 fft_s=0.632432 power_s=0.126912 mel_s=0.042322 wall_s=0.839566
+worker=14 pack_s=0.037588 fft_s=0.634019 power_s=0.126742 mel_s=0.042090 wall_s=0.840855
+worker=6 pack_s=0.037409 fft_s=0.636243 power_s=0.126819 mel_s=0.042142 wall_s=0.843027
+worker=11 pack_s=0.037780 fft_s=0.635179 power_s=0.127698 mel_s=0.042142 wall_s=0.843219
+worker=12 pack_s=0.037170 fft_s=0.635858 power_s=0.127746 mel_s=0.042132 wall_s=0.843323
+worker=8 pack_s=0.037068 fft_s=0.637114 power_s=0.127359 mel_s=0.042113 wall_s=0.844066
+worker=7 pack_s=0.037899 fft_s=0.638008 power_s=0.127569 mel_s=0.042081 wall_s=0.845971
+worker=5 pack_s=0.037745 fft_s=0.638926 power_s=0.127105 mel_s=0.042203 wall_s=0.846399
+worker=0 pack_s=0.036328 fft_s=0.644233 power_s=0.126218 mel_s=0.042160 wall_s=0.849350
+worker=4 pack_s=0.037133 fft_s=0.652156 power_s=0.127685 mel_s=0.042104 wall_s=0.859492
+worker=1 pack_s=0.037734 fft_s=0.659323 power_s=0.127038 mel_s=0.042462 wall_s=0.866970
+worker=3 pack_s=0.037779 fft_s=0.660884 power_s=0.127605 mel_s=0.042274 wall_s=0.868955
+worker=2 pack_s=0.037560 fft_s=0.663550 power_s=0.127344 mel_s=0.042628 wall_s=0.871497
+process read_s=0.173367 compute_s=0.9249 write_s=0.0703547
+	Command being timed: "/home/zsx/recruitment-2026-autumn-v1/tmp/profile/melspec-profile /home/zsx/recruitment-2026-autumn-v1/data/audio.pcm /tmp/melspec-profile-47-SIdyLE/tmp6nonwoo1/out.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels 64 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 13.65
+	System time (seconds): 0.22
+	Percent of CPU this job got: 1171%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.18
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 339780
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 97383
+	Voluntary context switches: 229
+	Involuntary context switches: 5026
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+worker phase totals (sum of thread wall time, NOT process wall time):
+  pack_s: 0.599599s (4.42%)
+  fft_s: 10.263558s (75.62%)
+  power_s: 2.033565s (14.98%)
+  mel_s: 0.674930s (4.97%)
+profile output: PASS
+== profile large_fft ==
+worker=12 pack_s=0.073918 fft_s=1.473627 power_s=0.251018 mel_s=0.079327 wall_s=1.878302
+worker=9 pack_s=0.073705 fft_s=1.476854 power_s=0.251238 mel_s=0.079401 wall_s=1.881610
+worker=15 pack_s=0.073808 fft_s=1.477323 power_s=0.251374 mel_s=0.079677 wall_s=1.882601
+worker=6 pack_s=0.073867 fft_s=1.478159 power_s=0.251169 mel_s=0.079309 wall_s=1.882918
+worker=2 pack_s=0.073955 fft_s=1.477640 power_s=0.251483 mel_s=0.079557 wall_s=1.883052
+worker=10 pack_s=0.073983 fft_s=1.477854 power_s=0.251219 mel_s=0.079389 wall_s=1.882862
+worker=7 pack_s=0.074048 fft_s=1.477807 power_s=0.251510 mel_s=0.079502 wall_s=1.883285
+worker=4 pack_s=0.074083 fft_s=1.477887 power_s=0.251533 mel_s=0.079543 wall_s=1.883463
+worker=11 pack_s=0.074050 fft_s=1.477998 power_s=0.251589 mel_s=0.079423 wall_s=1.883473
+worker=3 pack_s=0.074099 fft_s=1.479374 power_s=0.251569 mel_s=0.079272 wall_s=1.884731
+worker=14 pack_s=0.074108 fft_s=1.478342 power_s=0.252084 mel_s=0.079448 wall_s=1.884403
+worker=8 pack_s=0.074015 fft_s=1.479254 power_s=0.251524 mel_s=0.079585 wall_s=1.884792
+worker=1 pack_s=0.073835 fft_s=1.480018 power_s=0.251836 mel_s=0.079791 wall_s=1.885901
+worker=5 pack_s=0.073792 fft_s=1.483638 power_s=0.251640 mel_s=0.079594 wall_s=1.889087
+worker=0 pack_s=0.073992 fft_s=1.483970 power_s=0.251312 mel_s=0.079431 wall_s=1.889118
+worker=13 pack_s=0.073882 fft_s=1.487766 power_s=0.252143 mel_s=0.079770 wall_s=1.893975
+process read_s=0.179832 compute_s=2.11369 write_s=0.245265
+	Command being timed: "/home/zsx/recruitment-2026-autumn-v1/tmp/profile/melspec-profile /home/zsx/recruitment-2026-autumn-v1/data/audio.pcm /tmp/melspec-profile-47-SIdyLE/tmp6nonwoo1/out.bin --sr 96000 --n_fft 16384 --hop_length 128 --n_mels 256 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 30.27
+	System time (seconds): 0.51
+	Percent of CPU this job got: 1200%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.56
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 773524
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 252362
+	Voluntary context switches: 267
+	Involuntary context switches: 11274
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+worker phase totals (sum of thread wall time, NOT process wall time):
+  pack_s: 1.183140s (3.92%)
+  fft_s: 23.667511s (78.51%)
+  power_s: 4.024241s (13.35%)
+  mel_s: 1.272019s (4.22%)
+profile output: PASS
+== profile narrow_band ==
+worker=0 pack_s=0.074304 fft_s=1.474281 power_s=0.251353 mel_s=0.029104 wall_s=1.829455
+worker=15 pack_s=0.073873 fft_s=1.473864 power_s=0.252172 mel_s=0.029235 wall_s=1.829558
+worker=2 pack_s=0.074166 fft_s=1.476661 power_s=0.251317 mel_s=0.029164 wall_s=1.831721
+worker=12 pack_s=0.074230 fft_s=1.476446 power_s=0.251468 mel_s=0.029255 wall_s=1.831815
+worker=10 pack_s=0.074267 fft_s=1.477410 power_s=0.251722 mel_s=0.029288 wall_s=1.833106
+worker=1 pack_s=0.073917 fft_s=1.478348 power_s=0.251512 mel_s=0.029301 wall_s=1.833492
+worker=14 pack_s=0.074335 fft_s=1.477634 power_s=0.252021 mel_s=0.029226 wall_s=1.833631
+worker=4 pack_s=0.074372 fft_s=1.479116 power_s=0.251589 mel_s=0.029377 wall_s=1.834869
+worker=6 pack_s=0.074344 fft_s=1.479592 power_s=0.251769 mel_s=0.028990 wall_s=1.835109
+worker=11 pack_s=0.074407 fft_s=1.479129 power_s=0.251797 mel_s=0.029288 wall_s=1.835035
+worker=9 pack_s=0.074206 fft_s=1.479927 power_s=0.251779 mel_s=0.029288 wall_s=1.835614
+worker=3 pack_s=0.074494 fft_s=1.479178 power_s=0.252400 mel_s=0.029297 wall_s=1.835783
+worker=7 pack_s=0.074319 fft_s=1.480305 power_s=0.251816 mel_s=0.029236 wall_s=1.836097
+worker=8 pack_s=0.074367 fft_s=1.479855 power_s=0.252348 mel_s=0.029284 wall_s=1.836268
+worker=5 pack_s=0.074259 fft_s=1.484127 power_s=0.251628 mel_s=0.029137 wall_s=1.839578
+worker=13 pack_s=0.073923 fft_s=1.489759 power_s=0.251543 mel_s=0.028780 wall_s=1.844424
+process read_s=0.176758 compute_s=2.06042 write_s=0.251281
+	Command being timed: "/home/zsx/recruitment-2026-autumn-v1/tmp/profile/melspec-profile /home/zsx/recruitment-2026-autumn-v1/data/audio.pcm /tmp/melspec-profile-47-SIdyLE/tmp6nonwoo1/out.bin --sr 96000 --n_fft 16384 --hop_length 128 --n_mels 256 --f_min 300.0 --f_max 8000.0"
+	User time (seconds): 29.47
+	System time (seconds): 0.52
+	Percent of CPU this job got: 1192%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.51
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 772704
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 253607
+	Voluntary context switches: 284
+	Involuntary context switches: 11003
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+worker phase totals (sum of thread wall time, NOT process wall time):
+  pack_s: 1.187783s (4.05%)
+  fft_s: 23.665632s (80.64%)
+  power_s: 4.028234s (13.73%)
+  mel_s: 0.467250s (1.59%)
+profile output: PASS
