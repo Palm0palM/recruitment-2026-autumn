@@ -50,11 +50,11 @@ else
 $(error CUDA_PRECISION must be 32 or 64)
 endif
 
-.PHONY: all clean test format
+.PHONY: all clean test format FORCE
 
 all: $(EXEC)
 
-$(EXEC): $(OBJS)
+$(EXEC): $(OBJS) | FORCE
 	@mkdir -p $(dir $@)
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
@@ -67,6 +67,8 @@ $(BUILD)/melspec_cuda.o: src/melspec_cuda.cu $(INCS) Makefile
 	$(NVCC) $(CPPFLAGS) $(NVCCFLAGS) -MMD -MP -o $@ -c $<
 
 -include $(OBJS:.o=.d)
+
+FORCE:
 
 clean:
 	rm -f $(OBJS) $(OBJS:.o=.d) $(EXEC)

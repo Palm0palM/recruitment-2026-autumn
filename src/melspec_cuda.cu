@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstddef>
+#include <limits>
 #include <stdexcept>
 #include <string>
 #include <type_traits>
@@ -32,8 +33,8 @@
 #include <exception>
 #include <thread>
 struct ContextInit {
+    std::exception_ptr error;  // initialize before the worker may write it
     std::thread thread;
-    std::exception_ptr error;
     ContextInit() : thread([this] {
         try {
             const cudaError_t status = cudaFree(nullptr);
@@ -64,7 +65,7 @@ double profile_elapsed(ProfileClock::time_point start) {
 #define PROFILE_POINT(name) auto name = ProfileClock::now()
 #define PROFILE_ADD(variable, point) variable += profile_elapsed(point); point = ProfileClock::now()
 #define PROFILE_ADD_SYNC(variable, point) \
-    cudaDeviceSynchronize(); PROFILE_ADD(variable, point)
+    cuda_check(cudaDeviceSynchronize(), "CUDA profile synchronize"); PROFILE_ADD(variable, point)
 #define PROFILE_PRINT(...) std::fprintf(stderr, __VA_ARGS__)
 #else
 #define PROFILE_POINT(name)
@@ -76,6 +77,7 @@ double profile_elapsed(ProfileClock::time_point start) {
 namespace {
 
 using Real = std::conditional_t<MELSPEC_CUDA_PRECISION == 32, float, double>;
+static_assert(MELSPEC_CUDA_BATCH > 0, "CUDA_BATCH must be positive");
 
 void cuda_check(cudaError_t status, const char* operation) {
     if (status != cudaSuccess)
@@ -252,6 +254,8 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
 #endif
     PROFILE_POINT(total_start);
     PROFILE_POINT(phase);
+    if (y.size() > static_cast<size_t>(std::numeric_limits<int>::max()))
+        throw std::runtime_error("Input exceeds the protected CLI's int size limit");
     const int n_samples = static_cast<int>(y.size());
     if (n_fft < 1 || (n_fft & (n_fft - 1)) != 0 || hop_length < 1 ||
         n_mels < 1 || sr < 1 || n_samples < n_fft)
@@ -332,7 +336,7 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
 
     for (int frame_begin = 0; frame_begin < n_frames; frame_begin += capacity) {
         const int batch = std::min(capacity, n_frames - frame_begin);
-        const int items = batch * n_fft;
+        const size_t items = static_cast<size_t>(batch) * n_fft;
         PROFILE_POINT(phase);
         gather_window_kernel<<<blocks_for(items), 256>>>(
             device_y.get(), device_window.get(), fft_input.get(), batch,
@@ -345,7 +349,7 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
 #if MELSPEC_CUDA_FUSED
         const Real* power_pointer = nullptr;
 #else
-        power_kernel<<<blocks_for(batch * n_bins), 256>>>(
+        power_kernel<<<blocks_for(static_cast<size_t>(batch) * n_bins), 256>>>(
             fft_output.get(), power.get(), batch, n_bins);
         const Real* power_pointer = power.get();
 #endif
