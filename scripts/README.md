@@ -51,3 +51,20 @@ sbatch scripts/profile.slurm      # perf stat/record + 火焰图
   通过 `PY=/path/to/python sbatch ...` 传入。
 - 注意：`sbatch` 会读 `#SBATCH` 头里的 `--output=logs/...`，所以**先 `mkdir -p logs`**。
 - 禁止在登录节点跑全量；`profile.slurm` 默认单例（`-n 1`）采样，避免线程干扰。
+
+## 本地环境实测（2026-10-30）
+
+| 项 | 版本/状态 | 备注 |
+|---|---|---|
+| CPU | i7-14650HX，12C/24T | 仅 AVX2 + FMA，**无 AVX-512** |
+| 内存 | 15 GiB + 4 GiB swap | default 全量朴素实现 RSS ≈ 6.7 GB；large_fft 需 12.6 GB，本地会 swap |
+| GPU | RTX 5060 Laptop | CUDA 13.4（`/opt/cuda/bin/nvcc`） |
+| 编译器 | g++ 16.2.1 | `make` 已带 `-O3 -march=native -fopenmp` |
+| FFTW | 3.3.11（double/float/omp/threads） | `-lfftw3 -lfftw3_omp` 本地实测可用 |
+| BLAS | **无 OpenBLAS/cblas** | 需要时 `sudo pacman -S openblas` 或集群 spack 取用 |
+| Python | venv 内 3.12.13 | numpy 2.5.4 / scipy 1.18.1 / librosa 1.0.0 |
+| clang-format | 23.1.3（`uv tool`） | 现有源码格式已符合 `.clang-format`，`make format` 无 diff |
+| perf | 可用（`perf_event_paranoid=2`） | 用户态采样可用，内核态不可 |
+
+集群：`ssh hepnode`（222.20.97.229:2200）在 2026-10-30 上午不可达（`No route to host`），
+建议开工前先 `ssh hepnode 'hostname; nproc; free -g'` 确认节点规格与 spack 里的 fftw/openblas 版本。
