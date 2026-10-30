@@ -24,6 +24,7 @@ P="${P:-32}"
 ARCH="${ARCH:-89}"
 RUNS="${RUNS:-3}"
 MODE="${MODE:-bench}"
+PROFILE="${PROFILE:-0}"
 PY="$HOME/venv/bin/python"
 
 echo "node=$(hostname) job=$SLURM_JOB_ID precision=$P arch=$ARCH mode=$MODE"
@@ -32,11 +33,19 @@ git status --short
 grep Cpus_allowed_list /proc/self/status
 nvidia-smi --query-gpu=index,name,driver_version,memory.total,compute_cap --format=csv,noheader
 nvcc --version
-make -B -j4 CUDA=1 CUDA_HOME="$CUDA_HOME" CUDA_ARCH="$ARCH" CUDA_PRECISION="$P" EXEC="tmp/bin/cuda-fp$P"
+make -B -j4 CUDA=1 CUDA_HOME="$CUDA_HOME" CUDA_ARCH="$ARCH" CUDA_PRECISION="$P" \
+  CUDA_PROFILE="$PROFILE" EXEC="tmp/bin/cuda-fp$P"
 sha256sum src/main.cpp src/melspec.cpp src/melspec_cuda.cu include/melspec.h include/melspec_cuda.h Makefile "tmp/bin/cuda-fp$P"
 if [ "$MODE" = build ]; then exit 0; fi
 if [ "$MODE" = smoke ]; then
   "$PY" -u scripts/smoke.py "./tmp/bin/cuda-fp$P" | tee "tmp/logs/smoke-${SLURM_JOB_ID}.txt"
+  exit 0
+fi
+if [ "$MODE" = profile ]; then
+  scratch=$(mktemp -d "/tmp/melspec-cuda-profile-${SLURM_JOB_ID}-XXXXXX")
+  trap 'rm -rf -- "$scratch"' EXIT
+  export TMPDIR="$scratch"
+  "$PY" -u scripts/cuda_profile.py "./tmp/bin/cuda-fp$P" | tee "tmp/logs/profile-${SLURM_JOB_ID}.txt"
   exit 0
 fi
 scratch=$(mktemp -d "/tmp/melspec-cuda-${SLURM_JOB_ID}-XXXXXX")

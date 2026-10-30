@@ -1,6 +1,10 @@
 # V3 CUDA 公共实验上下文
 
-状态：仅完成环境准备，未开始优化。所有正式改动必须留在 `v3/cuda` 与本 worktree。
+当前进展：GPU 环境、私有工具链和 G1–G3 候选已实现；FP32/FP64 均通过本地 74 项合成测试与四组官方音频检查。
+详见 [ENVIRONMENT.md](ENVIRONMENT.md)、[IMPLEMENTATION.md](IMPLEMENTATION.md)。
+集群正式结果和最终候选以本目录后续 Benchmark/Profile 记录为准，不把本地 GPU 时间当作集群成绩。
+
+所有正式改动必须留在 `v3/cuda` 与本 worktree。
 
 ## 基线与目标
 

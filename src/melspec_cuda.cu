@@ -21,6 +21,9 @@
 #ifndef MELSPEC_CUDA_FUSED
 #define MELSPEC_CUDA_FUSED 1
 #endif
+#ifndef MELSPEC_CUDA_PINNED
+#define MELSPEC_CUDA_PINNED 0
+#endif
 
 #ifdef MELSPEC_CUDA_PROFILE
 #include <chrono>
@@ -164,6 +167,24 @@ public:
     operator bool() const { return pointer_ != nullptr; }
 };
 
+#if MELSPEC_CUDA_PINNED
+template <typename T> class PinnedBuffer {
+    T* pointer_ = nullptr;
+public:
+    explicit PinnedBuffer(size_t count) {
+        if (count)
+            cuda_check(cudaHostAlloc(reinterpret_cast<void**>(&pointer_),
+                                     count * sizeof(T), cudaHostAllocDefault),
+                       "cudaHostAlloc");
+    }
+    ~PinnedBuffer() { cudaFreeHost(pointer_); }
+    PinnedBuffer(const PinnedBuffer&) = delete;
+    PinnedBuffer& operator=(const PinnedBuffer&) = delete;
+    T* get() const { return pointer_; }
+    T& operator[](size_t i) const { return pointer_[i]; }
+};
+#endif
+
 class CufftPlan {
     cufftHandle handle_ = 0;
 public:
@@ -214,7 +235,12 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
         return;
     }
 
+#if MELSPEC_CUDA_PINNED
+    PinnedBuffer<Real> host_y(y.size());
+    std::copy(y.begin(), y.end(), host_y.get());
+#else
     std::vector<Real> host_y(y.begin(), y.end());
+#endif
     std::vector<Real> window(n_fft);
     for (int i = 0; i < n_fft; ++i)
         window[i] = static_cast<Real>(0.5 * (1.0 - std::cos(2.0 * M_PI * i / n_fft)));
@@ -230,14 +256,18 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
     }
     PROFILE_ADD(host_setup_ms, phase);
 
-    DeviceBuffer<Real> device_y(host_y.size());
+    DeviceBuffer<Real> device_y(y.size());
     DeviceBuffer<Real> device_window(window.size());
     DeviceBuffer<Real> device_weights(weights.size());
     DeviceBuffer<int> device_first(first.size());
     DeviceBuffer<int> device_last(last.size());
     DeviceBuffer<Real> device_output(output.size());
     PROFILE_ADD(device_alloc_ms, phase);
-    copy_to_device(device_y.get(), host_y.data(), host_y.size() * sizeof(Real));
+#if MELSPEC_CUDA_PINNED
+    copy_to_device(device_y.get(), host_y.get(), y.size() * sizeof(Real));
+#else
+    copy_to_device(device_y.get(), host_y.data(), y.size() * sizeof(Real));
+#endif
     copy_to_device(device_window.get(), window.data(), window.size() * sizeof(Real));
     copy_to_device(device_weights.get(), weights.data(), weights.size() * sizeof(Real));
     copy_to_device(device_first.get(), first.data(), first.size() * sizeof(int));
@@ -257,6 +287,12 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
     PROFILE_ADD(plan_ms, phase);
     PROFILE_PRINT("cufft_workspace full=%zu tail=%zu bytes\n",
                   full_plan.workspace(), tail_plan.workspace());
+#ifdef MELSPEC_CUDA_PROFILE
+    size_t free_bytes = 0, total_bytes = 0;
+    cuda_check(cudaMemGetInfo(&free_bytes, &total_bytes), "cudaMemGetInfo");
+    PROFILE_PRINT("cuda_memory free=%zu total=%zu used=%zu bytes\n",
+                  free_bytes, total_bytes, total_bytes - free_bytes);
+#endif
 
     for (int frame_begin = 0; frame_begin < n_frames; frame_begin += capacity) {
         const int batch = std::min(capacity, n_frames - frame_begin);
@@ -287,6 +323,15 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
     cuda_check(cudaDeviceSynchronize(), "CUDA pipeline synchronize");
     PROFILE_ADD_SYNC(pipeline_sync_ms, phase);
 
+#if MELSPEC_CUDA_PINNED
+    PinnedBuffer<Real> host_output(output.size());
+    cuda_check(cudaMemcpy(host_output.get(), device_output.get(),
+                          output.size() * sizeof(Real), cudaMemcpyDeviceToHost),
+               "cudaMemcpy D2H output");
+    PROFILE_ADD(d2h_ms, phase);
+    std::copy(host_output.get(), host_output.get() + output.size(), output.begin());
+    PROFILE_ADD(host_convert_ms, phase);
+#else
     if constexpr (std::is_same_v<Real, double>) {
         cuda_check(cudaMemcpy(output.data(), device_output.get(),
                               output.size() * sizeof(Real), cudaMemcpyDeviceToHost),
@@ -301,6 +346,7 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
         std::copy(host_output.begin(), host_output.end(), output.begin());
         PROFILE_ADD(host_convert_ms, phase);
     }
+#endif
     PROFILE_PRINT("cuda_profile precision=%d batch=%d fused=%d host_setup_ms=%.3f device_alloc_ms=%.3f h2d_ms=%.3f batch_alloc_ms=%.3f plan_ms=%.3f gather_ms=%.3f fft_ms=%.3f mel_ms=%.3f pipeline_sync_ms=%.3f d2h_ms=%.3f host_convert_ms=%.3f total_ms=%.3f\n",
                   MELSPEC_CUDA_PRECISION, MELSPEC_CUDA_BATCH, MELSPEC_CUDA_FUSED,
                   host_setup_ms, device_alloc_ms, h2d_ms, batch_alloc_ms, plan_ms,

@@ -1,0 +1,32 @@
+default pageable round=0 elapsed=1.086385 max_abs_err=0.09375 PASS
+default pinned round=0 elapsed=1.212666 max_abs_err=0.09375 PASS
+default pinned round=1 elapsed=1.123476 max_abs_err=0.09375 PASS
+default pageable round=1 elapsed=1.218948 max_abs_err=0.09375 PASS
+default pageable round=2 elapsed=1.238275 max_abs_err=0.09375 PASS
+default pinned round=2 elapsed=1.218654 max_abs_err=0.09375 PASS
+small_mels pageable round=0 elapsed=0.688943 max_abs_err=0.0234375 PASS
+small_mels pinned round=0 elapsed=0.709746 max_abs_err=0.0234375 PASS
+small_mels pinned round=1 elapsed=0.692941 max_abs_err=0.0234375 PASS
+small_mels pageable round=1 elapsed=0.570103 max_abs_err=0.0234375 PASS
+small_mels pageable round=2 elapsed=0.580275 max_abs_err=0.0234375 PASS
+small_mels pinned round=2 elapsed=0.694268 max_abs_err=0.0234375 PASS
+large_fft pageable round=0 elapsed=1.175768 max_abs_err=0.21875 PASS
+large_fft pinned round=0 elapsed=1.101507 max_abs_err=0.21875 PASS
+large_fft pinned round=1 elapsed=1.366208 max_abs_err=0.21875 PASS
+large_fft pageable round=1 elapsed=1.321198 max_abs_err=0.21875 PASS
+large_fft pageable round=2 elapsed=1.169646 max_abs_err=0.21875 PASS
+large_fft pinned round=2 elapsed=1.137117 max_abs_err=0.21875 PASS
+narrow_band pageable round=0 elapsed=1.144791 max_abs_err=0.15625 PASS
+narrow_band pinned round=0 elapsed=1.168735 max_abs_err=0.15625 PASS
+narrow_band pinned round=1 elapsed=1.352059 max_abs_err=0.15625 PASS
+narrow_band pageable round=1 elapsed=1.321586 max_abs_err=0.15625 PASS
+narrow_band pageable round=2 elapsed=1.209316 max_abs_err=0.15625 PASS
+narrow_band pinned round=2 elapsed=1.252717 max_abs_err=0.15625 PASS
+default | pageable | min=1.086385 | median=1.218948 | vs_a2=None
+default | pinned | min=1.123476 | median=1.212666 | vs_a2=None
+small_mels | pageable | min=0.570103 | median=0.580275 | vs_a2=None
+small_mels | pinned | min=0.692941 | median=0.694268 | vs_a2=None
+large_fft | pageable | min=1.169646 | median=1.175768 | vs_a2=None
+large_fft | pinned | min=1.101507 | median=1.137117 | vs_a2=None
+narrow_band | pageable | min=1.144791 | median=1.209316 | vs_a2=None
+narrow_band | pinned | min=1.168735 | median=1.252717 | vs_a2=None

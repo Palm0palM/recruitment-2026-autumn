@@ -1,0 +1,6 @@
+== cuda profile default ==
+cufft_workspace full=0 tail=0 bytes
+cuda_memory free=7041187840 total=8546484224 used=1505296384 bytes
+cuda_profile precision=32 batch=256 fused=1 host_setup_ms=245.974 device_alloc_ms=231.692 h2d_ms=13.033 batch_alloc_ms=0.584 plan_ms=5.420 gather_ms=44.265 fft_ms=51.035 mel_ms=54.571 pipeline_sync_ms=150.034 d2h_ms=115.967 host_convert_ms=31.996 total_ms=799.259
+diagnostic_process_wall_s=1.159396
+profile output PASS: default

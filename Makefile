@@ -11,6 +11,7 @@ CUDA_PRECISION ?= 32
 CUDA_BATCH ?= 256
 CUDA_FUSED ?= 1
 CUDA_PROFILE ?= 0
+CUDA_PINNED ?= 0
 
 SRCS = $(wildcard src/*.cpp)
 INCS = $(wildcard include/*.h)
@@ -19,9 +20,10 @@ OBJS = $(patsubst src/%.cpp,$(BUILD)/%.o,$(SRCS))
 EXEC = melspec
 
 ifeq ($(CUDA),1)
-BUILD = tmp/build/cuda-$(CUDA_ARCH)-fp$(CUDA_PRECISION)-b$(CUDA_BATCH)-f$(CUDA_FUSED)-p$(CUDA_PROFILE)
+BUILD = tmp/build/cuda-$(CUDA_ARCH)-fp$(CUDA_PRECISION)-b$(CUDA_BATCH)-f$(CUDA_FUSED)-p$(CUDA_PROFILE)-h$(CUDA_PINNED)
 CPPFLAGS += -DMELSPEC_CUDA=1 -DMELSPEC_CUDA_PRECISION=$(CUDA_PRECISION)
 CPPFLAGS += -DMELSPEC_CUDA_BATCH=$(CUDA_BATCH) -DMELSPEC_CUDA_FUSED=$(CUDA_FUSED)
+CPPFLAGS += -DMELSPEC_CUDA_PINNED=$(CUDA_PINNED)
 ifeq ($(CUDA_PROFILE),1)
 CPPFLAGS += -DMELSPEC_CUDA_PROFILE=1
 else ifneq ($(CUDA_PROFILE),0)
@@ -33,6 +35,10 @@ NVCCFLAGS = -std=c++17 -O3 -arch=sm_$(CUDA_ARCH) -Xcompiler -O3,-march=native,-p
 LDLIBS += -L$(CUDA_HOME)/lib64 -Wl,-rpath,$(CUDA_HOME)/lib64 -lcufft -lcudart
 else ifneq ($(CUDA),0)
 $(error CUDA must be 0 or 1)
+endif
+ifneq ($(filter 0 1,$(CUDA_PINNED)),)
+else
+$(error CUDA_PINNED must be 0 or 1)
 endif
 ifneq ($(filter 32 64,$(CUDA_PRECISION)),)
 else
