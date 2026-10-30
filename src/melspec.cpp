@@ -11,6 +11,13 @@
 #include <thread>
 #include <vector>
 
+#ifndef MELSPEC_FP32_BATCH
+#define MELSPEC_FP32_BATCH 0
+#endif
+#if MELSPEC_FP32_BATCH != 0 && MELSPEC_FP32_BATCH != 8
+#error "MELSPEC_FP32_BATCH must be 0 or 8"
+#endif
+
 #if defined(__AVX512F__) || (defined(__AVX2__) && defined(__FMA__))
 #include <immintrin.h>
 #endif
@@ -289,6 +296,29 @@ struct FFTPlan {
     }
 };
 
+struct Radix4Stage32 {
+    int len;
+    std::vector<float> w1re, w1im, w2re, w2im, w3re, w3im;
+    explicit Radix4Stage32(const Radix4Stage& source)
+        : len(source.len), w1re(source.w1re.begin(), source.w1re.end()),
+          w1im(source.w1im.begin(), source.w1im.end()),
+          w2re(source.w2re.begin(), source.w2re.end()),
+          w2im(source.w2im.begin(), source.w2im.end()),
+          w3re(source.w3re.begin(), source.w3re.end()),
+          w3im(source.w3im.begin(), source.w3im.end()) {}
+};
+
+struct FFTPlan32 {
+    std::vector<int> reversed;
+    std::vector<Radix4Stage32> stages;
+    bool initial_radix2;
+    explicit FFTPlan32(const FFTPlan& source)
+        : reversed(source.reversed), initial_radix2(source.initial_radix2) {
+        stages.reserve(source.stages.size());
+        for (const auto& stage : source.stages) stages.emplace_back(stage);
+    }
+};
+
 #if defined(__AVX2__) && defined(__FMA__)
 struct alignas(32) Lane4 {
     std::array<double, 4> values;
@@ -447,6 +477,134 @@ void recover_power_batch4(Batch4Buffer& a, const std::vector<double>& recovery_r
         auto xi = _mm256_fmadd_pd(ri, dr, _mm256_mul_pd(scale, _mm256_add_pd(ai, bi)));
         xi = _mm256_fmadd_pd(rr, di, xi);
         store4(a.re[k], _mm256_fmadd_pd(xr, xr, _mm256_mul_pd(xi, xi)));
+    }
+}
+#endif
+
+#if MELSPEC_FP32_BATCH == 8 && defined(__AVX2__) && defined(__FMA__)
+struct alignas(32) Lane8f {
+    std::array<float, 8> values;
+};
+
+struct Batch8fBuffer {
+    std::vector<Lane8f> re, im, power;
+    explicit Batch8fBuffer(int n) : re(n), im(n), power(n + 1) {}
+};
+
+static inline __m256 load8f(const Lane8f& value) {
+    return _mm256_load_ps(value.values.data());
+}
+
+static inline void store8f(Lane8f& destination, __m256 value) {
+    _mm256_store_ps(destination.values.data(), value);
+}
+
+void apply_batch8f(const FFTPlan32& plan, Batch8fBuffer& a) {
+    const int n = static_cast<int>(a.im.size());
+    if (plan.initial_radix2) {
+        for (int i = 0; i < n; i += 2) {
+            auto rr = load8f(a.re[i]), ri = load8f(a.im[i]);
+            store8f(a.re[i], _mm256_add_ps(rr, load8f(a.re[i + 1])));
+            store8f(a.im[i], _mm256_add_ps(ri, load8f(a.im[i + 1])));
+            store8f(a.re[i + 1], _mm256_sub_ps(rr, load8f(a.re[i + 1])));
+            store8f(a.im[i + 1], _mm256_sub_ps(ri, load8f(a.im[i + 1])));
+        }
+    }
+    for (const auto& stage : plan.stages) {
+        const int len = stage.len;
+        const int quarter = len / 4;
+        for (int base = 0; base < n; base += len) {
+            for (int j = 0; j < quarter; ++j) {
+                const int p = base + j;
+                auto ar = load8f(a.re[p]), ai = load8f(a.im[p]);
+                auto br = load8f(a.re[p + quarter]), bi = load8f(a.im[p + quarter]);
+                auto cr = load8f(a.re[p + 2 * quarter]), ci = load8f(a.im[p + 2 * quarter]);
+                auto dr = load8f(a.re[p + 3 * quarter]), di = load8f(a.im[p + 3 * quarter]);
+                auto w1r = _mm256_set1_ps(stage.w1re[j]);
+                auto w1i = _mm256_set1_ps(stage.w1im[j]);
+                auto w2r = _mm256_set1_ps(stage.w2re[j]);
+                auto w2i = _mm256_set1_ps(stage.w2im[j]);
+                auto w3r = _mm256_set1_ps(stage.w3re[j]);
+                auto w3i = _mm256_set1_ps(stage.w3im[j]);
+                auto br2 = _mm256_fmsub_ps(br, w2r, _mm256_mul_ps(bi, w2i));
+                auto bi2 = _mm256_fmadd_ps(br, w2i, _mm256_mul_ps(bi, w2r));
+                auto cr1 = _mm256_fmsub_ps(cr, w1r, _mm256_mul_ps(ci, w1i));
+                auto ci1 = _mm256_fmadd_ps(cr, w1i, _mm256_mul_ps(ci, w1r));
+                auto dr3 = _mm256_fmsub_ps(dr, w3r, _mm256_mul_ps(di, w3i));
+                auto di3 = _mm256_fmadd_ps(dr, w3i, _mm256_mul_ps(di, w3r));
+                auto sum01r = _mm256_add_ps(ar, br2);
+                auto sum01i = _mm256_add_ps(ai, bi2);
+                auto dif01r = _mm256_sub_ps(ar, br2);
+                auto dif01i = _mm256_sub_ps(ai, bi2);
+                auto sum23r = _mm256_add_ps(cr1, dr3);
+                auto sum23i = _mm256_add_ps(ci1, di3);
+                auto dif23r = _mm256_sub_ps(cr1, dr3);
+                auto dif23i = _mm256_sub_ps(ci1, di3);
+                store8f(a.re[p], _mm256_add_ps(sum01r, sum23r));
+                store8f(a.im[p], _mm256_add_ps(sum01i, sum23i));
+                store8f(a.re[p + quarter], _mm256_add_ps(dif01r, dif23i));
+                store8f(a.im[p + quarter], _mm256_sub_ps(dif01i, dif23r));
+                store8f(a.re[p + 2 * quarter], _mm256_sub_ps(sum01r, sum23r));
+                store8f(a.im[p + 2 * quarter], _mm256_sub_ps(sum01i, sum23i));
+                store8f(a.re[p + 3 * quarter], _mm256_sub_ps(dif01r, dif23i));
+                store8f(a.im[p + 3 * quarter], _mm256_add_ps(dif01i, dif23r));
+            }
+        }
+    }
+}
+
+void recover_power_batch8f(Batch8fBuffer& a, const std::vector<double>& recovery_re,
+                           const std::vector<double>& recovery_im,
+                           int support_first, int support_last) {
+    const int half = static_cast<int>(a.im.size());
+    const auto scale = _mm256_set1_pd(0.5);
+    auto convert_power = [](__m256d lo, __m256d hi) {
+        auto low = _mm256_cvtpd_ps(lo);
+        auto high = _mm256_cvtpd_ps(hi);
+        return _mm256_set_m128(high, low);
+    };
+    auto ar0 = load8f(a.re[0]), ai0 = load8f(a.im[0]);
+    auto arlo0 = _mm256_cvtps_pd(_mm256_castps256_ps128(ar0));
+    auto arhi0 = _mm256_cvtps_pd(_mm256_extractf128_ps(ar0, 1));
+    auto ailo0 = _mm256_cvtps_pd(_mm256_castps256_ps128(ai0));
+    auto aihi0 = _mm256_cvtps_pd(_mm256_extractf128_ps(ai0, 1));
+    auto dclo = _mm256_add_pd(arlo0, ailo0);
+    auto dchi = _mm256_add_pd(arhi0, aihi0);
+    auto nyqlo = _mm256_sub_pd(arlo0, ailo0);
+    auto nyqhi = _mm256_sub_pd(arhi0, aihi0);
+    store8f(a.power[0], convert_power(_mm256_mul_pd(dclo, dclo),
+                                      _mm256_mul_pd(dchi, dchi)));
+    store8f(a.power[half], convert_power(_mm256_mul_pd(nyqlo, nyqlo),
+                                         _mm256_mul_pd(nyqhi, nyqhi)));
+    const int begin = std::max(1, support_first);
+    const int end = std::min(half - 1, support_last - 1);
+    for (int k = begin; k <= end; ++k) {
+        auto arf = load8f(a.re[k]), aif = load8f(a.im[k]);
+        auto brf = load8f(a.re[half - k]), bif = load8f(a.im[half - k]);
+        auto arlo = _mm256_cvtps_pd(_mm256_castps256_ps128(arf));
+        auto arhi = _mm256_cvtps_pd(_mm256_extractf128_ps(arf, 1));
+        auto ailo = _mm256_cvtps_pd(_mm256_castps256_ps128(aif));
+        auto aihi = _mm256_cvtps_pd(_mm256_extractf128_ps(aif, 1));
+        auto brlo = _mm256_cvtps_pd(_mm256_castps256_ps128(brf));
+        auto brhi = _mm256_cvtps_pd(_mm256_extractf128_ps(brf, 1));
+        auto bilo = _mm256_cvtps_pd(_mm256_castps256_ps128(bif));
+        auto bihi = _mm256_cvtps_pd(_mm256_extractf128_ps(bif, 1));
+        bilo = _mm256_sub_pd(_mm256_setzero_pd(), bilo);
+        bihi = _mm256_sub_pd(_mm256_setzero_pd(), bihi);
+        auto rr = _mm256_set1_pd(recovery_re[k]);
+        auto ri = _mm256_set1_pd(recovery_im[k]);
+        auto calc = [&](__m256d ar, __m256d ai, __m256d br, __m256d bi) {
+            auto dr = _mm256_sub_pd(ar, br);
+            auto di = _mm256_sub_pd(ai, bi);
+            auto xr = _mm256_fnmadd_pd(ri, di,
+                _mm256_fmadd_pd(rr, dr, _mm256_mul_pd(scale, _mm256_add_pd(ar, br))));
+            auto xi = _mm256_fmadd_pd(ri, dr,
+                _mm256_mul_pd(scale, _mm256_add_pd(ai, bi)));
+            xi = _mm256_fmadd_pd(rr, di, xi);
+            return _mm256_fmadd_pd(xr, xr, _mm256_mul_pd(xi, xi));
+        };
+        store8f(a.power[k], convert_power(calc(arlo, ailo, brlo, bilo),
+                                          calc(arhi, aihi, brhi, bihi)));
     }
 }
 #endif
@@ -745,6 +903,9 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
 
     const int half = std::max(1, n_fft / 2);
     FFTPlan plan(half);
+#if MELSPEC_FP32_BATCH == 8
+    FFTPlan32 plan32(plan);
+#endif
     // -i/2 * exp(-2*pi*i*k/n_fft), for real-FFT reconstruction.
     std::vector<double> recovery_re(n_bins), recovery_im(n_bins);
     for (int k = 1; k < n_fft / 2; ++k) {
@@ -785,7 +946,13 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     };
 
     int tail_begin = 0;
-#if defined(__AVX512F__)
+#if MELSPEC_FP32_BATCH == 8
+    std::vector<Batch8fBuffer> batch_buffers;
+    if (n_fft > 1)
+        batch_buffers.assign(n_threads, Batch8fBuffer(half));
+    const int n_batches = n_fft > 1 ? n_frames / 8 : 0;
+    tail_begin = n_batches * 8;
+#elif defined(__AVX512F__)
     std::vector<Batch8Buffer> batch_buffers;
     if (n_fft > 1)
         batch_buffers.assign(n_threads, Batch8Buffer(half));
@@ -799,7 +966,53 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     tail_begin = n_batches * 4;
 #endif
     auto worker = [&](int id) {
-#if defined(__AVX512F__)
+#if MELSPEC_FP32_BATCH == 8
+        auto& a = batch_buffers[id];
+        const int begin = static_cast<long long>(n_batches) * id / n_threads;
+        const int end = static_cast<long long>(n_batches) * (id + 1) / n_threads;
+        for (int batch = begin; batch < end; ++batch) {
+            const int t = batch * 8;
+            const int start = t * hop_length;
+            for (int i = 0; i < half; ++i) {
+                const int p = plan.reversed[i];
+                const double we = window[2 * i], wo = window[2 * i + 1];
+                store8f(a.re[p], _mm256_setr_ps(
+                    static_cast<float>(y[start + 2 * i] * we),
+                    static_cast<float>(y[start + hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 2 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 3 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 4 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 5 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 6 * hop_length + 2 * i] * we),
+                    static_cast<float>(y[start + 7 * hop_length + 2 * i] * we)));
+                store8f(a.im[p], _mm256_setr_ps(
+                    static_cast<float>(y[start + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 2 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 3 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 4 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 5 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 6 * hop_length + 2 * i + 1] * wo),
+                    static_cast<float>(y[start + 7 * hop_length + 2 * i + 1] * wo)));
+            }
+            apply_batch8f(plan32, a);
+            recover_power_batch8f(a, recovery_re, recovery_im, support_first, support_last);
+            for (int m = 0; m < n_mels; ++m) {
+                auto acc_lo = _mm256_setzero_pd();
+                auto acc_hi = _mm256_setzero_pd();
+                for (int k = first[m]; k < last[m]; ++k) {
+                    auto p = load8f(a.power[k]);
+                    auto weight = _mm256_set1_pd(mel_fb[m][k]);
+                    acc_lo = _mm256_fmadd_pd(weight,
+                        _mm256_cvtps_pd(_mm256_castps256_ps128(p)), acc_lo);
+                    acc_hi = _mm256_fmadd_pd(weight,
+                        _mm256_cvtps_pd(_mm256_extractf128_ps(p, 1)), acc_hi);
+                }
+                _mm256_storeu_pd(output.data() + static_cast<size_t>(m) * n_frames + t, acc_lo);
+                _mm256_storeu_pd(output.data() + static_cast<size_t>(m) * n_frames + t + 4, acc_hi);
+            }
+        }
+#elif defined(__AVX512F__)
         auto& a = batch_buffers[id];
         const int begin = static_cast<long long>(n_batches) * id / n_threads;
         const int end = static_cast<long long>(n_batches) * (id + 1) / n_threads;
