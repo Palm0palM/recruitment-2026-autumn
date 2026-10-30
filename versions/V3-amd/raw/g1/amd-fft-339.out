@@ -1,0 +1,20 @@
+host=hepnode0 job=339
+Cpus_allowed_list:	0-3,64-67
+device=AMD Radeon AI PRO R9700 arch=gfx1201 mem=34208743424 CUs=32 wavefront=32
+r2c_self_test=PASS n=8
+precision=fp32 n_fft=8192 batch=1 plan_ms=1836.489834 first_exec_ms=0.062826 exec_min_ms=0.017240 exec_median_ms=0.017280 exec_max_ms=0.023440 workspace_bytes=32768 real_bytes=32768 complex_bytes=32776 ns_per_fft=17240.001
+precision=fp32 n_fft=8192 batch=16 plan_ms=5.714141 first_exec_ms=0.112003 exec_min_ms=0.040640 exec_median_ms=0.041001 exec_max_ms=0.049881 workspace_bytes=524288 real_bytes=524288 complex_bytes=524416 ns_per_fft=2540.000
+precision=fp32 n_fft=8192 batch=64 plan_ms=4.673422 first_exec_ms=0.091011 exec_min_ms=0.025561 exec_median_ms=0.026041 exec_max_ms=0.042281 workspace_bytes=2097152 real_bytes=2097152 complex_bytes=2097664 ns_per_fft=399.391
+precision=fp32 n_fft=8192 batch=128 plan_ms=5.256005 first_exec_ms=0.068027 exec_min_ms=0.027361 exec_median_ms=0.028720 exec_max_ms=0.030921 workspace_bytes=4194304 real_bytes=4194304 complex_bytes=4195328 ns_per_fft=213.758
+precision=fp32 n_fft=8192 batch=256 plan_ms=5.561078 first_exec_ms=0.087634 exec_min_ms=0.038881 exec_median_ms=0.039240 exec_max_ms=0.039600 workspace_bytes=8388608 real_bytes=8388608 complex_bytes=8390656 ns_per_fft=151.879
+precision=fp32 n_fft=8192 batch=512 plan_ms=5.326245 first_exec_ms=0.132645 exec_min_ms=0.051560 exec_median_ms=0.063481 exec_max_ms=0.063721 workspace_bytes=16777216 real_bytes=16777216 complex_bytes=16781312 ns_per_fft=100.703
+precision=fp32 n_fft=8192 batch=1024 plan_ms=4.355676 first_exec_ms=0.168655 exec_min_ms=0.164003 exec_median_ms=0.164843 exec_max_ms=0.167243 workspace_bytes=33554432 real_bytes=33554432 complex_bytes=33562624 ns_per_fft=160.159
+precision=fp64 n_fft=8192 batch=256 plan_ms=2020.332495 first_exec_ms=0.836036 exec_min_ms=0.159523 exec_median_ms=0.161563 exec_max_ms=0.417527 workspace_bytes=16777216 real_bytes=16777216 complex_bytes=16781312 ns_per_fft=623.137
+precision=fp32 n_fft=16384 batch=1 plan_ms=885.697565 first_exec_ms=0.076165 exec_min_ms=0.022040 exec_median_ms=0.022120 exec_max_ms=0.022560 workspace_bytes=65536 real_bytes=65536 complex_bytes=65544 ns_per_fft=22040.000
+precision=fp32 n_fft=16384 batch=16 plan_ms=7.300852 first_exec_ms=0.126112 exec_min_ms=0.057401 exec_median_ms=0.057641 exec_max_ms=0.060801 workspace_bytes=1048576 real_bytes=1048576 complex_bytes=1048704 ns_per_fft=3587.563
+precision=fp32 n_fft=16384 batch=64 plan_ms=1246.208809 first_exec_ms=0.203239 exec_min_ms=0.036481 exec_median_ms=0.090481 exec_max_ms=0.389406 workspace_bytes=4194304 real_bytes=4194304 complex_bytes=4194816 ns_per_fft=570.016
+precision=fp32 n_fft=16384 batch=128 plan_ms=5.486478 first_exec_ms=0.096979 exec_min_ms=0.039761 exec_median_ms=0.040321 exec_max_ms=0.041001 workspace_bytes=8388608 real_bytes=8388608 complex_bytes=8389632 ns_per_fft=310.633
+precision=fp32 n_fft=16384 batch=256 plan_ms=5.122155 first_exec_ms=0.104335 exec_min_ms=0.066281 exec_median_ms=0.066801 exec_max_ms=0.068241 workspace_bytes=16777216 real_bytes=16777216 complex_bytes=16779264 ns_per_fft=258.910
+precision=fp32 n_fft=16384 batch=512 plan_ms=5.462678 first_exec_ms=0.188785 exec_min_ms=0.164282 exec_median_ms=0.179883 exec_max_ms=0.350965 workspace_bytes=33554432 real_bytes=33554432 complex_bytes=33558528 ns_per_fft=320.863
+precision=fp32 n_fft=16384 batch=1024 plan_ms=5.686505 first_exec_ms=0.459143 exec_min_ms=0.462368 exec_median_ms=0.462528 exec_max_ms=0.465727 workspace_bytes=67108864 real_bytes=67108864 complex_bytes=67117056 ns_per_fft=451.531
+precision=fp64 n_fft=16384 batch=256 plan_ms=957.568127 first_exec_ms=1.795273 exec_min_ms=0.385567 exec_median_ms=0.404406 exec_max_ms=0.604329 workspace_bytes=33554432 real_bytes=33554432 complex_bytes=33558528 ns_per_fft=1506.121
