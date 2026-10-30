@@ -1,7 +1,8 @@
 # V2 Agent B — 自研 FFT / SIMD
 
-> 后续集群基准、AVX-512 与跨帧实验见 [advanced/README.md](advanced/README.md)。
-> 当前最佳为 AVX-512 Batch=8，已替代本文早期单帧 AVX2 候选。
+> 后续集群基准、AVX-512 与跨帧实验见 [advanced/README.md](advanced/README.md)；
+> 稳定节点后的支持裁剪与原位融合见 [next/README.md](next/README.md)。
+> 当前最佳为 Batch=8 + Mel 支持裁剪 + 原位功率谱，已替代本文早期单帧候选。
 
 - Worktree：`melspec-v2-simd`，分支：`v2/simd`
 - 共同 BASE：`15f90558b4ab83ad0e6500e84aa807a942564229`

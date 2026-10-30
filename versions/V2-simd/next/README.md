@@ -51,6 +51,17 @@ Batch=8 大 FFT 的 re/im/power 活跃缓冲区由约 1.5 MiB 降为 re/im 约 1
 
 因此不把成对处理扩大为所有场景的统一优化；它只在原位融合需要保持全频谱正确性时使用。
 
-## 5. 当前最佳
+## 5. DIF 自然输入：总成本退化，未采用
 
-当前最佳为 `aa2405b`：Batch=8 + Mel 支持裁剪 + 原位功率谱。后续 DIF 只先做独立 microbenchmark；连续打包的负结果不作为继续重构的理由。所有原始逐次时间、profile 和 micro 数据见 `raw/`。
+初版 radix-4 DIF 的 base-4 digit-reversed 输出与当前 base-2 布局不一致，验证失败。改为标准 radix-2 DIF 后，输出明确为 base-2 位反转，n=4096/8192 的 scaled error 分别为 2.50e-14/5.77e-14，数学验证通过。
+
+| half N | DIT pack+FFT ns/frame | DIF pack+FFT ns/frame | DIF 输出重排 ns/frame |
+|---|---:|---:|---:|
+| 4096 | 约 20,554 | 约 28,906 | 约 3,122 |
+| 8192 | 约 45,512 | 约 61,941 | 约 6,416 |
+
+自然打包本身几乎没有收益，DIF 增加的阶段成本与输出重排使总成本显著上升，因此不集成。该实验与连续转置的负结果共同说明：当前位反转打包虽然占比高，但简单移动或增加重排并不能降低总成本。后续不再为此进行 Stockham/Split-radix 大规模重写。
+
+## 6. 当前最佳
+
+当前最佳为 `aa2405b`：Batch=8 + Mel 支持裁剪 + 原位功率谱。后续 DIF 只保留独立 microbenchmark；连续打包和 DIF 的负结果不作为继续重构的理由。所有原始逐次时间、profile 和 micro 数据见 `raw/`。
