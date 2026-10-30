@@ -1,0 +1,130 @@
+hepnode3
+2026-10-30T14:58:33+08:00
+JobId=99 JobName=melspec-gpu-probe
+   UserId=zsx(10045) GroupId=recruitment(10001) MCS_label=N/A
+   Priority=1 Nice=0 Account=(null) QOS=normal
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:00:01 TimeLimit=00:05:00 TimeMin=N/A
+   SubmitTime=2026-10-30T14:58:32 EligibleTime=2026-10-30T14:58:32
+   AccrueTime=2026-10-30T14:58:32
+   StartTime=2026-10-30T14:58:32 EndTime=2026-10-30T15:03:32 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-30T14:58:32 Scheduler=Main
+   Partition=hepnodes AllocNode:Sid=hepnode0:299999
+   ReqNodeList=hepnode3 ExcNodeList=(null)
+   NodeList=hepnode3
+   BatchHost=hepnode3
+   NumNodes=1 NumCPUs=4 NumTasks=1 CPUs/Task=4 ReqB:S:C:T=0:0:*:1
+   ReqTRES=cpu=4,mem=1M,node=1,billing=4
+   AllocTRES=cpu=4,mem=1M,node=1,billing=4
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=4 MinMemoryNode=0 MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null)
+   Command=/home/zsx/melspec-v3-cuda-agent/gpu-probe.slurm
+   SubmitLine=sbatch --wait -w hepnode3 gpu-probe.slurm
+   WorkDir=/home/zsx/melspec-v3-cuda-agent
+   StdErr=/home/zsx/melspec-v3-cuda-agent/probe-99.err
+   StdIn=/dev/null
+   StdOut=/home/zsx/melspec-v3-cuda-agent/probe-99.out
+   TresPerNode=gres/gpu:1
+   TresPerTask=cpu=4
+
+
+== environment ==
+CUDA_VISIBLE_DEVICES=0
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+SLURM_CLUSTER_NAME=hepcluster
+SLURM_CONF=/etc/slurm/slurm.conf
+SLURM_CPUS_ON_NODE=4
+SLURM_CPUS_PER_TASK=4
+SLURMD_NODENAME=hepnode3
+SLURM_GPUS_ON_NODE=1
+SLURM_GTIDS=0
+SLURM_HINT=nomultithread
+SLURM_JOB_CPUS_PER_NODE=4
+SLURM_JOB_END_TIME=1793343812
+SLURM_JOB_GID=10001
+SLURM_JOB_GPUS=0
+SLURM_JOB_ID=99
+SLURM_JOBID=99
+SLURM_JOB_NAME=melspec-gpu-probe
+SLURM_JOB_NODELIST=hepnode3
+SLURM_JOB_NUM_NODES=1
+SLURM_JOB_PARTITION=hepnodes
+SLURM_JOB_QOS=normal
+SLURM_JOB_START_TIME=1793343512
+SLURM_JOB_UID=10045
+SLURM_JOB_USER=zsx
+SLURM_LOCALID=0
+SLURM_NNODES=1
+SLURM_NODEID=0
+SLURM_NODELIST=hepnode3
+SLURM_NPROCS=1
+SLURM_NTASKS=1
+SLURM_OOM_KILL_STEP=0
+SLURM_PRIO_PROCESS=0
+SLURM_PROCID=0
+SLURM_SUBMIT_DIR=/home/zsx/melspec-v3-cuda-agent
+SLURM_SUBMIT_HOST=hepnode0
+SLURM_TASK_PID=2666055
+SLURM_TASKS_PER_NODE=1
+SLURM_THREADS_PER_CORE=1
+SLURM_TOPOLOGY_ADDR=hepnode3
+SLURM_TOPOLOGY_ADDR_PATTERN=node
+SLURM_TRES_PER_TASK=cpu=4
+
+== GPU ==
+/usr/bin/nvidia-smi
+GPU 0: NVIDIA L40 (UUID: GPU-46c80051-c403-22f9-a371-c0433ad3fd21)
+GPU 1: NVIDIA L40 (UUID: GPU-c5a888e4-c048-8022-fca6-3612b71d51d6)
+0, NVIDIA L40, GPU-46c80051-c403-22f9-a371-c0433ad3fd21, 595.91.07, 46068 MiB, 8.9, P8
+1, NVIDIA L40, GPU-c5a888e4-c048-8022-fca6-3612b71d51d6, 595.91.07, 46068 MiB, 8.9, P8
+	[4mGPU0	GPU1	NIC0	CPU Affinity	NUMA Affinity	GPU NUMA ID[0m
+GPU0	 X 	SYS	SYS	16-31	1		N/A
+GPU1	SYS	 X 	SYS	32-47	2		N/A
+NIC0	SYS	SYS	 X
+
+Legend:
+
+  X    = Self
+  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)
+  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node
+  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)
+  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)
+  PIX  = Connection traversing at most a single PCIe bridge
+  NV#  = Connection traversing a bonded set of # NVLinks
+
+NIC Legend:
+
+  NIC0: mlx5_0
+
+
+== CUDA compiler/runtime ==
+	libcudadebugger.so.1 (libc6,x86-64) => /usr/lib/x86_64-linux-gnu/libcudadebugger.so.1
+	libcuda.so.1 (libc6,x86-64) => /usr/lib/x86_64-linux-gnu/libcuda.so.1
+	libcuda.so (libc6,x86-64) => /usr/lib/x86_64-linux-gnu/libcuda.so
+
+== toolkit files ==
+
+== limits/storage ==
+real-time non-blocking time  (microseconds, -R) unlimited
+core file size              (blocks, -c) 0
+data seg size               (kbytes, -d) unlimited
+scheduling priority                 (-e) 0
+file size                   (blocks, -f) unlimited
+pending signals                     (-i) 1927868
+max locked memory           (kbytes, -l) unlimited
+max memory size             (kbytes, -m) 1024
+open files                          (-n) 1024
+pipe size                (512 bytes, -p) 8
+POSIX message queues         (bytes, -q) 819200
+real-time priority                  (-r) 0
+stack size                  (kbytes, -s) 8192
+cpu time                   (seconds, -t) unlimited
+max user processes                  (-u) 1927868
+virtual memory              (kbytes, -v) unlimited
+file locks                          (-x) unlimited
+Filesystem      Size  Used Avail Use% Mounted on
+hepnfs:/home    6.9T  3.2T  3.7T  47% /home
+tmpfs           252G  2.0G  250G   1% /tmp
