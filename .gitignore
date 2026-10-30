@@ -3,3 +3,6 @@ melspec
 src/*.o
 AGENTS.md
 /tmp
+__pycache__/
+*.pyc
+.venv/

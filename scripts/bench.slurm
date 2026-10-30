@@ -1,0 +1,37 @@
+#!/bin/bash
+#SBATCH -J melspec-bench
+#SBATCH -w hepnode[1-3]
+#SBATCH -N 1
+#SBATCH -n 16
+#SBATCH --output=logs/bench-%j.out
+#SBATCH --error=logs/bench-%j.err
+#
+# 正式 benchmark：在计算节点上跑官方 validate.py（成绩以这里的数字为准）。
+#   mkdir -p logs && sbatch scripts/bench.slurm
+#   sbatch --export=ALL,VARIANT=v3 scripts/bench.slurm   # 指定被测二进制
+#
+# 需要先确认集群上有 python（含 numpy/librosa）；没有的话用 spack：
+#   spack load python py-numpy py-librosa   （或自己建 uv venv）
+
+set -euo pipefail
+cd "${SLURM_SUBMIT_DIR:-$PWD}"
+mkdir -p logs
+
+VARIANT="${VARIANT:-./melspec}"
+echo "== job ${SLURM_JOB_ID} on $(hostname) =="
+echo "节点: $(scontrol show hostname "$SLURM_JOB_NODELIST" | tr '\n' ' ')"
+echo "CPU: $(nproc)  被测程序: ${VARIANT}"
+lscpu | grep -E "Model name|^CPU\(s\)" || true
+free -g | head -2 || true
+
+export OMP_NUM_THREADS="${OMP_NUM_THREADS:-${SLURM_NTASKS:-16}}"
+export OMP_PROC_BIND=close
+export OMP_PLACES=cores
+
+PY="${PY:-python3}"
+echo "== 正确性 + 计时（官方 validate.py） =="
+"$PY" validate.py "$VARIANT" --runs "${RUNS:-3}" | tee "logs/validate-${SLURM_JOB_ID}.txt"
+
+echo "== 自建 bench（分阶段/单例对照用） =="
+"$PY" scripts/bench.py "$VARIANT" --case all --runs "${RUNS:-3}" \
+      --out "logs/bench-${SLURM_JOB_ID}.md" || true
