@@ -104,6 +104,68 @@ std::vector<std::vector<double>> build_mel_filterbank(int sr, int n_fft,
     return weights;
 }
 
+namespace {
+
+struct CompressedMelFilter {
+    int first;
+    int last;
+    std::vector<double> weights;
+};
+
+// Hot-path representation only: keep the public dense builder unchanged.
+// Candidate bounds include both endpoints, then apply the original exact-zero
+// trimming so bin-boundary behavior stays identical to the dense filterbank.
+std::vector<CompressedMelFilter> build_compressed_mel_filterbank(
+    int sr, int n_fft, int n_mels, double f_min, double f_max) {
+    const int n_bins = n_fft / 2 + 1;
+    std::vector<double> fft_freqs(n_bins);
+    for (int k = 0; k < n_bins; ++k)
+        fft_freqs[k] = static_cast<double>(k) * sr / static_cast<double>(n_fft);
+
+    const double mel_min = hz_to_mel(f_min);
+    const double mel_max = hz_to_mel(f_max);
+    std::vector<double> hz_points(n_mels + 2);
+    for (int i = 0; i <= n_mels + 1; ++i)
+        hz_points[i] =
+            mel_to_hz(mel_min + i * (mel_max - mel_min) / (n_mels + 1));
+
+    std::vector<CompressedMelFilter> filters(n_mels);
+    for (int m = 0; m < n_mels; ++m) {
+        const double f_l = hz_points[m];
+        const double f_c = hz_points[m + 1];
+        const double f_r = hz_points[m + 2];
+        const double enorm = 2.0 / (f_r - f_l);
+        const auto lo =
+            std::lower_bound(fft_freqs.begin(), fft_freqs.end(), f_l);
+        const auto hi =
+            std::upper_bound(fft_freqs.begin(), fft_freqs.end(), f_r);
+        const int first_candidate = static_cast<int>(lo - fft_freqs.begin());
+        const int end_candidate = static_cast<int>(hi - fft_freqs.begin());
+        std::vector<double> candidate(end_candidate - first_candidate);
+        for (int k = first_candidate; k < end_candidate; ++k) {
+            const double rising = (fft_freqs[k] - f_l) / (f_c - f_l);
+            const double falling = (f_r - fft_freqs[k]) / (f_r - f_c);
+            const double val = std::max(0.0, std::min(rising, falling));
+            candidate[k - first_candidate] = val * enorm;
+        }
+        int begin = 0;
+        int end = static_cast<int>(candidate.size());
+        while (begin < end && candidate[begin] == 0.0) ++begin;
+        while (end > begin && candidate[end - 1] == 0.0) --end;
+        if (begin == end) {
+            filters[m] = {n_bins, n_bins, {}};
+        } else {
+            filters[m].first = first_candidate + begin;
+            filters[m].last = first_candidate + end;
+            filters[m].weights.assign(candidate.begin() + begin,
+                                      candidate.begin() + end);
+        }
+    }
+    return filters;
+}
+
+}  // namespace
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Mel spectrogram computation
 // ─────────────────────────────────────────────────────────────────────────────
@@ -115,7 +177,8 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     // Check BEFORE integer division (V1 rounded short input toward zero).
     if (n_fft < 1 || (n_fft & (n_fft - 1)) != 0 || hop_length < 1 ||
         n_mels < 1 || sr < 1 || n_samples < n_fft)
-        throw std::runtime_error("Invalid parameters or audio too short for n_fft");
+        throw std::runtime_error(
+            "Invalid parameters or audio too short for n_fft");
     const int n_frames = 1 + (n_samples - n_fft) / hop_length;
     const int n_bins = n_fft / 2 + 1;
 
@@ -129,13 +192,8 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
         window[i] =
             0.5 * (1.0 - std::cos(2.0 * M_PI * i / static_cast<double>(n_fft)));
 
-    auto mel_fb = build_mel_filterbank(sr, n_fft, n_mels, f_min, f_max);
-    // Triangular filters have contiguous support. Skip only exact zeros.
-    std::vector<int> first(n_mels), last(n_mels, n_bins);
-    for (int m = 0; m < n_mels; ++m) {
-        while (first[m] < n_bins && mel_fb[m][first[m]] == 0.0) ++first[m];
-        while (last[m] > first[m] && mel_fb[m][last[m] - 1] == 0.0) --last[m];
-    }
+    auto mel_fb =
+        build_compressed_mel_filterbank(sr, n_fft, n_mels, f_min, f_max);
 
 #if !MELSPEC_FFTW_R2C
     const int half = std::max(1, n_fft / 2);
@@ -149,9 +207,10 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     output.resize(static_cast<size_t>(n_mels) * n_frames);
 
     // Keep short inputs single-threaded, and use at most the judge's 16 cores.
-    const int n_threads = std::min({16,
-        static_cast<int>(std::max(1u, std::thread::hardware_concurrency())),
-        std::max(1, n_frames / 256)});
+    const int n_threads = std::min(
+        {16,
+         static_cast<int>(std::max(1u, std::thread::hardware_concurrency())),
+         std::max(1, n_frames / 256)});
     // Allocate scratch before launching threads, so workers cannot throw.
     std::vector<Buffer<fftw_complex>> fft_buffers;
     fft_buffers.reserve(n_threads);
@@ -167,8 +226,8 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     for (int id = 0; id < n_threads; ++id) fft_buffers.emplace_back(half);
     Plan plan(half, fft_buffers[0].get());
 #endif
-    std::vector<std::vector<double>> power_buffers(
-        n_threads, std::vector<double>(n_bins));
+    std::vector<std::vector<double>> power_buffers(n_threads,
+                                                   std::vector<double>(n_bins));
     FFTW_TIME("compute_setup_s", setup_start);
     auto worker = [&](int id) {
         FFTW_COUNTERS(counters);
@@ -216,7 +275,8 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                 power[half] = nyquist * nyquist;
                 for (int k = 1; k < half; ++k) {
                     std::complex<double> a(fft_out[k][0], fft_out[k][1]);
-                    std::complex<double> b(fft_out[half - k][0], -fft_out[half - k][1]);
+                    std::complex<double> b(fft_out[half - k][0],
+                                           -fft_out[half - k][1]);
                     auto x = 0.5 * (a + b) + recovery[k] * (a - b);
                     power[k] = std::norm(x);
                 }
@@ -228,8 +288,8 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
             FFTW_START(mel_start);
             for (int m = 0; m < n_mels; ++m) {
                 double acc = 0.0;
-                for (int k = first[m]; k < last[m]; ++k)
-                    acc += mel_fb[m][k] * power[k];
+                for (int k = mel_fb[m].first; k < mel_fb[m].last; ++k)
+                    acc += mel_fb[m].weights[k - mel_fb[m].first] * power[k];
                 output[static_cast<size_t>(m) * n_frames + t] = acc;
             }
             FFTW_ADD(counters, 3, mel_start);

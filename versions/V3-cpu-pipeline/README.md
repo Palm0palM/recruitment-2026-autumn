@@ -1,6 +1,6 @@
 # V3 CPU-Pipeline 公共实验上下文
 
-状态：仅完成环境准备，未开始优化。所有正式改动必须留在 `v3/cpu-pipeline` 与本 worktree。
+状态：正式研发已启动；固定基线见 [BASELINE.md](BASELINE.md)。所有正式改动必须留在 `v3/cpu-pipeline` 与本 worktree。
 
 ## 基线与目标
 
@@ -42,7 +42,7 @@ A2 后 worker FFT 仍约 68–75%，default 读入/准备/写出已占诊断 wal
 ## 资源、限制与边界
 
 - 共享 `tmp/.venv`、PCM/expected 仅按只读约定复用，不运行 setup.sh 或修改共享 Python 环境。
-- 每个 worktree 独立 `tmp/build`、缓存、输出、日志及原型；worker 仅写 `tmp/prototypes/`。
+- 每个 worktree 独立 `tmp/build`、缓存、输出、日志及原型；worker 仅写 `tmp/prototypes/` 或分配的 `tmp/v3-cpu-lab/<task>/`。
 - 集群无预装 FFTW/BLAS，沿用 `scripts/build_fftw.sh` 的无 sudo 私有静态构建方案。
 - 已知 `RealMemory=1` 异常，一节点同时只能一个作业；`perf_event_paranoid=4`，集群不能 perf。
 - 本地 i7-14650HX 仅 AVX2/FMA；集群 Xeon Gold 6338 支持 AVX-512，结论须回集群复验。
