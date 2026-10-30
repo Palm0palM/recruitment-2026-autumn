@@ -1,0 +1,3 @@
+codelet direct-DFT max_abs_err=7.83555109e-13
+groups=33 codelet: 230.619 ns/FFT, checksum=16436.771740
+groups=65 codelet: 225.022 ns/FFT, checksum=-65205.237030
