@@ -1,0 +1,1 @@
+PASS: CPU decisions have no GPU API call; unavailable-only fallback; real errors propagate; invalid inputs rejected

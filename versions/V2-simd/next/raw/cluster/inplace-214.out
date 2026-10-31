@@ -1,0 +1,64 @@
+== inplace job 214 on hepnode3 ==
+16
+Cpus_allowed_list:	0-15
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+g++ -I./include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/main.o -c src/main.cpp
+g++ -I./include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/melspec.o -c src/melspec.cpp
+g++  -o melspec tmp/build/main.o tmp/build/melspec.o -pthread
+default: PASS shape=(256, 1437) max_abs_err=0.00012207031
+small_mels: PASS shape=(64, 1437) max_abs_err=7.6293945e-05
+large_fft: PASS shape=(256, 1373) max_abs_err=0.00036621094
+narrow_band: PASS shape=(256, 1373) max_abs_err=0.00048828125
+cli_defaults: PASS shape=(128, 372) max_abs_err=1.5258789e-05
+fft_1: PASS shape=(4, 1500) max_abs_err=0
+fft_2: PASS shape=(4, 1500) max_abs_err=6.4623485e-27
+fft_8: PASS shape=(4, 1500) max_abs_err=8.7311491e-11
+tail_2: PASS shape=(16, 958) max_abs_err=0.00010681152
+tail_3: PASS shape=(16, 719) max_abs_err=9.1552734e-05
+n=    1: random/zero/impulse/sine PASS
+n=    2: random/zero/impulse/sine PASS
+n=    4: random/zero/impulse/sine PASS
+n=    8: random/zero/impulse/sine PASS
+n=   16: random/zero/impulse/sine PASS
+n=   32: random/zero/impulse/sine PASS
+n=   64: random/zero/impulse/sine PASS
+n=  128: random/zero/impulse/sine PASS
+n=  256: random/zero/impulse/sine PASS
+n=  512: random/zero/impulse/sine PASS
+n= 1024: random/zero/impulse/sine PASS
+n= 2048: random/zero/impulse/sine PASS
+n= 4096: random/zero/impulse/sine PASS
+n= 8192: random/zero/impulse/sine PASS
+n=16384: random/zero/impulse/sine PASS
+All public rfft checks passed.
+32cb04b890fac900c63accff454f0773820c7a9fe5530978141c34f89c6bd766  src/melspec.cpp
+0dc9bc451604bf9fe0931ea26cac4a75bcaed3437a2e6c99a60df9968315cc88  melspec
+0ab1bca8778aa02caf35dff1b31149de9f6035263b3ff4c3f633c22f2f1a6b32  tmp/bin/support
+default/support: min=0.860726s median=0.870256s PASS=True
+  runs: 0.867611 0.869212 0.871415 0.860726 0.871301 0.877162
+default/inplace: min=0.855028s median=0.864017s PASS=True
+  runs: 0.870754 0.863749 0.855028 0.861588 0.864285 0.864432
+default/fftw: min=0.982893s median=0.992357s PASS=True
+  runs: 0.994860 0.988017 0.982893 1.007643 0.989854 1.004555
+small_mels/support: min=0.522826s median=0.528108s PASS=True
+  runs: 0.522826 0.529973 0.531640 0.526242 0.535071 0.525361
+small_mels/inplace: min=0.520004s median=0.523456s PASS=True
+  runs: 0.526201 0.528892 0.525642 0.521270 0.520890 0.520004
+small_mels/fftw: min=0.651998s median=0.658082s PASS=True
+  runs: 0.653288 0.658102 0.658063 0.651998 0.659253 0.659244
+large_fft/support: min=1.143490s median=1.149722s PASS=True
+  runs: 1.149659 1.149784 1.154674 1.188815 1.149078 1.143490
+large_fft/inplace: min=1.127195s median=1.133168s PASS=True
+  runs: 1.131998 1.141788 1.133200 1.133136 1.134364 1.127195
+large_fft/fftw: min=1.351236s median=1.357742s PASS=True
+  runs: 1.351236 1.355392 1.366803 1.365518 1.360092 1.352437
+narrow_band/support: min=1.119753s median=1.122202s PASS=True
+  runs: 1.119753 1.129035 1.121518 1.122621 1.144602 1.121783
+narrow_band/inplace: min=1.108336s median=1.115651s PASS=True
+  runs: 1.131341 1.110251 1.111213 1.120090 1.120437 1.108336
+narrow_band/fftw: min=1.297869s median=1.303727s PASS=True
+  runs: 1.300859 1.301700 1.312365 1.308033 1.297869 1.305755

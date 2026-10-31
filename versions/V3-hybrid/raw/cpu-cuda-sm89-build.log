@@ -1,0 +1,30 @@
+g++ -I./include -DMELSPEC_FP32_BATCH=8 -DMELSPEC_WITH_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_DEFER_RESIZE=0 -DMELSPEC_CUDA_ASYNC_OUTPUT=1 -DMELSPEC_CUDA_RESIZE_THREAD=1 -DMELSPEC_CUDA_STAGING_ROWS=16 -I/opt/cuda/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/hybrid-cuda-fp8-arch89-p32-b512-f1-pr0-pin0-o1-d0-a1-t1-r16/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FP32_BATCH=8 -DMELSPEC_WITH_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_DEFER_RESIZE=0 -DMELSPEC_CUDA_ASYNC_OUTPUT=1 -DMELSPEC_CUDA_RESIZE_THREAD=1 -DMELSPEC_CUDA_STAGING_ROWS=16 -I/opt/cuda/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/hybrid-cuda-fp8-arch89-p32-b512-f1-pr0-pin0-o1-d0-a1-t1-r16/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FP32_BATCH=8 -DMELSPEC_WITH_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_DEFER_RESIZE=0 -DMELSPEC_CUDA_ASYNC_OUTPUT=1 -DMELSPEC_CUDA_RESIZE_THREAD=1 -DMELSPEC_CUDA_STAGING_ROWS=16 -I/opt/cuda/targets/x86_64-linux/include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/hybrid-cuda-fp8-arch89-p32-b512-f1-pr0-pin0-o1-d0-a1-t1-r16/melspec_cpu.o -c src/melspec_cpu.cpp
+/opt/cuda/bin/nvcc -I./include -DMELSPEC_FP32_BATCH=8 -DMELSPEC_WITH_CUDA=1 -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 -DMELSPEC_CUDA_FUSED=1 -DMELSPEC_CUDA_PINNED=0 -DMELSPEC_CUDA_OVERLAP_INIT=1 -DMELSPEC_CUDA_DEFER_RESIZE=0 -DMELSPEC_CUDA_ASYNC_OUTPUT=1 -DMELSPEC_CUDA_RESIZE_THREAD=1 -DMELSPEC_CUDA_STAGING_ROWS=16 -I/opt/cuda/targets/x86_64-linux/include -std=c++17 -O3 -arch=sm_89 -Xcompiler -O3,-march=native,-pthread -MMD -MP -o tmp/build/hybrid-cuda-fp8-arch89-p32-b512-f1-pr0-pin0-o1-d0-a1-t1-r16/melspec_cuda.o -c src/melspec_cuda.cu
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+src/melspec_cuda.cu(144): warning #177-D: function "<unnamed>::FftTraits<double>::execute" was declared but never referenced
+      static cufftResult execute(cufftHandle plan, double* input, Complex* output) {
+                         ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+src/melspec_cuda.cu(143): warning #177-D: member "<unnamed>::FftTraits<double>::type" was declared but never referenced
+      static constexpr cufftType type = CUFFT_D2Z;
+                                 ^
+
+src/melspec_cuda.cu(153): warning #177-D: function "<unnamed>::squared_norm(const cufftDoubleComplex &)" was declared but never referenced
+  __attribute__((device)) __inline__ __attribute__((always_inline)) double squared_norm(const cufftDoubleComplex& z) {
+                                                                           ^
+
+src/melspec_cuda.cu(297): warning #177-D: function "<unnamed>::CufftPlan::workspace" was declared but never referenced
+      size_t workspace() const {
+             ^
+
+g++  -o tmp/bin/hybrid-cuda-sm89 tmp/build/hybrid-cuda-fp8-arch89-p32-b512-f1-pr0-pin0-o1-d0-a1-t1-r16/main.o tmp/build/hybrid-cuda-fp8-arch89-p32-b512-f1-pr0-pin0-o1-d0-a1-t1-r16/melspec.o tmp/build/hybrid-cuda-fp8-arch89-p32-b512-f1-pr0-pin0-o1-d0-a1-t1-r16/melspec_cpu.o tmp/build/hybrid-cuda-fp8-arch89-p32-b512-f1-pr0-pin0-o1-d0-a1-t1-r16/melspec_cuda.o -pthread -L/opt/cuda/lib64 -Wl,-rpath,/opt/cuda/lib64 -lcufft -lcudart

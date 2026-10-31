@@ -1,0 +1,73 @@
+{
+  "small_times": {
+    "cpu-only": [
+      0.00511341099627316,
+      0.005419132008682936,
+      0.005445833012345247,
+      0.005183630986721255,
+      0.00866794200555887,
+      0.007553317991551012
+    ],
+    "forced-cpu": [
+      0.016728165006497875,
+      0.016516308998689055,
+      0.017084828010411002,
+      0.019111468995106407,
+      0.020236032010870986,
+      0.020713999998406507
+    ],
+    "auto": [
+      0.01653802499640733,
+      0.01646098800119944,
+      0.017037796991644427,
+      0.017040577993611805,
+      0.019610593997640535,
+      0.017014829005347565
+    ]
+  },
+  "small_medians": {
+    "cpu-only": 0.005432482510514092,
+    "forced-cpu": 0.018098148502758704,
+    "auto": 0.017026312998495996
+  },
+  "trace_cpu": {
+    "device_access_lines": 0,
+    "device_access_examples": [],
+    "stderr": "dispatch: backend=cpu frames=64 work=0.068 input_mb=0.033 output_mb=0.016 cache_work=0.000 t_cpu=0.04514 t_hip=0.32324\n"
+  },
+  "trace_auto": {
+    "device_access_lines": 0,
+    "device_access_examples": [],
+    "stderr": "dispatch: backend=cpu frames=64 work=0.068 input_mb=0.033 output_mb=0.016 cache_work=0.000 t_cpu=0.04514 t_hip=0.32324\n"
+  },
+  "trace_hip": {
+    "device_access_lines": 4,
+    "device_access_examples": [
+      "1779754 openat(AT_FDCWD, \"/dev/kfd\", O_RDWR|O_CLOEXEC <unfinished ...>",
+      "1779754 openat(AT_FDCWD, \"/dev/dri/renderD128\", O_RDWR|O_CLOEXEC) = 6",
+      "1779754 openat(AT_FDCWD, \"/dev/dri/renderD128\", O_RDWR|O_CLOEXEC) = 5",
+      "1779754 openat(AT_FDCWD, \"/dev/dri/renderD128\", O_RDWR|O_CLOEXEC) = 5"
+    ],
+    "stderr": "dispatch: backend=hip frames=64 work=0.068 input_mb=0.033 output_mb=0.016 cache_work=0.000 t_cpu=0.04514 t_hip=0.32324\nWarning: Resource leak detected by SharedSignalPool, 77 Signals leaked.\n"
+  },
+  "gpu_favored_control": "dispatch: backend=hip frames=32768 work=343.597 input_mb=8.519 output_mb=33.554 cache_work=1030.792 t_cpu=0.68922 t_hip=0.51202\nWarning: Resource leak detected by SharedSignalPool, 77 Signals leaked.\n",
+  "auto_hidden": {
+    "passed": true,
+    "seconds": 0.7888168530043913,
+    "stderr": "dispatch: backend=cpu frames=32768 work=343.597 input_mb=8.519 output_mb=33.554 cache_work=1030.792 t_cpu=0.68922 t_hip=0.51202\n",
+    "bitwise_equal_cpu": true,
+    "params": {
+      "sr": 96000,
+      "n_fft": 65536,
+      "hop_length": 128,
+      "n_mels": 256,
+      "f_min": 0,
+      "f_max": 22050
+    },
+    "frames": 32768
+  },
+  "forced_hidden": {
+    "exit": 1,
+    "stderr": "dispatch: backend=hip frames=64 work=0.068 input_mb=0.033 output_mb=0.016 cache_work=0.000 t_cpu=0.04514 t_hip=0.32324\nError: HIP device unavailable: no ROCm-capable device is detected\n"
+  }
+}

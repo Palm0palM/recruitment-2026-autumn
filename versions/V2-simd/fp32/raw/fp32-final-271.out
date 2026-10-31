@@ -1,0 +1,111 @@
+== fp32 final job 271 on hepnode3 ==
+16
+Cpus_allowed_list:	0-15
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+g++ -I./include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/main.o -c src/main.cpp
+g++ -I./include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/melspec.o -c src/melspec.cpp
+g++  -o melspec tmp/build/main.o tmp/build/melspec.o -pthread
+SMOKE ./melspec
+default: PASS shape=(256, 1437) max_abs_err=0.00012207031
+small_mels: PASS shape=(64, 1437) max_abs_err=7.6293945e-05
+large_fft: PASS shape=(256, 1373) max_abs_err=0.00036621094
+narrow_band: PASS shape=(256, 1373) max_abs_err=0.00048828125
+cli_defaults: PASS shape=(128, 372) max_abs_err=1.5258789e-05
+fft_1: PASS shape=(4, 1500) max_abs_err=0
+fft_2: PASS shape=(4, 1500) max_abs_err=6.4623485e-27
+fft_8: PASS shape=(4, 1500) max_abs_err=8.7311491e-11
+tail_2: PASS shape=(16, 958) max_abs_err=0.00010681152
+tail_3: PASS shape=(16, 719) max_abs_err=9.1552734e-05
+SMOKE tmp/bin/fp32-b8
+default: PASS shape=(256, 1437) max_abs_err=0.00018310547
+small_mels: PASS shape=(64, 1437) max_abs_err=9.1552734e-05
+large_fft: PASS shape=(256, 1373) max_abs_err=0.00048828125
+narrow_band: PASS shape=(256, 1373) max_abs_err=0.00073242188
+cli_defaults: PASS shape=(128, 372) max_abs_err=2.2888184e-05
+fft_1: PASS shape=(4, 1500) max_abs_err=0
+fft_2: PASS shape=(4, 1500) max_abs_err=3.2311743e-27
+fft_8: PASS shape=(4, 1500) max_abs_err=8.7311491e-11
+tail_2: PASS shape=(16, 958) max_abs_err=0.00011444092
+tail_3: PASS shape=(16, 719) max_abs_err=9.9182129e-05
+SMOKE tmp/bin/fp32-b16
+default: PASS shape=(256, 1437) max_abs_err=0.00018310547
+small_mels: PASS shape=(64, 1437) max_abs_err=9.1552734e-05
+large_fft: PASS shape=(256, 1373) max_abs_err=0.00048828125
+narrow_band: PASS shape=(256, 1373) max_abs_err=0.00073242188
+cli_defaults: PASS shape=(128, 372) max_abs_err=2.2888184e-05
+fft_1: PASS shape=(4, 1500) max_abs_err=0
+fft_2: PASS shape=(4, 1500) max_abs_err=3.2311743e-27
+fft_8: PASS shape=(4, 1500) max_abs_err=8.7311491e-11
+tail_2: PASS shape=(16, 958) max_abs_err=0.00011444092
+tail_3: PASS shape=(16, 719) max_abs_err=9.9182129e-05
+n=    1: random/zero/impulse/sine PASS
+n=    2: random/zero/impulse/sine PASS
+n=    4: random/zero/impulse/sine PASS
+n=    8: random/zero/impulse/sine PASS
+n=   16: random/zero/impulse/sine PASS
+n=   32: random/zero/impulse/sine PASS
+n=   64: random/zero/impulse/sine PASS
+n=  128: random/zero/impulse/sine PASS
+n=  256: random/zero/impulse/sine PASS
+n=  512: random/zero/impulse/sine PASS
+n= 1024: random/zero/impulse/sine PASS
+n= 2048: random/zero/impulse/sine PASS
+n= 4096: random/zero/impulse/sine PASS
+n= 8192: random/zero/impulse/sine PASS
+n=16384: random/zero/impulse/sine PASS
+All public rfft checks passed.
+default {'max_abs': 0.0234375, 'rms': 0.00022576168849092713, 'max_tolerance_ratio': 0.00983334518969059, 'max_rel_nonzero': 0.0009770990582183003, 'allclose': True}
+small_mels {'max_abs': 0.0078125, 'rms': 0.0001464236286636897, 'max_tolerance_ratio': 0.0022237319499254227, 'max_rel_nonzero': 0.000147910337545909, 'allclose': True}
+large_fft {'max_abs': 0.09375, 'rms': 0.0008265396857112369, 'max_tolerance_ratio': 0.013202885165810585, 'max_rel_nonzero': 0.0005173715762794018, 'allclose': True}
+narrow_band {'max_abs': 0.0625, 'rms': 0.00029907043522929354, 'max_tolerance_ratio': 0.009238341823220253, 'max_rel_nonzero': 0.0004361302126199007, 'allclose': True}
+zero {'max_abs': 0.0, 'rms': 0.0, 'max_tolerance_ratio': 0.0, 'max_rel_nonzero': 0.0, 'allclose': True}
+impulse {'max_abs': 2.2351741790771484e-08, 'rms': 7.005648358978109e-10, 'max_tolerance_ratio': 0.0001179508471977897, 'max_rel_nonzero': 3.451461623171781e-07, 'allclose': True}
+alternating {'max_abs': 3.28203896060586e-07, 'rms': 2.1236049528547412e-08, 'max_tolerance_ratio': 0.003279455006122589, 'max_rel_nonzero': 0.004165321588516235, 'allclose': True}
+sine_1k {'max_abs': 0.03125, 'rms': 0.001130951199511811, 'max_tolerance_ratio': 0.003114640014246106, 'max_rel_nonzero': 0.0067694284953176975, 'allclose': True}
+sine_near_nyquist {'max_abs': 1.4136105619400041e-08, 'rms': 3.356461524059288e-10, 'max_tolerance_ratio': 0.0001413606369169429, 'max_rel_nonzero': 0.0005166446208022535, 'allclose': True}
+dc_step {'max_abs': 0.125, 'rms': 0.0006810027060268506, 'max_tolerance_ratio': 0.01213014218956232, 'max_rel_nonzero': 0.0010733901290223002, 'allclose': True}
+random {'max_abs': 0.000244140625, 'rms': 9.614857472916769e-06, 'max_tolerance_ratio': 0.00450041051954031, 'max_rel_nonzero': 1.2362160305201542e-05, 'allclose': True}
+two_frames {'max_abs': 2.117582368135751e-22, 'rms': 4.200502346675206e-24, 'max_tolerance_ratio': 2.117582368135751e-18, 'max_rel_nonzero': 0.0, 'allclose': True}
+95aa8e56fb5ca91d89de153bc699a2a2361bb48b174b5076478d258dcf282f3f  src/melspec.cpp
+0dc9bc451604bf9fe0931ea26cac4a75bcaed3437a2e6c99a60df9968315cc88  melspec
+368aa5cbab7292fea1810f9b2d1d6c6cbd7062d0aafa687f93877cb8e819f750  tmp/bin/fp32-b8
+5514ccb5def7329a5356f2ae85c773c4d06bd6a722945f984b20049581525182  tmp/bin/fp32-b16
+a9d994473813cdc44b5588a8510007c5b2ee73072ba235221b880440c030030c  tmp/bin/fftw-float-patient
+dedf4e8f151618a9a0f8fd98e44b8c60d3fce395697ab6fa2e72ebc0c10e3adf  tmp/wisdom-patient/r2c-8192.wisdom
+82dafed5e3e3915b1985fe01fd2472ca33b59c2227ca8e14d79f3fb71fc80cc2  tmp/wisdom-patient/r2c-16384.wisdom
+default/fp64-b8: min=0.857804s median=0.865315s PASS=True
+  runs: 0.862716 0.863661 0.870616 0.866969 0.857804 0.874422
+default/fp32-b8: min=0.826210s median=0.839211s PASS=True
+  runs: 0.826210 0.844520 0.836367 0.839770 0.850359 0.838651
+default/fp32-b16: min=0.826007s median=0.834009s PASS=True
+  runs: 0.832853 0.837766 0.835164 0.841220 0.826007 0.828978
+default/fftw-float-patient: min=0.847002s median=0.855914s PASS=True
+  runs: 0.857045 0.847002 0.847265 0.856214 0.857523 0.855614
+small_mels/fp64-b8: min=0.522814s median=0.527069s PASS=True
+  runs: 0.529509 0.522814 0.527382 0.526756 0.528505 0.523644
+small_mels/fp32-b8: min=0.485827s median=0.495110s PASS=True
+  runs: 0.499397 0.485827 0.496850 0.493416 0.496804 0.487521
+small_mels/fp32-b16: min=0.482760s median=0.485544s PASS=True
+  runs: 0.483839 0.487475 0.482760 0.492769 0.484865 0.486223
+small_mels/fftw-float-patient: min=0.515141s median=0.516943s PASS=True
+  runs: 0.515719 0.515192 0.519331 0.523790 0.515141 0.518168
+large_fft/fp64-b8: min=1.130715s median=1.138472s PASS=True
+  runs: 1.146358 1.135276 1.136407 1.130715 1.140536 1.158773
+large_fft/fp32-b8: min=1.047825s median=1.055000s PASS=True
+  runs: 1.056765 1.054961 1.055982 1.047825 1.055039 1.051874
+large_fft/fp32-b16: min=1.032441s median=1.035395s PASS=True
+  runs: 1.032441 1.038546 1.039060 1.033774 1.034535 1.036255
+large_fft/fftw-float-patient: min=1.061132s median=1.064758s PASS=True
+  runs: 1.064345 1.081167 1.065171 1.063672 1.061132 1.067271
+narrow_band/fp64-b8: min=1.102402s median=1.117619s PASS=True
+  runs: 1.102402 1.116546 1.112042 1.139638 1.132185 1.118692
+narrow_band/fp32-b8: min=1.009618s median=1.013177s PASS=True
+  runs: 1.011974 1.010670 1.014381 1.009618 1.019393 1.016960
+narrow_band/fp32-b16: min=0.995757s median=0.999337s PASS=True
+  runs: 0.999183 0.999056 0.995757 0.999490 0.999569 1.007415
+narrow_band/fftw-float-patient: min=1.003196s median=1.012433s PASS=True
+  runs: 1.012883 1.013387 1.006068 1.013318 1.003196 1.011983

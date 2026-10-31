@@ -1,0 +1,194 @@
+[
+  {
+    "case": "default",
+    "runs": 6,
+    "order": [
+      [
+        "0",
+        "1"
+      ],
+      [
+        "1",
+        "0"
+      ]
+    ],
+    "programs": [
+      {
+        "label": "fp64",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/tmp/results/fp32/fp64-stable",
+        "times_s": [
+          1.1491759150012513,
+          1.1438847329991404,
+          1.1256353720018524,
+          1.326077454003098,
+          2.5467643629963277,
+          1.1699510200051009
+        ],
+        "min_s": 1.1256353720018524,
+        "median_s": 1.159563467503176,
+        "pass": true,
+        "max_abs_err": 0.03125
+      },
+      {
+        "label": "fp32-b8",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/tmp/results/fp32/b8/melspec",
+        "times_s": [
+          0.9452878029987914,
+          1.0445495499952813,
+          1.264202516998921,
+          1.7786352680050186,
+          1.064079957002832,
+          0.9944982870001695
+        ],
+        "min_s": 0.9452878029987914,
+        "median_s": 1.0543147534990567,
+        "pass": true,
+        "max_abs_err": 0.0390625
+      }
+    ]
+  },
+  {
+    "case": "small_mels",
+    "runs": 6,
+    "order": [
+      [
+        "0",
+        "1"
+      ],
+      [
+        "1",
+        "0"
+      ]
+    ],
+    "programs": [
+      {
+        "label": "fp64",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/tmp/results/fp32/fp64-stable",
+        "times_s": [
+          0.7455822650008486,
+          0.7289784139939002,
+          0.7424369429936633,
+          0.7333980870025698,
+          0.7548603970062686,
+          0.7537561010030913
+        ],
+        "min_s": 0.7289784139939002,
+        "median_s": 0.7440096039972559,
+        "pass": true,
+        "max_abs_err": 0.01171875
+      },
+      {
+        "label": "fp32-b8",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/tmp/results/fp32/b8/melspec",
+        "times_s": [
+          0.6220778670030995,
+          0.6374851419968763,
+          0.6191783559988835,
+          0.6759936680027749,
+          0.5500941040008911,
+          0.5721666649988038
+        ],
+        "min_s": 0.5500941040008911,
+        "median_s": 0.6206281115009915,
+        "pass": true,
+        "max_abs_err": 0.015625
+      }
+    ]
+  },
+  {
+    "case": "large_fft",
+    "runs": 6,
+    "order": [
+      [
+        "0",
+        "1"
+      ],
+      [
+        "1",
+        "0"
+      ]
+    ],
+    "programs": [
+      {
+        "label": "fp64",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/tmp/results/fp32/fp64-stable",
+        "times_s": [
+          1.6329463709989795,
+          1.7540082359992084,
+          1.7748126450023847,
+          1.6346214849982061,
+          1.7073605680052424,
+          1.6836125240006368
+        ],
+        "min_s": 1.6329463709989795,
+        "median_s": 1.6954865460029396,
+        "pass": true,
+        "max_abs_err": 0.125
+      },
+      {
+        "label": "fp32-b8",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/tmp/results/fp32/b8/melspec",
+        "times_s": [
+          1.2737286090050475,
+          1.2723625960061327,
+          1.3151288099979865,
+          1.9657957460003672,
+          1.2954756159961107,
+          1.414774363001925
+        ],
+        "min_s": 1.2723625960061327,
+        "median_s": 1.3053022129970486,
+        "pass": true,
+        "max_abs_err": 0.125
+      }
+    ]
+  },
+  {
+    "case": "narrow_band",
+    "runs": 6,
+    "order": [
+      [
+        "0",
+        "1"
+      ],
+      [
+        "1",
+        "0"
+      ]
+    ],
+    "programs": [
+      {
+        "label": "fp64",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/tmp/results/fp32/fp64-stable",
+        "times_s": [
+          1.6701778169954196,
+          1.946911341001396,
+          2.518526517000282,
+          1.8285385130002396,
+          1.74517664200539,
+          1.9278524779947475
+        ],
+        "min_s": 1.6701778169954196,
+        "median_s": 1.8781954954974935,
+        "pass": true,
+        "max_abs_err": 0.0625
+      },
+      {
+        "label": "fp32-b8",
+        "path": "/home/palm/projects/heptagon/melspec-v2-simd/tmp/results/fp32/b8/melspec",
+        "times_s": [
+          1.4410801900012302,
+          1.8849191490007797,
+          1.3175699389976216,
+          1.71750690999761,
+          1.2717968379947706,
+          1.3314795339974808
+        ],
+        "min_s": 1.2717968379947706,
+        "median_s": 1.3862798619993555,
+        "pass": true,
+        "max_abs_err": 0.09375
+      }
+    ]
+  }
+]

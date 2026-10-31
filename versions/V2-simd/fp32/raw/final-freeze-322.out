@@ -1,0 +1,82 @@
+== final freeze job 322 on hepnode3 ==
+16
+Cpus_allowed_list:	0-15
+CPU(s):                                  64
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+CPU(s) scaling MHz:                      31%
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+== default make selection ==
+mkdir -p tmp/build/fp16
+g++ -I./include -DMELSPEC_FP32_BATCH=16 -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/fp16/main.o -c src/main.cpp
+mkdir -p tmp/build/fp16
+g++ -I./include -DMELSPEC_FP32_BATCH=16 -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/fp16/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FP32_BATCH=16 -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/fp16/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FP32_BATCH=16 -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/fp16/melspec.o -c src/melspec.cpp
+g++  -o melspec tmp/build/fp16/main.o tmp/build/fp16/melspec.o -pthread
+== explicit FP32 B16 build for identity comparison ==
+5514ccb5def7329a5356f2ae85c773c4d06bd6a722945f984b20049581525182  melspec
+5514ccb5def7329a5356f2ae85c773c4d06bd6a722945f984b20049581525182  tmp/bin/fp32-b16-explicit
+0dc9bc451604bf9fe0931ea26cac4a75bcaed3437a2e6c99a60df9968315cc88  tmp/bin/fp64-reference
+95aa8e56fb5ca91d89de153bc699a2a2361bb48b174b5076478d258dcf282f3f  src/melspec.cpp
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+ae96df25e59816e6162e2cee7101c380d0058c820d1771cea302d0e91de2ea9d  include/melspec.h
+ee18296021d6efe3644950e47c7922dce072846e7fe44d47b6d3645e950ac7ce  validate.py
+618615b185ced4396ed384dfac183d3f051322ae75ade153bfd455f142215f84  Makefile
+0000000000000910 T apply_batch16f(FFTPlan32 const&, Batch16fBuffer&)
+0000000000000c30 T recover_power_batch16f(Batch16fBuffer&, std::vector<double, std::allocator<double> > const&, std::vector<double, std::allocator<double> > const&, int, int)
+default: PASS shape=(256, 1437) max_abs_err=0.00018310547
+small_mels: PASS shape=(64, 1437) max_abs_err=9.1552734e-05
+large_fft: PASS shape=(256, 1373) max_abs_err=0.00048828125
+narrow_band: PASS shape=(256, 1373) max_abs_err=0.00073242188
+cli_defaults: PASS shape=(128, 372) max_abs_err=2.2888184e-05
+fft_1: PASS shape=(4, 1500) max_abs_err=0
+fft_2: PASS shape=(4, 1500) max_abs_err=3.2311743e-27
+fft_8: PASS shape=(4, 1500) max_abs_err=8.7311491e-11
+tail_2: PASS shape=(16, 958) max_abs_err=0.00011444092
+tail_3: PASS shape=(16, 719) max_abs_err=9.9182129e-05
+n=    1: random/zero/impulse/sine PASS
+n=    2: random/zero/impulse/sine PASS
+n=    4: random/zero/impulse/sine PASS
+n=    8: random/zero/impulse/sine PASS
+n=   16: random/zero/impulse/sine PASS
+n=   32: random/zero/impulse/sine PASS
+n=   64: random/zero/impulse/sine PASS
+n=  128: random/zero/impulse/sine PASS
+n=  256: random/zero/impulse/sine PASS
+n=  512: random/zero/impulse/sine PASS
+n= 1024: random/zero/impulse/sine PASS
+n= 2048: random/zero/impulse/sine PASS
+n= 4096: random/zero/impulse/sine PASS
+n= 8192: random/zero/impulse/sine PASS
+n=16384: random/zero/impulse/sine PASS
+All public rfft checks passed.
+default {'max_abs': 0.0234375, 'rms': 0.00022576168849092713, 'max_tolerance_ratio': 0.00983334518969059, 'max_rel_nonzero': 0.0009770990582183003, 'allclose': True}
+small_mels {'max_abs': 0.0078125, 'rms': 0.0001464236286636897, 'max_tolerance_ratio': 0.0022237319499254227, 'max_rel_nonzero': 0.000147910337545909, 'allclose': True}
+large_fft {'max_abs': 0.09375, 'rms': 0.0008265396857112369, 'max_tolerance_ratio': 0.013202885165810585, 'max_rel_nonzero': 0.0005173715762794018, 'allclose': True}
+narrow_band {'max_abs': 0.0625, 'rms': 0.00029907043522929354, 'max_tolerance_ratio': 0.009238341823220253, 'max_rel_nonzero': 0.0004361302126199007, 'allclose': True}
+zero {'max_abs': 0.0, 'rms': 0.0, 'max_tolerance_ratio': 0.0, 'max_rel_nonzero': 0.0, 'allclose': True}
+impulse {'max_abs': 2.2351741790771484e-08, 'rms': 7.005648358978109e-10, 'max_tolerance_ratio': 0.0001179508471977897, 'max_rel_nonzero': 3.451461623171781e-07, 'allclose': True}
+alternating {'max_abs': 3.28203896060586e-07, 'rms': 2.1236049528547412e-08, 'max_tolerance_ratio': 0.003279455006122589, 'max_rel_nonzero': 0.004165321588516235, 'allclose': True}
+sine_1k {'max_abs': 0.03125, 'rms': 0.001130951199511811, 'max_tolerance_ratio': 0.003114640014246106, 'max_rel_nonzero': 0.0067694284953176975, 'allclose': True}
+sine_near_nyquist {'max_abs': 1.4136105619400041e-08, 'rms': 3.356461524059288e-10, 'max_tolerance_ratio': 0.0001413606369169429, 'max_rel_nonzero': 0.0005166446208022535, 'allclose': True}
+dc_step {'max_abs': 0.125, 'rms': 0.0006810027060268506, 'max_tolerance_ratio': 0.01213014218956232, 'max_rel_nonzero': 0.0010733901290223002, 'allclose': True}
+random {'max_abs': 0.000244140625, 'rms': 9.614857472916769e-06, 'max_tolerance_ratio': 0.00450041051954031, 'max_rel_nonzero': 1.2362160305201542e-05, 'allclose': True}
+two_frames {'max_abs': 2.117582368135751e-22, 'rms': 4.200502346675206e-24, 'max_tolerance_ratio': 2.117582368135751e-18, 'max_rel_nonzero': 0.0, 'allclose': True}
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.91e-02 |   PASS |    0.811 | 19.626x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.56e-02 |   PASS |    0.495 | 30.239x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.061 | 32.731x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    9.38e-02 |   PASS |    1.021 | 34.388x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED

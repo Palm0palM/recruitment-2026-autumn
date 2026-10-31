@@ -1,0 +1,66 @@
+== batch8 job 95 on hepnode3 ==
+16
+Cpus_allowed_list:	0-15
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb intel_pt avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local split_lock_detect wbnoinvd dtherm ida arat pln pts vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq la57 rdpid fsrm md_clear pconfig flush_l1d arch_capabilities
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+g++ -I./include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/main.o -c src/main.cpp
+g++ -I./include -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/melspec.o -c src/melspec.cpp
+g++  -o melspec tmp/build/main.o tmp/build/melspec.o -pthread
+default: PASS shape=(256, 1437) max_abs_err=0.00012207031
+small_mels: PASS shape=(64, 1437) max_abs_err=7.6293945e-05
+large_fft: PASS shape=(256, 1373) max_abs_err=0.00036621094
+narrow_band: PASS shape=(256, 1373) max_abs_err=0.00048828125
+cli_defaults: PASS shape=(128, 372) max_abs_err=1.5258789e-05
+fft_1: PASS shape=(4, 1500) max_abs_err=0
+fft_2: PASS shape=(4, 1500) max_abs_err=6.4623485e-27
+fft_8: PASS shape=(4, 1500) max_abs_err=8.7311491e-11
+tail_2: PASS shape=(16, 958) max_abs_err=0.00010681152
+tail_3: PASS shape=(16, 719) max_abs_err=9.1552734e-05
+n=    1: random/impulse/sine PASS
+n=    2: random/impulse/sine PASS
+n=    4: random/impulse/sine PASS
+n=    8: random/impulse/sine PASS
+n=   16: random/impulse/sine PASS
+n=   32: random/impulse/sine PASS
+n=   64: random/impulse/sine PASS
+n=  128: random/impulse/sine PASS
+n=  256: random/impulse/sine PASS
+n=  512: random/impulse/sine PASS
+n= 1024: random/impulse/sine PASS
+n= 2048: random/impulse/sine PASS
+n= 4096: random/impulse/sine PASS
+n= 8192: random/impulse/sine PASS
+n=16384: random/impulse/sine PASS
+All public rfft checks passed.
+229f2d0de9f85dec15b0597aa4b702cf80690c052cad457c4bf462199b80bf80  src/melspec.cpp
+c59aec0e438cb241fc7ce6dd80e5041f5b9478a40537e2a1323c7bd1ddaec019  melspec
+4b9f9e8791b98e7bfb378563c2229024e4d5f9f391b3f6b418902c89433b8307  tmp/bin/batch4
+default/batch4: min=0.933027s median=0.939041s PASS=True
+  runs: 0.938227 0.939124 0.938958 0.941385 0.933027 0.945112
+default/batch8: min=0.883217s median=0.891592s PASS=True
+  runs: 0.893613 0.889571 0.894362 0.896024 0.885226 0.883217
+default/fftw: min=0.993601s median=0.995743s PASS=True
+  runs: 0.994649 0.994977 1.004639 0.993601 0.996508 0.999662
+small_mels/batch4: min=0.588642s median=0.595702s PASS=True
+  runs: 0.588642 0.592666 0.595378 0.597981 0.596026 0.599752
+small_mels/batch8: min=0.538227s median=0.543694s PASS=True
+  runs: 0.540780 0.543314 0.538227 0.544074 0.551874 0.547106
+small_mels/fftw: min=0.654070s median=0.661361s PASS=True
+  runs: 0.668742 0.661629 0.654070 0.656126 0.661094 0.678553
+large_fft/batch4: min=1.296035s median=1.303514s PASS=True
+  runs: 1.296035 1.301762 1.306918 1.305267 1.299265 1.321232
+large_fft/batch8: min=1.203163s median=1.207567s PASS=True
+  runs: 1.208258 1.203163 1.233123 1.209558 1.206876 1.204075
+large_fft/fftw: min=1.354926s median=1.362104s PASS=True
+  runs: 1.354926 1.367044 1.356029 1.362027 1.362180 1.367478
+narrow_band/batch4: min=1.276443s median=1.283420s PASS=True
+  runs: 1.281698 1.276443 1.286624 1.280846 1.285142 1.289647
+narrow_band/batch8: min=1.185871s median=1.192772s PASS=True
+  runs: 1.191834 1.203278 1.196104 1.190684 1.193710 1.185871
+narrow_band/fftw: min=1.301982s median=1.307900s PASS=True
+  runs: 1.306806 1.308994 1.306653 1.301982 1.312789 1.318335

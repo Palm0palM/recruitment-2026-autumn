@@ -1,0 +1,20 @@
+    4f75:	c4 c2 c1 b9 04 c2    	vfmadd231sd (%r10,%rax,8),%xmm7,%xmm0
+    5173:	c4 c2 d9 b9 04 c4    	vfmadd231sd (%r12,%rax,8),%xmm4,%xmm0
+    52da:	c4 e2 f9 99 f4       	vfmadd132sd %xmm4,%xmm0,%xmm6
+    52df:	c4 e2 c1 99 ec       	vfmadd132sd %xmm4,%xmm7,%xmm5
+    52e8:	c4 e2 c9 99 ed       	vfmadd132sd %xmm5,%xmm6,%xmm5
+    5341:	c4 c2 e1 b9 c2       	vfmadd231sd %xmm10,%xmm3,%xmm0
+    5346:	c4 c2 e9 bb fa       	vfmsub231sd %xmm10,%xmm2,%xmm7
+    53c6:	c4 e2 b1 b9 cc       	vfmadd231sd %xmm4,%xmm9,%xmm1
+    53d2:	c4 e2 e9 99 c4       	vfmadd132sd %xmm4,%xmm2,%xmm0
+    53db:	c4 e2 f1 99 c0       	vfmadd132sd %xmm0,%xmm1,%xmm0
+    569b:	c4 e2 e1 b9 cc       	vfmadd231sd %xmm4,%xmm3,%xmm1
+    56a0:	c4 e2 e9 bb c4       	vfmsub231sd %xmm4,%xmm2,%xmm0
+    59ba:	c4 e2 d1 b9 c3       	vfmadd231sd %xmm3,%xmm5,%xmm0
+    59bf:	c4 e2 d1 bb ca       	vfmsub231sd %xmm2,%xmm5,%xmm1
+    76d9:	c4 e2 d1 b9 c3       	vfmadd231sd %xmm3,%xmm5,%xmm0
+    76de:	c4 e2 d1 bb e2       	vfmsub231sd %xmm2,%xmm5,%xmm4
+    79ca:	c4 e2 e1 b9 c5       	vfmadd231sd %xmm5,%xmm3,%xmm0
+    79cf:	c4 e2 e9 bb cd       	vfmsub231sd %xmm5,%xmm2,%xmm1
+    87f3:	c4 c2 c1 b9 04 c4    	vfmadd231sd (%r12,%rax,8),%xmm7,%xmm0
+    89b3:	c4 c2 d9 b9 04 c4    	vfmadd231sd (%r12,%rax,8),%xmm4,%xmm0

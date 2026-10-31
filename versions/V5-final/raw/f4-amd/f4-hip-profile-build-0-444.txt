@@ -1,0 +1,68 @@
+g++ -I./include -DMELSPEC_FP32_BATCH=16 -DMELSPEC_PACK_REUSE=1 -DMELSPEC_OUTPUT_HUGEPAGE=1 -DMELSPEC_WITH_HIP=1 -DMELSPEC_HIP_ONLY=0 -DMELSPEC_HIP_PRECISION=32 -DMELSPEC_HIP_BATCH=512 -DMELSPEC_HIP_BATCH_LARGE=256 -DMELSPEC_HIP_FUSED=1 -DMELSPEC_HIP_PINNED=0 -DMELSPEC_HIP_PINNED_INPUT=0 -DMELSPEC_HIP_ASYNC_H2D=1 -DMELSPEC_HIP_PREWARM=1 -DMELSPEC_HIP_EAGER_PREWARM=0 -DMELSPEC_HIP_DIRECT_OUTPUT=1 -DMELSPEC_HIP_HUGEPAGE=1 -DMELSPEC_HIP_OVERLAP_INIT=1 -DMELSPEC_HIP_DEFER_RESIZE=0 -DMELSPEC_HIP_ASYNC_OUTPUT=1 -DMELSPEC_HIP_RESIZE_THREAD=1 -DMELSPEC_HIP_STAGING_ROWS=16 -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include/hipfft -DMELSPEC_HIP_PROFILE=1 -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/final-hip-gfx1201-cpu16-reuse1-hp1-p32-b512-l256-f1-pin0-in0-y1-w1-e0-only0-g1-u1-o1-d0-a1-t1-r16-pr1/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FP32_BATCH=16 -DMELSPEC_PACK_REUSE=1 -DMELSPEC_OUTPUT_HUGEPAGE=1 -DMELSPEC_WITH_HIP=1 -DMELSPEC_HIP_ONLY=0 -DMELSPEC_HIP_PRECISION=32 -DMELSPEC_HIP_BATCH=512 -DMELSPEC_HIP_BATCH_LARGE=256 -DMELSPEC_HIP_FUSED=1 -DMELSPEC_HIP_PINNED=0 -DMELSPEC_HIP_PINNED_INPUT=0 -DMELSPEC_HIP_ASYNC_H2D=1 -DMELSPEC_HIP_PREWARM=1 -DMELSPEC_HIP_EAGER_PREWARM=0 -DMELSPEC_HIP_DIRECT_OUTPUT=1 -DMELSPEC_HIP_HUGEPAGE=1 -DMELSPEC_HIP_OVERLAP_INIT=1 -DMELSPEC_HIP_DEFER_RESIZE=0 -DMELSPEC_HIP_ASYNC_OUTPUT=1 -DMELSPEC_HIP_RESIZE_THREAD=1 -DMELSPEC_HIP_STAGING_ROWS=16 -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include/hipfft -DMELSPEC_HIP_PROFILE=1 -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/final-hip-gfx1201-cpu16-reuse1-hp1-p32-b512-l256-f1-pin0-in0-y1-w1-e0-only0-g1-u1-o1-d0-a1-t1-r16-pr1/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FP32_BATCH=16 -DMELSPEC_PACK_REUSE=1 -DMELSPEC_OUTPUT_HUGEPAGE=1 -DMELSPEC_WITH_HIP=1 -DMELSPEC_HIP_ONLY=0 -DMELSPEC_HIP_PRECISION=32 -DMELSPEC_HIP_BATCH=512 -DMELSPEC_HIP_BATCH_LARGE=256 -DMELSPEC_HIP_FUSED=1 -DMELSPEC_HIP_PINNED=0 -DMELSPEC_HIP_PINNED_INPUT=0 -DMELSPEC_HIP_ASYNC_H2D=1 -DMELSPEC_HIP_PREWARM=1 -DMELSPEC_HIP_EAGER_PREWARM=0 -DMELSPEC_HIP_DIRECT_OUTPUT=1 -DMELSPEC_HIP_HUGEPAGE=1 -DMELSPEC_HIP_OVERLAP_INIT=1 -DMELSPEC_HIP_DEFER_RESIZE=0 -DMELSPEC_HIP_ASYNC_OUTPUT=1 -DMELSPEC_HIP_RESIZE_THREAD=1 -DMELSPEC_HIP_STAGING_ROWS=16 -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include/hipfft -DMELSPEC_HIP_PROFILE=1 -std=c++17 -Wall -Wextra -O3 -march=native -pthread -MMD -MP -o tmp/build/final-hip-gfx1201-cpu16-reuse1-hp1-p32-b512-l256-f1-pin0-in0-y1-w1-e0-only0-g1-u1-o1-d0-a1-t1-r16-pr1/melspec_cpu.o -c src/melspec_cpu.cpp
+/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/bin/hipcc -I./include -DMELSPEC_FP32_BATCH=16 -DMELSPEC_PACK_REUSE=1 -DMELSPEC_OUTPUT_HUGEPAGE=1 -DMELSPEC_WITH_HIP=1 -DMELSPEC_HIP_ONLY=0 -DMELSPEC_HIP_PRECISION=32 -DMELSPEC_HIP_BATCH=512 -DMELSPEC_HIP_BATCH_LARGE=256 -DMELSPEC_HIP_FUSED=1 -DMELSPEC_HIP_PINNED=0 -DMELSPEC_HIP_PINNED_INPUT=0 -DMELSPEC_HIP_ASYNC_H2D=1 -DMELSPEC_HIP_PREWARM=1 -DMELSPEC_HIP_EAGER_PREWARM=0 -DMELSPEC_HIP_DIRECT_OUTPUT=1 -DMELSPEC_HIP_HUGEPAGE=1 -DMELSPEC_HIP_OVERLAP_INIT=1 -DMELSPEC_HIP_DEFER_RESIZE=0 -DMELSPEC_HIP_ASYNC_OUTPUT=1 -DMELSPEC_HIP_RESIZE_THREAD=1 -DMELSPEC_HIP_STAGING_ROWS=16 -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include -I/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/include/hipfft -DMELSPEC_HIP_PROFILE=1 -std=c++17 -O3 --offload-arch=gfx1201 --rocm-path=/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr --rocm-device-lib-path=/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/lib/llvm-21/lib/clang/21/amdgcn/bitcode -march=native -pthread -MMD -MP -o tmp/build/final-hip-gfx1201-cpu16-reuse1-hp1-p32-b512-l256-f1-pin0-in0-y1-w1-e0-only0-g1-u1-o1-d0-a1-t1-r16-pr1/melspec_hip.o -c src/melspec_hip.cu
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+src/melspec_hip.cu:727:19: warning: format specifies type 'double' but the argument has type 'int' [-Wformat]
+  723 |     PROFILE_PRINT("hip_profile precision=%d batch=%d fused=%d defer_resize=%d async_output=%d resize_thread=%d async_h2d=%d prewarm_wait_ms=%.3f staging_rows=%d y_convert_ms=%.3f h2d_y_ms=%.3f h2d_aux_ms=%.3f window_fb_ms=%.3f output_resize_ms=%.3f resize_wait_ms=%.3f device_alloc_ms=%.3f h2d_ms=%.3f batch_alloc_ms=%.3f plan_ms=%.3f gather_ms=%.3f fft_ms=%.3f mel_ms=%.3f pipeline_sync_ms=%.3f staging_alloc_ms=%.3f d2h_ms=%.3f host_convert_ms=%.3f async_output_total_ms=%.3f compute_total_ms=%.3f\n",
+      |                                                                                                                                             ~~~~
+      |                                                                                                                                             %.3d
+  724 |                   MELSPEC_HIP_PRECISION, MELSPEC_HIP_BATCH, MELSPEC_HIP_FUSED,
+  725 |                   MELSPEC_HIP_DEFER_RESIZE, MELSPEC_HIP_ASYNC_OUTPUT,
+  726 |                   MELSPEC_HIP_RESIZE_THREAD, MELSPEC_HIP_STAGING_ROWS,
+  727 |                   MELSPEC_HIP_ASYNC_H2D, prewarm_wait_ms, y_convert_ms, h2d_y_ms, h2d_aux_ms, window_fb_ms, output_resize_ms, resize_wait_ms,
+      |                   ^~~~~~~~~~~~~~~~~~~~~
+<command line>:12:31: note: expanded from macro 'MELSPEC_HIP_ASYNC_H2D'
+   12 | #define MELSPEC_HIP_ASYNC_H2D 1
+      |                               ^
+src/melspec_hip.cu:165:49: note: expanded from macro 'PROFILE_PRINT'
+  165 | #define PROFILE_PRINT(...) std::fprintf(stderr, __VA_ARGS__)
+      |                                                 ^~~~~~~~~~~
+src/melspec_hip.cu:727:42: warning: format specifies type 'int' but the argument has type 'double' [-Wformat]
+  723 |     PROFILE_PRINT("hip_profile precision=%d batch=%d fused=%d defer_resize=%d async_output=%d resize_thread=%d async_h2d=%d prewarm_wait_ms=%.3f staging_rows=%d y_convert_ms=%.3f h2d_y_ms=%.3f h2d_aux_ms=%.3f window_fb_ms=%.3f output_resize_ms=%.3f resize_wait_ms=%.3f device_alloc_ms=%.3f h2d_ms=%.3f batch_alloc_ms=%.3f plan_ms=%.3f gather_ms=%.3f fft_ms=%.3f mel_ms=%.3f pipeline_sync_ms=%.3f staging_alloc_ms=%.3f d2h_ms=%.3f host_convert_ms=%.3f async_output_total_ms=%.3f compute_total_ms=%.3f\n",
+      |                                                                                                                                                               ~~
+      |                                                                                                                                                               %f
+  724 |                   MELSPEC_HIP_PRECISION, MELSPEC_HIP_BATCH, MELSPEC_HIP_FUSED,
+  725 |                   MELSPEC_HIP_DEFER_RESIZE, MELSPEC_HIP_ASYNC_OUTPUT,
+  726 |                   MELSPEC_HIP_RESIZE_THREAD, MELSPEC_HIP_STAGING_ROWS,
+  727 |                   MELSPEC_HIP_ASYNC_H2D, prewarm_wait_ms, y_convert_ms, h2d_y_ms, h2d_aux_ms, window_fb_ms, output_resize_ms, resize_wait_ms,
+      |                                          ^~~~~~~~~~~~~~~
+src/melspec_hip.cu:165:49: note: expanded from macro 'PROFILE_PRINT'
+  165 | #define PROFILE_PRINT(...) std::fprintf(stderr, __VA_ARGS__)
+      |                                                 ^~~~~~~~~~~
+2 warnings generated when compiling for gfx1201.
+src/melspec_hip.cu:727:19: warning: format specifies type 'double' but the argument has type 'int' [-Wformat]
+  723 |     PROFILE_PRINT("hip_profile precision=%d batch=%d fused=%d defer_resize=%d async_output=%d resize_thread=%d async_h2d=%d prewarm_wait_ms=%.3f staging_rows=%d y_convert_ms=%.3f h2d_y_ms=%.3f h2d_aux_ms=%.3f window_fb_ms=%.3f output_resize_ms=%.3f resize_wait_ms=%.3f device_alloc_ms=%.3f h2d_ms=%.3f batch_alloc_ms=%.3f plan_ms=%.3f gather_ms=%.3f fft_ms=%.3f mel_ms=%.3f pipeline_sync_ms=%.3f staging_alloc_ms=%.3f d2h_ms=%.3f host_convert_ms=%.3f async_output_total_ms=%.3f compute_total_ms=%.3f\n",
+      |                                                                                                                                             ~~~~
+      |                                                                                                                                             %.3d
+  724 |                   MELSPEC_HIP_PRECISION, MELSPEC_HIP_BATCH, MELSPEC_HIP_FUSED,
+  725 |                   MELSPEC_HIP_DEFER_RESIZE, MELSPEC_HIP_ASYNC_OUTPUT,
+  726 |                   MELSPEC_HIP_RESIZE_THREAD, MELSPEC_HIP_STAGING_ROWS,
+  727 |                   MELSPEC_HIP_ASYNC_H2D, prewarm_wait_ms, y_convert_ms, h2d_y_ms, h2d_aux_ms, window_fb_ms, output_resize_ms, resize_wait_ms,
+      |                   ^~~~~~~~~~~~~~~~~~~~~
+<command line>:12:31: note: expanded from macro 'MELSPEC_HIP_ASYNC_H2D'
+   12 | #define MELSPEC_HIP_ASYNC_H2D 1
+      |                               ^
+src/melspec_hip.cu:165:49: note: expanded from macro 'PROFILE_PRINT'
+  165 | #define PROFILE_PRINT(...) std::fprintf(stderr, __VA_ARGS__)
+      |                                                 ^~~~~~~~~~~
+src/melspec_hip.cu:727:42: warning: format specifies type 'int' but the argument has type 'double' [-Wformat]
+  723 |     PROFILE_PRINT("hip_profile precision=%d batch=%d fused=%d defer_resize=%d async_output=%d resize_thread=%d async_h2d=%d prewarm_wait_ms=%.3f staging_rows=%d y_convert_ms=%.3f h2d_y_ms=%.3f h2d_aux_ms=%.3f window_fb_ms=%.3f output_resize_ms=%.3f resize_wait_ms=%.3f device_alloc_ms=%.3f h2d_ms=%.3f batch_alloc_ms=%.3f plan_ms=%.3f gather_ms=%.3f fft_ms=%.3f mel_ms=%.3f pipeline_sync_ms=%.3f staging_alloc_ms=%.3f d2h_ms=%.3f host_convert_ms=%.3f async_output_total_ms=%.3f compute_total_ms=%.3f\n",
+      |                                                                                                                                                               ~~
+      |                                                                                                                                                               %f
+  724 |                   MELSPEC_HIP_PRECISION, MELSPEC_HIP_BATCH, MELSPEC_HIP_FUSED,
+  725 |                   MELSPEC_HIP_DEFER_RESIZE, MELSPEC_HIP_ASYNC_OUTPUT,
+  726 |                   MELSPEC_HIP_RESIZE_THREAD, MELSPEC_HIP_STAGING_ROWS,
+  727 |                   MELSPEC_HIP_ASYNC_H2D, prewarm_wait_ms, y_convert_ms, h2d_y_ms, h2d_aux_ms, window_fb_ms, output_resize_ms, resize_wait_ms,
+      |                                          ^~~~~~~~~~~~~~~
+src/melspec_hip.cu:165:49: note: expanded from macro 'PROFILE_PRINT'
+  165 | #define PROFILE_PRINT(...) std::fprintf(stderr, __VA_ARGS__)
+      |                                                 ^~~~~~~~~~~
+2 warnings generated when compiling for host.
+g++  -o tmp/bin/hip-profile-0 tmp/build/final-hip-gfx1201-cpu16-reuse1-hp1-p32-b512-l256-f1-pin0-in0-y1-w1-e0-only0-g1-u1-o1-d0-a1-t1-r16-pr1/main.o tmp/build/final-hip-gfx1201-cpu16-reuse1-hp1-p32-b512-l256-f1-pin0-in0-y1-w1-e0-only0-g1-u1-o1-d0-a1-t1-r16-pr1/melspec.o tmp/build/final-hip-gfx1201-cpu16-reuse1-hp1-p32-b512-l256-f1-pin0-in0-y1-w1-e0-only0-g1-u1-o1-d0-a1-t1-r16-pr1/melspec_cpu.o tmp/build/final-hip-gfx1201-cpu16-reuse1-hp1-p32-b512-l256-f1-pin0-in0-y1-w1-e0-only0-g1-u1-o1-d0-a1-t1-r16-pr1/melspec_hip.o -pthread -L/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/lib/x86_64-linux-gnu -Wl,-rpath,/home/zsx/melspec-v3-amd/tmp/amd-gpu/root/usr/lib/x86_64-linux-gnu -lamdhip64 -lhipfft -lrocfft

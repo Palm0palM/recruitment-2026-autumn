@@ -1,0 +1,56 @@
+{
+  "host": "hepnode0",
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79
+  ],
+  "programs": {
+    "cpu": "/home/zsx/melspec-v5-final/amd/tmp/bin/amd-force-cpu",
+    "hip": "/home/zsx/melspec-v5-final/amd/tmp/bin/amd-force-hip"
+  },
+  "suite": "extended",
+  "runs": 5,
+  "timing": "subprocess.run wall only; readback and allclose excluded",
+  "binary_sha256": {
+    "cpu": "bcf2169fb0666998b5369dd24f2f5a23030bfc4da01320471c17df66bcf0aa6d",
+    "hip": "87547114f68bef6fe74d0fef8c68cfcd1c135969b841ae1f67ad5b3bd70ffceb"
+  },
+  "environment": {
+    "ROCFFT_RTC_CACHE_PATH": "/home/zsx/melspec-v5-final/amd/tmp/rocfft-cache/warm.db",
+    "HIP_VISIBLE_DEVICES": "0",
+    "CUDA_VISIBLE_DEVICES": null,
+    "OMP_NUM_THREADS": "16",
+    "OPENBLAS_NUM_THREADS": "16",
+    "TMPDIR": "/home/zsx/melspec-v5-final/amd/tmp/scratch/node-436"
+  }
+}

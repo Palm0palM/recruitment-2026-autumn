@@ -1,0 +1,17 @@
+Command: objdump -d -C melspec; selected packed YMM FMA instructions
+    4e57:	c4 c2 ad b8 c0       	vfmadd231pd %ymm8,%ymm10,%ymm0
+    4e61:	c4 c2 ed 98 d8       	vfmadd132pd %ymm8,%ymm2,%ymm3
+    4e66:	c4 c2 e5 98 fa       	vfmadd132pd %ymm10,%ymm3,%ymm7
+    4e6f:	c4 e2 c5 98 c0       	vfmadd132pd %ymm0,%ymm7,%ymm0
+    ab03:	c4 c2 fd ba f5       	vfmsub231pd %ymm13,%ymm0,%ymm6
+    ab11:	c4 c2 95 98 c6       	vfmadd132pd %ymm14,%ymm13,%ymm0
+    ab16:	c4 62 dd ba c9       	vfmsub231pd %ymm1,%ymm4,%ymm9
+    ab1f:	c4 c2 dd b8 cc       	vfmadd231pd %ymm12,%ymm4,%ymm1
+    ab2e:	c4 c2 ed ba e3       	vfmsub231pd %ymm11,%ymm2,%ymm4
+    ab33:	c4 c2 e5 98 d2       	vfmadd132pd %ymm10,%ymm3,%ymm2
+    b17b:	c4 c2 ed ba de       	vfmsub231pd %ymm14,%ymm2,%ymm3
+    b180:	c4 e2 cd 98 d7       	vfmadd132pd %ymm7,%ymm6,%ymm2
+    b199:	c4 c2 fd ba fd       	vfmsub231pd %ymm13,%ymm0,%ymm7
+    b19e:	c4 c2 f5 ba f3       	vfmsub231pd %ymm11,%ymm1,%ymm6
+    b1a3:	c4 c2 d5 98 c4       	vfmadd132pd %ymm12,%ymm5,%ymm0
+    b1b0:	c4 c2 dd 98 ca       	vfmadd132pd %ymm10,%ymm4,%ymm1

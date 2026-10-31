@@ -1,0 +1,16 @@
+n=    1: random/impulse/sine PASS
+n=    2: random/impulse/sine PASS
+n=    4: random/impulse/sine PASS
+n=    8: random/impulse/sine PASS
+n=   16: random/impulse/sine PASS
+n=   32: random/impulse/sine PASS
+n=   64: random/impulse/sine PASS
+n=  128: random/impulse/sine PASS
+n=  256: random/impulse/sine PASS
+n=  512: random/impulse/sine PASS
+n= 1024: random/impulse/sine PASS
+n= 2048: random/impulse/sine PASS
+n= 4096: random/impulse/sine PASS
+n= 8192: random/impulse/sine PASS
+n=16384: random/impulse/sine PASS
+All public rfft checks passed.

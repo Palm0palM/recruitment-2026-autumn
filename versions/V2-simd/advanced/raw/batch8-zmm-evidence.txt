@@ -1,0 +1,28 @@
+    6b48:	62 d2 fd 48 19 3c c0 	vbroadcastsd (%r8,%rax,8),%zmm7
+    6b5a:	62 52 fd 48 19 04 c0 	vbroadcastsd (%r8,%rax,8),%zmm8
+    6b65:	62 d2 fd 48 19 14 c0 	vbroadcastsd (%r8,%rax,8),%zmm2
+    6b70:	62 52 fd 48 19 2c c0 	vbroadcastsd (%r8,%rax,8),%zmm13
+    6b81:	62 d2 fd 48 19 34 c0 	vbroadcastsd (%r8,%rax,8),%zmm6
+    6b8f:	62 52 fd 48 19 14 c0 	vbroadcastsd (%r8,%rax,8),%zmm10
+    6b99:	62 72 d5 48 ba ca    	vfmsub231pd %zmm2,%zmm5,%zmm9
+    6ba5:	62 d2 ed 48 98 ed    	vfmadd132pd %zmm13,%zmm2,%zmm5
+    6bb1:	62 f2 fd 48 ba d7    	vfmsub231pd %zmm7,%zmm0,%zmm2
+    6bbd:	62 d2 c5 48 98 c0    	vfmadd132pd %zmm8,%zmm7,%zmm0
+    6bd5:	62 72 dd 48 ba c6    	vfmsub231pd %zmm6,%zmm4,%zmm8
+    6bed:	62 d2 cd 48 98 e2    	vfmadd132pd %zmm10,%zmm6,%zmm4
+    6e8d:	62 72 fd 48 19 05 b9 	vbroadcastsd 0x85b9(%rip),%zmm8        # f450 <_IO_stdin_used+0x450>
+    6ef2:	62 f2 fd 48 19 0c 01 	vbroadcastsd (%rcx,%rax,1),%zmm1
+    6f02:	62 f2 fd 48 19 1c 01 	vbroadcastsd (%rcx,%rax,1),%zmm3
+    6f13:	62 f2 f5 48 b8 c5    	vfmadd231pd %zmm5,%zmm1,%zmm0
+    6f1f:	62 f2 ed 48 98 dd    	vfmadd132pd %zmm5,%zmm2,%zmm3
+    6f25:	62 f2 e5 48 98 cc    	vfmadd132pd %zmm4,%zmm3,%zmm1
+    6f31:	62 f2 f5 48 98 c0    	vfmadd132pd %zmm0,%zmm1,%zmm0
+    7260:	62 d2 fd 48 19 28    	vbroadcastsd (%r8),%zmm5
+    726e:	62 f2 d5 48 b8 47 ff 	vfmadd231pd -0x40(%rdi),%zmm5,%zmm0
+    729e:	62 f1 fd 48 11 04 c6 	vmovupd %zmm0,(%rsi,%rax,8)
+    b200:	62 f2 fd 48 19 32    	vbroadcastsd (%rdx),%zmm6
+    b20e:	62 f2 cd 48 b8 40 ff 	vfmadd231pd -0x40(%rax),%zmm6,%zmm0
+    b226:	62 b1 fd 48 11 04 08 	vmovupd %zmm0,(%rax,%r9,1)
+    b640:	62 f2 fd 48 19 3a    	vbroadcastsd (%rdx),%zmm7
+    b64e:	62 f2 c5 48 b8 40 ff 	vfmadd231pd -0x40(%rax),%zmm7,%zmm0
+    b665:	62 b1 fd 48 11 04 08 	vmovupd %zmm0,(%rax,%r9,1)

@@ -1,0 +1,106 @@
+== hybrid H0 job 363 on hepnode2 ==
+16
+Cpus_allowed_list:	0-3,16-19,32-35,48-51
+NVIDIA L40, 46068 MiB, 595.91.07
+NVIDIA L40, 46068 MiB, 595.91.07
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Built on Tue_Sep_01_08:45:21_PDT_2026
+Cuda compilation tools, release 13.4, V13.4.92
+Build cuda_13.4.r13.4/compiler.38855100_0
+== CPU-only build ==
+-DMELSPEC_FP32_BATCH=16
+== CPU+CUDA build ==
+-DMELSPEC_FP32_BATCH=16
+== frozen FP32 B16 CPU reference ==
+f49e47c25bec6d342fa3bbe97b4b4c4c405d3d0e37799d936dbae573d28d0103  src/melspec.cpp
+8ae8c3692aa78057bc28337766146c60877f57b525c92df37a17f79bb0d5d27e  src/melspec_cpu.cpp
+66bf1b66a249869476a35c89a4404864a1f404ee36f6a7668f0e47271bfc83e2  src/melspec_cuda.cu
+360795c3947256b72e11af7db60664e1243009db6e7d6eae1de3dddc674b1f26  Makefile
+539600db5692134035ee21321b3778ffa6dc693d4665da849f1a32d4f9bbbdd4  tmp/bin/hybrid-cpu-only
+d7910f6e888285925d9c5eeb9fa0835ebbbaf981e67eef7b8eb712921fa361b3  tmp/bin/hybrid-cuda
+b049d36a1fca932cf295dd1169e7369d58b7421a54a0b8d799ce9722fbd1bbfc  tmp/bin/cpu-frozen
+00000000000073e0 T compute_melspectrogram(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)
+000000000000b490 T compute_melspectrogram_cpu(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)
+0000000000011f70 T compute_melspectrogram_cuda(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)
+== official CPU-only 4/4 ==
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.91e-02 |   PASS |    0.826 | 23.287x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.56e-02 |   PASS |    0.838 | 16.304x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.538 | 17.179x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    9.38e-02 |   PASS |    1.454 | 18.177x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+== official hybrid forced CPU 4/4 ==
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.91e-02 |   PASS |    0.844 | 19.602x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.56e-02 |   PASS |    0.665 | 21.370x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.222 | 24.694x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    9.38e-02 |   PASS |    1.243 | 24.372x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+== official hybrid forced CUDA 4/4 ==
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    9.38e-02 |   PASS |    0.863 | 17.553x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    2.34e-02 |   PASS |    0.552 | 23.842x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    2.19e-01 |   PASS |    0.861 | 29.810x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    1.56e-01 |   PASS |    0.876 | 29.343x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+== dispatcher overhead and backend comparison ==
+default/frozen: min=0.839423s median=0.844445s PASS=True
+  runs: 0.840636 0.925822 0.944217 0.839423 0.844445
+default/cpu-only: min=0.850150s median=0.854404s PASS=True
+  runs: 0.855467 0.851166 0.854404 0.859159 0.850150
+default/hybrid-cpu: min=0.844492s median=0.848402s PASS=True
+  runs: 0.844492 0.938750 0.847274 0.849367 0.848402
+default/hybrid-cuda: min=0.878305s median=0.885321s PASS=True
+  runs: 0.892788 0.885120 0.885321 0.886653 0.878305
+small_mels/frozen: min=0.626369s median=0.685297s PASS=True
+  runs: 0.626369 0.697740 0.685297 0.630822 0.714840
+small_mels/cpu-only: min=0.618024s median=0.684276s PASS=True
+  runs: 0.656798 0.711167 0.618024 0.727220 0.684276
+small_mels/hybrid-cpu: min=0.658180s median=0.666617s PASS=True
+  runs: 0.682074 0.658180 0.666617 0.680704 0.659137
+small_mels/hybrid-cuda: min=0.536084s median=0.567611s PASS=True
+  runs: 0.550195 0.536084 0.569572 0.585110 0.567611
+large_fft/frozen: min=1.233284s median=1.316310s PASS=True
+  runs: 1.233284 1.334159 1.301436 1.316310 1.339182
+large_fft/cpu-only: min=1.239185s median=1.279468s PASS=True
+  runs: 1.263122 1.381264 1.279468 1.289745 1.239185
+large_fft/hybrid-cpu: min=1.229828s median=1.251626s PASS=True
+  runs: 1.241609 1.229828 1.368794 1.253547 1.251626
+large_fft/hybrid-cuda: min=0.880479s median=0.893666s PASS=True
+  runs: 0.881253 0.893666 0.898743 0.908071 0.880479
+narrow_band/frozen: min=1.219113s median=1.247116s PASS=True
+  runs: 1.247116 1.317655 1.219113 1.227117 1.250300
+narrow_band/cpu-only: min=1.181565s median=1.240979s PASS=True
+  runs: 1.181565 1.253055 1.240979 1.237307 1.251975
+narrow_band/hybrid-cpu: min=1.187437s median=1.254520s PASS=True
+  runs: 1.315997 1.254520 1.209208 1.378311 1.187437
+narrow_band/hybrid-cuda: min=0.877800s median=0.892601s PASS=True
+  runs: 0.877800 0.892601 0.893454 0.886904 0.912119

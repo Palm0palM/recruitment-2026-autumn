@@ -1,0 +1,33 @@
+JobID|JobName|State|ExitCode|Elapsed|AllocCPUS|NodeList
+74|simd-baseline|COMPLETED|0:0|00:05:49|16|hepnode3
+74.batch|batch|COMPLETED|0:0|00:05:49|16|hepnode3
+74.extern|extern|COMPLETED|0:0|00:05:49|16|hepnode3
+79|simd-avx512|COMPLETED|0:0|00:02:18|16|hepnode3
+79.batch|batch|COMPLETED|0:0|00:02:18|16|hepnode3
+79.extern|extern|COMPLETED|0:0|00:02:18|16|hepnode3
+84|simd-batch4|COMPLETED|0:0|00:02:00|16|hepnode3
+84.batch|batch|COMPLETED|0:0|00:02:00|16|hepnode3
+84.extern|extern|COMPLETED|0:0|00:02:00|16|hepnode3
+91|batch4-profile|COMPLETED|0:0|00:00:12|16|hepnode3
+91.batch|batch|COMPLETED|0:0|00:00:12|16|hepnode3
+91.extern|extern|COMPLETED|0:0|00:00:12|16|hepnode3
+95|simd-batch8|COMPLETED|0:0|00:01:59|16|hepnode3
+95.batch|batch|COMPLETED|0:0|00:01:59|16|hepnode3
+95.extern|extern|COMPLETED|0:0|00:01:59|16|hepnode3
+100|simd-j0|COMPLETED|0:0|00:01:43|16|hepnode3
+100.batch|batch|COMPLETED|0:0|00:01:43|16|hepnode3
+100.extern|extern|COMPLETED|0:0|00:01:43|16|hepnode3
+106|batch8-profile|FAILED|1:0|00:00:02|16|hepnode3
+106.batch|batch|FAILED|1:0|00:00:02|16|hepnode3
+106.extern|extern|COMPLETED|0:0|00:00:02|16|hepnode3
+129|batch8-profile|COMPLETED|0:0|00:00:12|16|hepnode3
+129.batch|batch|COMPLETED|0:0|00:00:12|16|hepnode3
+129.extern|extern|COMPLETED|0:0|00:00:12|16|hepnode3
+132|fft-jouter|COMPLETED|0:0|00:00:33|16|hepnode3
+132.batch|batch|COMPLETED|0:0|00:00:33|16|hepnode3
+132.extern|extern|COMPLETED|0:0|00:00:33|16|hepnode3
+134|batch8-profile|COMPLETED|0:0|00:00:12|16|hepnode3
+134.batch|batch|COMPLETED|0:0|00:00:12|16|hepnode3
+134.extern|extern|COMPLETED|0:0|00:00:12|16|hepnode3
+140|simd-final|PENDING|0:0|00:00:00|0|None assigned
+140|simd-final|CANCELLED before start|0:0|00:00:00|None assigned

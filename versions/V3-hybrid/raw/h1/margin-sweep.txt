@@ -1,0 +1,11 @@
+决定规则: 选 CPU 除非 T_cuda < T_cpu*(1-margin)
+margin   agree max_regret  misclassified
+  0.00    37/38      5.7%  ['official-default']
+  0.03    36/38     30.1%  ['official-default', 'large-65536']
+  0.05    36/38     30.1%  ['frames-192397', 'large-65536']
+  0.08    36/38     30.1%  ['frames-192397', 'large-65536']
+  0.10    36/38     30.1%  ['frames-192397', 'large-65536']
+  0.12    36/38     30.1%  ['frames-192397', 'large-65536']
+  0.15    36/38     30.1%  ['frames-192397', 'large-65536']
+  0.20    36/38     30.1%  ['frames-192397', 'large-65536']
+  0.30    35/38     51.3%  ['frames-192397', 'large-65536', 'large-128000']

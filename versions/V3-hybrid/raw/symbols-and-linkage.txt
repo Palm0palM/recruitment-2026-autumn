@@ -1,0 +1,28 @@
+CPU-only ldd:
+	/lib64/ld-linux-x86-64.so.2 => /usr/lib64/ld-linux-x86-64.so.2 (0x0000772ab72da000)
+	libc.so.6 => /usr/lib/libc.so.6 (0x0000772ab6a00000)
+	libgcc_s.so.1 => /usr/lib/libgcc_s.so.1 (0x0000772ab7148000)
+	libm.so.6 => /usr/lib/libm.so.6 (0x0000772ab7175000)
+	libstdc++.so.6 => /usr/lib/libstdc++.so.6 (0x0000772ab6e00000)
+	linux-vdso.so.1 (0x00007ffc4aba4000)
+
+CPU+CUDA sm89 ldd:
+	/lib64/ld-linux-x86-64.so.2 => /usr/lib64/ld-linux-x86-64.so.2 (0x00007051dbad2000)
+	libc.so.6 => /usr/lib/libc.so.6 (0x00007051cc600000)
+	libcudart.so.13 => /opt/cuda/lib64/libcudart.so.13 (0x00007051cce00000)
+	libcufft.so.12 => /opt/cuda/lib64/libcufft.so.12 (0x00007051cd200000)
+	libdl.so.2 => /usr/lib/libdl.so.2 (0x00007051dba89000)
+	libgcc_s.so.1 => /usr/lib/libgcc_s.so.1 (0x00007051ccdd3000)
+	libm.so.6 => /usr/lib/libm.so.6 (0x00007051cd0c9000)
+	libpthread.so.0 => /usr/lib/libpthread.so.0 (0x00007051dba8e000)
+	librt.so.1 => /usr/lib/librt.so.1 (0x00007051dba93000)
+	libstdc++.so.6 => /usr/lib/libstdc++.so.6 (0x00007051cca00000)
+	linux-vdso.so.1 (0x00007ffc7efa0000)
+
+Public definitions:
+0000000000006cc0 T compute_melspectrogram(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)
+0000000000007290 T hz_to_mel(double)
+00000000000072c0 T mel_to_hz(double)
+0000000000009c30 T build_mel_filterbank(int, int, int, double, double)
+000000000000a410 T compute_melspectrogram_cpu(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)
+0000000000010f70 T compute_melspectrogram_cuda(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)

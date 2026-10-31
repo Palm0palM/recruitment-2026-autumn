@@ -1,0 +1,32 @@
+== dif8 micro job 231 on hepnode3 ==
+16
+Cpus_allowed_list:	0-15
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+410f2ef83edb643e9fcceee0cb6493d80541590b3e7b2e93a5ea895bde0f8077  scripts/dif8_micro.cpp
+01d5f29b94a5333736de3fdd7540b5c6fc1ec0ff02617c750ebe7c9bb00ada80  tmp/bin/dif8-micro
+validation_dif_vs_reordered_dit scaled_max_error=2.49653622428e-14
+mode,n,repeat,pack_ns_per_frame,fft_ns_per_frame,total_ns_per_frame,reorder_ns_per_frame,fft_plus_reorder_ns_per_frame,checksum
+dit_bitrev_pack,4096,0,10321.1286,10235.04475,20556.17335,0,0,3188.97057672
+dif_natural_pack,4096,0,10314.34805,18579.43215,28893.7802,3103.53675,21682.9689,3188.97057672
+dif_reorder_checksum,4096,0,0,0,0,0,0,-3937.49937584
+dit_bitrev_pack,4096,1,10312.36915,10241.2301,20553.59925,0,0,3188.97057672
+dif_natural_pack,4096,1,10315.1988,18596.05445,28911.25325,3179.11195,21775.1664,3188.97057672
+dif_reorder_checksum,4096,1,0,0,0,0,0,-3937.49937584
+dit_bitrev_pack,4096,2,10312.58965,10238.431,20551.02065,0,0,3188.97057672
+dif_natural_pack,4096,2,10277.558,18837.1526,29114.7106,3084.0935,21921.2461,3188.97057672
+dif_reorder_checksum,4096,2,0,0,0,0,0,-3937.49937584
+validation_dif_vs_reordered_dit scaled_max_error=5.76801418091e-14
+mode,n,repeat,pack_ns_per_frame,fft_ns_per_frame,total_ns_per_frame,reorder_ns_per_frame,fft_plus_reorder_ns_per_frame,checksum
+dit_bitrev_pack,8192,0,20665.2315,24859.63505,45524.86655,0,0,16937.6488307
+dif_natural_pack,8192,0,20638.0373,41301.8737,61939.911,6410.51565,47712.38935,16937.6488307
+dif_reorder_checksum,8192,0,0,0,0,0,0,-2698.69233997
+dit_bitrev_pack,8192,1,20663.3639,24852.05375,45515.41765,0,0,16937.6488307
+dif_natural_pack,8192,1,20635.31695,41306.2312,61941.54815,6444.7398,47750.971,16937.6488307
+dif_reorder_checksum,8192,1,0,0,0,0,0,-2698.69233997
+dit_bitrev_pack,8192,2,20638.66095,24859.2861,45497.94705,0,0,16937.6488307
+dif_natural_pack,8192,2,20637.1644,41304.788,61941.9524,6412.6884,47717.4764,16937.6488307
+dif_reorder_checksum,8192,2,0,0,0,0,0,-2698.69233997

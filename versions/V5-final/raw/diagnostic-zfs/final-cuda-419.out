@@ -1,0 +1,110 @@
+job=419 host=hepnode2 mode=train commit=acfe1c672e21a6290a1fff62179f4d2ba8394291
+Cpus_allowed_list:	0-63
+Architecture:                            x86_64
+CPU op-mode(s):                          32-bit, 64-bit
+Address sizes:                           46 bits physical, 57 bits virtual
+Byte Order:                              Little Endian
+CPU(s):                                  64
+On-line CPU(s) list:                     0-63
+Vendor ID:                               GenuineIntel
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+CPU family:                              6
+Model:                                   106
+Thread(s) per core:                      1
+Core(s) per socket:                      32
+Socket(s):                               2
+Stepping:                                6
+CPU(s) scaling MHz:                      31%
+CPU max MHz:                             3200.0000
+CPU min MHz:                             800.0000
+BogoMIPS:                                4000.00
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb intel_pt avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local split_lock_detect wbnoinvd dtherm ida arat pln pts vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq la57 rdpid fsrm md_clear pconfig flush_l1d arch_capabilities
+Virtualization:                          VT-x
+L1d cache:                               3 MiB (64 instances)
+L1i cache:                               2 MiB (64 instances)
+L2 cache:                                80 MiB (64 instances)
+L3 cache:                                96 MiB (2 instances)
+NUMA node(s):                            4
+NUMA node0 CPU(s):                       0-15
+NUMA node1 CPU(s):                       16-31
+NUMA node2 CPU(s):                       32-47
+NUMA node3 CPU(s):                       48-63
+Vulnerability Gather data sampling:      Vulnerable
+Vulnerability Ghostwrite:                Not affected
+Vulnerability Indirect target selection: Mitigation; Aligned branch/return thunks
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Mitigation; Clear CPU buffers; SMT disabled
+Vulnerability Old microcode:             Not affected
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Not affected
+Vulnerability Spec rstack overflow:      Not affected
+Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
+Vulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI SW loop, KVM SW loop
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Not affected
+NVIDIA L40, 595.91.07, 46068 MiB
+NVIDIA L40, 595.91.07, 46068 MiB
+always [madvise] never
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+a747242d57bd2b9cad86e865edf85ff01950ef5fb3e24a41b239f0caaf1265c9  src/melspec.cpp
+a6999f1098221dfde812a9b55f34d6276c8c9048d31e8789dad1ba211155ed48  src/melspec_cpu.cpp
+66bf1b66a249869476a35c89a4404864a1f404ee36f6a7668f0e47271bfc83e2  src/melspec_cuda.cu
+dd886cff171e7bf66b0e892c63d2a850a47719076b66ad18c9b4a9d139b0b313  include/melspec_backend.h
+6eb64b3912ed90cbb348a7b65ef4ea9f75b57df4a14fd90c2e57adad26df7c22  include/melspec_cuda.h
+ae96df25e59816e6162e2cee7101c380d0058c820d1771cea302d0e91de2ea9d  include/melspec.h
+8308667d99415d2577e6b50bf204abdda6e0ba352a28acf443171f00a7ff046c  Makefile
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+ee18296021d6efe3644950e47c7922dce072846e7fe44d47b6d3645e950ac7ce  validate.py
+25020250526c7a0bc8922d7a90e241d5dff26c456f70b1b60452d220f818cfb5  tmp/bin/final-cpu
+dda34cc79791bc73667f6922f11bc068e574146ff40891a119bdea3fe9c195ac  tmp/bin/final-cuda
+b3925c44ee0302dc6123bde7a6ad784891d2f32809c392179b554b859f2c963b  tmp/bin/frozen-cpu
+bcd144c89772544a426b177868abc3b113fbe9a8f54f6dabd02c0e448105daa5  tmp/bin/frozen-cuda
+official-default cpu=0.90423 cuda=1.17918 decisions={} PASS
+official-small_mels cpu=0.42847 cuda=0.60254 decisions={} PASS
+official-large_fft cpu=1.07794 cuda=1.16912 decisions={} PASS
+official-narrow_band cpu=1.04266 cuda=1.17633 decisions={} PASS
+frames-1 cpu=0.01858 cuda=0.30391 decisions={} PASS
+frames-8 cpu=0.01852 cuda=0.30595 decisions={} PASS
+frames-64 cpu=0.01928 cuda=0.30725 decisions={} PASS
+frames-512 cpu=0.02776 cuda=0.30849 decisions={} PASS
+frames-4096 cpu=0.04338 cuda=0.31851 decisions={} PASS
+frames-32768 cpu=0.14109 cuda=0.39857 decisions={} PASS
+frames-192397 cpu=0.86930 cuda=1.14162 decisions={} PASS
+nfft-256 cpu=0.02163 cuda=0.32275 decisions={} PASS
+nfft-512 cpu=0.02287 cuda=0.31726 decisions={} PASS
+nfft-1024 cpu=0.02434 cuda=0.32009 decisions={} PASS
+nfft-2048 cpu=0.02824 cuda=0.31580 decisions={} PASS
+nfft-4096 cpu=0.03170 cuda=0.32025 decisions={} PASS
+nfft-8192 cpu=0.04396 cuda=0.32149 decisions={} PASS
+nfft-16384 cpu=0.06459 cuda=0.32006 decisions={} PASS
+mels-8 cpu=0.03155 cuda=0.31836 decisions={} PASS
+mels-16 cpu=0.03239 cuda=0.31649 decisions={} PASS
+mels-32 cpu=0.03388 cuda=0.31452 decisions={} PASS
+mels-64 cpu=0.03551 cuda=0.32314 decisions={} PASS
+mels-128 cpu=0.03789 cuda=0.31571 decisions={} PASS
+mels-256 cpu=0.04400 cuda=0.31832 decisions={} PASS
+band-8192-0-22050 cpu=0.04368 cuda=0.32067 decisions={} PASS
+band-8192-300-8000 cpu=0.04252 cuda=0.32057 decisions={} PASS
+band-8192-0-8000 cpu=0.04326 cuda=0.32030 decisions={} PASS
+band-8192-300-22050 cpu=0.04283 cuda=0.31243 decisions={} PASS
+band-8192-0-48000 cpu=0.04478 cuda=0.32500 decisions={} PASS
+band-16384-0-22050 cpu=0.06463 cuda=0.32410 decisions={} PASS
+band-16384-300-8000 cpu=0.06333 cuda=0.33193 decisions={} PASS
+band-16384-0-8000 cpu=0.06290 cuda=0.31963 decisions={} PASS
+band-16384-300-22050 cpu=0.06366 cuda=0.32465 decisions={} PASS
+band-16384-0-48000 cpu=0.06609 cuda=0.32084 decisions={} PASS
+large-32768 cpu=0.18654 cuda=0.40368 decisions={} PASS
+large-65536 cpu=0.32461 cuda=0.50594 decisions={} PASS
+large-128000 cpu=0.59803 cuda=0.68988 decisions={} PASS
+large-192333 cpu=1.05384 cuda=1.15010 decisions={} PASS
+official-default cpu=0.89432 oldcpu=1.06225 cuda=1.18043 frozen=1.06658 cpuonly=0.89165 decisions={} PASS
+official-small_mels cpu=0.42406 oldcpu=0.48976 cuda=0.61503 frozen=0.60119 cpuonly=0.42425 decisions={} PASS
+official-large_fft cpu=1.08098 oldcpu=1.27472 cuda=1.16905 frozen=1.09743 cpuonly=1.07829 decisions={} PASS
+official-narrow_band cpu=1.04080 oldcpu=1.23412 cuda=1.17601 frozen=1.09582 cpuonly=1.04576 decisions={} PASS

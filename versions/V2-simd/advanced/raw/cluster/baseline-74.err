@@ -1,0 +1,32 @@
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0                              0
+  0      0   0      0   0      0      0      0           00:01              0
+  0      0   0      0   0      0      0      0           00:02              0
+  4  4.11M   4 175.7k   0      0  55306      0   01:17   00:03   01:14  55322
+100  4.11M 100  4.11M   0      0 995.1k      0   00:04   00:04          55322
+100  4.11M 100  4.11M   0      0 995.0k      0   00:04   00:04          55322
+100  4.11M 100  4.11M   0      0 995.0k      0   00:04   00:04          55322
+/home/zsx/recruitment-2026-autumn-simd-advanced/tmp/reference/fftw-r2c-estimate-b4552f3/tmp/deps/src/fftw-3.3.11/tools/fftw-wisdom.c: In function ‘bench_main’:
+/home/zsx/recruitment-2026-autumn-simd-advanced/tmp/reference/fftw-r2c-estimate-b4552f3/tmp/deps/src/fftw-3.3.11/tools/fftw-wisdom.c:303:54: warning: ‘%s’ directive output may be truncated writing up to 1535 bytes into a region of size between 1 and 64 [-Wformat-truncation=]
+  303 |                          snprintf(ps, sizeof(ps), "%s%s", types[j], canonical_sizes[i]);
+      |                                                      ^~
+In file included from /usr/include/stdio.h:974,
+                 from /home/zsx/recruitment-2026-autumn-simd-advanced/tmp/reference/fftw-r2c-estimate-b4552f3/tmp/deps/src/fftw-3.3.11/tools/fftw-wisdom.c:6:
+In function ‘snprintf’,
+    inlined from ‘bench_main’ at /home/zsx/recruitment-2026-autumn-simd-advanced/tmp/reference/fftw-r2c-estimate-b4552f3/tmp/deps/src/fftw-3.3.11/tools/fftw-wisdom.c:303:5:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:68:10: note: ‘__builtin___snprintf_chk’ output between 1 and 1599 bytes into a destination of size 64
+   68 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   69 |                                    __glibc_objsize (__s), __fmt,
+      |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   70 |                                    __va_arg_pack ());
+      |                                    ~~~~~~~~~~~~~~~~~
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~

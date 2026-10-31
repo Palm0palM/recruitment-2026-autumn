@@ -1,0 +1,38 @@
+{
+  "host": "hepnode2",
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "programs": {
+    "cpu": "/home/zsx/melspec-v5-final/tmp/bin/force-cpu",
+    "oldcpu": "/home/zsx/melspec-v5-final/tmp/bin/frozen-cpu",
+    "cuda": "/home/zsx/melspec-v5-final/tmp/bin/force-cuda",
+    "frozen": "/home/zsx/melspec-v5-final/tmp/bin/frozen-cuda",
+    "cpuonly": "/home/zsx/melspec-v5-final/tmp/bin/final-cpu"
+  },
+  "suite": "official",
+  "runs": 6,
+  "timing": "subprocess.run wall only; readback and allclose excluded",
+  "binary_sha256": {
+    "cpu": "4911c21c917c3d0166138200a5eca6a8bcd80a3432d84e99cf100ba0c73100aa",
+    "oldcpu": "b3925c44ee0302dc6123bde7a6ad784891d2f32809c392179b554b859f2c963b",
+    "cuda": "f86a56392697ab2701d0087b122774b3830495d2e5c2406ca134220cb50652ee",
+    "frozen": "efc069b40981845ee05a9edcfb1710e91847b2acbcdd5ca5c95ea85bf4c5c815",
+    "cpuonly": "eba9307747bc19d511f9cd97376754aa9c6c5ab567de7d0d2374aac57c3e06cd"
+  }
+}

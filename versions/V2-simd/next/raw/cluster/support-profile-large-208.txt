@@ -1,0 +1,21 @@
+batch_profile id=5 batches=1503 pack_s=0.135864292 fft_s=0.287501856 recover_s=0.030489855 mel_s=0.020691077
+batch_profile id=0 batches=1502 pack_s=0.135982210 fft_s=0.288592934 recover_s=0.030502907 mel_s=0.020763373
+batch_profile id=6 batches=1502 pack_s=0.136367413 fft_s=0.290816924 recover_s=0.030521005 mel_s=0.020856365
+batch_profile id=9 batches=1502 pack_s=0.135778089 fft_s=0.291717643 recover_s=0.030370784 mel_s=0.020697411
+batch_profile id=14 batches=1503 pack_s=0.137784383 fft_s=0.289134639 recover_s=0.030810496 mel_s=0.021157156
+batch_profile id=8 batches=1503 pack_s=0.137445257 fft_s=0.291474540 recover_s=0.030264784 mel_s=0.020848905
+batch_profile id=7 batches=1503 pack_s=0.137984918 fft_s=0.290373262 recover_s=0.030789028 mel_s=0.021067498
+batch_profile id=1 batches=1503 pack_s=0.136581592 fft_s=0.293002174 recover_s=0.030818045 mel_s=0.020975411
+batch_profile id=12 batches=1503 pack_s=0.137859315 fft_s=0.291550506 recover_s=0.030672971 mel_s=0.021142241
+batch_profile id=3 batches=1503 pack_s=0.136982136 fft_s=0.293498736 recover_s=0.030720262 mel_s=0.020859104
+batch_profile id=4 batches=1502 pack_s=0.137482422 fft_s=0.293490974 recover_s=0.030729304 mel_s=0.020864867
+batch_profile id=2 batches=1502 pack_s=0.137066131 fft_s=0.293936204 recover_s=0.031098126 mel_s=0.021012114
+batch_profile id=15 batches=1503 pack_s=0.138166576 fft_s=0.293593206 recover_s=0.030302849 mel_s=0.020958481
+batch_profile id=10 batches=1503 pack_s=0.136437757 fft_s=0.295462948 recover_s=0.030573315 mel_s=0.020777474
+batch_profile id=13 batches=1502 pack_s=0.138623063 fft_s=0.293562509 recover_s=0.030869043 mel_s=0.021339657
+batch_profile id=11 batches=1502 pack_s=0.137668596 fft_s=0.297505408 recover_s=0.030713516 mel_s=0.021038997
+TOTAL pack_s: 2.194074150s; 91263.847 ns/batch; 11407.981 ns/frame
+TOTAL fft_s: 4.675214463s; 194468.386 ns/batch; 24308.548 ns/frame
+TOTAL recover_s: 0.490246290s; 20392.092 ns/batch; 2549.012 ns/frame
+TOTAL mel_s: 0.335050131s; 13936.614 ns/batch; 1742.077 ns/frame
+诊断输出: PASS

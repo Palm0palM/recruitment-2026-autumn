@@ -1,0 +1,10 @@
+{
+  "cuda": {
+    "header_reproduced_byte_exact": true,
+    "sha256": "e51bbf15fd8c5a2da5f1c6759a3bfcd5b70aa813b2ce5b96272b6d70e21ab65c"
+  },
+  "hip": {
+    "header_reproduced_byte_exact": true,
+    "sha256": "013d8f374549309e021c91e9033d83f8209a87f2b7c36e17f1359c604121a56f"
+  }
+}

@@ -3,6 +3,31 @@
 题目原文见根目录 `README.md`；优化结论和原始数据见 `versions/`。
 不要修改 `src/main.cpp`、`validate.py` 或 `data`。临时文件放 `tmp/`，需要展示的测量日志再归档进对应版本。
 
+## V5 Final 交付入口
+
+见 `versions/V5-final/FINAL_DELIVERY.md`（分平台构建、冻结来源、最终成绩和复现）。
+不运行 setup.sh，不修改共享 Python/PCM/expected；`final_prepare.sh` 只从 Git 提取冻结控制。
+
+```bash
+bash scripts/final_prepare.sh
+make CUDA=0 HIP=0 EXEC=tmp/bin/cpu-only -j8
+make CUDA=1 HIP=0 CUDA_HOME=/path/to/cuda CUDA_ARCH=89 EXEC=tmp/bin/cpu-cuda -j8
+# ROCm 环境 source 后：
+make CUDA=0 HIP=1 EXEC=tmp/bin/cpu-hip -j8
+make CUDA=0 HIP=1 HIP_ONLY=1 EXEC=tmp/bin/amd-dedicated -j8
+```
+
+- `final_bench.py`：每次计时仅含 subprocess wall；读回/校验在计时外，每轮都校验。
+- `final_model.py`：训练 JSON → NNLS + 留一验证 + 可重建的 C++ profile header。
+- `final_summary.py`：各点 min/median、总量、选择准确率与真实 regret，区分计时噪声和选择误差。
+- `final_startup_check.py`：小任务 CPU 启动成本、设备访问 strace、真实无设备回退。
+- `final_cuda.slurm` / `final_amd.slurm`：只在各目标计算节点运行，日志/缓存独立，固定绑核。
+- HIP 专用构建保留全局预热；CPU+HIP 禁止全局预热。二者的性能不能混写。
+- 最终 HIP auto 要求显式、非空的 `ROCFFT_RTC_CACHE_PATH` 文件；缺失时保守选 CPU。
+  需要 GPU 时先用强制 HIP 正常计算相关 FFT/batch 配置以生成缓存；不做内部选择试跑。
+- `final_source_audit.py` 校验冻结数值源码/受保护文件；`final_hip_guard.slurm`
+  复核缓存保护、真实设备不可用与修正后的诊断标签。
+
 ## 本地：编译与小规模验证
 
 ```bash
@@ -11,6 +36,8 @@ source scripts/env.sh
 make -j4
 $PY scripts/smoke.py                 # 固定种子随机 PCM，官方四组、默认 CLI、小 FFT
 $PY scripts/bench.py --slice 0.5 --runs 1  # 真实 PCM 切片；不是正式成绩
+$PY scripts/fft_check.py                  # 公开 rfft 的全二次幂尺寸回归
+$PY scripts/ab_bench.py ./melspec-v1 ./melspec --cases default large_fft --runs 7
 ```
 
 - venv：`tmp/.venv`；目标文件：`tmp/build`；程序：`./melspec`。
@@ -18,6 +45,8 @@ $PY scripts/bench.py --slice 0.5 --runs 1  # 真实 PCM 切片；不是正式成
 - `data` 是题目提供的集群绝对路径链接，本地不改它；副本从 `$MELSPEC_DATA` 或 `tmp/data` 读取。
 - `setup.sh` 可自动发现旧的本地副本 `../autumn26/cluster_melspec/data`。
 - 本地只有约 15 GiB 内存，不跑官方全量 librosa；默认只做 smoke test。
+- `fft_check.py` 仅用 NumPy 作测试参考；`ab_bench.py` 交替 A/B 并交换先后次序，
+  输出全量最小值/中位数及 expected 校验，降低顺序测量受宿主机漂移的影响。
 
 ## 同步、计算节点编译与 benchmark
 
@@ -47,6 +76,39 @@ CASE=small_mels RUNS=1 sbatch scripts/bench.slurm
 - `OMP_NUM_THREADS` / `OPENBLAS_NUM_THREADS` 只约束 Python 对照库；**不控制 V1 的 `std::thread`**。
   V1 继承 Slurm cpuset，自己最多启动 16 个线程。
 - 提交前必须创建 `tmp/logs`（Slurm 在脚本执行前打开日志）。`slurm.job` 只是同一流程的兼容入口。
+
+## Hybrid：交叉点测量与调度模型
+
+```bash
+# 单节点 L40 作业内：CPU-only 与 CPU+CUDA 两套二进制
+make CUDA=0 -B -j16 EXEC=tmp/bin/hybrid-cpu-only
+make CUDA=1 -B -j16 CUDA_HOME=... CUDA_ARCH=89 EXEC=tmp/bin/hybrid-cuda
+
+$PY scripts/hybrid_bench.py \
+  --cpu  tmp/bin/hybrid-cpu-only \
+  --cuda tmp/bin/run-hybrid-cuda \
+  --auto tmp/bin/run-hybrid-auto \
+  --runs 3 --out tmp/logs/hybrid-h2.json
+$PY scripts/fit_hybrid_model.py tmp/logs/hybrid-h2.json --emit-cpp   # CPU/GPU 系数
+$PY scripts/summarize_hybrid.py tmp/logs/hybrid-h2.json               # auto vs 始终 CPU/CUDA
+```
+
+- 38 个点：官方 4 组 + 合成矩阵（`frames`、`n_fft`、`n_mels`、频带、大型输入），
+  每点先校验输出（官方对 `data/expected`，合成 CPU vs CUDA），再计时。
+- 计时是**完整进程 wall time**，CPU/CUDA/auto 在同一轮内交错并逐轮翻转顺序，
+  取 3 轮中位数，原始值与最小值全部保留在 JSON。
+- `--auto` 通过 `MELSPEC_DISPATCH_LOG=1` 读取实际选择的后端，并统计逐点 regret。
+- `fit_hybrid_model.py --emit-cpp` 打印的 `MELSPEC_MODEL_*` 宏应与
+  `src/melspec.cpp` 中的常量一致；模型结构与适用范围见
+  `versions/V3-hybrid/DISPATCH_MODEL.md`。
+
+```bash
+# 调度器开销 vs 统一二进制的 CUDA DSO 加载成本（可加 --auto-nogpu 测失败探测）
+$PY scripts/dispatch_overhead.py \
+  --cpu-only tmp/bin/h2-cpu-only --cpu-old tmp/bin/hybrid-cpu-only \
+  --unified-cpu tmp/bin/run-cpu --auto tmp/bin/run-auto \
+  --auto-nogpu tmp/bin/run-auto --runs 5 --out tmp/logs/overhead.json
+```
 
 ## 集群 profile
 

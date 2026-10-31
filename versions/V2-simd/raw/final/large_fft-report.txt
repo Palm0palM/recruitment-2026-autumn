@@ -1,0 +1,21 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 9K of event 'task-clock:u'
+# Event count (approx.): 19014027904
+#
+# Overhead       Samples  Symbol                                                                                                                                                                                                                                                             Shared Object     IPC   [IPC Coverage]
+# ........  ............  .................................................................................................................................................................................................................................................................  ................  ....................
+#
+    48.38%          4590  [.] std::thread::_State_impl<std::thread::_Invoker<std::tuple<compute_melspectrogram(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)::{lambda(int)#1}, int> > >::_M_run()  melspec           -      -
+    40.41%          3834  [.] FFTPlan::apply_permuted(ComplexBuffer&) const                                                                                                                                                                                                                  melspec           -      -
+     7.77%           737  [.] recover_power(ComplexBuffer const&, std::vector<double, std::allocator<double> > const&, std::vector<double, std::allocator<double> > const&, std::vector<double, std::allocator<double> >&)                                                                   melspec           -      -
+     3.04%           288  [.] compute_melspectrogram(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)                                                                                                 melspec           -      -
+     0.14%            13  [.] write_output(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::vector<double, std::allocator<double> > const&, int, int)                                                                                            melspec           -      -
+
+
+#
+# (Tip: Show user configuration overrides: perf config --user --list)
+#

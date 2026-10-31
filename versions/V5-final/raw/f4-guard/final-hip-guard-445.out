@@ -1,0 +1,21 @@
+job=445 host=hepnode0 commit=4227f51ad998615e352386a2ba753413f5c36bf7
+Cpus_allowed_list:	0-15,64-79
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+19bbbd8fb16502025eeafcfbd3c9571fe681daaadf27a05e3a53596d8d8a7915  src/melspec.cpp
+a6999f1098221dfde812a9b55f34d6276c8c9048d31e8789dad1ba211155ed48  src/melspec_cpu.cpp
+9c74ffd3633de77f94babfaa9af4628813cacb243031e714e26253181ee2aed8  src/melspec_cuda.cu
+46d66339c603754fe72e65a343c2d33f13e91bf42dc59431e2e7de32c7694ff5  src/melspec_hip.cu
+6f152e10ab16c233b78f0e0ef1bf051416074a65434c39058208aae35ca7d632  include/melspec_backend.h
+6eb64b3912ed90cbb348a7b65ef4ea9f75b57df4a14fd90c2e57adad26df7c22  include/melspec_cuda.h
+ae96df25e59816e6162e2cee7101c380d0058c820d1771cea302d0e91de2ea9d  include/melspec.h
+ac3184831e82e7e252d41ee6e5de4ca9e3c00bca0d24b56ff466546c44e75953  include/melspec_hip.h
+e51bbf15fd8c5a2da5f1c6759a3bfcd5b70aa813b2ce5b96272b6d70e21ab65c  include/melspec_model_cuda.h
+013d8f374549309e021c91e9033d83f8209a87f2b7c36e17f1359c604121a56f  include/melspec_model_hip.h
+90569515ba4af25371640ee8441a152f90742d953ffa3d41e9945f3cedb7f632  Makefile
+official-default cpu=0.69741 hip=0.88389 auto=0.69826 dedicated=0.70054 decisions={'auto': ['cpu', 'cpu']} PASS
+official-small_mels cpu=0.44370 hip=0.64267 auto=0.44248 dedicated=0.46526 decisions={'auto': ['cpu', 'cpu']} PASS
+official-large_fft cpu=0.88588 hip=0.92956 auto=0.88756 dedicated=0.74886 decisions={'auto': ['cpu', 'cpu']} PASS
+official-narrow_band cpu=0.84680 hip=0.92174 auto=0.85237 dedicated=0.74630 decisions={'auto': ['cpu', 'cpu']} PASS
+8239c80694f28a2c8ec95c3b60b4b66c7e06a12179216a206507a9fac60e547e  tmp/bin/amd-cpu
+c4775c9346a301abac51e416fc2faef438c133ff79581bf1f9154d5857142e68  tmp/bin/final-hip
+048a4994f90f1ca0b297c9b97619963068191f2d9ed3b330255da83ea7d49375  tmp/bin/dedicated-hip

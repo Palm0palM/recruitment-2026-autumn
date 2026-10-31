@@ -1,0 +1,42 @@
+{
+  "host": "hepnode2",
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "programs": {
+    "cpu": "/home/zsx/melspec-v5-final/cuda-final/tmp/bin/force-cpu",
+    "cuda": "/home/zsx/melspec-v5-final/cuda-final/tmp/bin/force-cuda",
+    "auto": "/home/zsx/melspec-v5-final/cuda-final/tmp/bin/final-cuda"
+  },
+  "suite": "holdout",
+  "runs": 6,
+  "timing": "subprocess.run wall only; readback and allclose excluded",
+  "binary_sha256": {
+    "cpu": "66de810998fe0e11cfe892839b6ddc7cea46a5359bca6c0bb6f2f38283378cf7",
+    "cuda": "d239ee39134b07a6379ce1fe57c8d7c32f96130d4f13892799c9c719828fff69",
+    "auto": "60dd3145ae7a6036f8cd58a7e78df250f3e0764f1b5d45c22b3a8ae3bc2092f5"
+  },
+  "environment": {
+    "ROCFFT_RTC_CACHE_PATH": null,
+    "HIP_VISIBLE_DEVICES": null,
+    "CUDA_VISIBLE_DEVICES": "0",
+    "OMP_NUM_THREADS": "16",
+    "OPENBLAS_NUM_THREADS": "16",
+    "TMPDIR": "/home/zsx/melspec-v5-final/cuda-final/tmp/scratch/node-443"
+  }
+}

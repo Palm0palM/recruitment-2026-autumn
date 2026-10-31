@@ -1,0 +1,38 @@
+{
+  "cpu": {
+    "matches_F4_c00b3eb": true,
+    "preprocessed_sha256": "e43d9a5778a44a9f0fe7a4394f7eba939998b12252bd911e2f95dfb0815e5277"
+  },
+  "cuda": {
+    "matches_F4_c00b3eb": true,
+    "preprocessed_sha256": "633d05364215fb0b6a76243bd0ea67d8c16696570240c372b36a3d5ad2f90b8e"
+  },
+  "rejected_builds": [
+    {
+      "args": [
+        "CUDA=1",
+        "HIP=1"
+      ],
+      "exit": 2,
+      "stderr": "Makefile:25: *** CUDA and HIP are mutually exclusive; build CPU+CUDA or CPU+HIP.  Stop.\n"
+    },
+    {
+      "args": [
+        "HIP=1",
+        "HIP_EAGER_PREWARM=1",
+        "HIP_ONLY=0"
+      ],
+      "exit": 2,
+      "stderr": "Makefile:103: *** Eager HIP prewarm is allowed only for HIP_ONLY=1; CPU+HIP must stay lazy.  Stop.\n"
+    },
+    {
+      "args": [
+        "HIP=1",
+        "HIP_DIRECT_OUTPUT=1",
+        "HIP_ASYNC_OUTPUT=0"
+      ],
+      "exit": 2,
+      "stderr": "Makefile:106: *** HIP_DIRECT_OUTPUT=1 requires HIP_ASYNC_OUTPUT=1; the legacy sync path copies Real, not OutReal.  Stop.\n"
+    }
+  ]
+}

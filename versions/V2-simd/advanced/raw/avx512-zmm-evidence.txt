@@ -1,0 +1,40 @@
+    4d9b:	62 f2 fd 48 19 0d a3 	vbroadcastsd 0x86a3(%rip),%zmm1        # d448 <_IO_stdin_used+0x448>
+    4dd5:	62 71 fd 48 6f 0d 61 	vmovdqa64 0x8761(%rip),%zmm9        # d540 <typeinfo name for std::thread::_State_impl<std::thread::_Invoker<std::tuple<compute_melspectrogram(std::vector<double, std::allocator<double> > const&, int, int, int, int, double, double, std::vector<double, std::allocator<double> >&)::{lambda(int)#1}, int> > >+0x80>
+    4def:	62 71 fd 48 28 c1    	vmovapd %zmm1,%zmm8
+    4df5:	62 51 fd 48 28 d3    	vmovapd %zmm11,%zmm10
+    4e1d:	62 f1 fd 48 10 04 11 	vmovupd (%rcx,%rdx,1),%zmm0
+    4e24:	62 f1 fd 48 10 14 16 	vmovupd (%rsi,%rdx,1),%zmm2
+    4e2e:	62 f2 b5 48 16 3c 39 	vpermpd (%rcx,%rdi,1),%zmm9,%zmm7
+    4e35:	62 f2 b5 48 16 24 3e 	vpermpd (%rsi,%rdi,1),%zmm9,%zmm4
+    4e3f:	62 f1 fd 48 5c f7    	vsubpd %zmm7,%zmm0,%zmm6
+    4e45:	62 f1 fd 48 58 c7    	vaddpd %zmm7,%zmm0,%zmm0
+    4e4b:	62 f1 ad 48 5c e4    	vsubpd %zmm4,%zmm10,%zmm4
+    4e51:	62 71 fd 48 10 24 11 	vmovupd (%rcx,%rdx,1),%zmm12
+    4e5b:	62 d1 fd 48 59 c0    	vmulpd %zmm8,%zmm0,%zmm0
+    4e61:	62 f1 fd 48 10 1c 11 	vmovupd (%rcx,%rdx,1),%zmm3
+    4e68:	62 f1 ed 48 5c ec    	vsubpd %zmm4,%zmm2,%zmm5
+    4e6e:	62 f1 ed 48 58 d4    	vaddpd %zmm4,%zmm2,%zmm2
+    4e74:	62 d1 ed 48 59 d0    	vmulpd %zmm8,%zmm2,%zmm2
+    4e7a:	62 f2 9d 48 b8 c6    	vfmadd231pd %zmm6,%zmm12,%zmm0
+    4e80:	62 f2 e5 48 bc c5    	vfnmadd231pd %zmm5,%zmm3,%zmm0
+    4e86:	62 f2 ed 48 98 de    	vfmadd132pd %zmm6,%zmm2,%zmm3
+    4e8c:	62 d1 fd 48 28 f4    	vmovapd %zmm12,%zmm6
+    4e92:	62 f2 e5 48 98 f5    	vfmadd132pd %zmm5,%zmm3,%zmm6
+    4e98:	62 f1 cd 48 59 fe    	vmulpd %zmm6,%zmm6,%zmm7
+    4e9e:	62 f2 c5 48 98 c0    	vfmadd132pd %zmm0,%zmm7,%zmm0
+    4ea4:	62 d1 fd 48 11 04 14 	vmovupd %zmm0,(%r12,%rdx,1)
+    4f26:	c4 e2 ed b8 c6       	vfmadd231pd %ymm6,%ymm2,%ymm0
+    4f30:	c4 e2 e5 98 e6       	vfmadd132pd %ymm6,%ymm3,%ymm4
+    4f35:	c4 e2 dd 98 d5       	vfmadd132pd %ymm5,%ymm4,%ymm2
+    4f3e:	c4 e2 ed 98 c0       	vfmadd132pd %ymm0,%ymm2,%ymm0
+    5070:	c4 e2 e9 b8 d9       	vfmadd231pd %xmm1,%xmm2,%xmm3
+    508e:	c4 e2 d1 98 ce       	vfmadd132pd %xmm6,%xmm5,%xmm1
+    5093:	c4 e2 f1 98 c4       	vfmadd132pd %xmm4,%xmm1,%xmm0
+    50a5:	c4 e2 f1 98 c0       	vfmadd132pd %xmm0,%xmm1,%xmm0
+    ab1a:	c4 42 ed ba d1       	vfmsub231pd %ymm9,%ymm2,%ymm10
+    ab27:	c4 c2 b5 98 d6       	vfmadd132pd %ymm14,%ymm9,%ymm2
+    ab31:	c4 c2 fd ba e8       	vfmsub231pd %ymm8,%ymm0,%ymm5
+    ab47:	c4 42 f5 ba cc       	vfmsub231pd %ymm12,%ymm1,%ymm9
+    ab4c:	c4 c2 e5 98 cb       	vfmadd132pd %ymm11,%ymm3,%ymm1
+    ab51:	c4 c2 bd 98 c5       	vfmadd132pd %ymm13,%ymm8,%ymm0
+    b0e4:	62 b1 fd 48 10 14 c8 	vmovupd (%rax,%r9,8),%zmm2

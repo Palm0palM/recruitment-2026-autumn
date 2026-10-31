@@ -1,0 +1,32 @@
+default/frozen: min=0.839423s median=0.844445s PASS=True
+  runs: 0.840636 0.925822 0.944217 0.839423 0.844445
+default/cpu-only: min=0.850150s median=0.854404s PASS=True
+  runs: 0.855467 0.851166 0.854404 0.859159 0.850150
+default/hybrid-cpu: min=0.844492s median=0.848402s PASS=True
+  runs: 0.844492 0.938750 0.847274 0.849367 0.848402
+default/hybrid-cuda: min=0.878305s median=0.885321s PASS=True
+  runs: 0.892788 0.885120 0.885321 0.886653 0.878305
+small_mels/frozen: min=0.626369s median=0.685297s PASS=True
+  runs: 0.626369 0.697740 0.685297 0.630822 0.714840
+small_mels/cpu-only: min=0.618024s median=0.684276s PASS=True
+  runs: 0.656798 0.711167 0.618024 0.727220 0.684276
+small_mels/hybrid-cpu: min=0.658180s median=0.666617s PASS=True
+  runs: 0.682074 0.658180 0.666617 0.680704 0.659137
+small_mels/hybrid-cuda: min=0.536084s median=0.567611s PASS=True
+  runs: 0.550195 0.536084 0.569572 0.585110 0.567611
+large_fft/frozen: min=1.233284s median=1.316310s PASS=True
+  runs: 1.233284 1.334159 1.301436 1.316310 1.339182
+large_fft/cpu-only: min=1.239185s median=1.279468s PASS=True
+  runs: 1.263122 1.381264 1.279468 1.289745 1.239185
+large_fft/hybrid-cpu: min=1.229828s median=1.251626s PASS=True
+  runs: 1.241609 1.229828 1.368794 1.253547 1.251626
+large_fft/hybrid-cuda: min=0.880479s median=0.893666s PASS=True
+  runs: 0.881253 0.893666 0.898743 0.908071 0.880479
+narrow_band/frozen: min=1.219113s median=1.247116s PASS=True
+  runs: 1.247116 1.317655 1.219113 1.227117 1.250300
+narrow_band/cpu-only: min=1.181565s median=1.240979s PASS=True
+  runs: 1.181565 1.253055 1.240979 1.237307 1.251975
+narrow_band/hybrid-cpu: min=1.187437s median=1.254520s PASS=True
+  runs: 1.315997 1.254520 1.209208 1.378311 1.187437
+narrow_band/hybrid-cuda: min=0.877800s median=0.892601s PASS=True
+  runs: 0.877800 0.892601 0.893454 0.886904 0.912119

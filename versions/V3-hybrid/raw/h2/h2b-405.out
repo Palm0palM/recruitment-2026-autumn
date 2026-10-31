@@ -1,0 +1,28 @@
+== hybrid H2b job 405 on hepnode2 ==
+Cpus_allowed_list:	0-3,16-19,32-35,48-51
+NVIDIA L40, 595.91.07
+NVIDIA L40, 595.91.07
+== binary identities ==
+c4558d23512c8f99d22e2607fb479015144c2dd2c7d070c67e59e49d629a57a2  tmp/bin/h2-cpu-only
+bc7a211f2e0aa01ca52ff490ff8a41aae056977c1cb1de1f3c81869a5f13b6d6  tmp/bin/h2-hybrid
+539600db5692134035ee21321b3778ffa6dc693d4665da849f1a32d4f9bbbdd4  tmp/bin/hybrid-cpu-only
+== dispatcher cost vs CUDA-DSO load cost ==
+official-default         frames= 192397 cpu-only=1.1010 unified-cpu=1.0579 auto=0.9460 (cuda) dso=-43.1ms dispatch=n/a (auto chose GPU) old-build=1.0485 (+5.0%) nogpu=1.1469 (cpu, probe=+89.0ms)
+official-small_mels      frames= 192397 cpu-only=0.7156 unified-cpu=0.6901 auto=0.7008 (cpu) dso=-25.5ms dispatch=+10.7ms old-build=0.6614 (+8.2%) nogpu=0.6983 (cpu, probe=+8.2ms)
+official-large_fft       frames= 192333 cpu-only=1.3675 unified-cpu=1.3783 auto=0.9425 (cuda) dso=+10.8ms dispatch=n/a (auto chose GPU) old-build=1.3695 (-0.1%) nogpu=1.4458 (cpu, probe=+67.4ms)
+official-narrow_band     frames= 192333 cpu-only=1.2588 unified-cpu=1.3368 auto=0.9450 (cuda) dso=+78.0ms dispatch=n/a (auto chose GPU) old-build=1.3010 (-3.2%) nogpu=1.3194 (cpu, probe=-17.4ms)
+frames-64                frames=     64 cpu-only=0.0142 unified-cpu=0.0181 auto=0.0175 (cpu) dso=+3.8ms dispatch=-0.6ms old-build=0.0132 (+8.0%) nogpu=0.0176 (cpu, probe=-0.5ms)
+frames-4096              frames=   4096 cpu-only=0.0479 unified-cpu=0.0559 auto=0.0551 (cpu) dso=+8.0ms dispatch=-0.8ms old-build=0.0509 (-5.9%) nogpu=0.0580 (cpu, probe=+2.1ms)
+frames-32768             frames=  32768 cpu-only=0.2116 unified-cpu=0.2170 auto=0.2238 (cpu) dso=+5.3ms dispatch=+6.9ms old-build=0.2172 (-2.6%) nogpu=0.2294 (cpu, probe=+12.4ms)
+frames-192397            frames= 192397 cpu-only=1.0338 unified-cpu=1.0343 auto=0.9246 (cuda) dso=+0.6ms dispatch=n/a (auto chose GPU) old-build=1.0094 (+2.4%) nogpu=1.0921 (cpu, probe=+57.7ms)
+nfft-8192                frames=   4096 cpu-only=0.0505 unified-cpu=0.0544 auto=0.0559 (cpu) dso=+4.0ms dispatch=+1.5ms old-build=0.0512 (-1.5%) nogpu=0.0562 (cpu, probe=+1.8ms)
+nfft-16384               frames=   4096 cpu-only=0.0854 unified-cpu=0.0905 auto=0.0905 (cpu) dso=+5.1ms dispatch=+0.0ms old-build=0.0824 (+3.6%) nogpu=0.0925 (cpu, probe=+2.0ms)
+mels-64                  frames=   4096 cpu-only=0.0417 unified-cpu=0.0443 auto=0.0435 (cpu) dso=+2.6ms dispatch=-0.7ms old-build=0.0392 (+6.3%) nogpu=0.0435 (cpu, probe=-0.7ms)
+large-32768              frames=  32768 cpu-only=0.2886 unified-cpu=0.2979 auto=0.3395 (cpu) dso=+9.3ms dispatch=+41.7ms old-build=0.3198 (-9.8%) nogpu=0.3013 (cpu, probe=+3.4ms)
+large-65536              frames=  65536 cpu-only=0.5751 unified-cpu=0.5498 auto=0.4638 (cuda) dso=-25.3ms dispatch=n/a (auto chose GPU) old-build=0.5547 (+3.7%) nogpu=0.5548 (cpu, probe=+5.1ms)
+== medians over the 13 points ==
+dso_load_ms          median=   +3.97 min=  -43.07 max=  +77.98 n=13
+dispatcher_ms        median=   +0.75 min=   -0.80 max=  +41.65 n=8
+old_build_delta_pct  median=   +2.41 min=   -9.76 max=   +8.20 n=13
+failed_probe_ms      median=   +3.44 min=  -17.43 max=  +88.97 n=13
+dispatcher on CPU-chosen points (8): median=+0.75ms max=+41.65ms

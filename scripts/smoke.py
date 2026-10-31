@@ -25,6 +25,9 @@ def main():
     for n in (1, 2, 8):
         cases.append((f"fft_{n}", dict(sr=96000, n_fft=n, hop_length=128,
                                        n_mels=4, f_min=0, f_max=48000)))
+    for name, hop in (("tail_2", 192), ("tail_3", 256)):
+        cases.append((name, dict(sr=96000, n_fft=8192, hop_length=hop,
+                                 n_mels=16, f_min=0, f_max=22050)))
     with tempfile.TemporaryDirectory(dir=scratch) as td:
         src, dst = Path(td) / "random.pcm", Path(td) / "out.bin"
         pcm.astype("<i2").tofile(src)

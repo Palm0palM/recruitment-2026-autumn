@@ -1,0 +1,203 @@
+== hybrid H2 job 397 on hepnode2 ==
+16
+Cpus_allowed_list:	0-3,16-19,32-35,48-51
+NVIDIA L40, 46068 MiB, 595.91.07
+NVIDIA L40, 46068 MiB, 595.91.07
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Built on Tue_Sep_01_08:45:21_PDT_2026
+Cuda compilation tools, release 13.4, V13.4.92
+Build cuda_13.4.r13.4/compiler.38855100_0
+== builds ==
+-DMELSPEC_FP32_BATCH=16
+a747242d57bd2b9cad86e865edf85ff01950ef5fb3e24a41b239f0caaf1265c9  src/melspec.cpp
+8ae8c3692aa78057bc28337766146c60877f57b525c92df37a17f79bb0d5d27e  src/melspec_cpu.cpp
+66bf1b66a249869476a35c89a4404864a1f404ee36f6a7668f0e47271bfc83e2  src/melspec_cuda.cu
+dd886cff171e7bf66b0e892c63d2a850a47719076b66ad18c9b4a9d139b0b313  include/melspec_backend.h
+360795c3947256b72e11af7db60664e1243009db6e7d6eae1de3dddc674b1f26  Makefile
+c4558d23512c8f99d22e2607fb479015144c2dd2c7d070c67e59e49d629a57a2  tmp/bin/h2-cpu-only
+bc7a211f2e0aa01ca52ff490ff8a41aae056977c1cb1de1f3c81869a5f13b6d6  tmp/bin/h2-hybrid
+== official 4/4: auto / forced cpu / forced cuda ==
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    9.38e-02 |   PASS |    0.871 | 18.698x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.56e-02 |   PASS |    0.676 | 21.815x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    2.19e-01 |   PASS |    0.881 | 35.284x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    1.56e-01 |   PASS |    0.872 | 35.832x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.91e-02 |   PASS |    0.940 | 16.992x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.56e-02 |   PASS |    0.697 | 21.436x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.436 | 21.650x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    9.38e-02 |   PASS |    1.195 | 26.258x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    9.38e-02 |   PASS |    0.877 | 17.317x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    2.34e-02 |   PASS |    0.579 | 23.430x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    2.19e-01 |   PASS |    0.872 | 30.560x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    1.56e-01 |   PASS |    0.867 | 30.693x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+== CPU-only binary still passes on its own ==
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.91e-02 |   PASS |    0.827 | 19.672x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.56e-02 |   PASS |    0.669 | 22.363x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.321 | 23.825x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    9.38e-02 |   PASS |    1.326 | 23.696x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+== dispatch decision log for official cases ==
+default: dispatch: backend=cuda (auto) frames=192397 work=204.895 input_mb=49.270 output_mb=197.015 t_cpu=0.9164 t_cuda=0.8732
+small_mels: dispatch: backend=cpu (auto) frames=192397 work=204.895 input_mb=49.270 output_mb=49.254 t_cpu=0.5054 t_cuda=0.5524
+large_fft: dispatch: backend=cuda (auto) frames=192333 work=441.166 input_mb=49.270 output_mb=196.949 t_cpu=1.2982 t_cuda=0.8936
+narrow_band: dispatch: backend=cuda (auto) frames=192333 work=441.166 input_mb=49.270 output_mb=196.949 t_cpu=1.2982 t_cuda=0.8936
+== auto must not initialise CUDA when the model picks CPU ==
+auto-small dispatch: dispatch: backend=cpu (auto) frames=64 work=0.068 input_mb=0.033 output_mb=0.066 t_cpu=0.0375 t_cuda=0.2461
+forced-small dispatch: dispatch: backend=cuda (forced) frames=64 work=0.068 input_mb=0.033 output_mb=0.066 t_cpu=0.0375 t_cuda=0.2461
+libcuda opens (auto, CPU-chosen): 1
+libcuda opens (forced cuda): 3
+nvidia device opens (auto, CPU-chosen): 0
+nvidia device opens (forced cuda): 46
+== auto falls back to CPU when no device is visible ==
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.91e-02 |   PASS |    0.865 | 17.259x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.56e-02 |   PASS |    0.819 | 17.058x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.924 | 14.084x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    9.38e-02 |   PASS |    1.523 | 17.786x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+forced cuda without device exit=1 stderr=Error: MELSPEC_BACKEND=cuda requested but no CUDA device is available
+== 38-point matrix: forced CPU / forced CUDA / auto ==
+official-default: frames=192397 output=49253632 cpu=1.0496s cuda=0.9273s winner=cuda speedup=0.883 PASS cpu/cuda=True/True auto=0.9138s backend=cuda regret=-1.5% PASS=True
+official-small_mels: frames=192397 output=12313408 cpu=0.6725s cuda=0.5601s winner=cuda speedup=0.833 PASS cpu/cuda=True/True auto=0.6775s backend=cpu regret=+21.0% PASS=True
+official-large_fft: frames=192333 output=49237248 cpu=1.3099s cuda=0.9202s winner=cuda speedup=0.703 PASS cpu/cuda=True/True auto=0.9202s backend=cuda regret=+0.0% PASS=True
+official-narrow_band: frames=192333 output=49237248 cpu=1.2178s cuda=0.9196s winner=cuda speedup=0.755 PASS cpu/cuda=True/True auto=0.8990s backend=cuda regret=-2.2% PASS=True
+frames-1: frames=1 output=256 cpu=0.0133s cuda=0.2481s winner=cpu speedup=18.716 PASS cpu/cuda=True/True auto=0.0171s backend=cpu regret=+29.0% PASS=True
+frames-8: frames=8 output=2048 cpu=0.0127s cuda=0.2415s winner=cpu speedup=18.975 PASS cpu/cuda=True/True auto=0.0179s backend=cpu regret=+40.6% PASS=True
+frames-64: frames=64 output=16384 cpu=0.0132s cuda=0.2342s winner=cpu speedup=17.732 PASS cpu/cuda=True/True auto=0.0181s backend=cpu regret=+37.4% PASS=True
+frames-512: frames=512 output=131072 cpu=0.0219s cuda=0.2399s winner=cpu speedup=10.937 PASS cpu/cuda=True/True auto=0.0231s backend=cpu regret=+5.3% PASS=True
+frames-4096: frames=4096 output=1048576 cpu=0.0485s cuda=0.2592s winner=cpu speedup=5.350 PASS cpu/cuda=True/True auto=0.0560s backend=cpu regret=+15.5% PASS=True
+frames-32768: frames=32768 output=8388608 cpu=0.2077s cuda=0.3488s winner=cpu speedup=1.679 PASS cpu/cuda=True/True auto=0.2537s backend=cpu regret=+22.1% PASS=True
+frames-192397: frames=192397 output=49253632 cpu=1.0610s cuda=0.8941s winner=cuda speedup=0.843 PASS cpu/cuda=True/True auto=0.8862s backend=cuda regret=-0.9% PASS=True
+nfft-256: frames=4096 output=1048576 cpu=0.0183s cuda=0.2563s winner=cpu speedup=13.991 PASS cpu/cuda=True/True auto=0.0231s backend=cpu regret=+26.0% PASS=True
+nfft-512: frames=4096 output=1048576 cpu=0.0229s cuda=0.2562s winner=cpu speedup=11.163 PASS cpu/cuda=True/True auto=0.0263s backend=cpu regret=+14.6% PASS=True
+nfft-1024: frames=4096 output=1048576 cpu=0.0234s cuda=0.2524s winner=cpu speedup=10.778 PASS cpu/cuda=True/True auto=0.0314s backend=cpu regret=+34.2% PASS=True
+nfft-2048: frames=4096 output=1048576 cpu=0.0303s cuda=0.2525s winner=cpu speedup=8.329 PASS cpu/cuda=True/True auto=0.0330s backend=cpu regret=+9.0% PASS=True
+nfft-4096: frames=4096 output=1048576 cpu=0.0362s cuda=0.2475s winner=cpu speedup=6.846 PASS cpu/cuda=True/True auto=0.0417s backend=cpu regret=+15.4% PASS=True
+nfft-8192: frames=4096 output=1048576 cpu=0.0476s cuda=0.2525s winner=cpu speedup=5.301 PASS cpu/cuda=True/True auto=0.0547s backend=cpu regret=+14.9% PASS=True
+nfft-16384: frames=4096 output=1048576 cpu=0.0826s cuda=0.2621s winner=cpu speedup=3.172 PASS cpu/cuda=True/True auto=0.0855s backend=cpu regret=+3.5% PASS=True
+mels-8: frames=4096 output=32768 cpu=0.0373s cuda=0.2449s winner=cpu speedup=6.571 PASS cpu/cuda=True/True auto=0.0448s backend=cpu regret=+20.3% PASS=True
+mels-16: frames=4096 output=65536 cpu=0.0396s cuda=0.2479s winner=cpu speedup=6.256 PASS cpu/cuda=True/True auto=0.0457s backend=cpu regret=+15.3% PASS=True
+mels-32: frames=4096 output=131072 cpu=0.0408s cuda=0.2509s winner=cpu speedup=6.147 PASS cpu/cuda=True/True auto=0.0450s backend=cpu regret=+10.2% PASS=True
+mels-64: frames=4096 output=262144 cpu=0.0392s cuda=0.2524s winner=cpu speedup=6.437 PASS cpu/cuda=True/True auto=0.0427s backend=cpu regret=+8.9% PASS=True
+mels-128: frames=4096 output=524288 cpu=0.0431s cuda=0.2514s winner=cpu speedup=5.838 PASS cpu/cuda=True/True auto=0.0488s backend=cpu regret=+13.4% PASS=True
+mels-256: frames=4096 output=1048576 cpu=0.0539s cuda=0.2534s winner=cpu speedup=4.697 PASS cpu/cuda=True/True auto=0.0586s backend=cpu regret=+8.6% PASS=True
+band-8192-0-22050: frames=4096 output=1048576 cpu=0.0492s cuda=0.2575s winner=cpu speedup=5.229 PASS cpu/cuda=True/True auto=0.0578s backend=cpu regret=+17.4% PASS=True
+band-8192-300-8000: frames=4096 output=1048576 cpu=0.0499s cuda=0.2612s winner=cpu speedup=5.237 PASS cpu/cuda=True/True auto=0.0586s backend=cpu regret=+17.5% PASS=True
+band-8192-0-8000: frames=4096 output=1048576 cpu=0.0519s cuda=0.2524s winner=cpu speedup=4.860 PASS cpu/cuda=True/True auto=0.0582s backend=cpu regret=+12.0% PASS=True
+band-8192-300-22050: frames=4096 output=1048576 cpu=0.0542s cuda=0.2593s winner=cpu speedup=4.787 PASS cpu/cuda=True/True auto=0.0548s backend=cpu regret=+1.2% PASS=True
+band-8192-0-48000: frames=4096 output=1048576 cpu=0.0589s cuda=0.2589s winner=cpu speedup=4.392 PASS cpu/cuda=True/True auto=0.0575s backend=cpu regret=-2.5% PASS=True
+band-16384-0-22050: frames=4096 output=1048576 cpu=0.0826s cuda=0.2585s winner=cpu speedup=3.131 PASS cpu/cuda=True/True auto=0.0953s backend=cpu regret=+15.4% PASS=True
+band-16384-300-8000: frames=4096 output=1048576 cpu=0.0843s cuda=0.2604s winner=cpu speedup=3.088 PASS cpu/cuda=True/True auto=0.0888s backend=cpu regret=+5.3% PASS=True
+band-16384-0-8000: frames=4096 output=1048576 cpu=0.0826s cuda=0.2532s winner=cpu speedup=3.066 PASS cpu/cuda=True/True auto=0.0833s backend=cpu regret=+0.8% PASS=True
+band-16384-300-22050: frames=4096 output=1048576 cpu=0.0877s cuda=0.2542s winner=cpu speedup=2.899 PASS cpu/cuda=True/True auto=0.0904s backend=cpu regret=+3.1% PASS=True
+band-16384-0-48000: frames=4096 output=1048576 cpu=0.0920s cuda=0.2530s winner=cpu speedup=2.750 PASS cpu/cuda=True/True auto=0.0802s backend=cpu regret=-12.8% PASS=True
+large-32768: frames=32768 output=8388608 cpu=0.3126s cuda=0.3542s winner=cpu speedup=1.133 PASS cpu/cuda=True/True auto=0.3413s backend=cpu regret=+9.2% PASS=True
+large-65536: frames=65536 output=16777216 cpu=0.5773s cuda=0.4482s winner=cuda speedup=0.776 PASS cpu/cuda=True/True auto=0.4541s backend=cuda regret=+1.3% PASS=True
+large-128000: frames=128000 output=32768000 cpu=0.9473s cuda=0.6588s winner=cuda speedup=0.695 PASS cpu/cuda=True/True auto=0.6586s backend=cuda regret=-0.0% PASS=True
+large-192333: frames=192333 output=49237248 cpu=1.3359s cuda=0.9003s winner=cuda speedup=0.674 PASS cpu/cuda=True/True auto=0.8881s backend=cuda regret=-1.4% PASS=True
+== summary: all points ==
+point                         frames     cpu    cuda    auto chosen oracle  regret
+official-default              192397  1.0496  0.9273  0.9138  cuda   cuda   -1.5%
+official-small_mels           192397  0.6725  0.5601  0.6775   cpu   cuda  +21.0%
+official-large_fft            192333  1.3099  0.9202  0.9202  cuda   cuda   +0.0%
+official-narrow_band          192333  1.2178  0.9196  0.8990  cuda   cuda   -2.2%
+frames-1                           1  0.0133  0.2481  0.0171   cpu    cpu  +29.0%
+frames-8                           8  0.0127  0.2415  0.0179   cpu    cpu  +40.6%
+frames-64                         64  0.0132  0.2342  0.0181   cpu    cpu  +37.4%
+frames-512                       512  0.0219  0.2399  0.0231   cpu    cpu   +5.3%
+frames-4096                     4096  0.0485  0.2592  0.0560   cpu    cpu  +15.5%
+frames-32768                   32768  0.2077  0.3488  0.2537   cpu    cpu  +22.1%
+frames-192397                 192397  1.0610  0.8941  0.8862  cuda   cuda   -0.9%
+nfft-256                        4096  0.0183  0.2563  0.0231   cpu    cpu  +26.0%
+nfft-512                        4096  0.0229  0.2562  0.0263   cpu    cpu  +14.6%
+nfft-1024                       4096  0.0234  0.2524  0.0314   cpu    cpu  +34.2%
+nfft-2048                       4096  0.0303  0.2525  0.0330   cpu    cpu   +9.0%
+nfft-4096                       4096  0.0362  0.2475  0.0417   cpu    cpu  +15.4%
+nfft-8192                       4096  0.0476  0.2525  0.0547   cpu    cpu  +14.9%
+nfft-16384                      4096  0.0826  0.2621  0.0855   cpu    cpu   +3.5%
+mels-8                          4096  0.0373  0.2449  0.0448   cpu    cpu  +20.3%
+mels-16                         4096  0.0396  0.2479  0.0457   cpu    cpu  +15.3%
+mels-32                         4096  0.0408  0.2509  0.0450   cpu    cpu  +10.2%
+mels-64                         4096  0.0392  0.2524  0.0427   cpu    cpu   +8.9%
+mels-128                        4096  0.0431  0.2514  0.0488   cpu    cpu  +13.4%
+mels-256                        4096  0.0539  0.2534  0.0586   cpu    cpu   +8.6%
+band-8192-0-22050               4096  0.0492  0.2575  0.0578   cpu    cpu  +17.4%
+band-8192-300-8000              4096  0.0499  0.2612  0.0586   cpu    cpu  +17.5%
+band-8192-0-8000                4096  0.0519  0.2524  0.0582   cpu    cpu  +12.0%
+band-8192-300-22050             4096  0.0542  0.2593  0.0548   cpu    cpu   +1.2%
+band-8192-0-48000               4096  0.0589  0.2589  0.0575   cpu    cpu   -2.5%
+band-16384-0-22050              4096  0.0826  0.2585  0.0953   cpu    cpu  +15.4%
+band-16384-300-8000             4096  0.0843  0.2604  0.0888   cpu    cpu   +5.3%
+band-16384-0-8000               4096  0.0826  0.2532  0.0833   cpu    cpu   +0.8%
+band-16384-300-22050            4096  0.0877  0.2542  0.0904   cpu    cpu   +3.1%
+band-16384-0-48000              4096  0.0920  0.2530  0.0802   cpu    cpu  -12.8%
+large-32768                    32768  0.3126  0.3542  0.3413   cpu    cpu   +9.2%
+large-65536                    65536  0.5773  0.4482  0.4541  cuda   cuda   +1.3%
+large-128000                  128000  0.9473  0.6588  0.6586  cuda   cuda   -0.0%
+large-192333                  192333  1.3359  0.9003  0.8881  cuda   cuda   -1.4%
+
+points: 38
+always CPU  total   10.010s  x1.000
+always CUDA total   14.003s  x1.399
+auto        total    8.331s  x0.832  (oracle 8.067s, gap +3.27%)
+auto chose CUDA on 7/38 points; matches per-point oracle 37/38
+worst per-point regret +40.6% on frames-8
+== summary: official four ==
+point                         frames     cpu    cuda    auto chosen oracle  regret
+official-default              192397  1.0496  0.9273  0.9138  cuda   cuda   -1.5%
+official-small_mels           192397  0.6725  0.5601  0.6775   cpu   cuda  +21.0%
+official-large_fft            192333  1.3099  0.9202  0.9202  cuda   cuda   +0.0%
+official-narrow_band          192333  1.2178  0.9196  0.8990  cuda   cuda   -2.2%
+
+points: 4
+always CPU  total    4.250s  x1.000
+always CUDA total    3.327s  x0.783
+auto        total    3.411s  x0.803  (oracle 3.327s, gap +2.51%)
+auto chose CUDA on 3/4 points; matches per-point oracle 3/4
+worst per-point regret +21.0% on official-small_mels

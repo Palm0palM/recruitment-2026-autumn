@@ -1,0 +1,32 @@
+{
+  "host": "hepnode2",
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "programs": {
+    "cpu": "/home/zsx/melspec-v5-final/tmp/bin/force-cpu",
+    "cuda": "/home/zsx/melspec-v5-final/tmp/bin/force-cuda"
+  },
+  "suite": "matrix",
+  "runs": 5,
+  "timing": "subprocess.run wall only; readback and allclose excluded",
+  "binary_sha256": {
+    "cpu": "4911c21c917c3d0166138200a5eca6a8bcd80a3432d84e99cf100ba0c73100aa",
+    "cuda": "f86a56392697ab2701d0087b122774b3830495d2e5c2406ca134220cb50652ee"
+  }
+}

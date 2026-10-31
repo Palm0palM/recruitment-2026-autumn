@@ -1,0 +1,2 @@
+default max_abs 0.0390625 max_rel_nonzero 0.0009769346797838807 rms 0.00035626641847021784 allclose True
+large_fft max_abs 0.125 max_rel_nonzero 0.0005174716934561729 rms 0.001243433124673849 allclose True

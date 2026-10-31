@@ -1,0 +1,16 @@
+default/stable: min=1.171457s median=1.280484s PASS=True
+  runs: 1.586462 1.326275 1.417871 1.193267 1.234693 1.171457
+default/support: min=1.157448s median=1.257140s PASS=True
+  runs: 1.232032 1.157448 1.422075 1.247994 1.266286 1.317560
+small_mels/stable: min=0.804338s median=0.874922s PASS=True
+  runs: 0.903676 0.948896 0.871379 0.833426 0.878465 0.804338
+small_mels/support: min=0.776094s median=0.798063s PASS=True
+  runs: 1.094006 0.776094 0.825095 0.781347 0.789730 0.806397
+large_fft/stable: min=2.089087s median=2.168022s PASS=True
+  runs: 2.263194 2.133479 2.167199 2.168845 2.089087 2.220587
+large_fft/support: min=1.878411s median=1.974804s PASS=True
+  runs: 2.228175 1.939715 2.009894 2.093155 1.878411 1.930531
+narrow_band/stable: min=1.823464s median=1.996615s PASS=True
+  runs: 1.823464 2.130009 2.083045 1.910185 1.825713 3.844917
+narrow_band/support: min=1.707328s median=2.042254s PASS=True
+  runs: 1.707328 2.051217 1.960439 2.033291 2.072654 3.611133

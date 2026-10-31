@@ -1,0 +1,12 @@
+default: PASS shape=(256, 1437) max_abs_err=0.00018310547
+small_mels: PASS shape=(64, 1437) max_abs_err=9.1552734e-05
+large_fft: PASS shape=(256, 1373) max_abs_err=0.00048828125
+narrow_band: PASS shape=(256, 1373) max_abs_err=0.00073242188
+cli_defaults: PASS shape=(128, 372) max_abs_err=2.2888184e-05
+fft_1: PASS shape=(4, 1500) max_abs_err=0
+/home/palm/projects/heptagon/melspec-v4-hybrid/tmp/.venv/lib/python3.12/site-packages/librosa/feature/spectral.py:2170: UserWarning: Empty filters detected in mel frequency basis. Some channels will produce empty responses. Try increasing your sampling rate (and fmax) or reducing n_mels.
+  mel_basis = filters.mel(sr=sr, n_fft=n_fft, **kwargs)
+fft_2: PASS shape=(4, 1500) max_abs_err=3.2311743e-27
+fft_8: PASS shape=(4, 1500) max_abs_err=8.7311491e-11
+tail_2: PASS shape=(16, 958) max_abs_err=5.3405762e-05
+tail_3: PASS shape=(16, 719) max_abs_err=4.5776367e-05

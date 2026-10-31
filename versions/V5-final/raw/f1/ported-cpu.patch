@@ -1,0 +1,188 @@
+diff --git a/Makefile b/Makefile
+index 2a6c198..940860a 100644
+--- a/Makefile
++++ b/Makefile
+@@ -10,6 +10,12 @@ ifneq ($(filter 0 8 16,$(MELSPEC_FP32_BATCH)),$(MELSPEC_FP32_BATCH))
+ $(error MELSPEC_FP32_BATCH must be 0, 8, or 16)
+ endif
+ CPPFLAGS += -DMELSPEC_FP32_BATCH=$(MELSPEC_FP32_BATCH)
++CPU_PACK_REUSE ?= 1
++CPU_HUGEPAGE ?= 1
++ifneq ($(filter-out 0 1,$(CPU_PACK_REUSE) $(CPU_HUGEPAGE)),)
++$(error CPU_PACK_REUSE and CPU_HUGEPAGE must be 0 or 1)
++endif
++CPPFLAGS += -DMELSPEC_PACK_REUSE=$(CPU_PACK_REUSE) -DMELSPEC_OUTPUT_HUGEPAGE=$(CPU_HUGEPAGE)
+ 
+ # CUDA backend uses the frozen V3 default configuration.
+ CUDA ?= 1
+@@ -29,12 +35,12 @@ CUDA_STAGING_ROWS ?= 16
+ 
+ SRCS = $(wildcard src/*.cpp)
+ INCS = $(wildcard include/*.h)
+-BUILD = tmp/build/hybrid-cpu/fp$(MELSPEC_FP32_BATCH)
++BUILD = tmp/build/hybrid-cpu/fp$(MELSPEC_FP32_BATCH)-reuse$(CPU_PACK_REUSE)-hp$(CPU_HUGEPAGE)
+ OBJS = $(patsubst src/%.cpp,$(BUILD)/%.o,$(SRCS))
+ EXEC = melspec
+ 
+ ifeq ($(CUDA),1)
+-BUILD = tmp/build/hybrid-cuda-fp$(MELSPEC_FP32_BATCH)-arch$(CUDA_ARCH)-p$(CUDA_PRECISION)-b$(CUDA_BATCH)-f$(CUDA_FUSED)-pr$(CUDA_PROFILE)-pin$(CUDA_PINNED)-o$(CUDA_OVERLAP_INIT)-d$(CUDA_DEFER_RESIZE)-a$(CUDA_ASYNC_OUTPUT)-t$(CUDA_RESIZE_THREAD)-r$(CUDA_STAGING_ROWS)
++BUILD = tmp/build/hybrid-cuda-fp$(MELSPEC_FP32_BATCH)-reuse$(CPU_PACK_REUSE)-hp$(CPU_HUGEPAGE)-arch$(CUDA_ARCH)-p$(CUDA_PRECISION)-b$(CUDA_BATCH)-f$(CUDA_FUSED)-pr$(CUDA_PROFILE)-pin$(CUDA_PINNED)-o$(CUDA_OVERLAP_INIT)-d$(CUDA_DEFER_RESIZE)-a$(CUDA_ASYNC_OUTPUT)-t$(CUDA_RESIZE_THREAD)-r$(CUDA_STAGING_ROWS)
+ OBJS = $(patsubst src/%.cpp,$(BUILD)/%.o,$(SRCS))
+ CPPFLAGS += -DMELSPEC_WITH_CUDA=1 -DMELSPEC_CUDA_PRECISION=$(CUDA_PRECISION)
+ CPPFLAGS += -DMELSPEC_CUDA_BATCH=$(CUDA_BATCH) -DMELSPEC_CUDA_FUSED=$(CUDA_FUSED)
+diff --git a/src/melspec_cpu.cpp b/src/melspec_cpu.cpp
+index 7b9218f..9d03376 100644
+--- a/src/melspec_cpu.cpp
++++ b/src/melspec_cpu.cpp
+@@ -15,6 +15,17 @@
+ #ifndef MELSPEC_FP32_BATCH
+ #define MELSPEC_FP32_BATCH 0
+ #endif
++#ifndef MELSPEC_PACK_REUSE
++#define MELSPEC_PACK_REUSE 0
++#endif
++#ifndef MELSPEC_OUTPUT_HUGEPAGE
++#define MELSPEC_OUTPUT_HUGEPAGE 0
++#endif
++#if MELSPEC_OUTPUT_HUGEPAGE && defined(__linux__)
++#include <cstdint>
++#include <sys/mman.h>
++#include <unistd.h>
++#endif
+ #if MELSPEC_FP32_BATCH != 0 && MELSPEC_FP32_BATCH != 8 && MELSPEC_FP32_BATCH != 16
+ #error "MELSPEC_FP32_BATCH must be 0, 8, or 16"
+ #endif
+@@ -707,6 +718,59 @@ static inline __m512 narrow16(__m512d lo, __m512d hi) {
+     return _mm512_castpd_ps(merged);
+ }
+ 
++#if MELSPEC_PACK_REUSE
++// Transpose raw samples before windowing; reuse across overlapping batches.
++// In each hop-phase row 16 doubles supply 16 lanes at one window index.
++struct OverlapPack16 {
++    bool enabled;
++    int frames = 16;
++    size_t stride = 0;
++    std::vector<size_t> offsets;
++    std::vector<std::vector<double>> buffers;
++
++    OverlapPack16(int n_fft, int hop, int workers)
++        : enabled(n_fft >= 32 && hop > 0 && hop <= n_fft / 4) {
++        if (!enabled) return;
++        frames = std::max(16, std::min(128, 16384 / hop / 16 * 16));
++        stride = (static_cast<size_t>(n_fft) + hop - 1) / hop + frames;
++        offsets.resize(n_fft);
++        for (int i = 0; i < n_fft; ++i)
++            offsets[i] = static_cast<size_t>(i % hop) * stride + i / hop;
++        buffers.assign(workers, std::vector<double>(static_cast<size_t>(hop) * stride));
++    }
++
++    void prepare(int id, const std::vector<double>& y, size_t start, int hop) {
++        auto& buffer = buffers[id];
++        for (int phase = 0; phase < hop; ++phase) {
++            double* row = buffer.data() + static_cast<size_t>(phase) * stride;
++            for (size_t q = 0; q < stride; ++q) {
++                const size_t at = start + phase + q * hop;
++                row[q] = at < y.size() ? y[at] : 0.0;
++            }
++        }
++    }
++
++    void pack(int id, int relative_frame, const std::vector<double>& window,
++              const FFTPlan& plan, Batch16fBuffer& a) const {
++        const double* raw = buffers[id].data() + relative_frame;
++        const int half = static_cast<int>(a.im.size());
++        for (int i = 0; i < half; ++i) {
++            const int p = plan.reversed[i];
++            const double* even = raw + offsets[2 * i];
++            const double* odd = raw + offsets[2 * i + 1];
++            const auto we = _mm512_set1_pd(window[2 * i]);
++            const auto wo = _mm512_set1_pd(window[2 * i + 1]);
++            store16f(a.re[p], narrow16(
++                _mm512_mul_pd(_mm512_loadu_pd(even), we),
++                _mm512_mul_pd(_mm512_loadu_pd(even + 8), we)));
++            store16f(a.im[p], narrow16(
++                _mm512_mul_pd(_mm512_loadu_pd(odd), wo),
++                _mm512_mul_pd(_mm512_loadu_pd(odd + 8), wo)));
++        }
++    }
++};
++#endif
++
+ void recover_power_batch16f(Batch16fBuffer& a, const std::vector<double>& recovery_re,
+                             const std::vector<double>& recovery_im,
+                             int support_first, int support_last) {
+@@ -1058,6 +1122,21 @@ void compute_melspectrogram_cpu(const std::vector<double>& y, int sr, int n_fft,
+         recovery_re[k] = 0.5 * std::sin(ang);
+         recovery_im[k] = -0.5 * std::cos(ang);
+     }
++#if MELSPEC_OUTPUT_HUGEPAGE && defined(__linux__) && defined(MADV_HUGEPAGE)
++    // Hint only; normal resize constructs/initializes every double below.
++    const size_t output_count = static_cast<size_t>(n_mels) * n_frames;
++    output.reserve(output_count);
++    const long system_page = sysconf(_SC_PAGESIZE);
++    if (output.data() != nullptr && system_page > 0) {
++        const uintptr_t page = static_cast<uintptr_t>(system_page);
++        const uintptr_t base = reinterpret_cast<uintptr_t>(output.data());
++        const uintptr_t begin = base + (page - base % page) % page;
++        const uintptr_t end_address = base + output_count * sizeof(double);
++        const uintptr_t end = end_address - end_address % page;
++        if (end > begin)
++            (void)madvise(reinterpret_cast<void*>(begin), end - begin, MADV_HUGEPAGE);
++    }
++#endif
+     output.resize(static_cast<size_t>(n_mels) * n_frames);
+ 
+     // Keep short inputs single-threaded, and use at most the judge's 16 cores.
+@@ -1103,6 +1182,9 @@ void compute_melspectrogram_cpu(const std::vector<double>& y, int sr, int n_fft,
+         batch_buffers.assign(n_threads, Batch16fBuffer(half));
+     const int n_batches = n_fft > 1 ? n_frames / 16 : 0;
+     tail_begin = n_batches * 16;
++#if MELSPEC_PACK_REUSE
++    OverlapPack16 overlap_pack(n_fft, hop_length, n_threads);
++#endif
+ #elif defined(__AVX512F__)
+     std::vector<Batch8Buffer> batch_buffers;
+     if (n_fft > 1)
+@@ -1117,6 +1199,10 @@ void compute_melspectrogram_cpu(const std::vector<double>& y, int sr, int n_fft,
+     tail_begin = n_batches * 4;
+ #endif
+     auto worker = [&](int id) {
++#if defined(__AVX512F__) || (defined(__AVX2__) && defined(__FMA__))
++        // n_fft=1 has no batch buffer; never bind an empty-vector element.
++        if (n_batches == 0) return;
++#endif
+ #if MELSPEC_FP32_BATCH == 8
+         auto& a = batch_buffers[id];
+         const int begin = static_cast<long long>(n_batches) * id / n_threads;
+@@ -1167,9 +1253,22 @@ void compute_melspectrogram_cpu(const std::vector<double>& y, int sr, int n_fft,
+         auto& a = batch_buffers[id];
+         const int begin = static_cast<long long>(n_batches) * id / n_threads;
+         const int end = static_cast<long long>(n_batches) * (id + 1) / n_threads;
++#if MELSPEC_PACK_REUSE
++        int slab_begin = -1;
++#endif
+         for (int batch = begin; batch < end; ++batch) {
+             const int t = batch * 16;
+             const int start = t * hop_length;
++#if MELSPEC_PACK_REUSE
++            if (overlap_pack.enabled) {
++                if (slab_begin < 0 || (batch - slab_begin) * 16 >= overlap_pack.frames) {
++                    slab_begin = batch;
++                    overlap_pack.prepare(id, y, static_cast<size_t>(start), hop_length);
++                }
++                overlap_pack.pack(id, (batch - slab_begin) * 16, window, plan, a);
++            } else
++#endif
++            {
+             for (int i = 0; i < half; ++i) {
+                 const int p = plan.reversed[i];
+                 const double we = window[2 * i], wo = window[2 * i + 1];
+@@ -1208,6 +1307,7 @@ void compute_melspectrogram_cpu(const std::vector<double>& y, int sr, int n_fft,
+                     static_cast<float>(y[start + 14 * hop_length + 2 * i + 1] * wo),
+                     static_cast<float>(y[start + 15 * hop_length + 2 * i + 1] * wo)));
+             }
++            }
+             apply_batch16f(plan32, a);
+             recover_power_batch16f(a, recovery_re, recovery_im, support_first, support_last);
+             for (int m = 0; m < n_mels; ++m) {

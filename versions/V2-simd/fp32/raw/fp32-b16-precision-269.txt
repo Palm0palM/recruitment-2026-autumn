@@ -1,0 +1,12 @@
+default {'max_abs': 0.0234375, 'rms': 0.00022576168849092713, 'max_tolerance_ratio': 0.00983334518969059, 'max_rel_nonzero': 0.0009770990582183003, 'allclose': True}
+small_mels {'max_abs': 0.0078125, 'rms': 0.0001464236286636897, 'max_tolerance_ratio': 0.0022237319499254227, 'max_rel_nonzero': 0.000147910337545909, 'allclose': True}
+large_fft {'max_abs': 0.09375, 'rms': 0.0008265396857112369, 'max_tolerance_ratio': 0.013202885165810585, 'max_rel_nonzero': 0.0005173715762794018, 'allclose': True}
+narrow_band {'max_abs': 0.0625, 'rms': 0.00029907043522929354, 'max_tolerance_ratio': 0.009238341823220253, 'max_rel_nonzero': 0.0004361302126199007, 'allclose': True}
+zero {'max_abs': 0.0, 'rms': 0.0, 'max_tolerance_ratio': 0.0, 'max_rel_nonzero': 0.0, 'allclose': True}
+impulse {'max_abs': 2.2351741790771484e-08, 'rms': 7.005648358978109e-10, 'max_tolerance_ratio': 0.0001179508471977897, 'max_rel_nonzero': 3.451461623171781e-07, 'allclose': True}
+alternating {'max_abs': 3.28203896060586e-07, 'rms': 2.1236049528547412e-08, 'max_tolerance_ratio': 0.003279455006122589, 'max_rel_nonzero': 0.004165321588516235, 'allclose': True}
+sine_1k {'max_abs': 0.03125, 'rms': 0.001130951199511811, 'max_tolerance_ratio': 0.003114640014246106, 'max_rel_nonzero': 0.0067694284953176975, 'allclose': True}
+sine_near_nyquist {'max_abs': 1.4136105619400041e-08, 'rms': 3.356461524059288e-10, 'max_tolerance_ratio': 0.0001413606369169429, 'max_rel_nonzero': 0.0005166446208022535, 'allclose': True}
+dc_step {'max_abs': 0.125, 'rms': 0.0006810027060268506, 'max_tolerance_ratio': 0.01213014218956232, 'max_rel_nonzero': 0.0010733901290223002, 'allclose': True}
+random {'max_abs': 0.000244140625, 'rms': 9.614857472916769e-06, 'max_tolerance_ratio': 0.00450041051954031, 'max_rel_nonzero': 1.2362160305201542e-05, 'allclose': True}
+two_frames {'max_abs': 2.117582368135751e-22, 'rms': 4.200502346675206e-24, 'max_tolerance_ratio': 2.117582368135751e-18, 'max_rel_nonzero': 0.0, 'allclose': True}

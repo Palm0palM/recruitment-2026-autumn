@@ -1,0 +1,26 @@
+| Point | cpu min / median (s) | cuda min / median (s) | auto min / median (s) | Auto chosen |
+|---|---:|---:|---:|---|
+| official-default | 0.6617 / 0.6681 | 0.7920 / 0.7996 | 0.6628 / 0.6660 | cpu |
+| official-small_mels | 0.4248 / 0.4277 | 0.5310 / 0.5434 | 0.4214 / 0.4242 | cpu |
+| official-large_fft | 0.8428 / 0.8557 | 0.7876 / 0.7982 | 0.8004 / 0.8110 | cuda |
+| official-narrow_band | 0.8065 / 0.8173 | 0.7966 / 0.8033 | 0.7929 / 0.8017 | cuda |
+| holdout-1024-33-73-19 | 0.0091 / 0.0096 | 0.2295 / 0.2443 | 0.0058 / 0.0096 | cpu |
+| holdout-4096-4097-31-97 | 0.0203 / 0.0219 | 0.2426 / 0.2473 | 0.0180 / 0.0217 | cpu |
+| holdout-8192-70001-257-128 | 0.2521 / 0.2533 | 0.4254 / 0.4378 | 0.2523 / 0.2535 | cpu |
+| holdout-16384-80003-192-96 | 0.3007 / 0.3144 | 0.4131 / 0.4243 | 0.3017 / 0.3247 | cpu |
+| holdout-8192-250003-64-64 | 0.4222 / 0.4273 | 0.4722 / 0.4883 | 0.4122 / 0.4235 | cpu |
+| holdout-16384-230003-128-256 | 0.9555 / 0.9692 | 0.8961 / 0.9049 | 0.8990 / 0.9069 | cuda |
+| holdout-4096-65539-1027-32 | 0.5065 / 0.5099 | 0.7591 / 0.7645 | 0.5079 / 0.5133 | cpu |
+| holdout-2048-513-509-31 | 0.0120 / 0.0140 | 0.2427 / 0.2504 | 0.0119 / 0.0137 | cpu |
+| holdout-32768-22003-257-97 | 0.2333 / 0.2365 | 0.3043 / 0.3088 | 0.2294 / 0.2357 | cpu |
+| holdout-65536-17003-128-96 | 0.8631 / 0.8806 | 0.3181 / 0.3276 | 0.3281 / 0.3337 | cuda |
+
+Cumulative medians (equal weight per listed point, not a production mix):
+  cpu: 6.405485 s
+  cuda: 7.342629 s
+  auto: 5.739277 s
+  oracle: 5.716642 s
+  auto/oracle measured gap: +0.40%
+  chosen backend matches: 14/14
+  worst selection-only regret: 0.00%
+  all measured outputs checked: True

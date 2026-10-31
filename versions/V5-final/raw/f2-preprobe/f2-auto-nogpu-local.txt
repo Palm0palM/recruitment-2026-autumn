@@ -1,0 +1,2 @@
+dispatch: backend=cuda (auto) frames=1 work=0.001 input_mb=0.016 output_mb=0.000 t_cpu=999.0000 t_cuda=0.0001
+dispatch: backend=cpu (auto, no CUDA device) frames=1 work=0.001 input_mb=0.016 output_mb=0.000 t_cpu=999.0000 t_cuda=0.0001
