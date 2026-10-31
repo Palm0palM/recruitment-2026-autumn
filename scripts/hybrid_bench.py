@@ -87,8 +87,12 @@ def run(program, pcm, output, params, env=None):
 def timed(program, pcm, output, params, env=None):
     """Time one full process; also return its stderr for dispatch logging."""
     start = time.perf_counter()
-    _, stderr = run(program, pcm, output, params, env)
-    return time.perf_counter() - start, stderr
+    proc = subprocess.run(command(program, pcm, output, params), env=env,
+                          stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+    elapsed = time.perf_counter() - start
+    if proc.returncode:
+        raise RuntimeError(proc.stderr.decode(errors="replace"))
+    return elapsed, proc.stderr.decode(errors="replace")
 
 
 def main():

@@ -24,6 +24,9 @@ No branch merge or cherry-pick is used.
    the clock. Correct this before any new measurement: subprocess wall only;
    correctness readback outside the timed interval. Historical numbers are not
    a calibration baseline for V5.
+   Initial V5 Job 419 used home/ZFS output scratch; archive it separately as a
+   storage diagnostic. Production calibration uses V5-prefixed node-local
+   scratch linked under tmp/scratch/, same storage for every A/B participant.
 4. HIP global dynamic-initialization prewarm creates queues before Dispatcher
    can decide. Default CPU+HIP disables global prewarm; explicit AMD dedicated
    build retains it. Measure the performance penalty, do not claim the lazy

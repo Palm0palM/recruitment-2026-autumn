@@ -83,7 +83,7 @@ static double pipeline_seconds(PipelineClock::time_point start) {
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--source", type=Path, default=ROOT / "src/melspec.cpp")
+    ap.add_argument("--source", type=Path, default=ROOT / "src/melspec_cpu.cpp")
     ap.add_argument("--tag", default="control")
     ap.add_argument("--arch", default="native")
     ap.add_argument("--cppflag", action="append", default=[])
@@ -95,9 +95,11 @@ def main():
     (work / "melspec.cpp").write_text(instrument(args.source.read_text()))
     flags = [os.environ.get("CXX", "g++"), "-std=c++17", "-O3", f"-march={args.arch}",
              "-pthread", "-I" + str(ROOT / "include"), "-DMELSPEC_FP32_BATCH=16", *args.cppflag]
+    backend = "compute_melspectrogram_cpu(" in args.source.read_text()
+    dispatcher = [str(ROOT / "src/melspec.cpp")] if backend else []
     commands = [flags + ["-finstrument-functions", "-finstrument-functions-exclude-file-list=/usr/include",
                          "-c", str(ROOT / "src/main.cpp"), "-o", str(work / "main.o")],
-                flags + [str(work / "main.o"), str(work / "melspec.cpp"),
+                flags + [str(work / "main.o"), str(work / "melspec.cpp"), *dispatcher,
                          str(ROOT / "scripts/cpu_pipeline_io_hooks.cpp"), "-o", str(work / "profile")]]
     for cmd in commands:
         print("+", shlex.join(cmd), flush=True)
