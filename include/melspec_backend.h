@@ -24,3 +24,10 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
 // Only probes device availability. Does not hide errors from actual compute.
 bool cuda_backend_available();
 #endif
+
+#if defined(MELSPEC_WITH_HIP)
+void compute_melspectrogram_hip(const std::vector<double>& y, int sr, int n_fft,
+                                int hop_length, int n_mels, double f_min,
+                                double f_max, std::vector<double>& output);
+bool hip_backend_available();
+#endif

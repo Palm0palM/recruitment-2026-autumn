@@ -39,6 +39,7 @@ def configs(suite):
         (8192, 70001, 257, 128), (16384, 80003, 192, 96),
         (8192, 250003, 64, 64), (16384, 230003, 128, 256),
         (4096, 65539, 1027, 32), (2048, 513, 509, 31),
+        (32768, 22003, 257, 97), (65536, 17003, 128, 96),
     ):
         holdout.append(dict(name=f"holdout-{n_fft}-{frames}-{hop}-{mels}",
                             params=dict(sr=96000, n_fft=n_fft, hop_length=hop,
@@ -91,6 +92,9 @@ def main():
                 timing="subprocess.run wall only; readback and allclose excluded")
     meta["binary_sha256"] = {k: hashlib.sha256(Path(v).read_bytes()).hexdigest()
                              for k, v in programs.items()}
+    meta["environment"] = {k: os.environ.get(k) for k in (
+        "ROCFFT_RTC_CACHE_PATH", "HIP_VISIBLE_DEVICES", "CUDA_VISIBLE_DEVICES",
+        "OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "TMPDIR")}
     args.out.with_suffix(".meta.json").write_text(json.dumps(meta, indent=2) + "\n")
     results = []
     names = list(programs)
