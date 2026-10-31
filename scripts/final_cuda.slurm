@@ -70,6 +70,8 @@ sha256sum tmp/bin/final-cpu tmp/bin/final-cuda tmp/bin/frozen-cpu tmp/bin/frozen
 if [ "${MODE:-train}" = train ]; then
     "$PY" -u scripts/final_bench.py cpu=tmp/bin/force-cpu cuda=tmp/bin/force-cuda \
         --suite matrix --runs 5 --out tmp/logs/f2-train-$SLURM_JOB_ID.json
+    "$PY" -u scripts/final_bench.py cpu=tmp/bin/force-cpu cuda=tmp/bin/force-cuda \
+        --suite extended --runs 5 --out tmp/logs/f2-extended-$SLURM_JOB_ID.json
     "$PY" -u scripts/final_bench.py cpu=tmp/bin/force-cpu oldcpu=tmp/bin/frozen-cpu \
         cuda=tmp/bin/force-cuda frozen=tmp/bin/frozen-cuda cpuonly=tmp/bin/final-cpu \
         --suite official --runs 6 --out tmp/logs/f2-ab-$SLURM_JOB_ID.json

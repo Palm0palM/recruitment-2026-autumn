@@ -2,6 +2,7 @@
 #include "melspec_backend.h"
 #include <cassert>
 #include <cstdlib>
+#include <cstdio>
 #include <stdexcept>
 #include <vector>
 
@@ -28,6 +29,7 @@ bool GPU_AVAILABLE() { ++probes; return available; }
 void GPU_ENTRY(const std::vector<double>&, int, int, int, int, double, double,
                std::vector<double>& out) {
     ++gpu_calls;
+    if (!available) throw BackendUnavailable("injected no device at initialization");
     if (fail_compute) throw std::runtime_error("injected real GPU error");
     out.assign(1, 2.0);
 }
@@ -45,17 +47,17 @@ int main() {
     assert(cpu_calls == 2 && probes == 0);
     available = false;
     call(large, 65536);
-    assert(cpu_calls == 3 && probes == 1);
+    assert(cpu_calls == 3 && probes == 0 && gpu_calls == 1);
     setenv("MELSPEC_BACKEND", gpu_name, 1);
     bool threw = false;
     try { call(small, 32); } catch (const std::runtime_error&) { threw = true; }
-    assert(threw && cpu_calls == 3 && gpu_calls == 0);
+    assert(threw && cpu_calls == 3 && gpu_calls == 2);
     setenv("MELSPEC_BACKEND", "auto", 1);
     available = true;
     fail_compute = true;
     threw = false;
     try { call(large, 65536); } catch (const std::runtime_error&) { threw = true; }
-    assert(threw && cpu_calls == 3 && gpu_calls == 1);
+    assert(threw && cpu_calls == 3 && gpu_calls == 3);
     setenv("MELSPEC_BACKEND", "invalid", 1);
     threw = false;
     try { call(small, 32); } catch (const std::runtime_error&) { threw = true; }
@@ -66,4 +68,5 @@ int main() {
         compute_melspectrogram(small, 96000, 32, 0, 8, 0, 22050, out);
     } catch (const std::runtime_error&) { threw = true; }
     assert(threw);
+    std::puts("PASS: CPU decisions have no GPU API call; unavailable-only fallback; real errors propagate; invalid inputs rejected");
 }

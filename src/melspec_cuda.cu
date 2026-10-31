@@ -66,6 +66,13 @@ struct OutputResize {
     }
 };
 #endif
+static void check_cuda_initialization(cudaError_t status) {
+    if (status == cudaErrorNoDevice || status == cudaErrorInsufficientDriver)
+        throw BackendUnavailable(std::string("CUDA device unavailable: ") + cudaGetErrorString(status));
+    if (status != cudaSuccess)
+        throw std::runtime_error(std::string("CUDA context initialization: ") + cudaGetErrorString(status));
+}
+
 #if MELSPEC_CUDA_OVERLAP_INIT
 struct ContextInit {
     std::exception_ptr error;  // initialize before the worker may write it
@@ -73,9 +80,7 @@ struct ContextInit {
     ContextInit() : thread([this] {
         try {
             const cudaError_t status = cudaFree(nullptr);
-            if (status != cudaSuccess)
-                throw std::runtime_error(std::string("CUDA context initialization: ") +
-                                         cudaGetErrorString(status));
+            check_cuda_initialization(status);
         } catch (...) {
             error = std::current_exception();
         }
@@ -345,6 +350,8 @@ void compute_melspectrogram_cuda(const std::vector<double>& y, int sr, int n_fft
 #endif
 #if MELSPEC_CUDA_OVERLAP_INIT
     ContextInit context_init;
+#else
+    check_cuda_initialization(cudaFree(nullptr));
 #endif
 
     PROFILE_POINT(phase);

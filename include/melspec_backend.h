@@ -1,6 +1,14 @@
 #pragma once
 
 #include <vector>
+#include <stdexcept>
+
+// Only thrown at the GPU runtime initialization boundary, before any kernel.
+// Allocation, FFT, launch and transfer errors must NOT use this type.
+class BackendUnavailable : public std::runtime_error {
+public:
+    using std::runtime_error::runtime_error;
+};
 
 // CPU backend entry point. Uses the frozen SIMD implementation from v2/simd.
 void compute_melspectrogram_cpu(const std::vector<double>& y, int sr, int n_fft,

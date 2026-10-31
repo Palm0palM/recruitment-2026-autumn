@@ -47,3 +47,18 @@ No branch merge or cherry-pick is used.
   representative synthetic tests, private cache, source/profile evidence.
 - F4: per-platform same-job frozen vs final A/B; final model and deployment
   recommendations in FINAL_DELIVERY.md. Protected hashes and clean git audit.
+
+## F2 adapter refinement after same-job evidence
+
+Job 422 found 65–90 ms extra end-to-end CUDA startup from the inherited serial
+cudaGetDeviceCount pre-probe (frozen CUDA 0.787/0.804 s vs integrated
+0.878/0.870 s for default/large). Remove that pre-probe for actual FFTs.
+At the existing overlapped context-initialization boundary, classify ONLY
+cudaErrorNoDevice and cudaErrorInsufficientDriver as BackendUnavailable.
+Auto may catch only that type and fall back before any GPU kernel; other
+initialization, allocation, FFT, transfer and kernel errors still propagate.
+CUDA numerical kernels, batch/plan, host conversions, buffer/resize and stream
+pipeline stay frozen. No background allocation or sprint experiments added.
+The n_fft=1 forced-CUDA mathematical shortcut still probes (otherwise it
+would claim success without any device). Re-measure the adapter and fit only
+post-refinement data. Job 422 remains an explicit before-adapter control.

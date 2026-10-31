@@ -1,9 +1,11 @@
 #include "melspec.h"
 #include "melspec_backend.h"
+#include "melspec_model_cuda.h"
 
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
+#include <limits>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -22,25 +24,18 @@ Backend requested_backend() {
     throw std::runtime_error("MELSPEC_BACKEND must be cpu, cuda, or auto");
 }
 
-// Full-process cost model fitted on the target node (Xeon Gold 6338, 16-CPU
-// cpuset, AVX-512 FP32 Batch16 + L40, CUDA 13.4). Both formulas are linear and
-// monotone in three measurable workload terms:
+// V5 platform calibration: Xeon Gold 6338, 16 bound cores, upgraded B16,
+// L40/CUDA 13.4, node-local output. Coefficients are generated from the
+// training session by scripts/final_model.py (not from the holdout).
+// Linear and monotone in measurable workload terms:
 //
 //   work    = n_frames * n_fft * log2(n_fft) / 1e8   (FFT volume)
 //   input   = samples * sizeof(int16)           / 1e6 (input payload, MB)
 //   output  = n_mels * n_frames * sizeof(float) / 1e6 (output payload, MB)
 //
-// The constant terms are the measured per-process fixed cost, which is what
-// makes small inputs prefer CPU: CUDA pays context/cuFFT/transfer setup, the
-// SIMD path only pays process startup and PCM decoding.
-//
-//   T_cpu  = 0.037173 + 0.0016168 * work + 0.0027815 * output
-//   T_cuda = 0.245811 + 8.7131e-5 * work + 0.0036889 * input + 0.0021713 * output
-//
-// Coefficients come from scripts/fit_hybrid_model.py over 38 measured points
-// (see versions/V3-hybrid/DISPATCH_MODEL.md and raw/h1). They are build-time
-// overridable so another hardware profile can be recalibrated without code
-// changes.
+//   cache_work = work * max(0, n_fft / 16384 - 1)
+// The last term models the measured large-B16-working-set slope change;
+// it does not change FFT arithmetic. See versions/V5-final for validation.
 #ifndef MELSPEC_MODEL_CPU_CONST
 #define MELSPEC_MODEL_CPU_CONST 0.0371727216
 #endif
@@ -65,11 +60,18 @@ Backend requested_backend() {
 #ifndef MELSPEC_MODEL_CUDA_OUTPUT
 #define MELSPEC_MODEL_CUDA_OUTPUT 0.00217130597
 #endif
+#ifndef MELSPEC_MODEL_CPU_CACHE
+#define MELSPEC_MODEL_CPU_CACHE 0.0
+#endif
+#ifndef MELSPEC_MODEL_CUDA_CACHE
+#define MELSPEC_MODEL_CUDA_CACHE 0.0
+#endif
 
 struct Workload {
     double work;
     double input_mb;
     double output_mb;
+    double cache_work;
     int n_frames;
 };
 
@@ -78,24 +80,25 @@ Workload describe(const std::vector<double>& y, int n_fft, int hop_length,
     const long long samples = static_cast<long long>(y.size());
     const long long frames =
         samples >= n_fft ? 1 + (samples - n_fft) / hop_length : 0;
-    Workload w{0.0, 0.0, 0.0, static_cast<int>(frames)};
+    Workload w{0.0, 0.0, 0.0, 0.0, static_cast<int>(frames)};
     if (frames <= 0 || n_fft <= 1) return w;
     w.work = static_cast<double>(frames) * n_fft * std::log2(static_cast<double>(n_fft)) / 1e8;
     w.input_mb = static_cast<double>(samples) * 2.0 / 1e6;
     w.output_mb = static_cast<double>(n_mels) * static_cast<double>(frames) * 4.0 / 1e6;
+    w.cache_work = w.work * std::fmax(0.0, n_fft / 16384.0 - 1.0);
     return w;
 }
 
 double predict_cpu(const Workload& w) {
     return MELSPEC_MODEL_CPU_CONST + MELSPEC_MODEL_CPU_WORK * w.work +
            MELSPEC_MODEL_CPU_INPUT * w.input_mb +
-           MELSPEC_MODEL_CPU_OUTPUT * w.output_mb;
+           MELSPEC_MODEL_CPU_OUTPUT * w.output_mb + MELSPEC_MODEL_CPU_CACHE * w.cache_work;
 }
 
 double predict_cuda(const Workload& w) {
     return MELSPEC_MODEL_CUDA_CONST + MELSPEC_MODEL_CUDA_WORK * w.work +
            MELSPEC_MODEL_CUDA_INPUT * w.input_mb +
-           MELSPEC_MODEL_CUDA_OUTPUT * w.output_mb;
+           MELSPEC_MODEL_CUDA_OUTPUT * w.output_mb + MELSPEC_MODEL_CUDA_CACHE * w.cache_work;
 }
 
 #ifdef MELSPEC_WITH_CUDA
@@ -119,6 +122,13 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
                             int hop_length, int n_mels, double f_min,
                             double f_max, std::vector<double>& output) {
     const Backend backend = requested_backend();
+    // Validate before selector arithmetic (notably the frame-count division).
+    // Keep the frozen backends unchanged and reject oversized API vectors
+    // before their historical int-sized indexing can truncate them.
+    if (sr < 1 || n_fft < 1 || (n_fft & (n_fft - 1)) != 0 ||
+        hop_length < 1 || n_mels < 1 || y.size() < static_cast<size_t>(n_fft) ||
+        y.size() > static_cast<size_t>(std::numeric_limits<int>::max()))
+        throw std::runtime_error("Invalid parameters or audio too short/large for n_fft");
     if (backend == Backend::Cpu) {
         log_decision("cpu (forced)", describe(y, n_fft, hop_length, n_mels));
         return compute_melspectrogram_cpu(y, sr, n_fft, hop_length, n_mels,
@@ -127,7 +137,11 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
 
 #ifdef MELSPEC_WITH_CUDA
     if (backend == Backend::Cuda) {
-        if (!cuda_backend_available())
+        // n_fft=1 is a mathematical zero-output special case in the frozen
+        // backend and otherwise never touches CUDA. Forced mode still checks
+        // device availability here. All real FFTs use the frozen overlapped
+        // initialization instead of an expensive serialized pre-probe.
+        if (n_fft == 1 && !cuda_backend_available())
             throw std::runtime_error("MELSPEC_BACKEND=cuda requested but no CUDA device is available");
         log_decision("cuda (forced)", describe(y, n_fft, hop_length, n_mels));
         // A real CUDA compute error is propagated and never hidden as a CPU fallback.
@@ -137,13 +151,13 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
 
     const Workload w = describe(y, n_fft, hop_length, n_mels);
     if (model_prefers_cuda(w)) {
-        // Only the auto path probes the device, and only when the model already
-        // predicted a GPU win. Availability is an environment fact, not a
-        // compute error, so falling back here is safe.
-        if (cuda_backend_available()) {
+        try {
             log_decision("cuda (auto)", w);
             return compute_melspectrogram_cuda(y, sr, n_fft, hop_length, n_mels,
-                                               f_min, f_max, output);
+                                                f_min, f_max, output);
+        } catch (const BackendUnavailable&) {
+            // Only explicit no-device/insufficient-driver initialization
+            // errors (before all kernels) are eligible for CPU fallback.
         }
         log_decision("cpu (auto, no CUDA device)", w);
     } else {
