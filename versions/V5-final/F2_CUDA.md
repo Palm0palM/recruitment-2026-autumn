@@ -58,3 +58,24 @@ Generated header include/melspec_model_cuda.h and fitting script are shipped.
 Independent holdout and final official validation are recorded separately;
 they are not included in fitting. Recalibrate when changing affinity,
 hardware, THP policy, input/output storage, compiler or CPU optimization flags.
+
+## Independent holdout (Job 435)
+
+Frozen candidate code/model: commit `8e1659a` (CUDA numerical source identical
+to training; only the generated model/selector changed). Four official plus
+eight unseen combinations of hop, frames, output dimensions and frequency band.
+Six rounds, all outputs checked: **12/12 PASS, 12/12 backend winners matched**.
+
+| Set | Always CPU | Always CUDA | Auto |
+|---|---:|---:|---:|
+| 12-point holdout cumulative medians | 5.288 s | 6.708 s | 5.162 s |
+| default | .6635 | .7914 | .6623 (CPU) |
+| small_mels | .4236 | .5397 | .4188 (CPU) |
+| large_fft | .8522 | .7989 | .8067 (CUDA) |
+| narrow_band | .8236 | .8068 | .8031 (CUDA) |
+
+No fitting on holdout. Apparent negative regret is independent measurement
+noise; auto is not doing a faster numerical algorithm. The original F2 source
+and generated profile are independently recoverable at commit `8e1659a` even
+if an AMD deployment is unavailable. Final protected-script validation/profile
+logs from the same job are archived after completion.
