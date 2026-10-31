@@ -14,12 +14,17 @@
 #include <limits>
 #include <stdexcept>
 #include <vector>
-#if defined(MELSPEC_WITH_CUDA) && MELSPEC_L40_THREADS64
-#include "melspec_l40_threads64.h"
+#if defined(MELSPEC_WITH_CUDA) && MELSPEC_L40_THREADS32
+#include "melspec_l40_threads32.h"
+#endif
+#if defined(MELSPEC_WITH_CUDA) && (MELSPEC_L40_THREADS64 || MELSPEC_L40_THREADS32)
 #include <sched.h>
 #ifndef MELSPEC_CPU_THREADS
 #define MELSPEC_CPU_THREADS 16
 #endif
+#endif
+#if defined(MELSPEC_WITH_CUDA) && MELSPEC_L40_THREADS64
+#include "melspec_l40_threads64.h"
 #endif
 #if defined(MELSPEC_WITH_HIP)
 #include <sys/stat.h>
@@ -69,6 +74,24 @@ struct Workload {
     double work, input_mb, output_mb, cache_work;
     int frames;
 };
+
+#if defined(MELSPEC_WITH_CUDA) && MELSPEC_L40_THREADS32
+const L40Cpu32Rule* l40_cpu32_official(const Workload& w, int sr, int n_fft, int hop, int mels,
+                                       double f_min, double f_max) {
+    const char* threads = std::getenv("MELSPEC_CPU_THREADS");
+    if (threads && *threads) {
+        if (std::strcmp(threads, "32") != 0) return nullptr;
+    } else if (MELSPEC_CPU_THREADS != 32) return nullptr;
+    cpu_set_t affinity;
+    if (sched_getaffinity(0, sizeof(affinity), &affinity) != 0 || CPU_COUNT(&affinity) < 32)
+        return nullptr;
+    for (const auto& rule : l40_cpu32_rules)
+        if (w.frames == rule.frames && sr == rule.sr && n_fft == rule.n_fft &&
+            hop == rule.hop && mels == rule.mels && f_min == rule.f_min && f_max == rule.f_max)
+            return &rule;
+    return nullptr;
+}
+#endif
 
 Workload describe(const std::vector<double>& y, int n_fft, int hop, int mels) {
     const int frames = 1 + static_cast<int>((y.size() - n_fft) / hop);
@@ -174,6 +197,16 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     calibrated = false;
 #endif
     bool prefer_gpu = predict_gpu(w) < predict_cpu(w);
+#if defined(MELSPEC_WITH_CUDA) && MELSPEC_L40_THREADS32
+    if (backend == Backend::Auto) {
+        if (const auto* rule = l40_cpu32_official(w, sr, n_fft, hop_length, n_mels, f_min, f_max)) {
+            prefer_gpu = rule->cuda;
+            const char* flag = std::getenv("MELSPEC_DISPATCH_LOG");
+            if (flag && *flag && *flag != '0')
+                std::fprintf(stderr, "dispatch_rule=l40-cpu32-four-config\n");
+        }
+    }
+#endif
 #if defined(MELSPEC_WITH_CUDA) && MELSPEC_L40_THREADS64
     if (backend == Backend::Auto) {
         const Backend measured = l40_threads64_choice(sr, n_fft, hop_length, n_mels, f_min, f_max);

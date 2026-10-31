@@ -10,7 +10,7 @@ ifneq ($(filter 0 8 16,$(MELSPEC_FP32_BATCH)),$(MELSPEC_FP32_BATCH))
 $(error MELSPEC_FP32_BATCH must be 0, 8, or 16)
 endif
 CPPFLAGS += -DMELSPEC_FP32_BATCH=$(MELSPEC_FP32_BATCH)
-CPU_THREADS ?= 16
+CPU_THREADS ?= 32
 ifeq ($(shell test "$(CPU_THREADS)" -ge 1 2>/dev/null && test "$(CPU_THREADS)" -le 1024 2>/dev/null && echo yes),)
 $(error CPU_THREADS must be an integer in [1,1024])
 endif
@@ -20,6 +20,11 @@ ifneq ($(filter 0 1,$(L40_THREADS64)),$(L40_THREADS64))
 $(error L40_THREADS64 must be 0 or 1)
 endif
 CPPFLAGS += -DMELSPEC_L40_THREADS64=$(L40_THREADS64)
+L40_THREADS32 ?= 1
+ifneq ($(filter 0 1,$(L40_THREADS32)),$(L40_THREADS32))
+$(error L40_THREADS32 must be 0 or 1)
+endif
+CPPFLAGS += -DMELSPEC_L40_THREADS32=$(L40_THREADS32)
 CPU_PACK_REUSE ?= 1
 CPU_HUGEPAGE ?= 1
 ifneq ($(filter-out 0 1,$(CPU_PACK_REUSE) $(CPU_HUGEPAGE)),)
@@ -30,7 +35,7 @@ CPPFLAGS += -DMELSPEC_PACK_REUSE=$(CPU_PACK_REUSE) -DMELSPEC_OUTPUT_HUGEPAGE=$(C
 # CUDA backend uses the frozen V3 default configuration.
 HIP ?= 0
 HIP_ONLY ?= 0
-CUDA ?= $(if $(filter 1,$(HIP)),0,1)
+CUDA ?= 0
 ifeq ($(CUDA)$(HIP),11)
 $(error CUDA and HIP are mutually exclusive; build CPU+CUDA or CPU+HIP)
 endif
@@ -64,7 +69,7 @@ OBJS = $(patsubst src/%.cpp,$(BUILD)/%.o,$(SRCS))
 EXEC = melspec
 
 ifeq ($(CUDA),1)
-BUILD = tmp/build/hybrid-cuda-fp$(MELSPEC_FP32_BATCH)-reuse$(CPU_PACK_REUSE)-hp$(CPU_HUGEPAGE)-threads$(CPU_THREADS)-rule$(L40_THREADS64)-arch$(CUDA_ARCH)-p$(CUDA_PRECISION)-b$(CUDA_BATCH)-f$(CUDA_FUSED)-pr$(CUDA_PROFILE)-pin$(CUDA_PINNED)-o$(CUDA_OVERLAP_INIT)-d$(CUDA_DEFER_RESIZE)-a$(CUDA_ASYNC_OUTPUT)-t$(CUDA_RESIZE_THREAD)-r$(CUDA_STAGING_ROWS)
+BUILD = tmp/build/hybrid-cuda-fp$(MELSPEC_FP32_BATCH)-reuse$(CPU_PACK_REUSE)-hp$(CPU_HUGEPAGE)-threads$(CPU_THREADS)-rule64$(L40_THREADS64)-rule32$(L40_THREADS32)-arch$(CUDA_ARCH)-p$(CUDA_PRECISION)-b$(CUDA_BATCH)-f$(CUDA_FUSED)-pr$(CUDA_PROFILE)-pin$(CUDA_PINNED)-o$(CUDA_OVERLAP_INIT)-d$(CUDA_DEFER_RESIZE)-a$(CUDA_ASYNC_OUTPUT)-t$(CUDA_RESIZE_THREAD)-r$(CUDA_STAGING_ROWS)
 OBJS = $(patsubst src/%.cpp,$(BUILD)/%.o,$(SRCS))
 CPPFLAGS += -DMELSPEC_WITH_CUDA=1 -DMELSPEC_CUDA_PRECISION=$(CUDA_PRECISION)
 CPPFLAGS += -DMELSPEC_CUDA_BATCH=$(CUDA_BATCH) -DMELSPEC_CUDA_FUSED=$(CUDA_FUSED)
