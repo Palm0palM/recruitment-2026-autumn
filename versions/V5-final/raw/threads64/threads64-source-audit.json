@@ -1,0 +1,21 @@
+{
+  "protected_unchanged": true,
+  "cpu": {
+    "source": "cbf214d (on e448c989)",
+    "sha256": "4f1759a62518f4b5c8a2b8bc11b10d071fda873d4c7c77124410dc9658e2e1d7",
+    "numerical_tokens_identical": true
+  },
+  "cuda": {
+    "source": "3e111946",
+    "sha256": "9c74ffd3633de77f94babfaa9af4628813cacb243031e714e26253181ee2aed8",
+    "frozen_sha256": "f676a617821984ec916bf8a359edfab79475b1fffd4fd490fc2327f142838e76",
+    "frozen_pipeline_identical_after_removing_adapters": true
+  },
+  "hip": {
+    "source": "eff3ed1",
+    "sha256": "46d66339c603754fe72e65a343c2d33f13e91bf42dc59431e2e7de32c7694ff5",
+    "frozen_sha256": "d9c466af6a18e95eb2e74cea62056fce83dc28f1693bf4e187b10449664fe544",
+    "kernels_sha256": "7d9451ad8c993096341116c75682e5e0e955b8ee2c98a8518b52cf2a80742e5e",
+    "numerical_pipeline_identical": true
+  }
+}

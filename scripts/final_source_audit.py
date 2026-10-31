@@ -49,7 +49,8 @@ def main():
     stripped = stripped.replace("compute_melspectrogram_cpu(", "compute_melspectrogram(", 1)
     assert tokens(stripped) == tokens(candidate), "CPU differs beyond thread control/private entry/header/comments"
     result["cpu"] = dict(source="cbf214d (on e448c989)", sha256=digest(cpu),
-                         numerical_tokens_identical=True)
+                         numerical_tokens_identical=True,
+                         thread_control_adapter="static int cpu_thread_limit()" in cpu)
 
     cuda = Path("src/melspec_cuda.cu").read_text()
     frozen = git_text("3e111946", "src/melspec_cuda.cu")

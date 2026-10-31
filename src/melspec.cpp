@@ -14,6 +14,13 @@
 #include <limits>
 #include <stdexcept>
 #include <vector>
+#if defined(MELSPEC_WITH_CUDA) && MELSPEC_L40_THREADS64
+#include "melspec_l40_threads64.h"
+#include <sched.h>
+#ifndef MELSPEC_CPU_THREADS
+#define MELSPEC_CPU_THREADS 16
+#endif
+#endif
 #if defined(MELSPEC_WITH_HIP)
 #include <sys/stat.h>
 #endif
@@ -24,6 +31,27 @@
 
 namespace {
 enum class Backend { Cpu, Cuda, Hip, Auto };
+
+#if defined(MELSPEC_WITH_CUDA) && MELSPEC_L40_THREADS64
+Backend l40_threads64_choice(int sr, int n_fft, int hop, int mels,
+                             double f_min, double f_max) {
+    const char* threads = std::getenv("MELSPEC_CPU_THREADS");
+    if (threads && *threads) {
+        if (std::strcmp(threads, "64") != 0) return Backend::Auto;
+    } else if (MELSPEC_CPU_THREADS != 64) {
+        return Backend::Auto;
+    }
+    cpu_set_t affinity;
+    if (sched_getaffinity(0, sizeof(affinity), &affinity) != 0 || CPU_COUNT(&affinity) < 64)
+        return Backend::Auto;
+    for (const auto& rule : l40_threads64_rules) {
+        if (sr == rule.sr && n_fft == rule.n_fft && hop == rule.hop && mels == rule.mels &&
+            f_min == rule.f_min && f_max == rule.f_max)
+            return rule.cuda ? Backend::Cuda : Backend::Cpu;
+    }
+    return Backend::Auto;
+}
+#endif
 
 Backend requested_backend() {
     const char* value = std::getenv("MELSPEC_BACKEND");
@@ -145,7 +173,19 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
 #if defined(MELSPEC_WITH_HIP) && !MELSPEC_HIP_MODEL_CALIBRATED
     calibrated = false;
 #endif
-    if (backend == Backend::Auto && n_fft > 1 && calibrated && predict_gpu(w) < predict_cpu(w)) {
+    bool prefer_gpu = predict_gpu(w) < predict_cpu(w);
+#if defined(MELSPEC_WITH_CUDA) && MELSPEC_L40_THREADS64
+    if (backend == Backend::Auto) {
+        const Backend measured = l40_threads64_choice(sr, n_fft, hop_length, n_mels, f_min, f_max);
+        if (measured != Backend::Auto) {
+            prefer_gpu = measured == Backend::Cuda;
+            const char* flag = std::getenv("MELSPEC_DISPATCH_LOG");
+            if (flag && *flag && *flag != '0')
+                std::fprintf(stderr, "dispatch_rule=l40-64-four-config\n");
+        }
+    }
+#endif
+    if (backend == Backend::Auto && n_fft > 1 && calibrated && prefer_gpu) {
 #if defined(MELSPEC_WITH_HIP)
         if (!hip_cache_ready()) {
             log_decision("cpu (rocfft-cache-unready)", w);

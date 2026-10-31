@@ -5,6 +5,10 @@
 
 ## V5 Final 交付入口
 
+答辩前 64-worker 快速对照见 `versions/V5-final/THREADS64.md`。
+`CPU_THREADS=64 L40_THREADS64=1` 启用四组实测参数规则；原默认仍是 16 workers。
+需真正申请 64 CPU 配额，不能仅修改 OMP_NUM_THREADS（CPU 后端使用 std::thread）。
+
 见 `versions/V5-final/FINAL_DELIVERY.md`（分平台构建、冻结来源、最终成绩和复现）。
 不运行 setup.sh，不修改共享 Python/PCM/expected；`final_prepare.sh` 只从 Git 提取冻结控制。
 
