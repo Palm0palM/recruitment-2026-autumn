@@ -6,11 +6,39 @@
 #include <cassert>
 #include <cmath>
 #include <complex>
+#include <cstdlib>
+#include <cstdio>
 #include <cstring>
 #include <stdexcept>
 #include <system_error>
 #include <thread>
 #include <vector>
+#if defined(__linux__)
+#include <sched.h>
+#endif
+
+#ifndef MELSPEC_CPU_THREADS
+#define MELSPEC_CPU_THREADS 16
+#endif
+
+static int cpu_thread_limit() {
+    int limit = MELSPEC_CPU_THREADS;
+    const char* value = std::getenv("MELSPEC_CPU_THREADS");
+    if (value && *value) {
+        char* end = nullptr;
+        const long parsed = std::strtol(value, &end, 10);
+        if (*end || parsed < 1 || parsed > 1024)
+            throw std::runtime_error("MELSPEC_CPU_THREADS must be an integer in [1,1024]");
+        limit = static_cast<int>(parsed);
+    }
+    int available = static_cast<int>(std::max(1u, std::thread::hardware_concurrency()));
+#if defined(__linux__)
+    cpu_set_t affinity;
+    if (sched_getaffinity(0, sizeof(affinity), &affinity) == 0)
+        available = CPU_COUNT(&affinity);
+#endif
+    return std::max(1, std::min(limit, available));
+}
 
 #ifndef MELSPEC_FP32_BATCH
 #define MELSPEC_FP32_BATCH 0
@@ -1139,10 +1167,11 @@ void compute_melspectrogram_cpu(const std::vector<double>& y, int sr, int n_fft,
 #endif
     output.resize(static_cast<size_t>(n_mels) * n_frames);
 
-    // Keep short inputs single-threaded, and use at most the judge's 16 cores.
-    const int n_threads = std::min({16,
-        static_cast<int>(std::max(1u, std::thread::hardware_concurrency())),
-        std::max(1, n_frames / 256)});
+    // Keep short inputs small; respect both the requested limit and cpuset.
+    const int n_threads = std::min(cpu_thread_limit(), std::max(1, n_frames / 256));
+    const char* thread_log = std::getenv("MELSPEC_DISPATCH_LOG");
+    if (thread_log && *thread_log && *thread_log != '0')
+        std::fprintf(stderr, "cpu_threads=%d\n", n_threads);
     // Allocate scratch before launching threads, so workers cannot throw.
     std::vector<ComplexBuffer> fft_buffers(n_threads, ComplexBuffer(half));
     std::vector<std::vector<double>> power_buffers(

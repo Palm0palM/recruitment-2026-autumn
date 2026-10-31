@@ -32,9 +32,22 @@ def main():
 
     cpu = Path("src/melspec_cpu.cpp").read_text()
     candidate = git_text("cbf214d", "src/melspec.cpp")
-    stripped = cpu.replace('#include "melspec_backend.h"\n', "", 1)
+    stripped = cpu
+    if "static int cpu_thread_limit()" in stripped:
+        for header in ("cstdlib", "cstdio"):
+            stripped = stripped.replace(f"#include <{header}>\n", "", 1)
+        begin = stripped.index('#if defined(__linux__)\n#include <sched.h>')
+        end = stripped.index('#ifndef MELSPEC_FP32_BATCH', begin)
+        stripped = stripped[:begin] + stripped[end:]
+        begin = stripped.index('    // Keep short inputs small;')
+        end = stripped.index('    // Allocate scratch before', begin)
+        stripped = stripped[:begin] + '''    const int n_threads = std::min({16,
+        static_cast<int>(std::max(1u, std::thread::hardware_concurrency())),
+        std::max(1, n_frames / 256)});
+''' + stripped[end:]
+    stripped = stripped.replace('#include "melspec_backend.h"\n', "", 1)
     stripped = stripped.replace("compute_melspectrogram_cpu(", "compute_melspectrogram(", 1)
-    assert tokens(stripped) == tokens(candidate), "CPU differs beyond private entry/header/comments"
+    assert tokens(stripped) == tokens(candidate), "CPU differs beyond thread control/private entry/header/comments"
     result["cpu"] = dict(source="cbf214d (on e448c989)", sha256=digest(cpu),
                          numerical_tokens_identical=True)
 
