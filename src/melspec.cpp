@@ -14,6 +14,9 @@
 #include <limits>
 #include <stdexcept>
 #include <vector>
+#if defined(MELSPEC_WITH_HIP)
+#include <sys/stat.h>
+#endif
 
 #if defined(MELSPEC_WITH_CUDA) && defined(MELSPEC_WITH_HIP)
 #error "Build CPU+CUDA or CPU+HIP, not both GPU runtimes"
@@ -55,6 +58,15 @@ double predict_cpu(const Workload& w) {
 #if defined(MELSPEC_WITH_HIP)
 constexpr Backend compiled_gpu = Backend::Hip;
 constexpr const char* gpu_name = "hip";
+bool hip_cache_ready() {
+    // This profile measures warm persistent rocFFT plans. Do not apply it
+    // optimistically in an unprepared deployment. No database open, GPU API
+    // or trial computation: only the explicit cache environment + stat.
+    const char* path = std::getenv("ROCFFT_RTC_CACHE_PATH");
+    struct stat info {};
+    return path && *path && stat(path, &info) == 0 &&
+           S_ISREG(info.st_mode) && info.st_size > 0;
+}
 double predict_gpu(const Workload& w) {
     return MELSPEC_MODEL_HIP_CONST + MELSPEC_MODEL_HIP_WORK * w.work +
            MELSPEC_MODEL_HIP_INPUT * w.input_mb + MELSPEC_MODEL_HIP_OUTPUT * w.output_mb +
@@ -134,6 +146,13 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
     calibrated = false;
 #endif
     if (backend == Backend::Auto && n_fft > 1 && calibrated && predict_gpu(w) < predict_cpu(w)) {
+#if defined(MELSPEC_WITH_HIP)
+        if (!hip_cache_ready()) {
+            log_decision("cpu (rocfft-cache-unready)", w);
+            return compute_melspectrogram_cpu(y, sr, n_fft, hop_length, n_mels,
+                                              f_min, f_max, output);
+        }
+#endif
         try {
             compute_gpu(y, sr, n_fft, hop_length, n_mels, f_min, f_max, output);
             log_decision(gpu_name, w);

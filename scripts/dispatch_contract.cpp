@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <stdexcept>
 #include <vector>
+#include <unistd.h>
 
 static int cpu_calls = 0, gpu_calls = 0, probes = 0;
 static bool available = true, fail_compute = false;
@@ -35,6 +36,13 @@ void GPU_ENTRY(const std::vector<double>&, int, int, int, int, double, double,
 }
 
 int main() {
+#ifdef MELSPEC_WITH_HIP
+    char cache_path[] = "tmp/scratch/hip-model-cache-XXXXXX";
+    const int fd = mkstemp(cache_path);
+    assert(fd >= 0 && write(fd, "x", 1) == 1);
+    close(fd);
+    setenv("ROCFFT_RTC_CACHE_PATH", cache_path, 1);
+#endif
     std::vector<double> small(64), large(1 << 20), out;
     auto call = [&](const auto& y, int n_fft) {
         compute_melspectrogram(y, 96000, n_fft, 1, 8, 0, 22050, out);
@@ -68,5 +76,16 @@ int main() {
         compute_melspectrogram(small, 96000, 32, 0, 8, 0, 22050, out);
     } catch (const std::runtime_error&) { threw = true; }
     assert(threw);
+#ifdef MELSPEC_WITH_HIP
+    unsetenv("ROCFFT_RTC_CACHE_PATH");
+    setenv("MELSPEC_BACKEND", "auto", 1);
+    available = true;
+    fail_compute = false;
+    const int old_cpu = cpu_calls, old_gpu = gpu_calls;
+    call(large, 65536);
+    assert(cpu_calls == old_cpu + 1 && gpu_calls == old_gpu);
+    std::remove(cache_path);
+    std::puts("PASS: unprepared rocFFT cache keeps auto on CPU without a GPU call");
+#endif
     std::puts("PASS: CPU decisions have no GPU API call; unavailable-only fallback; real errors propagate; invalid inputs rejected");
 }

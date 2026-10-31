@@ -102,6 +102,9 @@ HIP_LIBDIR = $(HIP_PREFIX)/lib/x86_64-linux-gnu
 ifeq ($(HIP_EAGER_PREWARM)$(HIP_ONLY),10)
 $(error Eager HIP prewarm is allowed only for HIP_ONLY=1; CPU+HIP must stay lazy)
 endif
+ifeq ($(HIP_DIRECT_OUTPUT)$(HIP_ASYNC_OUTPUT),10)
+$(error HIP_DIRECT_OUTPUT=1 requires HIP_ASYNC_OUTPUT=1; the legacy sync path copies Real, not OutReal)
+endif
 ifneq ($(filter-out 0 1,$(HIP_FUSED) $(HIP_PINNED) $(HIP_PINNED_INPUT) $(HIP_ASYNC_H2D) $(HIP_PREWARM) $(HIP_EAGER_PREWARM) $(HIP_DIRECT_OUTPUT) $(HIP_HUGEPAGE) $(HIP_OVERLAP_INIT) $(HIP_DEFER_RESIZE) $(HIP_ASYNC_OUTPUT) $(HIP_RESIZE_THREAD) $(HIP_PROFILE)),)
 $(error HIP boolean options must be 0 or 1)
 endif

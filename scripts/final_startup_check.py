@@ -31,10 +31,12 @@ def main():
         p = dict(sr=96000, n_fft=8192, hop_length=128, n_mels=64, f_min=0, f_max=22050)
         output = td / "out.bin"
 
-        def run(binary, pcm, params, backend, hidden=False, trace=None):
+        def run(binary, pcm, params, backend, hidden=False, trace=None, no_cache=False):
             env = dict(os.environ, MELSPEC_BACKEND=backend, MELSPEC_DISPATCH_LOG="1")
             if hidden:
                 env.update(CUDA_VISIBLE_DEVICES="-1", HIP_VISIBLE_DEVICES="-1", ROCR_VISIBLE_DEVICES="")
+            if no_cache:
+                env.pop("ROCFFT_RTC_CACHE_PATH", None)
             cmd = command(binary, pcm, output, params)
             if trace is not None:
                 cmd = ["strace", "-f", "-e", "trace=open,openat,ioctl", "-o", str(trace), *cmd]
@@ -92,6 +94,12 @@ def main():
         assert np.array_equal(got, ref)
         result["auto_hidden"] = dict(passed=True, seconds=elapsed, stderr=proc.stderr.decode(),
                                      bitwise_equal_cpu=True, params=q, frames=frames)
+        if args.gpu == "hip":
+            proc, elapsed, got = run(program, big, q, "auto", no_cache=True)
+            assert proc.returncode == 0 and b"rocfft-cache-unready" in proc.stderr
+            assert np.array_equal(got, ref)
+            result["auto_unprepared_cache"] = dict(passed=True, seconds=elapsed,
+                stderr=proc.stderr.decode(), bitwise_equal_cpu=True)
         proc, _, _ = run(program, small, p, args.gpu, hidden=True)
         assert proc.returncode != 0
         result["forced_hidden"] = dict(exit=proc.returncode, stderr=proc.stderr.decode())
