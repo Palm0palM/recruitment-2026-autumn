@@ -1,0 +1,4 @@
+g++ -I./include -DMELSPEC_FP32_BATCH=0 -DMELSPEC_PACK_REUSE=1 -DMELSPEC_OUTPUT_HUGEPAGE=1 -std=c++17 -O3 -march=x86-64 -pthread -MMD -MP -o tmp/build/hybrid-cpu/fp0-reuse1-hp1/main.o -c src/main.cpp
+g++ -I./include -DMELSPEC_FP32_BATCH=0 -DMELSPEC_PACK_REUSE=1 -DMELSPEC_OUTPUT_HUGEPAGE=1 -std=c++17 -O3 -march=x86-64 -pthread -MMD -MP -o tmp/build/hybrid-cpu/fp0-reuse1-hp1/melspec.o -c src/melspec.cpp
+g++ -I./include -DMELSPEC_FP32_BATCH=0 -DMELSPEC_PACK_REUSE=1 -DMELSPEC_OUTPUT_HUGEPAGE=1 -std=c++17 -O3 -march=x86-64 -pthread -MMD -MP -o tmp/build/hybrid-cpu/fp0-reuse1-hp1/melspec_cpu.o -c src/melspec_cpu.cpp
+g++  -o tmp/bin/f1-generic tmp/build/hybrid-cpu/fp0-reuse1-hp1/main.o tmp/build/hybrid-cpu/fp0-reuse1-hp1/melspec.o tmp/build/hybrid-cpu/fp0-reuse1-hp1/melspec_cpu.o -pthread
