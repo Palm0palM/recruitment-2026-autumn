@@ -17,6 +17,7 @@ cd "${SLURM_SUBMIT_DIR:?}"
 # Toolchain only: read-only, no writes into the old AMD experiment directory.
 source /home/zsx/melspec-v3-amd/tmp/amd-gpu/env.sh
 export HIP_VISIBLE_DEVICES=0
+export AMD_COMGR_CACHE_DIR="$PWD/tmp/comgr-cache" XDG_CACHE_HOME="$PWD/tmp/xdg-cache"
 export PYTHONPYCACHEPREFIX="$PWD/tmp/pycache" NUMBA_CACHE_DIR="$PWD/tmp/numba-cache"
 export OPENBLAS_NUM_THREADS=16 OMP_NUM_THREADS=16 MKL_NUM_THREADS=16
 mkdir -p tmp/bin tmp/logs tmp/rocfft-cache tmp/scratch
@@ -67,7 +68,11 @@ if [ "${MODE:-train}" = train ]; then
         dedicated=tmp/bin/dedicated-hip frozen=tmp/bin/frozen-hip oldcpu=tmp/bin/amd-frozen-cpu \
         --suite official --runs 6 --out tmp/logs/f3-ab-$SLURM_JOB_ID.json
 else
+    make CUDA=0 HIP=0 -B -j8 EXEC=tmp/bin/amd-cpu > tmp/logs/f4-amd-cpu-build-$SLURM_JOB_ID.txt 2>&1
     make CUDA=0 HIP=1 -B -j8 EXEC=tmp/bin/final-hip > tmp/logs/f4-build-$SLURM_JOB_ID.txt 2>&1
+    make CUDA=0 HIP=1 HIP_ONLY=1 -B -j8 EXEC=tmp/bin/dedicated-hip \
+        > tmp/logs/f4-dedicated-build-$SLURM_JOB_ID.txt 2>&1
+    sha256sum tmp/bin/amd-cpu tmp/bin/final-hip tmp/bin/dedicated-hip
     "$PY" -u scripts/final_bench.py cpu=tmp/bin/amd-force-cpu hip=tmp/bin/amd-force-hip \
         auto=tmp/bin/final-hip dedicated=tmp/bin/dedicated-hip \
         --suite holdout --runs 6 --out tmp/logs/f4-amd-holdout-$SLURM_JOB_ID.json
@@ -79,6 +84,13 @@ else
     "$PY" -u validate.py tmp/bin/dedicated-hip --runs 1 \
         | tee tmp/logs/f4-amd-dedicated-official-$SLURM_JOB_ID.txt
     grep -q 'Result: 4/4 PASSED' tmp/logs/f4-amd-dedicated-official-$SLURM_JOB_ID.txt
+    ROCFFT_RTC_CACHE_PATH="$PWD/tmp/rocfft-cache/cold-$SLURM_JOB_ID.db" \
+        "$PY" -u scripts/final_bench.py cpu=tmp/bin/amd-force-cpu hip=tmp/bin/dedicated-hip \
+        --suite official --runs 2 --out tmp/logs/f4-hip-cold-warm-$SLURM_JOB_ID.json
+    sha256sum "tmp/rocfft-cache/cold-$SLURM_JOB_ID.db"
+    "$PY" -u scripts/final_startup_check.py tmp/bin/final-hip --cpu-only tmp/bin/amd-cpu \
+        --gpu hip --out tmp/logs/f4-hip-startup-$SLURM_JOB_ID.json \
+        > tmp/logs/f4-hip-startup-$SLURM_JOB_ID.txt
     for dedicated in 0 1; do
         make CUDA=0 HIP=1 HIP_ONLY="$dedicated" HIP_PROFILE=1 -B -j8 \
             EXEC=tmp/bin/hip-profile-$dedicated > tmp/logs/f4-hip-profile-build-$dedicated-$SLURM_JOB_ID.txt 2>&1

@@ -474,6 +474,11 @@ void compute_melspectrogram_hip(const std::vector<double>& y, int sr, int n_fft,
     const int n_bins = n_fft / 2 + 1;
     const size_t output_elements = static_cast<size_t>(n_mels) * n_frames;
     if (n_fft == 1) {
+#if MELSPEC_HIP_PREWARM && MELSPEC_HIP_EAGER_PREWARM
+        // Dedicated mode may already have launched the global warmup; do not
+        // hide a real warmup error merely because this FFT is a zero shortcut.
+        hip_prewarm().finish();
+#endif
         resize_output_with_hint(output, output_elements);
         std::fill(output.begin(), output.end(), 0.0);
         return;
@@ -490,6 +495,8 @@ void compute_melspectrogram_hip(const std::vector<double>& y, int sr, int n_fft,
 #endif
 #if MELSPEC_HIP_OVERLAP_INIT
     ContextInit context_init;
+#else
+    check_hip_initialization(hipInit(0));
 #endif
 
     PROFILE_POINT(phase);

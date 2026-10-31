@@ -1,0 +1,54 @@
+{
+  "small_times": {
+    "cpu-only": [
+      0.007209390998468734,
+      0.003308112995000556,
+      0.0032098250012495555,
+      0.003226132001145743,
+      0.0030848360038362443,
+      0.0030727170014870353
+    ],
+    "forced-cpu": [
+      0.018749570997897536,
+      0.006209917999512982,
+      0.005255402997136116,
+      0.005341091004083864,
+      0.00517944700550288,
+      0.0050266010002815165
+    ],
+    "auto": [
+      0.005912469998293091,
+      0.005586377999861725,
+      0.005751431999669876,
+      0.005409088000305928,
+      0.005054130997450557,
+      0.005261913000140339
+    ]
+  },
+  "small_medians": {
+    "cpu-only": 0.003217978501197649,
+    "forced-cpu": 0.00529824700060999,
+    "auto": 0.0054977330000838265
+  },
+  "strace": "unavailable; no device-open claim made",
+  "gpu_favored_control": "dispatch: backend=cuda frames=32768 work=343.597 input_mb=8.519 output_mb=33.554 cache_work=1030.792 t_cpu=1.63344 t_cuda=0.42340\n",
+  "auto_hidden": {
+    "passed": true,
+    "seconds": 0.6840340189955896,
+    "stderr": "dispatch: backend=cpu frames=32768 work=343.597 input_mb=8.519 output_mb=33.554 cache_work=1030.792 t_cpu=1.63344 t_cuda=0.42340\n",
+    "bitwise_equal_cpu": true,
+    "params": {
+      "sr": 96000,
+      "n_fft": 65536,
+      "hop_length": 128,
+      "n_mels": 256,
+      "f_min": 0,
+      "f_max": 22050
+    },
+    "frames": 32768
+  },
+  "forced_hidden": {
+    "exit": 1,
+    "stderr": "dispatch: backend=cuda frames=64 work=0.068 input_mb=0.033 output_mb=0.016 cache_work=0.000 t_cpu=0.03089 t_cuda=0.24417\nError: CUDA device unavailable: no CUDA-capable device is detected\n"
+  }
+}

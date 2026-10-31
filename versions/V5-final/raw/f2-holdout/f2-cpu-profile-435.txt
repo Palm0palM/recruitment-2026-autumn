@@ -1,0 +1,190 @@
++ g++ -std=c++17 -O3 -march=native -pthread -I/home/zsx/melspec-v5-final/include -DMELSPEC_FP32_BATCH=16 -DMELSPEC_PACK_REUSE=1 -DMELSPEC_OUTPUT_HUGEPAGE=1 -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -c /home/zsx/melspec-v5-final/src/main.cpp -o /home/zsx/melspec-v5-final/tmp/pipeline-profile/final/main.o
++ g++ -std=c++17 -O3 -march=native -pthread -I/home/zsx/melspec-v5-final/include -DMELSPEC_FP32_BATCH=16 -DMELSPEC_PACK_REUSE=1 -DMELSPEC_OUTPUT_HUGEPAGE=1 /home/zsx/melspec-v5-final/tmp/pipeline-profile/final/main.o /home/zsx/melspec-v5-final/tmp/pipeline-profile/final/melspec.cpp /home/zsx/melspec-v5-final/src/melspec.cpp /home/zsx/melspec-v5-final/scripts/cpu_pipeline_io_hooks.cpp -o /home/zsx/melspec-v5-final/tmp/pipeline-profile/final/profile
+== default run=0 diagnostic_wall_s=0.647933953 ==
+io read_s=0.179410172
+setup before_resize_s=0.006447996 output_init_s=0.078213074
+worker id=10 pack_s=0.040643176 fft_s=0.062803878 recover_s=0.016444648 mel_s=0.011713866 wall_s=0.131727038
+worker id=0 pack_s=0.040714620 fft_s=0.064102885 recover_s=0.016428164 mel_s=0.011712228 wall_s=0.133071113
+worker id=13 pack_s=0.041131561 fft_s=0.063767752 recover_s=0.016715430 mel_s=0.011883302 wall_s=0.133613465
+worker id=12 pack_s=0.041618048 fft_s=0.063597525 recover_s=0.016791064 mel_s=0.011952502 wall_s=0.134074415
+worker id=7 pack_s=0.041425100 fft_s=0.064402658 recover_s=0.016789402 mel_s=0.011929356 wall_s=0.134663345
+worker id=1 pack_s=0.041630088 fft_s=0.064565914 recover_s=0.016831203 mel_s=0.011921942 wall_s=0.135067315
+worker id=11 pack_s=0.041738833 fft_s=0.064297723 recover_s=0.016806237 mel_s=0.011906899 wall_s=0.134866293
+worker id=6 pack_s=0.041548106 fft_s=0.064721318 recover_s=0.016955452 mel_s=0.011958742 wall_s=0.135300801
+worker id=2 pack_s=0.041671126 fft_s=0.064980176 recover_s=0.016783868 mel_s=0.011908792 wall_s=0.135459383
+worker id=15 pack_s=0.040583909 fft_s=0.066285674 recover_s=0.016560235 mel_s=0.011753363 wall_s=0.135296184
+worker id=5 pack_s=0.041537935 fft_s=0.065074386 recover_s=0.016869191 mel_s=0.012012629 wall_s=0.135615507
+worker id=9 pack_s=0.041935953 fft_s=0.064337937 recover_s=0.017254570 mel_s=0.012036447 wall_s=0.135682069
+worker id=14 pack_s=0.041307104 fft_s=0.066040209 recover_s=0.016748121 mel_s=0.011841555 wall_s=0.136052522
+worker id=8 pack_s=0.042379875 fft_s=0.064962037 recover_s=0.017080482 mel_s=0.012067342 wall_s=0.136609442
+worker id=3 pack_s=0.042199287 fft_s=0.066026095 recover_s=0.016929882 mel_s=0.012191260 wall_s=0.137464436
+worker id=4 pack_s=0.042410093 fft_s=0.066151631 recover_s=0.017078070 mel_s=0.012192545 wall_s=0.137950151
+pipeline setup_s=0.092832562 workers_s=0.138217395 tail_s=0.000665103 total_s=0.231715095
+AnonHugePages:    382976 kB
+io write_s=0.217084162
+	Command being timed: "/home/zsx/melspec-v5-final/tmp/pipeline-profile/final/profile /home/zsx/melspec-v5-final/data/audio.pcm /home/zsx/melspec-v5-final/tmp/scratch/node-435/tmpgl3alnf_/out.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels 256 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 2.30
+	System time (seconds): 0.34
+	Percent of CPU this job got: 411%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.64
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 781916
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 115743
+	Voluntary context switches: 308
+	Involuntary context switches: 957
+	Swaps: 0
+	File system inputs: 96430
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== small_mels run=0 diagnostic_wall_s=0.442558516 ==
+io read_s=0.182135169
+setup before_resize_s=0.001881794 output_init_s=0.020357462
+worker id=0 pack_s=0.040398196 fft_s=0.062253473 recover_s=0.016441739 mel_s=0.010043274 wall_s=0.129254449
+worker id=4 pack_s=0.040510825 fft_s=0.062916885 recover_s=0.016570542 mel_s=0.010078659 wall_s=0.130190715
+worker id=6 pack_s=0.040643165 fft_s=0.063047881 recover_s=0.016563242 mel_s=0.010084490 wall_s=0.130454191
+worker id=5 pack_s=0.040613893 fft_s=0.063347583 recover_s=0.016536144 mel_s=0.010068308 wall_s=0.130679386
+worker id=15 pack_s=0.040851738 fft_s=0.063333754 recover_s=0.016660788 mel_s=0.010200545 wall_s=0.131160940
+worker id=2 pack_s=0.040886850 fft_s=0.063782744 recover_s=0.016617569 mel_s=0.010125304 wall_s=0.131526073
+worker id=13 pack_s=0.040884864 fft_s=0.064712774 recover_s=0.016689882 mel_s=0.010192147 wall_s=0.132594573
+worker id=14 pack_s=0.041271895 fft_s=0.064112244 recover_s=0.016842042 mel_s=0.010286692 wall_s=0.132629173
+worker id=3 pack_s=0.041611208 fft_s=0.064283223 recover_s=0.016967234 mel_s=0.010385340 wall_s=0.133363352
+worker id=8 pack_s=0.041946400 fft_s=0.063987168 recover_s=0.017096413 mel_s=0.010406492 wall_s=0.133552765
+worker id=10 pack_s=0.041354658 fft_s=0.064747745 recover_s=0.016829997 mel_s=0.011154370 wall_s=0.134202348
+worker id=7 pack_s=0.042722049 fft_s=0.064246796 recover_s=0.016934743 mel_s=0.010335611 wall_s=0.134355293
+worker id=11 pack_s=0.041479464 fft_s=0.065420767 recover_s=0.016938418 mel_s=0.010346398 wall_s=0.134300952
+worker id=12 pack_s=0.041199498 fft_s=0.065945427 recover_s=0.016860825 mel_s=0.010271070 wall_s=0.134392553
+worker id=1 pack_s=0.042080755 fft_s=0.065193723 recover_s=0.017030027 mel_s=0.010402010 wall_s=0.134823542
+worker id=9 pack_s=0.042218901 fft_s=0.065285647 recover_s=0.016966056 mel_s=0.010421147 wall_s=0.135008650
+pipeline setup_s=0.030366584 workers_s=0.135373397 tail_s=0.001721497 total_s=0.167461416
+AnonHugePages:     94208 kB
+io write_s=0.069573506
+	Command being timed: "/home/zsx/melspec-v5-final/tmp/pipeline-profile/final/profile /home/zsx/melspec-v5-final/data/audio.pcm /home/zsx/melspec-v5-final/tmp/scratch/node-435/tmpgl3alnf_/out.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels 64 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 2.19
+	System time (seconds): 0.21
+	Percent of CPU this job got: 549%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.43
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 342096
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 78034
+	Voluntary context switches: 288
+	Involuntary context switches: 874
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== large_fft run=0 diagnostic_wall_s=0.850791418 ==
+io read_s=0.182092190
+setup before_resize_s=0.013373370 output_init_s=0.080160450
+worker id=14 pack_s=0.093944222 fft_s=0.146344147 recover_s=0.033441052 mel_s=0.022143433 wall_s=0.296002481
+worker id=13 pack_s=0.093791031 fft_s=0.147133862 recover_s=0.033416179 mel_s=0.022253157 wall_s=0.296719469
+worker id=0 pack_s=0.094632378 fft_s=0.147058199 recover_s=0.033310790 mel_s=0.022381075 wall_s=0.297517908
+worker id=4 pack_s=0.094576684 fft_s=0.148025149 recover_s=0.033744570 mel_s=0.022209710 wall_s=0.298680369
+worker id=6 pack_s=0.094132154 fft_s=0.148431185 recover_s=0.033632368 mel_s=0.022413354 wall_s=0.298756217
+worker id=5 pack_s=0.094229948 fft_s=0.148755428 recover_s=0.033532919 mel_s=0.022259369 wall_s=0.298933472
+worker id=12 pack_s=0.095482036 fft_s=0.148115379 recover_s=0.034018411 mel_s=0.022401952 wall_s=0.300150587
+worker id=15 pack_s=0.094955069 fft_s=0.149624701 recover_s=0.033527624 mel_s=0.022109174 wall_s=0.300372311
+worker id=8 pack_s=0.094541950 fft_s=0.150025427 recover_s=0.033660117 mel_s=0.022337064 wall_s=0.300707741
+worker id=1 pack_s=0.094453750 fft_s=0.150767601 recover_s=0.033682418 mel_s=0.022344496 wall_s=0.301416361
+worker id=10 pack_s=0.094274088 fft_s=0.152666421 recover_s=0.033736340 mel_s=0.022422358 wall_s=0.303244731
+worker id=11 pack_s=0.094372424 fft_s=0.153630682 recover_s=0.033768426 mel_s=0.022368590 wall_s=0.304285135
+worker id=2 pack_s=0.094936342 fft_s=0.153876903 recover_s=0.033832689 mel_s=0.022353411 wall_s=0.305131505
+worker id=9 pack_s=0.093996120 fft_s=0.155664188 recover_s=0.033702225 mel_s=0.022173408 wall_s=0.305660797
+worker id=7 pack_s=0.095595862 fft_s=0.155806073 recover_s=0.034110477 mel_s=0.022208300 wall_s=0.307869105
+worker id=3 pack_s=0.095965844 fft_s=0.156860575 recover_s=0.033859695 mel_s=0.022499302 wall_s=0.309320899
+pipeline setup_s=0.109729836 workers_s=0.309693724 tail_s=0.004367311 total_s=0.423790903
+AnonHugePages:    382976 kB
+io write_s=0.222339154
+	Command being timed: "/home/zsx/melspec-v5-final/tmp/pipeline-profile/final/profile /home/zsx/melspec-v5-final/data/audio.pcm /home/zsx/melspec-v5-final/tmp/scratch/node-435/tmpgl3alnf_/out.bin --sr 96000 --n_fft 16384 --hop_length 128 --n_mels 256 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 4.97
+	System time (seconds): 0.36
+	Percent of CPU this job got: 631%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.84
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 790144
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 121779
+	Voluntary context switches: 238
+	Involuntary context switches: 1953
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== narrow_band run=0 diagnostic_wall_s=0.816214802 ==
+io read_s=0.182238616
+setup before_resize_s=0.013190911 output_init_s=0.078997753
+worker id=3 pack_s=0.089420233 fft_s=0.147301001 recover_s=0.011602824 mel_s=0.009142718 wall_s=0.257605828
+worker id=14 pack_s=0.091445434 fft_s=0.145896198 recover_s=0.011576890 mel_s=0.009253840 wall_s=0.258307914
+worker id=2 pack_s=0.090805292 fft_s=0.148690362 recover_s=0.011730567 mel_s=0.009211353 wall_s=0.260577385
+worker id=15 pack_s=0.092062520 fft_s=0.147648762 recover_s=0.011695417 mel_s=0.009137154 wall_s=0.260681371
+worker id=4 pack_s=0.091678366 fft_s=0.149435055 recover_s=0.011914979 mel_s=0.009236007 wall_s=0.262390784
+worker id=12 pack_s=0.090914251 fft_s=0.150787490 recover_s=0.011757817 mel_s=0.008923146 wall_s=0.262518169
+worker id=5 pack_s=0.090216300 fft_s=0.152132013 recover_s=0.011630984 mel_s=0.009012459 wall_s=0.263127156
+worker id=0 pack_s=0.090799714 fft_s=0.152271121 recover_s=0.011636220 mel_s=0.008932003 wall_s=0.263761170
+worker id=7 pack_s=0.092067962 fft_s=0.151832750 recover_s=0.011743479 mel_s=0.009224078 wall_s=0.265006616
+worker id=11 pack_s=0.091524206 fft_s=0.153152924 recover_s=0.011919496 mel_s=0.009334242 wall_s=0.266067107
+worker id=1 pack_s=0.091135788 fft_s=0.154223855 recover_s=0.011784797 mel_s=0.009161865 wall_s=0.266431109
+worker id=13 pack_s=0.091484232 fft_s=0.153618360 recover_s=0.011787622 mel_s=0.009151654 wall_s=0.266191301
+worker id=8 pack_s=0.092396264 fft_s=0.152834500 recover_s=0.011908109 mel_s=0.009374848 wall_s=0.266644283
+worker id=6 pack_s=0.091301093 fft_s=0.155054084 recover_s=0.011803728 mel_s=0.009210902 wall_s=0.267506544
+worker id=9 pack_s=0.091441456 fft_s=0.155673842 recover_s=0.011621267 mel_s=0.009217687 wall_s=0.268089059
+worker id=10 pack_s=0.091820555 fft_s=0.156186970 recover_s=0.011675836 mel_s=0.009059245 wall_s=0.268866312
+pipeline setup_s=0.108319232 workers_s=0.269287282 tail_s=0.002591001 total_s=0.380197521
+AnonHugePages:    382976 kB
+io write_s=0.230764543
+	Command being timed: "/home/zsx/melspec-v5-final/tmp/pipeline-profile/final/profile /home/zsx/melspec-v5-final/data/audio.pcm /home/zsx/melspec-v5-final/tmp/scratch/node-435/tmpgl3alnf_/out.bin --sr 96000 --n_fft 16384 --hop_length 128 --n_mels 256 --f_min 300.0 --f_max 8000.0"
+	User time (seconds): 4.37
+	System time (seconds): 0.37
+	Percent of CPU this job got: 584%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.81
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 789824
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 121780
+	Voluntary context switches: 248
+	Involuntary context switches: 1737
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS

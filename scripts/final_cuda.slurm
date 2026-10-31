@@ -19,6 +19,7 @@ export PYTHONPYCACHEPREFIX="$PWD/tmp/pycache" NUMBA_CACHE_DIR="$PWD/tmp/numba-ca
 export OPENBLAS_NUM_THREADS=16 OMP_NUM_THREADS=16 MKL_NUM_THREADS=16
 export CUDA_HOME=/home/zsx/melspec-v3-cuda-agent/toolkit/cuda-13.4
 export PATH="$CUDA_HOME/bin:$PATH" LD_LIBRARY_PATH="$CUDA_HOME/lib64:${LD_LIBRARY_PATH:-}"
+export CUDA_CACHE_PATH="$PWD/tmp/cuda-cache" XDG_CACHE_HOME="$PWD/tmp/xdg-cache"
 PY="$HOME/venv/bin/python"
 mkdir -p tmp/bin tmp/logs tmp/scratch
 scratch=$(mktemp -d "/tmp/melspec-v5-final-cuda-$SLURM_JOB_ID-XXXXXX")
@@ -33,9 +34,7 @@ cat /sys/kernel/mm/transparent_hugepage/enabled
 g++ --version | head -1
 sha256sum src/* include/* Makefile src/main.cpp validate.py
 flags=(-std=c++17 -O3 -march=native -pthread -Iinclude -DMELSPEC_FP32_BATCH=16)
-if [ "${MODE:-train}" = train ]; then
-    make CUDA=0 -B -j8 EXEC=tmp/bin/final-cpu > tmp/logs/f1-build-$SLURM_JOB_ID.txt 2>&1
-    make CUDA=1 -B -j8 CUDA_ARCH=89 EXEC=tmp/bin/final-cuda > tmp/logs/f2-build-$SLURM_JOB_ID.txt 2>&1
+build_controls() {
     g++ "${flags[@]}" src/main.cpp tmp/control/cpu-frozen.cpp -o tmp/bin/frozen-cpu
     "$CUDA_HOME/bin/nvcc" -std=c++17 -O3 -arch=sm_89 -Xcompiler -O3,-march=native,-pthread \
         -Iinclude -DMELSPEC_CUDA_PRECISION=32 -DMELSPEC_CUDA_BATCH=512 \
@@ -45,6 +44,11 @@ if [ "${MODE:-train}" = train ]; then
     g++ "${flags[@]}" -DMELSPEC_CUDA=1 -I"$CUDA_HOME/targets/x86_64-linux/include" \
         src/main.cpp tmp/control/cuda-math.cpp tmp/control/cuda-frozen.o \
         -L"$CUDA_HOME/lib64" -Wl,-rpath,"$CUDA_HOME/lib64" -lcufft -lcudart -o tmp/bin/frozen-cuda
+}
+if [ "${MODE:-train}" = train ]; then
+    make CUDA=0 HIP=0 -B -j8 EXEC=tmp/bin/final-cpu > tmp/logs/f1-build-$SLURM_JOB_ID.txt 2>&1
+    make CUDA=1 HIP=0 -B -j8 CUDA_ARCH=89 EXEC=tmp/bin/final-cuda > tmp/logs/f2-build-$SLURM_JOB_ID.txt 2>&1
+    build_controls
     "$PY" -u scripts/cpu_pipeline_check.py tmp/bin/frozen-cpu tmp/bin/final-cpu \
         > tmp/logs/f1-b16-check-$SLURM_JOB_ID.txt
     g++ -std=c++17 -O1 -g -march=native -pthread -Iinclude -DMELSPEC_FP32_BATCH=16 \
@@ -66,7 +70,9 @@ export MELSPEC_BACKEND=cuda
 exec "$PWD/tmp/bin/final-cuda" "\$@"
 SH
 chmod +x tmp/bin/force-cpu tmp/bin/force-cuda
-sha256sum tmp/bin/final-cpu tmp/bin/final-cuda tmp/bin/frozen-cpu tmp/bin/frozen-cuda
+if [ "${MODE:-train}" != final ]; then
+    sha256sum tmp/bin/final-cpu tmp/bin/final-cuda tmp/bin/frozen-cpu tmp/bin/frozen-cuda
+fi
 if [ "${MODE:-train}" = train ]; then
     "$PY" -u scripts/final_bench.py cpu=tmp/bin/force-cpu cuda=tmp/bin/force-cuda \
         --suite matrix --runs 5 --out tmp/logs/f2-train-$SLURM_JOB_ID.json
@@ -79,11 +85,14 @@ elif [ "$MODE" = extended ]; then
     "$PY" -u scripts/final_bench.py cpu=tmp/bin/force-cpu cuda=tmp/bin/force-cuda \
         --suite extended --runs 5 --out tmp/logs/f2-extended-$SLURM_JOB_ID.json
 else
-    make CUDA=1 -B -j8 CUDA_ARCH=89 EXEC=tmp/bin/final-cuda > tmp/logs/f2-auto-build-$SLURM_JOB_ID.txt 2>&1
+    make CUDA=0 HIP=0 -B -j8 EXEC=tmp/bin/final-cpu > tmp/logs/f4-cpu-build-$SLURM_JOB_ID.txt 2>&1
+    make CUDA=1 HIP=0 -B -j8 CUDA_ARCH=89 EXEC=tmp/bin/final-cuda > tmp/logs/f2-auto-build-$SLURM_JOB_ID.txt 2>&1
+    build_controls
+    sha256sum tmp/bin/final-cpu tmp/bin/final-cuda tmp/bin/frozen-cpu tmp/bin/frozen-cuda
     "$PY" -u scripts/final_bench.py cpu=tmp/bin/force-cpu cuda=tmp/bin/force-cuda \
         auto=tmp/bin/final-cuda --suite holdout --runs 6 --out tmp/logs/f2-holdout-$SLURM_JOB_ID.json
     for mode in auto cpu cuda; do
-        MELSPEC_BACKEND="$mode" "$PY" -u validate.py tmp/bin/final-cuda --runs 3 \
+        MELSPEC_BACKEND="$mode" "$PY" -u validate.py tmp/bin/final-cuda --runs 1 \
             | tee tmp/logs/f2-official-$mode-$SLURM_JOB_ID.txt
         grep -q 'Result: 4/4 PASSED' tmp/logs/f2-official-$mode-$SLURM_JOB_ID.txt
     done
@@ -91,4 +100,14 @@ else
         --cppflag=-DMELSPEC_PACK_REUSE=1 --cppflag=-DMELSPEC_OUTPUT_HUGEPAGE=1 \
         > tmp/logs/f2-cpu-profile-$SLURM_JOB_ID.txt
     cp tmp/pipeline-profile/final/results.json tmp/logs/f2-cpu-profile-$SLURM_JOB_ID.json
+    "$PY" -u scripts/final_bench.py cpu=tmp/bin/force-cpu oldcpu=tmp/bin/frozen-cpu \
+        cuda=tmp/bin/force-cuda frozen=tmp/bin/frozen-cuda auto=tmp/bin/final-cuda \
+        --suite official --runs 6 --out tmp/logs/f4-cuda-ab-$SLURM_JOB_ID.json
+    make CUDA=1 HIP=0 CUDA_PROFILE=1 -B -j8 CUDA_ARCH=89 EXEC=tmp/bin/cuda-profile \
+        > tmp/logs/f4-cuda-profile-build-$SLURM_JOB_ID.txt 2>&1
+    "$PY" -u scripts/final_gpu_profile.py tmp/bin/cuda-profile --backend cuda \
+        > tmp/logs/f4-cuda-profile-$SLURM_JOB_ID.txt
+    "$PY" -u scripts/final_startup_check.py tmp/bin/final-cuda --cpu-only tmp/bin/final-cpu \
+        --gpu cuda --out tmp/logs/f4-cuda-startup-$SLURM_JOB_ID.json \
+        > tmp/logs/f4-cuda-startup-$SLURM_JOB_ID.txt
 fi

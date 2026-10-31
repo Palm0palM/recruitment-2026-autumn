@@ -135,8 +135,9 @@ void compute_melspectrogram(const std::vector<double>& y, int sr, int n_fft,
 #endif
     if (backend == Backend::Auto && n_fft > 1 && calibrated && predict_gpu(w) < predict_cpu(w)) {
         try {
+            compute_gpu(y, sr, n_fft, hop_length, n_mels, f_min, f_max, output);
             log_decision(gpu_name, w);
-            return compute_gpu(y, sr, n_fft, hop_length, n_mels, f_min, f_max, output);
+            return;
         } catch (const BackendUnavailable&) {
             // This type is reserved for no-device/insufficient-driver at init,
             // before numerical kernels. No other compute error is hidden.

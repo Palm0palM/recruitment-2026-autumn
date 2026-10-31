@@ -79,3 +79,8 @@ noise; auto is not doing a faster numerical algorithm. The original F2 source
 and generated profile are independently recoverable at commit `8e1659a` even
 if an AMD deployment is unavailable. Final protected-script validation/profile
 logs from the same job are archived after completion.
+
+Protected `validate.py --runs 3` in Job 435 finished: auto, forced CPU and
+forced CUDA each **4/4 PASS**. Auto minimum times .655/.423/.789/.791 s;
+these are minimum-of-three, not the holdout medians above. CPU instrumented
+profile independently validated all four outputs; it is not a score binary.
