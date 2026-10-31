@@ -3,6 +3,31 @@
 题目原文见根目录 `README.md`；优化结论和原始数据见 `versions/`。
 不要修改 `src/main.cpp`、`validate.py` 或 `data`。临时文件放 `tmp/`，需要展示的测量日志再归档进对应版本。
 
+## V5 Final 交付入口
+
+见 `versions/V5-final/FINAL_DELIVERY.md`（分平台构建、冻结来源、最终成绩和复现）。
+不运行 setup.sh，不修改共享 Python/PCM/expected；`final_prepare.sh` 只从 Git 提取冻结控制。
+
+```bash
+bash scripts/final_prepare.sh
+make CUDA=0 HIP=0 EXEC=tmp/bin/cpu-only -j8
+make CUDA=1 HIP=0 CUDA_HOME=/path/to/cuda CUDA_ARCH=89 EXEC=tmp/bin/cpu-cuda -j8
+# ROCm 环境 source 后：
+make CUDA=0 HIP=1 EXEC=tmp/bin/cpu-hip -j8
+make CUDA=0 HIP=1 HIP_ONLY=1 EXEC=tmp/bin/amd-dedicated -j8
+```
+
+- `final_bench.py`：每次计时仅含 subprocess wall；读回/校验在计时外，每轮都校验。
+- `final_model.py`：训练 JSON → NNLS + 留一验证 + 可重建的 C++ profile header。
+- `final_summary.py`：各点 min/median、总量、选择准确率与真实 regret，区分计时噪声和选择误差。
+- `final_startup_check.py`：小任务 CPU 启动成本、设备访问 strace、真实无设备回退。
+- `final_cuda.slurm` / `final_amd.slurm`：只在各目标计算节点运行，日志/缓存独立，固定绑核。
+- HIP 专用构建保留全局预热；CPU+HIP 禁止全局预热。二者的性能不能混写。
+- 最终 HIP auto 要求显式、非空的 `ROCFFT_RTC_CACHE_PATH` 文件；缺失时保守选 CPU。
+  需要 GPU 时先用强制 HIP 正常计算相关 FFT/batch 配置以生成缓存；不做内部选择试跑。
+- `final_source_audit.py` 校验冻结数值源码/受保护文件；`final_hip_guard.slurm`
+  复核缓存保护、真实设备不可用与修正后的诊断标签。
+
 ## 本地：编译与小规模验证
 
 ```bash

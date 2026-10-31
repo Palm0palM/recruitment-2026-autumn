@@ -1,0 +1,28 @@
+== hip profile default ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33353105408 total=34208743424 used=855638016 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=12.450 staging_rows=1 y_convert_ms=43.937 h2d_y_ms=13.761 h2d_aux_ms=0.470 window_fb_ms=8.912 output_resize_ms=0.000 resize_wait_ms=0.017 device_alloc_ms=1.571 h2d_ms=14.231 batch_alloc_ms=0.073 plan_ms=23.654 gather_ms=25.562 fft_ms=30.436 mel_ms=35.082 pipeline_sync_ms=0.000 staging_alloc_ms=0.000 d2h_ms=20.457 host_convert_ms=0.000 async_output_total_ms=20.473 compute_total_ms=216.540
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.732807
+profile output PASS: default
+== hip profile small_mels ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33655095296 total=34208743424 used=553648128 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=8.929 staging_rows=1 y_convert_ms=43.028 h2d_y_ms=14.466 h2d_aux_ms=0.205 window_fb_ms=2.621 output_resize_ms=0.000 resize_wait_ms=0.014 device_alloc_ms=0.187 h2d_ms=14.672 batch_alloc_ms=0.078 plan_ms=23.992 gather_ms=25.373 fft_ms=30.857 mel_ms=19.472 pipeline_sync_ms=0.000 staging_alloc_ms=0.000 d2h_ms=5.570 host_convert_ms=0.000 async_output_total_ms=5.584 compute_total_ms=174.949
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.502120
+profile output PASS: small_mels
+== hip profile large_fft ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33348911104 total=34208743424 used=859832320 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=0.001 staging_rows=1 y_convert_ms=45.502 h2d_y_ms=13.933 h2d_aux_ms=0.909 window_fb_ms=20.120 output_resize_ms=0.000 resize_wait_ms=0.021 device_alloc_ms=4.551 h2d_ms=14.842 batch_alloc_ms=0.079 plan_ms=24.213 gather_ms=50.201 fft_ms=67.468 mel_ms=49.658 pipeline_sync_ms=0.000 staging_alloc_ms=0.000 d2h_ms=23.114 host_convert_ms=0.000 async_output_total_ms=23.135 compute_total_ms=299.976
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.807677
+profile output PASS: large_fft
+== hip profile narrow_band ==
+hipfft_workspace full=16777216 bytes
+hip_memory free=33348911104 total=34208743424 used=859832320 bytes
+hip_profile precision=32 batch=512 fused=1 defer_resize=0 async_output=1 resize_thread=1 async_h2d=16 prewarm_wait_ms=3.733 staging_rows=1 y_convert_ms=43.861 h2d_y_ms=17.062 h2d_aux_ms=0.798 window_fb_ms=18.036 output_resize_ms=0.000 resize_wait_ms=0.019 device_alloc_ms=4.701 h2d_ms=17.860 batch_alloc_ms=0.071 plan_ms=26.522 gather_ms=50.075 fft_ms=67.458 mel_ms=45.768 pipeline_sync_ms=0.000 staging_alloc_ms=0.000 d2h_ms=18.863 host_convert_ms=0.000 async_output_total_ms=18.882 compute_total_ms=297.181
+Warning: Resource leak detected by SharedSignalPool, 77 Signals leaked.
+diagnostic_process_wall_s=0.813776
+profile output PASS: narrow_band

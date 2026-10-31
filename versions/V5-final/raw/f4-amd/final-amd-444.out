@@ -1,0 +1,150 @@
+job=444 host=hepnode0 mode=validate commit=c00b3ebc7903779aff3a88b22752b39b932ece6b
+Cpus_allowed_list:	0-15,64-79
+Architecture:                            x86_64
+CPU op-mode(s):                          32-bit, 64-bit
+Address sizes:                           46 bits physical, 57 bits virtual
+Byte Order:                              Little Endian
+CPU(s):                                  128
+On-line CPU(s) list:                     0-127
+Vendor ID:                               GenuineIntel
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+CPU family:                              6
+Model:                                   106
+Thread(s) per core:                      2
+Core(s) per socket:                      32
+Socket(s):                               2
+Stepping:                                6
+CPU(s) scaling MHz:                      28%
+CPU max MHz:                             3200.0000
+CPU min MHz:                             800.0000
+BogoMIPS:                                4000.00
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb intel_pt avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local split_lock_detect wbnoinvd dtherm ida arat pln pts vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq la57 rdpid fsrm md_clear pconfig flush_l1d arch_capabilities
+Virtualization:                          VT-x
+L1d cache:                               3 MiB (64 instances)
+L1i cache:                               2 MiB (64 instances)
+L2 cache:                                80 MiB (64 instances)
+L3 cache:                                96 MiB (2 instances)
+NUMA node(s):                            2
+NUMA node0 CPU(s):                       0-31,64-95
+NUMA node1 CPU(s):                       32-63,96-127
+Vulnerability Gather data sampling:      Vulnerable
+Vulnerability Ghostwrite:                Not affected
+Vulnerability Indirect target selection: Mitigation; Aligned branch/return thunks
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Mitigation; Clear CPU buffers; SMT vulnerable
+Vulnerability Old microcode:             Not affected
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Not affected
+Vulnerability Spec rstack overflow:      Not affected
+Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
+Vulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI SW loop, KVM SW loop
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Not affected
+always [madvise] never
+097cd89dc4a33b37d7133c656359b9d117b9c663904f8ce7840d2df29b5c6c1b  src/main.cpp
+8f290051d9cd131fbe8edb30fa57dec75654ecfdba4236c31cedabb1a67b54f1  src/melspec.cpp
+a6999f1098221dfde812a9b55f34d6276c8c9048d31e8789dad1ba211155ed48  src/melspec_cpu.cpp
+9c74ffd3633de77f94babfaa9af4628813cacb243031e714e26253181ee2aed8  src/melspec_cuda.cu
+d7c2736f30a7c5c9235a131b959562c390361c340bb6f74c38902e55df94be81  src/melspec_hip.cu
+6f152e10ab16c233b78f0e0ef1bf051416074a65434c39058208aae35ca7d632  include/melspec_backend.h
+6eb64b3912ed90cbb348a7b65ef4ea9f75b57df4a14fd90c2e57adad26df7c22  include/melspec_cuda.h
+ae96df25e59816e6162e2cee7101c380d0058c820d1771cea302d0e91de2ea9d  include/melspec.h
+ac3184831e82e7e252d41ee6e5de4ca9e3c00bca0d24b56ff466546c44e75953  include/melspec_hip.h
+e51bbf15fd8c5a2da5f1c6759a3bfcd5b70aa813b2ce5b96272b6d70e21ab65c  include/melspec_model_cuda.h
+013d8f374549309e021c91e9033d83f8209a87f2b7c36e17f1359c604121a56f  include/melspec_model_hip.h
+e23c67762a87cd5d0dcce5c711fe1c05a5b294cdb745c0872cbd0b98e9db7853  Makefile
+  Marketing Name:          Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+  Marketing Name:          Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+  Name:                    gfx1201                            
+  Marketing Name:          AMD Radeon AI PRO R9700            
+      Name:                    amdgcn-amd-amdhsa--gfx1201         
+      Name:                    amdgcn-amd-amdhsa--gfx12-generic   
+8239c80694f28a2c8ec95c3b60b4b66c7e06a12179216a206507a9fac60e547e  tmp/bin/amd-cpu
+1148e07d7ce1e61d2967cec1d191211b09433ffb3b0d08c3595ffb9b4e76c1a3  tmp/bin/final-hip
+f363ab6cbf7f40e8f66945e30bffae4d0e5f592da3b44356753a3be9c4ffa4ce  tmp/bin/dedicated-hip
+37d2448435546bac16848eef00cda916d55adaff1fa9374086756ff014176678  tmp/bin/frozen-hip
+8239c80694f28a2c8ec95c3b60b4b66c7e06a12179216a206507a9fac60e547e  tmp/bin/amd-cpu
+ffe7738361c06d0383a2c160386c9c67e6f58e0649d1e85d4dde2be74bce0deb  tmp/bin/final-hip
+048a4994f90f1ca0b297c9b97619963068191f2d9ed3b330255da83ea7d49375  tmp/bin/dedicated-hip
+official-default cpu=0.70421 hip=0.87913 auto=0.69544 dedicated=0.69716 decisions={'auto': ['cpu', 'cpu', 'cpu', 'cpu', 'cpu', 'cpu']} PASS
+official-small_mels cpu=0.44662 hip=0.64486 auto=0.44306 dedicated=0.46147 decisions={'auto': ['cpu', 'cpu', 'cpu', 'cpu', 'cpu', 'cpu']} PASS
+official-large_fft cpu=0.88981 hip=0.92930 auto=0.87966 dedicated=0.76034 decisions={'auto': ['cpu', 'cpu', 'cpu', 'cpu', 'cpu', 'cpu']} PASS
+official-narrow_band cpu=0.85357 hip=0.92603 auto=0.84591 dedicated=0.74915 decisions={'auto': ['cpu', 'cpu', 'cpu', 'cpu', 'cpu', 'cpu']} PASS
+holdout-1024-33-73-19 cpu=0.01755 hip=0.32826 auto=0.01628 dedicated=0.31861 decisions={'auto': ['cpu', 'cpu', 'cpu', 'cpu', 'cpu', 'cpu']} PASS
+holdout-4096-4097-31-97 cpu=0.03037 hip=0.32696 auto=0.02944 dedicated=0.32685 decisions={'auto': ['cpu', 'cpu', 'cpu', 'cpu', 'cpu', 'cpu']} PASS
+holdout-8192-70001-257-128 cpu=0.27280 hip=0.53070 auto=0.26789 dedicated=0.41630 decisions={'auto': ['cpu', 'cpu', 'cpu', 'cpu', 'cpu', 'cpu']} PASS
+holdout-16384-80003-192-96 cpu=0.32180 hip=0.52492 auto=0.31980 dedicated=0.42627 decisions={'auto': ['cpu', 'cpu', 'cpu', 'cpu', 'cpu', 'cpu']} PASS
+holdout-8192-250003-64-64 cpu=0.43801 hip=0.60190 auto=0.43418 dedicated=0.49393 decisions={'auto': ['cpu', 'cpu', 'cpu', 'cpu', 'cpu', 'cpu']} PASS
+holdout-16384-230003-128-256 cpu=1.00226 hip=1.02754 auto=1.02151 dedicated=0.85601 decisions={'auto': ['hip', 'hip', 'hip', 'hip', 'hip', 'hip']} PASS
+holdout-4096-65539-1027-32 cpu=0.53336 hip=0.83121 auto=0.52244 dedicated=0.71343 decisions={'auto': ['cpu', 'cpu', 'cpu', 'cpu', 'cpu', 'cpu']} PASS
+holdout-2048-513-509-31 cpu=0.02299 hip=0.32650 auto=0.02169 dedicated=0.32449 decisions={'auto': ['cpu', 'cpu', 'cpu', 'cpu', 'cpu', 'cpu']} PASS
+holdout-32768-22003-257-97 cpu=0.23746 hip=0.40154 auto=0.23217 dedicated=0.36541 decisions={'auto': ['cpu', 'cpu', 'cpu', 'cpu', 'cpu', 'cpu']} PASS
+holdout-65536-17003-128-96 cpu=0.38564 hip=0.40829 auto=0.37835 dedicated=0.39051 decisions={'auto': ['cpu', 'cpu', 'cpu', 'cpu', 'cpu', 'cpu']} PASS
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.91e-02 |   PASS |    0.674 | 21.937x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.56e-02 |   PASS |    0.443 | 31.712x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    0.863 | 31.304x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    9.38e-02 |   PASS |    0.838 | 32.656x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.91e-02 |   PASS |    0.677 | 22.436x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.56e-02 |   PASS |    0.437 | 30.418x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    0.862 | 29.707x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    9.38e-02 |   PASS |    0.831 | 30.939x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    5.47e-02 |   PASS |    0.862 | 17.512x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.95e-02 |   PASS |    0.638 | 20.830x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.56e-01 |   PASS |    0.909 | 28.334x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    1.56e-01 |   PASS |    0.910 | 28.281x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    5.47e-02 |   PASS |    0.700 | 21.270x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.95e-02 |   PASS |    0.465 | 30.350x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.56e-01 |   PASS |    0.763 | 35.596x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    1.56e-01 |   PASS |    0.770 | 35.425x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+official-default cpu=0.69964 hip=0.69847 decisions={} PASS
+official-small_mels cpu=0.44392 hip=0.46481 decisions={} PASS
+official-large_fft cpu=0.89611 hip=0.74559 decisions={} PASS
+official-narrow_band cpu=0.84998 hip=0.75508 decisions={} PASS
+bc0c7023e942f9bdc50b873a1c97a6f50a8ff41773d56e0d789132a7042df060  tmp/rocfft-cache/cold-444.db
+1be95e6bdfa1bf0afc058bc621cce681d255f6b7aa25a81282677067c0be3ee4  /home/zsx/melspec-v5-final/amd/tmp/rocfft-cache/warm.db

@@ -62,3 +62,17 @@ pipeline stay frozen. No background allocation or sprint experiments added.
 The n_fft=1 forced-CUDA mathematical shortcut still probes (otherwise it
 would claim success without any device). Re-measure the adapter and fit only
 post-refinement data. Job 422 remains an explicit before-adapter control.
+
+## Completed checkpoints
+
+- F1: acfe1c6, ported CPU; strict B8/generic and remote B16 correctness/sanitizer.
+- F2: 8e1659a + 45b4093, L40 44 training points and independent 12-point holdout,
+  three-mode official 4/4. Independently deliverable without any HIP dependency.
+- F3: 04962ce + c00b3eb, R9700 lazy/dedicated variants, 68 independent cases,
+  44-point calibration, frozen AMD same-job comparison.
+- F4: Jobs 443/444, final 14-point holdouts, all protected official modes,
+  real unavailability, strace, profiles, private cold/warm cache comparison.
+- Final safety/diagnostic refinement 4227f51, verified by Job 445: missing
+  rocFFT cache keeps mixed auto on CPU, diagnostic printf labels corrected,
+  invalid direct-double/synchronous-output build combination rejected.
+  CPU-only/CUDA preprocessing still exactly matches c00b3eb.

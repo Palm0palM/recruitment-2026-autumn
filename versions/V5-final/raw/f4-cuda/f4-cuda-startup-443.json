@@ -1,0 +1,79 @@
+{
+  "small_times": {
+    "cpu-only": [
+      0.0055860510328784585,
+      0.005413052975200117,
+      0.00743809703271836,
+      0.00813446007668972,
+      0.008162342943251133,
+      0.007922008982859552
+    ],
+    "forced-cpu": [
+      0.01305214292369783,
+      0.009331398061476648,
+      0.012745141983032227,
+      0.01141795702278614,
+      0.01398796308785677,
+      0.012203308055177331
+    ],
+    "auto": [
+      0.01342953892890364,
+      0.010206319042481482,
+      0.012474959949031472,
+      0.00931758398655802,
+      0.012243279023095965,
+      0.00885253306478262
+    ]
+  },
+  "small_medians": {
+    "cpu-only": 0.007680053007788956,
+    "forced-cpu": 0.012474225019104779,
+    "auto": 0.011224799032788724
+  },
+  "trace_cpu": {
+    "device_access_lines": 0,
+    "device_access_examples": [],
+    "stderr": "dispatch: backend=cpu frames=64 work=0.068 input_mb=0.033 output_mb=0.016 cache_work=0.000 t_cpu=0.03089 t_cuda=0.24417\n"
+  },
+  "trace_auto": {
+    "device_access_lines": 0,
+    "device_access_examples": [],
+    "stderr": "dispatch: backend=cpu frames=64 work=0.068 input_mb=0.033 output_mb=0.016 cache_work=0.000 t_cpu=0.03089 t_cuda=0.24417\n"
+  },
+  "trace_cuda": {
+    "device_access_lines": 46,
+    "device_access_examples": [
+      "3077334 openat(AT_FDCWD, \"/dev/nvidiactl\", O_RDWR) = 8",
+      "3077334 openat(AT_FDCWD, \"/dev/nvidiactl\", O_RDWR) = 8",
+      "3077334 openat(AT_FDCWD, \"/dev/nvidia-uvm\", O_RDWR|O_CLOEXEC) = 9",
+      "3077334 openat(AT_FDCWD, \"/dev/nvidia-uvm\", O_RDWR|O_CLOEXEC) = 10",
+      "3077334 openat(AT_FDCWD, \"/dev/nvidia0\", O_RDWR|O_CLOEXEC) = 11",
+      "3077334 openat(AT_FDCWD, \"/dev/nvidia1\", O_RDWR|O_CLOEXEC) = 12",
+      "3077334 openat(AT_FDCWD, \"/dev/nvidia0\", O_RDWR|O_CLOEXEC) = 13",
+      "3077334 openat(AT_FDCWD, \"/dev/nvidia0\", O_RDWR|O_CLOEXEC) = 14",
+      "3077334 openat(AT_FDCWD, \"/dev/nvidia0\", O_RDWR|O_CLOEXEC) = 15",
+      "3077334 openat(AT_FDCWD, \"/dev/nvidia0\", O_RDWR|O_CLOEXEC) = 16"
+    ],
+    "stderr": "dispatch: backend=cuda frames=64 work=0.068 input_mb=0.033 output_mb=0.016 cache_work=0.000 t_cpu=0.03089 t_cuda=0.24417\n"
+  },
+  "gpu_favored_control": "dispatch: backend=cuda frames=32768 work=343.597 input_mb=8.519 output_mb=33.554 cache_work=1030.792 t_cpu=1.63344 t_cuda=0.42340\n",
+  "auto_hidden": {
+    "passed": true,
+    "seconds": 1.8480802499689162,
+    "stderr": "dispatch: backend=cpu frames=32768 work=343.597 input_mb=8.519 output_mb=33.554 cache_work=1030.792 t_cpu=1.63344 t_cuda=0.42340\n",
+    "bitwise_equal_cpu": true,
+    "params": {
+      "sr": 96000,
+      "n_fft": 65536,
+      "hop_length": 128,
+      "n_mels": 256,
+      "f_min": 0,
+      "f_max": 22050
+    },
+    "frames": 32768
+  },
+  "forced_hidden": {
+    "exit": 1,
+    "stderr": "dispatch: backend=cuda frames=64 work=0.068 input_mb=0.033 output_mb=0.016 cache_work=0.000 t_cpu=0.03089 t_cuda=0.24417\nError: CUDA device unavailable: no CUDA-capable device is detected\n"
+  }
+}

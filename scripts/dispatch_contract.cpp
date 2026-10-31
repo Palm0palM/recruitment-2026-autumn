@@ -39,7 +39,9 @@ int main() {
 #ifdef MELSPEC_WITH_HIP
     char cache_path[] = "tmp/scratch/hip-model-cache-XXXXXX";
     const int fd = mkstemp(cache_path);
-    assert(fd >= 0 && write(fd, "x", 1) == 1);
+    assert(fd >= 0);
+    const auto written = write(fd, "x", 1);
+    assert(written == 1);
     close(fd);
     setenv("ROCFFT_RTC_CACHE_PATH", cache_path, 1);
 #endif
@@ -87,5 +89,11 @@ int main() {
     std::remove(cache_path);
     std::puts("PASS: unprepared rocFFT cache keeps auto on CPU without a GPU call");
 #endif
+    setenv("MELSPEC_BACKEND", gpu_name, 1);
+    available = false;
+    const int before_probe = probes, before_cpu = cpu_calls, before_gpu = gpu_calls;
+    threw = false;
+    try { call(small, 1); } catch (const BackendUnavailable&) { threw = true; }
+    assert(threw && probes == before_probe + 1 && cpu_calls == before_cpu && gpu_calls == before_gpu);
     std::puts("PASS: CPU decisions have no GPU API call; unavailable-only fallback; real errors propagate; invalid inputs rejected");
 }

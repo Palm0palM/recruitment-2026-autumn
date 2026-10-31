@@ -94,7 +94,8 @@ def main():
                              for k, v in programs.items()}
     meta["environment"] = {k: os.environ.get(k) for k in (
         "ROCFFT_RTC_CACHE_PATH", "HIP_VISIBLE_DEVICES", "CUDA_VISIBLE_DEVICES",
-        "OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "TMPDIR")}
+        "OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "TMPDIR", "CUDA_CACHE_PATH",
+        "AMD_COMGR_CACHE_DIR", "XDG_CACHE_HOME")}
     args.out.with_suffix(".meta.json").write_text(json.dumps(meta, indent=2) + "\n")
     results = []
     names = list(programs)

@@ -43,6 +43,7 @@ versions/
 | [V1-legacy-port](V1-legacy-port/README.md) | 旧解答迁移：FFT 缓存、半长实数 FFT、稀疏逐帧 Mel、16 线程 | **1.537** | hepnode3 / 16 CPU | 全量 4/4 PASS，vs librosa 12.416×；profile 完成 |
 | [V2-simd](V2-simd/README.md) | 自研 radix-4 + FP32 Batch16/8 + 支持裁剪/原位恢复 | **0.834**（交错中位数） | hepnode3 / 16 CPU | 全量 4/4 PASS；FP64/AVX2 回退保留 |
 | [V3-hybrid](V3-hybrid/FINAL_HYBRID.md) | 冻结 V2 CPU + 冻结 V3 CUDA，按实测成本模型 auto 选后端 | **0.914**（auto，3 轮中位） | hepnode2 / 16 CPU + L40 | 三模式 4/4 PASS；38 点 auto 8.331 s vs 始终 CPU 10.010 s、始终 CUDA 14.003 s |
+| [V5-final](V5-final/FINAL_DELIVERY.md) | CPU Slab+THP、安全修复；重标定 CPU+CUDA；CPU+HIP 与 AMD 专用预热构建 | **0.669**（L40 auto，6 轮中位） | 分平台 16 核；L40 / R9700 | 两平台官方各模式 4/4 PASS；独立 14 点选择 L40 14/14、HIP 13/14；AMD 专用保留冻结性能 |
 
 > 口径提醒：
 > * 本地 15 GiB 内存机器上 default 全量会因功率谱 6.3 GiB 产生换页；集群节点 1 TB 内存没有这个问题，

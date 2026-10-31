@@ -1,0 +1,2 @@
+PASS: unprepared rocFFT cache keeps auto on CPU without a GPU call
+PASS: CPU decisions have no GPU API call; unavailable-only fallback; real errors propagate; invalid inputs rejected

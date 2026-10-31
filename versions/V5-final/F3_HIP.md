@@ -10,7 +10,7 @@ thread, padded final batch, stream/events. No FFT redesign or MPI.
 
 ## Build variants
 
-- `make HIP=1 CUDA=0`: CPU+HIP. No global dynamic HIP initializer. Queue warmup
+- `make HIP=1 CUDA=0`: CPU+HIP. No application-level global HIP queue prewarm. Queue warmup
   begins only inside a selected HIP call, overlapping backend host preparation.
 - `make HIP=1 CUDA=0 HIP_ONLY=1`: AMD dedicated. Retains before-main queue
   warmup overlapping protected PCM read/normalization. Auto means HIP, not a
@@ -25,8 +25,9 @@ typed BackendUnavailable; real allocation, memset, queue, FFT, kernel or copy
 failures are never converted into CPU fallback.
 
 Mixed-build model is calibrated on the LAZY startup policy, not on historical
-eager scores. The placeholder profile keeps auto on CPU until the training
-session has completed; the final shipped profile must be generated from it.
+eager scores. The training placeholder has been replaced by the Job 436 profile.
+Final auto additionally requires an explicitly configured nonempty rocFFT cache
+file before selecting HIP; missing cache stays on CPU without a GPU trial.
 
 ## Deployment isolation
 
@@ -78,3 +79,20 @@ CPU MAE .0170 s, HIP MAE .00479 s. Header `melspec_model_hip.h` is generated
 from these data, replacing the conservative placeholder. Independent holdout,
 real no-device fallback, startup traces, cold-cache and profile evidence
 are measured in F4; they never enter the fit.
+
+## Final validation
+
+Job 444: protected official script auto/cpu/hip/dedicated each 4/4 PASS;
+14-point holdout all outputs PASS, winner accuracy 13/14 (one 2.52% miss).
+CPU and CPU-selected auto traces open no GPU device node. Hidden-device auto
+is bitwise CPU-equivalent, forced HIP errors clearly. Private cold DB first
+processes were 2.5855 s (8192) / 2.0446 s (16384), versus warm .6985/.7456 s.
+Job 445 verifies the final cache guard and corrected diagnostic labels. The
+inherited async_h2d/staging_rows printf arguments were swapped in old logs;
+only diagnostic argument order changed, not numerical code. Corrected default
+prewarm wait is 171.45 ms lazy vs 11.46 ms dedicated.
+
+Known inherited ROCm shutdown warning: SharedSignalPool reports 77 signals.
+The frozen Job 395 logs have the same warning (copied to raw/provenance);
+it is not hidden or claimed fixed. CPU paths remain clean; long-running
+service resource ownership is outside this one-process delivery scope.

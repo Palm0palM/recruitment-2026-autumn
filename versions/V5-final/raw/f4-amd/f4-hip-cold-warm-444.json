@@ -1,0 +1,222 @@
+[
+  {
+    "name": "official-default",
+    "params": {
+      "sr": 96000,
+      "n_fft": 8192,
+      "hop_length": 128,
+      "n_mels": 256,
+      "f_min": 0.0,
+      "f_max": 22050.0
+    },
+    "n_frames": 192397,
+    "input_bytes": 49269760,
+    "output_elements": 49253632,
+    "times": {
+      "cpu": [
+        0.6981639230070869,
+        0.7011206290044356
+      ],
+      "hip": [
+        0.7051740019960562,
+        0.6917756670009112
+      ]
+    },
+    "checks": {
+      "cpu": {
+        "passed": true,
+        "max_abs": 0.0390625
+      },
+      "hip": {
+        "passed": true,
+        "max_abs": 0.0546875
+      }
+    },
+    "decisions": {},
+    "order": [
+      [
+        "cpu",
+        "hip"
+      ],
+      [
+        "hip",
+        "cpu"
+      ]
+    ],
+    "warmup_times": {
+      "cpu": 0.6901573359937174,
+      "hip": 2.585463441995671
+    },
+    "cpu_median": 0.6996422760057612,
+    "cpu_min": 0.6981639230070869,
+    "cpu_pass": true,
+    "hip_median": 0.6984748344984837,
+    "hip_min": 0.6917756670009112,
+    "hip_pass": true
+  },
+  {
+    "name": "official-small_mels",
+    "params": {
+      "sr": 96000,
+      "n_fft": 8192,
+      "hop_length": 128,
+      "n_mels": 64,
+      "f_min": 0.0,
+      "f_max": 22050.0
+    },
+    "n_frames": 192397,
+    "input_bytes": 49269760,
+    "output_elements": 12313408,
+    "times": {
+      "cpu": [
+        0.4463843720004661,
+        0.4414513780066045
+      ],
+      "hip": [
+        0.46102763900125865,
+        0.46859745199617464
+      ]
+    },
+    "checks": {
+      "cpu": {
+        "passed": true,
+        "max_abs": 0.015625
+      },
+      "hip": {
+        "passed": true,
+        "max_abs": 0.01953125
+      }
+    },
+    "decisions": {},
+    "order": [
+      [
+        "cpu",
+        "hip"
+      ],
+      [
+        "hip",
+        "cpu"
+      ]
+    ],
+    "warmup_times": {
+      "cpu": 0.4472531389910728,
+      "hip": 0.45634557300945744
+    },
+    "cpu_median": 0.4439178750035353,
+    "cpu_min": 0.4414513780066045,
+    "cpu_pass": true,
+    "hip_median": 0.46481254549871664,
+    "hip_min": 0.46102763900125865,
+    "hip_pass": true
+  },
+  {
+    "name": "official-large_fft",
+    "params": {
+      "sr": 96000,
+      "n_fft": 16384,
+      "hop_length": 128,
+      "n_mels": 256,
+      "f_min": 0.0,
+      "f_max": 22050.0
+    },
+    "n_frames": 192333,
+    "input_bytes": 49269760,
+    "output_elements": 49237248,
+    "times": {
+      "cpu": [
+        0.894891738993465,
+        0.8973261270002695
+      ],
+      "hip": [
+        0.742982841009507,
+        0.7481917940021958
+      ]
+    },
+    "checks": {
+      "cpu": {
+        "passed": true,
+        "max_abs": 0.125
+      },
+      "hip": {
+        "passed": true,
+        "max_abs": 0.15625
+      }
+    },
+    "decisions": {},
+    "order": [
+      [
+        "cpu",
+        "hip"
+      ],
+      [
+        "hip",
+        "cpu"
+      ]
+    ],
+    "warmup_times": {
+      "cpu": 0.8783826290018624,
+      "hip": 2.0446090159966843
+    },
+    "cpu_median": 0.8961089329968672,
+    "cpu_min": 0.894891738993465,
+    "cpu_pass": true,
+    "hip_median": 0.7455873175058514,
+    "hip_min": 0.742982841009507,
+    "hip_pass": true
+  },
+  {
+    "name": "official-narrow_band",
+    "params": {
+      "sr": 96000,
+      "n_fft": 16384,
+      "hop_length": 128,
+      "n_mels": 256,
+      "f_min": 300.0,
+      "f_max": 8000.0
+    },
+    "n_frames": 192333,
+    "input_bytes": 49269760,
+    "output_elements": 49237248,
+    "times": {
+      "cpu": [
+        0.8580087879963685,
+        0.8419545350043336
+      ],
+      "hip": [
+        0.7608044170046924,
+        0.7493561470037093
+      ]
+    },
+    "checks": {
+      "cpu": {
+        "passed": true,
+        "max_abs": 0.09375
+      },
+      "hip": {
+        "passed": true,
+        "max_abs": 0.15625
+      }
+    },
+    "decisions": {},
+    "order": [
+      [
+        "cpu",
+        "hip"
+      ],
+      [
+        "hip",
+        "cpu"
+      ]
+    ],
+    "warmup_times": {
+      "cpu": 0.8412704489892349,
+      "hip": 0.7577365969918901
+    },
+    "cpu_median": 0.849981661500351,
+    "cpu_min": 0.8419545350043336,
+    "cpu_pass": true,
+    "hip_median": 0.7550802820042009,
+    "hip_min": 0.7493561470037093,
+    "hip_pass": true
+  }
+]

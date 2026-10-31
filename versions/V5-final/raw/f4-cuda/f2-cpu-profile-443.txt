@@ -1,0 +1,190 @@
++ g++ -std=c++17 -O3 -march=native -pthread -I/home/zsx/melspec-v5-final/cuda-final/include -DMELSPEC_FP32_BATCH=16 -DMELSPEC_PACK_REUSE=1 -DMELSPEC_OUTPUT_HUGEPAGE=1 -finstrument-functions -finstrument-functions-exclude-file-list=/usr/include -c /home/zsx/melspec-v5-final/cuda-final/src/main.cpp -o /home/zsx/melspec-v5-final/cuda-final/tmp/pipeline-profile/final/main.o
++ g++ -std=c++17 -O3 -march=native -pthread -I/home/zsx/melspec-v5-final/cuda-final/include -DMELSPEC_FP32_BATCH=16 -DMELSPEC_PACK_REUSE=1 -DMELSPEC_OUTPUT_HUGEPAGE=1 /home/zsx/melspec-v5-final/cuda-final/tmp/pipeline-profile/final/main.o /home/zsx/melspec-v5-final/cuda-final/tmp/pipeline-profile/final/melspec.cpp /home/zsx/melspec-v5-final/cuda-final/src/melspec.cpp /home/zsx/melspec-v5-final/cuda-final/scripts/cpu_pipeline_io_hooks.cpp -o /home/zsx/melspec-v5-final/cuda-final/tmp/pipeline-profile/final/profile
+== default run=0 diagnostic_wall_s=0.651227476 ==
+io read_s=0.178029222
+setup before_resize_s=0.006473832 output_init_s=0.078800521
+worker id=13 pack_s=0.040734044 fft_s=0.062923302 recover_s=0.016575008 mel_s=0.011719931 wall_s=0.132068520
+worker id=0 pack_s=0.040638379 fft_s=0.064343674 recover_s=0.016452191 mel_s=0.011651175 wall_s=0.133205124
+worker id=12 pack_s=0.041612819 fft_s=0.064362426 recover_s=0.016961460 mel_s=0.011971424 wall_s=0.135024847
+worker id=7 pack_s=0.041592073 fft_s=0.064700503 recover_s=0.016869885 mel_s=0.011896437 wall_s=0.135181272
+worker id=9 pack_s=0.041931613 fft_s=0.064273758 recover_s=0.016943829 mel_s=0.011945898 wall_s=0.135216877
+worker id=6 pack_s=0.041996978 fft_s=0.064594198 recover_s=0.016895259 mel_s=0.011903542 wall_s=0.135506770
+worker id=11 pack_s=0.041715672 fft_s=0.064672761 recover_s=0.016980138 mel_s=0.011978881 wall_s=0.135469052
+worker id=10 pack_s=0.041932900 fft_s=0.064846794 recover_s=0.016918702 mel_s=0.011975910 wall_s=0.135792390
+worker id=5 pack_s=0.041639205 fft_s=0.065461656 recover_s=0.016911019 mel_s=0.011951034 wall_s=0.136080855
+worker id=8 pack_s=0.041929204 fft_s=0.065050612 recover_s=0.017013609 mel_s=0.011947389 wall_s=0.136060522
+worker id=4 pack_s=0.041621267 fft_s=0.065975824 recover_s=0.016919504 mel_s=0.011992268 wall_s=0.136629192
+worker id=3 pack_s=0.041577537 fft_s=0.066008808 recover_s=0.016982198 mel_s=0.011984020 wall_s=0.136670922
+worker id=1 pack_s=0.041769685 fft_s=0.066864093 recover_s=0.017022056 mel_s=0.011974270 wall_s=0.137747045
+worker id=2 pack_s=0.042519673 fft_s=0.066541977 recover_s=0.017196792 mel_s=0.012144060 wall_s=0.138521371
+worker id=15 pack_s=0.041745512 fft_s=0.067447099 recover_s=0.016971944 mel_s=0.011990624 wall_s=0.138275488
+worker id=14 pack_s=0.042081357 fft_s=0.067347938 recover_s=0.016981238 mel_s=0.012014493 wall_s=0.138543248
+pipeline setup_s=0.093442003 workers_s=0.139080016 tail_s=0.002015743 total_s=0.234537839
+AnonHugePages:    382976 kB
+io write_s=0.216996215
+	Command being timed: "/home/zsx/melspec-v5-final/cuda-final/tmp/pipeline-profile/final/profile /home/zsx/melspec-v5-final/cuda-final/data/audio.pcm /home/zsx/melspec-v5-final/cuda-final/tmp/scratch/node-443/tmpcmjmomka/out.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels 256 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 2.33
+	System time (seconds): 0.33
+	Percent of CPU this job got: 412%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.64
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 781632
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 115744
+	Voluntary context switches: 235
+	Involuntary context switches: 977
+	Swaps: 0
+	File system inputs: 96430
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== small_mels run=0 diagnostic_wall_s=0.429685939 ==
+io read_s=0.175061103
+setup before_resize_s=0.001837017 output_init_s=0.020360150
+worker id=14 pack_s=0.040209025 fft_s=0.062727525 recover_s=0.016449647 mel_s=0.010015409 wall_s=0.129514228
+worker id=3 pack_s=0.040397895 fft_s=0.062752713 recover_s=0.016578909 mel_s=0.010103438 wall_s=0.129945941
+worker id=0 pack_s=0.040314835 fft_s=0.063078790 recover_s=0.016455091 mel_s=0.010050635 wall_s=0.130022051
+worker id=8 pack_s=0.041579081 fft_s=0.063401394 recover_s=0.016898492 mel_s=0.010258167 wall_s=0.132252109
+worker id=7 pack_s=0.041353086 fft_s=0.063968003 recover_s=0.016890375 mel_s=0.010221794 wall_s=0.132549212
+worker id=15 pack_s=0.041448812 fft_s=0.064014036 recover_s=0.016817502 mel_s=0.010245332 wall_s=0.132640981
+worker id=6 pack_s=0.041433480 fft_s=0.064270914 recover_s=0.016837025 mel_s=0.010240088 wall_s=0.132897446
+worker id=11 pack_s=0.041128199 fft_s=0.064785579 recover_s=0.016759629 mel_s=0.010209801 wall_s=0.132998618
+worker id=4 pack_s=0.041768227 fft_s=0.064227174 recover_s=0.017048619 mel_s=0.010377479 wall_s=0.133538083
+worker id=13 pack_s=0.041391023 fft_s=0.065113200 recover_s=0.016794343 mel_s=0.010255955 wall_s=0.133670434
+worker id=2 pack_s=0.041698531 fft_s=0.065407486 recover_s=0.017125237 mel_s=0.010412417 wall_s=0.134761322
+worker id=5 pack_s=0.041968545 fft_s=0.065418784 recover_s=0.017110474 mel_s=0.010410222 wall_s=0.135025619
+worker id=1 pack_s=0.041803671 fft_s=0.065705480 recover_s=0.017159335 mel_s=0.010425158 wall_s=0.135211495
+worker id=9 pack_s=0.041716874 fft_s=0.065874153 recover_s=0.017003423 mel_s=0.010336174 wall_s=0.135050689
+worker id=10 pack_s=0.041614068 fft_s=0.066350880 recover_s=0.017035293 mel_s=0.010377704 wall_s=0.135496313
+worker id=12 pack_s=0.042068204 fft_s=0.066142707 recover_s=0.017113378 mel_s=0.010373060 wall_s=0.135815122
+pipeline setup_s=0.030335517 workers_s=0.136244811 tail_s=0.000654991 total_s=0.167235332
+AnonHugePages:     94208 kB
+io write_s=0.068144782
+	Command being timed: "/home/zsx/melspec-v5-final/cuda-final/tmp/pipeline-profile/final/profile /home/zsx/melspec-v5-final/cuda-final/data/audio.pcm /home/zsx/melspec-v5-final/cuda-final/tmp/scratch/node-443/tmpcmjmomka/out.bin --sr 96000 --n_fft 8192 --hop_length 128 --n_mels 64 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 2.21
+	System time (seconds): 0.19
+	Percent of CPU this job got: 566%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.42
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 342716
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 78035
+	Voluntary context switches: 251
+	Involuntary context switches: 874
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== large_fft run=0 diagnostic_wall_s=0.830083257 ==
+io read_s=0.177660314
+setup before_resize_s=0.012962880 output_init_s=0.078534688
+worker id=5 pack_s=0.093217271 fft_s=0.143689948 recover_s=0.033293590 mel_s=0.021845784 wall_s=0.292193171
+worker id=4 pack_s=0.092504102 fft_s=0.146103948 recover_s=0.033144895 mel_s=0.021902242 wall_s=0.293794896
+worker id=2 pack_s=0.091484697 fft_s=0.147517887 recover_s=0.033085244 mel_s=0.021793673 wall_s=0.294026713
+worker id=0 pack_s=0.092438445 fft_s=0.146103309 recover_s=0.033222285 mel_s=0.021840580 wall_s=0.293735306
+worker id=3 pack_s=0.091749560 fft_s=0.147518438 recover_s=0.033207207 mel_s=0.021934715 wall_s=0.294557864
+worker id=14 pack_s=0.092066358 fft_s=0.147470290 recover_s=0.033085788 mel_s=0.021736410 wall_s=0.294500543
+worker id=6 pack_s=0.093098982 fft_s=0.147296029 recover_s=0.033311842 mel_s=0.021846817 wall_s=0.295698794
+worker id=10 pack_s=0.092501345 fft_s=0.148213962 recover_s=0.033110764 mel_s=0.021876678 wall_s=0.295846863
+worker id=12 pack_s=0.093582541 fft_s=0.147535812 recover_s=0.033547576 mel_s=0.022172917 wall_s=0.296989967
+worker id=15 pack_s=0.093004086 fft_s=0.148464749 recover_s=0.033413507 mel_s=0.021925721 wall_s=0.296959184
+worker id=8 pack_s=0.093802285 fft_s=0.147927782 recover_s=0.033535091 mel_s=0.022219435 wall_s=0.297629978
+worker id=1 pack_s=0.093266706 fft_s=0.149129193 recover_s=0.033497327 mel_s=0.022182903 wall_s=0.298218381
+worker id=13 pack_s=0.093039681 fft_s=0.149357933 recover_s=0.033543491 mel_s=0.022132443 wall_s=0.298218524
+worker id=11 pack_s=0.093605349 fft_s=0.149732190 recover_s=0.033499620 mel_s=0.022174138 wall_s=0.299149062
+worker id=9 pack_s=0.093202956 fft_s=0.150918220 recover_s=0.033408012 mel_s=0.022072018 wall_s=0.299752705
+worker id=7 pack_s=0.093990586 fft_s=0.150220455 recover_s=0.033698297 mel_s=0.022267985 wall_s=0.300330445
+pipeline setup_s=0.106905230 workers_s=0.300743576 tail_s=0.004403240 total_s=0.412052059
+AnonHugePages:    382976 kB
+io write_s=0.219730248
+	Command being timed: "/home/zsx/melspec-v5-final/cuda-final/tmp/pipeline-profile/final/profile /home/zsx/melspec-v5-final/cuda-final/data/audio.pcm /home/zsx/melspec-v5-final/cuda-final/tmp/scratch/node-443/tmpcmjmomka/out.bin --sr 96000 --n_fft 16384 --hop_length 128 --n_mels 256 --f_min 0.0 --f_max 22050.0"
+	User time (seconds): 4.89
+	System time (seconds): 0.35
+	Percent of CPU this job got: 635%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.82
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 789944
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 121755
+	Voluntary context switches: 230
+	Involuntary context switches: 1902
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS
+== narrow_band run=0 diagnostic_wall_s=0.802072037 ==
+io read_s=0.176717000
+setup before_resize_s=0.012974547 output_init_s=0.078633227
+worker id=0 pack_s=0.089114210 fft_s=0.146039944 recover_s=0.011573139 mel_s=0.009089038 wall_s=0.255952126
+worker id=5 pack_s=0.090449834 fft_s=0.144903710 recover_s=0.011645040 mel_s=0.009179173 wall_s=0.256318113
+worker id=1 pack_s=0.089126665 fft_s=0.146867694 recover_s=0.011567441 mel_s=0.009064305 wall_s=0.256766288
+worker id=14 pack_s=0.089659929 fft_s=0.146147917 recover_s=0.011574619 mel_s=0.009020451 wall_s=0.256540126
+worker id=12 pack_s=0.090802004 fft_s=0.146959277 recover_s=0.011662782 mel_s=0.009186148 wall_s=0.258752304
+worker id=4 pack_s=0.090776665 fft_s=0.147312711 recover_s=0.011722815 mel_s=0.009225153 wall_s=0.259177086
+worker id=3 pack_s=0.090184852 fft_s=0.148569484 recover_s=0.011757701 mel_s=0.009109819 wall_s=0.259764267
+worker id=8 pack_s=0.091293173 fft_s=0.147500359 recover_s=0.011649260 mel_s=0.009262806 wall_s=0.259856581
+worker id=15 pack_s=0.090473165 fft_s=0.148790570 recover_s=0.011627214 mel_s=0.009053952 wall_s=0.260083628
+worker id=11 pack_s=0.090514523 fft_s=0.149227218 recover_s=0.011691440 mel_s=0.009185990 wall_s=0.260760515
+worker id=2 pack_s=0.090414258 fft_s=0.149528659 recover_s=0.011744567 mel_s=0.009154898 wall_s=0.260977851
+worker id=9 pack_s=0.090549338 fft_s=0.149723901 recover_s=0.011672515 mel_s=0.009132424 wall_s=0.261218820
+worker id=13 pack_s=0.090980486 fft_s=0.149684467 recover_s=0.011763980 mel_s=0.009187277 wall_s=0.261765683
+worker id=6 pack_s=0.091140525 fft_s=0.149839429 recover_s=0.011762024 mel_s=0.009178311 wall_s=0.262060477
+worker id=10 pack_s=0.091153626 fft_s=0.150068425 recover_s=0.011714098 mel_s=0.009173219 wall_s=0.262255460
+worker id=7 pack_s=0.091694783 fft_s=0.149970420 recover_s=0.011740689 mel_s=0.009249019 wall_s=0.262797761
+pipeline setup_s=0.107079813 workers_s=0.263128455 tail_s=0.003751603 total_s=0.373959852
+AnonHugePages:    382976 kB
+io write_s=0.231087520
+	Command being timed: "/home/zsx/melspec-v5-final/cuda-final/tmp/pipeline-profile/final/profile /home/zsx/melspec-v5-final/cuda-final/data/audio.pcm /home/zsx/melspec-v5-final/cuda-final/tmp/scratch/node-443/tmpcmjmomka/out.bin --sr 96000 --n_fft 16384 --hop_length 128 --n_mels 256 --f_min 300.0 --f_max 8000.0"
+	User time (seconds): 4.32
+	System time (seconds): 0.34
+	Percent of CPU this job got: 585%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.79
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 789500
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 121754
+	Voluntary context switches: 235
+	Involuntary context switches: 1716
+	Swaps: 0
+	File system inputs: 96230
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Diagnostic output PASS

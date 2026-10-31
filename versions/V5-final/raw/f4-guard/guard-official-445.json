@@ -1,0 +1,354 @@
+[
+  {
+    "name": "official-default",
+    "params": {
+      "sr": 96000,
+      "n_fft": 8192,
+      "hop_length": 128,
+      "n_mels": 256,
+      "f_min": 0.0,
+      "f_max": 22050.0
+    },
+    "n_frames": 192397,
+    "input_bytes": 49269760,
+    "output_elements": 49253632,
+    "times": {
+      "cpu": [
+        0.7073697819869267,
+        0.6874492979986826
+      ],
+      "hip": [
+        0.8957604989991523,
+        0.8720161219971487
+      ],
+      "auto": [
+        0.6999769090034533,
+        0.6965398460015422
+      ],
+      "dedicated": [
+        0.7034257570048794,
+        0.6976574989967048
+      ]
+    },
+    "checks": {
+      "cpu": {
+        "passed": true,
+        "max_abs": 0.0390625
+      },
+      "hip": {
+        "passed": true,
+        "max_abs": 0.0546875
+      },
+      "auto": {
+        "passed": true,
+        "max_abs": 0.0390625
+      },
+      "dedicated": {
+        "passed": true,
+        "max_abs": 0.0546875
+      }
+    },
+    "decisions": {
+      "auto": [
+        "cpu",
+        "cpu"
+      ]
+    },
+    "order": [
+      [
+        "cpu",
+        "hip",
+        "auto",
+        "dedicated"
+      ],
+      [
+        "hip",
+        "auto",
+        "dedicated",
+        "cpu"
+      ]
+    ],
+    "warmup_times": {
+      "cpu": 0.7012876389926532,
+      "hip": 0.887878677007393,
+      "auto": 0.7081969989958452,
+      "dedicated": 0.7018379350047326
+    },
+    "cpu_median": 0.6974095399928046,
+    "cpu_min": 0.6874492979986826,
+    "cpu_pass": true,
+    "hip_median": 0.8838883104981505,
+    "hip_min": 0.8720161219971487,
+    "hip_pass": true,
+    "auto_median": 0.6982583775024978,
+    "auto_min": 0.6965398460015422,
+    "auto_pass": true,
+    "dedicated_median": 0.7005416280007921,
+    "dedicated_min": 0.6976574989967048,
+    "dedicated_pass": true
+  },
+  {
+    "name": "official-small_mels",
+    "params": {
+      "sr": 96000,
+      "n_fft": 8192,
+      "hop_length": 128,
+      "n_mels": 64,
+      "f_min": 0.0,
+      "f_max": 22050.0
+    },
+    "n_frames": 192397,
+    "input_bytes": 49269760,
+    "output_elements": 12313408,
+    "times": {
+      "cpu": [
+        0.44507886399514973,
+        0.4423308760015061
+      ],
+      "hip": [
+        0.6423924030095804,
+        0.6429557130031753
+      ],
+      "auto": [
+        0.4410748920054175,
+        0.4438887369906297
+      ],
+      "dedicated": [
+        0.4623172430001432,
+        0.4682060319901211
+      ]
+    },
+    "checks": {
+      "cpu": {
+        "passed": true,
+        "max_abs": 0.015625
+      },
+      "hip": {
+        "passed": true,
+        "max_abs": 0.01953125
+      },
+      "auto": {
+        "passed": true,
+        "max_abs": 0.015625
+      },
+      "dedicated": {
+        "passed": true,
+        "max_abs": 0.01953125
+      }
+    },
+    "decisions": {
+      "auto": [
+        "cpu",
+        "cpu"
+      ]
+    },
+    "order": [
+      [
+        "cpu",
+        "hip",
+        "auto",
+        "dedicated"
+      ],
+      [
+        "hip",
+        "auto",
+        "dedicated",
+        "cpu"
+      ]
+    ],
+    "warmup_times": {
+      "cpu": 0.4363124789961148,
+      "hip": 0.6336693409975851,
+      "auto": 0.43876929000543896,
+      "dedicated": 0.46058735299448017
+    },
+    "cpu_median": 0.4437048699983279,
+    "cpu_min": 0.4423308760015061,
+    "cpu_pass": true,
+    "hip_median": 0.6426740580063779,
+    "hip_min": 0.6423924030095804,
+    "hip_pass": true,
+    "auto_median": 0.4424818144980236,
+    "auto_min": 0.4410748920054175,
+    "auto_pass": true,
+    "dedicated_median": 0.46526163749513216,
+    "dedicated_min": 0.4623172430001432,
+    "dedicated_pass": true
+  },
+  {
+    "name": "official-large_fft",
+    "params": {
+      "sr": 96000,
+      "n_fft": 16384,
+      "hop_length": 128,
+      "n_mels": 256,
+      "f_min": 0.0,
+      "f_max": 22050.0
+    },
+    "n_frames": 192333,
+    "input_bytes": 49269760,
+    "output_elements": 49237248,
+    "times": {
+      "cpu": [
+        0.8761326919920975,
+        0.8956300349964295
+      ],
+      "hip": [
+        0.9322377249918645,
+        0.9268776800017804
+      ],
+      "auto": [
+        0.8840995020000264,
+        0.8910134449979523
+      ],
+      "dedicated": [
+        0.7469682140072109,
+        0.7507551430026069
+      ]
+    },
+    "checks": {
+      "cpu": {
+        "passed": true,
+        "max_abs": 0.125
+      },
+      "hip": {
+        "passed": true,
+        "max_abs": 0.15625
+      },
+      "auto": {
+        "passed": true,
+        "max_abs": 0.125
+      },
+      "dedicated": {
+        "passed": true,
+        "max_abs": 0.15625
+      }
+    },
+    "decisions": {
+      "auto": [
+        "cpu",
+        "cpu"
+      ]
+    },
+    "order": [
+      [
+        "cpu",
+        "hip",
+        "auto",
+        "dedicated"
+      ],
+      [
+        "hip",
+        "auto",
+        "dedicated",
+        "cpu"
+      ]
+    ],
+    "warmup_times": {
+      "cpu": 0.9007092789979652,
+      "hip": 0.9537459010025486,
+      "auto": 0.9000217499997234,
+      "dedicated": 0.7470619230007287
+    },
+    "cpu_median": 0.8858813634942635,
+    "cpu_min": 0.8761326919920975,
+    "cpu_pass": true,
+    "hip_median": 0.9295577024968225,
+    "hip_min": 0.9268776800017804,
+    "hip_pass": true,
+    "auto_median": 0.8875564734989894,
+    "auto_min": 0.8840995020000264,
+    "auto_pass": true,
+    "dedicated_median": 0.7488616785049089,
+    "dedicated_min": 0.7469682140072109,
+    "dedicated_pass": true
+  },
+  {
+    "name": "official-narrow_band",
+    "params": {
+      "sr": 96000,
+      "n_fft": 16384,
+      "hop_length": 128,
+      "n_mels": 256,
+      "f_min": 300.0,
+      "f_max": 8000.0
+    },
+    "n_frames": 192333,
+    "input_bytes": 49269760,
+    "output_elements": 49237248,
+    "times": {
+      "cpu": [
+        0.8398085279914085,
+        0.8537828370026546
+      ],
+      "hip": [
+        0.9136218490020838,
+        0.9298566290090093
+      ],
+      "auto": [
+        0.8576555979961995,
+        0.8470898350060452
+      ],
+      "dedicated": [
+        0.7538108570006443,
+        0.7387856249988545
+      ]
+    },
+    "checks": {
+      "cpu": {
+        "passed": true,
+        "max_abs": 0.09375
+      },
+      "hip": {
+        "passed": true,
+        "max_abs": 0.15625
+      },
+      "auto": {
+        "passed": true,
+        "max_abs": 0.09375
+      },
+      "dedicated": {
+        "passed": true,
+        "max_abs": 0.15625
+      }
+    },
+    "decisions": {
+      "auto": [
+        "cpu",
+        "cpu"
+      ]
+    },
+    "order": [
+      [
+        "cpu",
+        "hip",
+        "auto",
+        "dedicated"
+      ],
+      [
+        "hip",
+        "auto",
+        "dedicated",
+        "cpu"
+      ]
+    ],
+    "warmup_times": {
+      "cpu": 0.8336575569992419,
+      "hip": 0.920758249994833,
+      "auto": 0.8567380220047198,
+      "dedicated": 0.7392121989978477
+    },
+    "cpu_median": 0.8467956824970315,
+    "cpu_min": 0.8398085279914085,
+    "cpu_pass": true,
+    "hip_median": 0.9217392390055466,
+    "hip_min": 0.9136218490020838,
+    "hip_pass": true,
+    "auto_median": 0.8523727165011223,
+    "auto_min": 0.8470898350060452,
+    "auto_pass": true,
+    "dedicated_median": 0.7462982409997494,
+    "dedicated_min": 0.7387856249988545,
+    "dedicated_pass": true
+  }
+]

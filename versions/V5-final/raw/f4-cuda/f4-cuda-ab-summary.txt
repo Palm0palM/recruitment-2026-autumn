@@ -1,0 +1,18 @@
+| Point | cpu min / median (s) | oldcpu min / median (s) | cuda min / median (s) | frozen min / median (s) | auto min / median (s) | Auto chosen |
+|---|---:|---:|---:|---:|---:|---|
+| official-default | 0.6619 / 0.6652 | 0.8318 / 0.8358 | 0.7951 / 0.8058 | 0.7882 / 0.8039 | 0.6632 / 0.6687 | cpu |
+| official-small_mels | 0.4188 / 0.4216 | 0.4795 / 0.4873 | 0.5344 / 0.5426 | 0.5222 / 0.5453 | 0.4214 / 0.4250 | cpu |
+| official-large_fft | 0.8405 / 0.8506 | 1.0335 / 1.0376 | 0.7995 / 0.8124 | 0.8006 / 0.8020 | 0.7816 / 0.8047 | cuda |
+| official-narrow_band | 0.8045 / 0.8102 | 0.9892 / 1.0044 | 0.8058 / 0.8192 | 0.7817 / 0.7986 | 0.7897 / 0.8052 | cuda |
+
+Cumulative medians (equal weight per listed point, not a production mix):
+  cpu: 2.747550 s
+  oldcpu: 3.365133 s
+  cuda: 2.980029 s
+  frozen: 2.949847 s
+  auto: 2.703694 s
+  oracle: 2.709338 s
+  auto/oracle measured gap: -0.21%
+  chosen backend matches: 3/4
+  worst selection-only regret: 1.12%
+  all measured outputs checked: True
